@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WXDataModel : NSObject
 
+@property(nonatomic,strong) NSString    *name;
+
+@property(nonatomic,assign) NSInteger   age;
+
+- (instancetype)initWith:(NSString *)name withAge:(NSInteger)age;
+
 @end
 
 NS_ASSUME_NONNULL_END

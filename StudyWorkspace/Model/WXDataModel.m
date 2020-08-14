@@ -10,4 +10,12 @@
 
 @implementation WXDataModel
 
+- (instancetype)initWith:(NSString *)name withAge:(NSInteger)age {
+    if (self == [super init]) {
+        self.name = name;
+        self.age = age;
+    }
+    return self;
+}
+
 @end

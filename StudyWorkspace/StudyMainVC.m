@@ -21,9 +21,9 @@
     
     // --- 要添加测试的VC，在此处把类名加上即可
     [self.tableDataArr addObjectsFromArray:@[
-        @{@"StudyVC1":@"测试1"},
-        @{@"StudyVC2":@"测试2"},
-        @{@"StudyVC3":@"测试3"},
+        @{@"StudyVC1":@"一键切换启动闪屏图AppLaunchImage"},
+        @{@"StudyVC2":@"操作谓词NSPredicate"},
+        @{@"StudyVC3":@"操作UIStackView"},
      ]];
     [self.plainTableView reloadData];
 }

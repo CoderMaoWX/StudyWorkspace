@@ -6,9 +6,9 @@
 //  Copyright © 2020 MaoWX. All rights reserved.
 //
 
-#import "StudyBaseVC.h"
+#import "WXStudyBaseVC.h"
 
-@interface StudyMainVC : StudyBaseVC
+@interface StudyMainVC : WXStudyBaseVC
 
 
 @end

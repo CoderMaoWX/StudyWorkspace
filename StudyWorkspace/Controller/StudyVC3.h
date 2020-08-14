@@ -6,11 +6,11 @@
 //  Copyright © 2020 MaoWX. All rights reserved.
 //
 
-#import "StudyBaseVC.h"
+#import "WXStudyBaseVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface StudyVC3 : StudyBaseVC
+@interface StudyVC3 : WXStudyBaseVC
 
 @end
 

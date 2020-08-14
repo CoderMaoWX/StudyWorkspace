@@ -1,5 +1,5 @@
 //
-//  StudyBaseVC.h
+//  WXStudyBaseVC.h
 //  StudyWorkspace
 //
 //  Created by 610582 on 2020/8/14.
@@ -11,7 +11,7 @@
 
 typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath *indexPath);
 
-@interface StudyBaseVC : UIViewController
+@interface WXStudyBaseVC : UIViewController
 
 /** 子类请求对象数组 */
 @property (nonatomic, strong) NSMutableArray *requestTaskArr;
