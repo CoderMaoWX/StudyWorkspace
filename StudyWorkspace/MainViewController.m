@@ -3,15 +3,16 @@
 //  StudyWorkspace
 //
 //  Created by 610582 on 2020/8/14.
+//  Copyright © 2020 MaoWX. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MainViewController.h"
 
-@interface ViewController ()
+@interface MainViewController ()
 
 @end
 
-@implementation ViewController
+@implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

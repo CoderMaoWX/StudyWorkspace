@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		58695C3424E6683000155B80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C3324E6683000155B80 /* AppDelegate.m */; };
-		58695C3A24E6683000155B80 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C3924E6683000155B80 /* ViewController.m */; };
-		58695C3D24E6683000155B80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58695C3B24E6683000155B80 /* Main.storyboard */; };
+		58695C3A24E6683000155B80 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C3924E6683000155B80 /* MainViewController.m */; };
 		58695C3F24E6683100155B80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58695C3E24E6683100155B80 /* Assets.xcassets */; };
-		58695C4224E6683100155B80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58695C4024E6683100155B80 /* LaunchScreen.storyboard */; };
 		58695C4524E6683100155B80 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C4424E6683100155B80 /* main.m */; };
+		58695C5424E66C3E00155B80 /* StudyBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C5324E66C3E00155B80 /* StudyBaseVC.m */; };
+		58695C5724E66CAF00155B80 /* StudyVC1.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C5624E66CAF00155B80 /* StudyVC1.m */; };
+		58695C5A24E66CBE00155B80 /* StudyVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C5924E66CBE00155B80 /* StudyVC2.m */; };
+		58695C5D24E66CCB00155B80 /* StudyVC3.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C5C24E66CCB00155B80 /* StudyVC3.m */; };
+		58695C6124E66E6600155B80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58695C4024E6683100155B80 /* LaunchScreen.storyboard */; };
+		58695C6424E66EA400155B80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58695C6324E66EA400155B80 /* Main.storyboard */; };
 		7B39CC609BC1C7DB5807A233 /* Pods_StudyWorkspace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CBFC8E2FC91C868C7F9604B /* Pods_StudyWorkspace.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,13 +24,21 @@
 		58695C2F24E6683000155B80 /* StudyWorkspace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyWorkspace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58695C3224E6683000155B80 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		58695C3324E6683000155B80 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		58695C3824E6683000155B80 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		58695C3924E6683000155B80 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		58695C3C24E6683000155B80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		58695C3824E6683000155B80 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		58695C3924E6683000155B80 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		58695C3E24E6683100155B80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		58695C4124E6683100155B80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		58695C4324E6683100155B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58695C4424E6683100155B80 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		58695C5224E66C3E00155B80 /* StudyBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyBaseVC.h; sourceTree = "<group>"; };
+		58695C5324E66C3E00155B80 /* StudyBaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyBaseVC.m; sourceTree = "<group>"; };
+		58695C5524E66CAF00155B80 /* StudyVC1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC1.h; sourceTree = "<group>"; };
+		58695C5624E66CAF00155B80 /* StudyVC1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC1.m; sourceTree = "<group>"; };
+		58695C5824E66CBE00155B80 /* StudyVC2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC2.h; sourceTree = "<group>"; };
+		58695C5924E66CBE00155B80 /* StudyVC2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC2.m; sourceTree = "<group>"; };
+		58695C5B24E66CCB00155B80 /* StudyVC3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC3.h; sourceTree = "<group>"; };
+		58695C5C24E66CCB00155B80 /* StudyVC3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC3.m; sourceTree = "<group>"; };
+		58695C6324E66EA400155B80 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9CBFC8E2FC91C868C7F9604B /* Pods_StudyWorkspace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StudyWorkspace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1AA72DA700F4E9C39AA7BD3 /* Pods-StudyWorkspace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyWorkspace.debug.xcconfig"; path = "Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace.debug.xcconfig"; sourceTree = "<group>"; };
 		ED99E3829806B653A60FC63E /* Pods-StudyWorkspace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyWorkspace.release.xcconfig"; path = "Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace.release.xcconfig"; sourceTree = "<group>"; };
@@ -65,8 +77,8 @@
 		58695C3124E6683000155B80 /* StudyWorkspace */ = {
 			isa = PBXGroup;
 			children = (
-				58695C3224E6683000155B80 /* AppDelegate.h */,
-				58695C3324E6683000155B80 /* AppDelegate.m */,
+				58695C3824E6683000155B80 /* MainViewController.h */,
+				58695C3924E6683000155B80 /* MainViewController.m */,
 				58695C4C24E6687B00155B80 /* Controller */,
 				58695C4D24E6687B00155B80 /* View */,
 				58695C4E24E6687B00155B80 /* Model */,
@@ -78,9 +90,11 @@
 		58695C4B24E6687B00155B80 /* Others */ = {
 			isa = PBXGroup;
 			children = (
-				58695C3B24E6683000155B80 /* Main.storyboard */,
+				58695C3224E6683000155B80 /* AppDelegate.h */,
+				58695C3324E6683000155B80 /* AppDelegate.m */,
 				58695C3E24E6683100155B80 /* Assets.xcassets */,
 				58695C4024E6683100155B80 /* LaunchScreen.storyboard */,
+				58695C6324E66EA400155B80 /* Main.storyboard */,
 				58695C4324E6683100155B80 /* Info.plist */,
 				58695C4424E6683100155B80 /* main.m */,
 			);
@@ -90,8 +104,14 @@
 		58695C4C24E6687B00155B80 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				58695C3824E6683000155B80 /* ViewController.h */,
-				58695C3924E6683000155B80 /* ViewController.m */,
+				58695C5224E66C3E00155B80 /* StudyBaseVC.h */,
+				58695C5324E66C3E00155B80 /* StudyBaseVC.m */,
+				58695C5524E66CAF00155B80 /* StudyVC1.h */,
+				58695C5624E66CAF00155B80 /* StudyVC1.m */,
+				58695C5824E66CBE00155B80 /* StudyVC2.h */,
+				58695C5924E66CBE00155B80 /* StudyVC2.m */,
+				58695C5B24E66CCB00155B80 /* StudyVC3.h */,
+				58695C5C24E66CCB00155B80 /* StudyVC3.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -124,7 +144,6 @@
 				A1AA72DA700F4E9C39AA7BD3 /* Pods-StudyWorkspace.debug.xcconfig */,
 				ED99E3829806B653A60FC63E /* Pods-StudyWorkspace.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -155,7 +174,9 @@
 		58695C2724E6683000155B80 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = Study;
 				LastUpgradeCheck = 1160;
+				ORGANIZATIONNAME = MaoWX;
 				TargetAttributes = {
 					58695C2E24E6683000155B80 = {
 						CreatedOnToolsVersion = 11.6;
@@ -185,9 +206,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58695C4224E6683100155B80 /* LaunchScreen.storyboard in Resources */,
+				58695C6424E66EA400155B80 /* Main.storyboard in Resources */,
+				58695C6124E66E6600155B80 /* LaunchScreen.storyboard in Resources */,
 				58695C3F24E6683100155B80 /* Assets.xcassets in Resources */,
-				58695C3D24E6683000155B80 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,23 +244,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58695C3A24E6683000155B80 /* ViewController.m in Sources */,
+				58695C3A24E6683000155B80 /* MainViewController.m in Sources */,
+				58695C5724E66CAF00155B80 /* StudyVC1.m in Sources */,
+				58695C5D24E66CCB00155B80 /* StudyVC3.m in Sources */,
+				58695C5424E66C3E00155B80 /* StudyBaseVC.m in Sources */,
 				58695C3424E6683000155B80 /* AppDelegate.m in Sources */,
 				58695C4524E6683100155B80 /* main.m in Sources */,
+				58695C5A24E66CBE00155B80 /* StudyVC2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		58695C3B24E6683000155B80 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				58695C3C24E6683000155B80 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		58695C4024E6683100155B80 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
