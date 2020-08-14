@@ -10,14 +10,16 @@
         <!--StudyWorkspace-->
         <scene sceneID="QZN-I8-fTj">
             <objects>
-                <viewController id="nVO-vq-zgA" sceneMemberID="viewController">
+                <viewController id="nVO-vq-zgA" customClass="StudyMainVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gaa-GM-dqx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="JQm-Ij-7lZ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="StudyWorkspace" id="PC4-uh-lNJ"/>
+                    <navigationItem key="navigationItem" title="StudyWorkspace" id="PC4-uh-lNJ">
+                        <barButtonItem key="backBarButtonItem" title=" " id="q7g-n5-ath"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yuu-1X-BuO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -28,11 +30,12 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c7L-HL-f48" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zMV-oM-Vf0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="zMV-oM-Vf0">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>

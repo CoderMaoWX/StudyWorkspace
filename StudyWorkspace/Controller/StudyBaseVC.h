@@ -7,11 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WXTableViewManager.h"
 
-NS_ASSUME_NONNULL_BEGIN
+typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath *indexPath);
 
 @interface StudyBaseVC : UIViewController
 
-@end
+/** 子类请求对象数组 */
+@property (nonatomic, strong) NSMutableArray *requestTaskArr;
 
-NS_ASSUME_NONNULL_END
+@property (nonatomic, strong) WXTableViewManager *tableViewManager;
+
+@property (nonatomic, strong) UITableView *plainTableView;
+
+@property (nonatomic, strong) NSMutableArray *tableDataArr;
+
+@property (nonatomic, copy) ConfigCellBlock configCellBlock;
+
+- (void)didSelectedTableViewIndexPath:(NSIndexPath *)indexPath;
+
+/// 子类实现添加子视图
+- (void)configSubViewsUI;
+
+@end

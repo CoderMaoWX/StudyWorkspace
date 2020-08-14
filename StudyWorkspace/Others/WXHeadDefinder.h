@@ -1,15 +1,14 @@
 //
-//  ViewController.h
+//  WXHeadDefinder.h
 //  StudyWorkspace
 //
 //  Created by 610582 on 2020/8/14.
 //  Copyright © 2020 MaoWX. All rights reserved.
 //
 
-#import "StudyBaseVC.h"
+#ifndef WXHeadDefinder_h
+#define WXHeadDefinder_h
 
-@interface MainViewController : StudyBaseVC
 
 
-@end
-
+#endif /* WXHeadDefinder_h */
