@@ -24,6 +24,7 @@
         @{@"StudyVC1":@"一键切换启动闪屏图AppLaunchImage"},
         @{@"StudyVC2":@"操作谓词NSPredicate"},
         @{@"StudyVC3":@"操作UIStackView"},
+        @{@"StudyVC4":@"操作NSInvocation"},
      ]];
     [self.plainTableView reloadData];
 }
