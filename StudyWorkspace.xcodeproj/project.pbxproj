@@ -18,7 +18,6 @@
 		58695C5A24E66CBE00155B80 /* StudyVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C5924E66CBE00155B80 /* StudyVC2.m */; };
 		58695C5D24E66CCB00155B80 /* StudyVC3.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C5C24E66CCB00155B80 /* StudyVC3.m */; };
 		58695C6124E66E6600155B80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58695C4024E6683100155B80 /* LaunchScreen.storyboard */; };
-		58695C6424E66EA400155B80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58695C6324E66EA400155B80 /* Main.storyboard */; };
 		5893D0B624EA52610005E1AF /* StudyVC5.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0B524EA52610005E1AF /* StudyVC5.m */; };
 		5893D0B924EA53870005E1AF /* StudyVC6.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0B824EA53860005E1AF /* StudyVC6.m */; };
 		5893D0CC24EA55CF0005E1AF /* StudyVC12.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BA24EA55CE0005E1AF /* StudyVC12.m */; };
@@ -39,6 +38,16 @@
 		5893D0E324EA55DA0005E1AF /* LukeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0DE24EA55DA0005E1AF /* LukeLayer.m */; };
 		5893D0E624EA59C40005E1AF /* UIView+WXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0E424EA59C30005E1AF /* UIView+WXExtension.m */; };
 		5893D0EE24EA5A0C0005E1AF /* WXPublicConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0EB24EA5A0C0005E1AF /* WXPublicConst.m */; };
+		5893D0F124EA62610005E1AF /* SlideAppTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0F024EA62610005E1AF /* SlideAppTabBarVC.m */; };
+		5893D0F524EA65B60005E1AF /* StudyVC13.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0F224EA65B60005E1AF /* StudyVC13.m */; };
+		5893D0F624EA65B60005E1AF /* StudyVC13.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0F424EA65B60005E1AF /* StudyVC13.xib */; };
+		5893D21824EA68980005E1AF /* UITabBarController+WXConvertSkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D21724EA68980005E1AF /* UITabBarController+WXConvertSkin.m */; };
+		5893D21B24EA68AE0005E1AF /* WXTabBarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D21924EA68AE0005E1AF /* WXTabBarInfoModel.m */; };
+		5893D21E24EA69700005E1AF /* WXTabBarSkinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D21D24EA69700005E1AF /* WXTabBarSkinModel.m */; };
+		5893D22124EA6AE40005E1AF /* WXStudyTabBarVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D22024EA6AE40005E1AF /* WXStudyTabBarVC2.m */; };
+		5893D22624EA6BFE0005E1AF /* UITabBar+BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D22424EA6BFE0005E1AF /* UITabBar+BadgeView.m */; };
+		5893D22924EA6C360005E1AF /* WXFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D22824EA6C360005E1AF /* WXFileManager.m */; };
+		5893D22B24EA771C0005E1AF /* WXStudyTabBarVC2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D22A24EA771C0005E1AF /* WXStudyTabBarVC2.xib */; };
 		58DB51E024E6749800F71C56 /* WXTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51DF24E6749800F71C56 /* WXTableViewManager.m */; };
 		58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51E624E677C900F71C56 /* WXStudyCell.m */; };
 		58DB51E924E677C900F71C56 /* WXStudyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58DB51E724E677C900F71C56 /* WXStudyCell.xib */; };
@@ -69,7 +78,6 @@
 		58695C5924E66CBE00155B80 /* StudyVC2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC2.m; sourceTree = "<group>"; };
 		58695C5B24E66CCB00155B80 /* StudyVC3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC3.h; sourceTree = "<group>"; };
 		58695C5C24E66CCB00155B80 /* StudyVC3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC3.m; sourceTree = "<group>"; };
-		58695C6324E66EA400155B80 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5893D0B424EA52610005E1AF /* StudyVC5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC5.h; sourceTree = "<group>"; };
 		5893D0B524EA52610005E1AF /* StudyVC5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC5.m; sourceTree = "<group>"; };
 		5893D0B724EA53860005E1AF /* StudyVC6.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC6.h; sourceTree = "<group>"; };
@@ -108,6 +116,24 @@
 		5893D0EB24EA5A0C0005E1AF /* WXPublicConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXPublicConst.m; sourceTree = "<group>"; };
 		5893D0EC24EA5A0C0005E1AF /* WXColorDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXColorDefiner.h; sourceTree = "<group>"; };
 		5893D0ED24EA5A0C0005E1AF /* WXFrameDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXFrameDefiner.h; sourceTree = "<group>"; };
+		5893D0EF24EA62610005E1AF /* SlideAppTabBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideAppTabBarVC.h; sourceTree = "<group>"; };
+		5893D0F024EA62610005E1AF /* SlideAppTabBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideAppTabBarVC.m; sourceTree = "<group>"; };
+		5893D0F224EA65B60005E1AF /* StudyVC13.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyVC13.m; sourceTree = "<group>"; };
+		5893D0F324EA65B60005E1AF /* StudyVC13.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyVC13.h; sourceTree = "<group>"; };
+		5893D0F424EA65B60005E1AF /* StudyVC13.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudyVC13.xib; sourceTree = "<group>"; };
+		5893D21624EA68980005E1AF /* UITabBarController+WXConvertSkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+WXConvertSkin.h"; sourceTree = "<group>"; };
+		5893D21724EA68980005E1AF /* UITabBarController+WXConvertSkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+WXConvertSkin.m"; sourceTree = "<group>"; };
+		5893D21924EA68AE0005E1AF /* WXTabBarInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXTabBarInfoModel.m; sourceTree = "<group>"; };
+		5893D21A24EA68AE0005E1AF /* WXTabBarInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXTabBarInfoModel.h; sourceTree = "<group>"; };
+		5893D21C24EA69700005E1AF /* WXTabBarSkinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXTabBarSkinModel.h; sourceTree = "<group>"; };
+		5893D21D24EA69700005E1AF /* WXTabBarSkinModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXTabBarSkinModel.m; sourceTree = "<group>"; };
+		5893D21F24EA6AE40005E1AF /* WXStudyTabBarVC2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXStudyTabBarVC2.h; sourceTree = "<group>"; };
+		5893D22024EA6AE40005E1AF /* WXStudyTabBarVC2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXStudyTabBarVC2.m; sourceTree = "<group>"; };
+		5893D22424EA6BFE0005E1AF /* UITabBar+BadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+BadgeView.m"; sourceTree = "<group>"; };
+		5893D22524EA6BFE0005E1AF /* UITabBar+BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBar+BadgeView.h"; sourceTree = "<group>"; };
+		5893D22724EA6C360005E1AF /* WXFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXFileManager.h; sourceTree = "<group>"; };
+		5893D22824EA6C360005E1AF /* WXFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXFileManager.m; sourceTree = "<group>"; };
+		5893D22A24EA771C0005E1AF /* WXStudyTabBarVC2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WXStudyTabBarVC2.xib; sourceTree = "<group>"; };
 		58DB51DE24E6749800F71C56 /* WXTableViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXTableViewManager.h; sourceTree = "<group>"; };
 		58DB51DF24E6749800F71C56 /* WXTableViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXTableViewManager.m; sourceTree = "<group>"; };
 		58DB51E524E677C900F71C56 /* WXStudyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXStudyCell.h; sourceTree = "<group>"; };
@@ -156,9 +182,7 @@
 		58695C3124E6683000155B80 /* StudyWorkspace */ = {
 			isa = PBXGroup;
 			children = (
-				58695C3824E6683000155B80 /* StudyMainVC.h */,
-				58695C3924E6683000155B80 /* StudyMainVC.m */,
-				58695C4C24E6687B00155B80 /* Controller */,
+				5893D22324EA6B030005E1AF /* StudyTabBarVC */,
 				58695C4D24E6687B00155B80 /* View */,
 				58695C4E24E6687B00155B80 /* Model */,
 				58DB51E124E674A900F71C56 /* Others */,
@@ -176,18 +200,20 @@
 				58695C3324E6683000155B80 /* AppDelegate.m */,
 				58695C3E24E6683100155B80 /* Assets.xcassets */,
 				58695C4024E6683100155B80 /* LaunchScreen.storyboard */,
-				58695C6324E66EA400155B80 /* Main.storyboard */,
 				58695C4324E6683100155B80 /* Info.plist */,
 				58695C4424E6683100155B80 /* main.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
 		};
-		58695C4C24E6687B00155B80 /* Controller */ = {
+		58695C4C24E6687B00155B80 /* StudyTabBarVC1 */ = {
 			isa = PBXGroup;
 			children = (
+				58695C3824E6683000155B80 /* StudyMainVC.h */,
+				58695C3924E6683000155B80 /* StudyMainVC.m */,
 				58695C5524E66CAF00155B80 /* StudyVC1.h */,
 				58695C5624E66CAF00155B80 /* StudyVC1.m */,
+				58FBED6524E68C2B003F7FE6 /* StudyVC1.xib */,
 				58695C5824E66CBE00155B80 /* StudyVC2.h */,
 				58695C5924E66CBE00155B80 /* StudyVC2.m */,
 				58695C5B24E66CCB00155B80 /* StudyVC3.h */,
@@ -216,8 +242,11 @@
 				5893D0CB24EA55CF0005E1AF /* StudyVC12.h */,
 				5893D0BA24EA55CE0005E1AF /* StudyVC12.m */,
 				5893D0CA24EA55CF0005E1AF /* StudyVC12.xib */,
+				5893D0F324EA65B60005E1AF /* StudyVC13.h */,
+				5893D0F224EA65B60005E1AF /* StudyVC13.m */,
+				5893D0F424EA65B60005E1AF /* StudyVC13.xib */,
 			);
-			path = Controller;
+			path = StudyTabBarVC1;
 			sourceTree = "<group>";
 		};
 		58695C4D24E6687B00155B80 /* View */ = {
@@ -241,6 +270,10 @@
 		58695C4E24E6687B00155B80 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5893D21A24EA68AE0005E1AF /* WXTabBarInfoModel.h */,
+				5893D21924EA68AE0005E1AF /* WXTabBarInfoModel.m */,
+				5893D21C24EA69700005E1AF /* WXTabBarSkinModel.h */,
+				5893D21D24EA69700005E1AF /* WXTabBarSkinModel.m */,
 				58DB51EA24E6791A00F71C56 /* WXDataModel.h */,
 				58DB51EB24E6791A00F71C56 /* WXDataModel.m */,
 			);
@@ -260,13 +293,40 @@
 			path = HeadDefiner;
 			sourceTree = "<group>";
 		};
+		5893D22224EA6AEA0005E1AF /* StudyTabBarVC2 */ = {
+			isa = PBXGroup;
+			children = (
+				5893D21F24EA6AE40005E1AF /* WXStudyTabBarVC2.h */,
+				5893D22024EA6AE40005E1AF /* WXStudyTabBarVC2.m */,
+				5893D22A24EA771C0005E1AF /* WXStudyTabBarVC2.xib */,
+			);
+			path = StudyTabBarVC2;
+			sourceTree = "<group>";
+		};
+		5893D22324EA6B030005E1AF /* StudyTabBarVC */ = {
+			isa = PBXGroup;
+			children = (
+				58695C4C24E6687B00155B80 /* StudyTabBarVC1 */,
+				5893D22224EA6AEA0005E1AF /* StudyTabBarVC2 */,
+			);
+			path = StudyTabBarVC;
+			sourceTree = "<group>";
+		};
 		58DB51E124E674A900F71C56 /* Others */ = {
 			isa = PBXGroup;
 			children = (
 				5893D0E524EA59C30005E1AF /* UIView+WXExtension.h */,
 				5893D0E424EA59C30005E1AF /* UIView+WXExtension.m */,
+				5893D21624EA68980005E1AF /* UITabBarController+WXConvertSkin.h */,
+				5893D21724EA68980005E1AF /* UITabBarController+WXConvertSkin.m */,
+				5893D22524EA6BFE0005E1AF /* UITabBar+BadgeView.h */,
+				5893D22424EA6BFE0005E1AF /* UITabBar+BadgeView.m */,
+				5893D22724EA6C360005E1AF /* WXFileManager.h */,
+				5893D22824EA6C360005E1AF /* WXFileManager.m */,
 				58485A6824E67EF300495E67 /* WXCFuntionTool.h */,
 				58485A6924E67EF300495E67 /* WXCFuntionTool.m */,
+				5893D0EF24EA62610005E1AF /* SlideAppTabBarVC.h */,
+				5893D0F024EA62610005E1AF /* SlideAppTabBarVC.m */,
 				58695C5224E66C3E00155B80 /* WXStudyBaseVC.h */,
 				58695C5324E66C3E00155B80 /* WXStudyBaseVC.m */,
 				58DB51DE24E6749800F71C56 /* WXTableViewManager.h */,
@@ -279,7 +339,6 @@
 			isa = PBXGroup;
 			children = (
 				58FBED5D24E68802003F7FE6 /* SkinZipURL.txt */,
-				58FBED6524E68C2B003F7FE6 /* StudyVC1.xib */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -364,12 +423,13 @@
 				58FBED5E24E68802003F7FE6 /* SkinZipURL.txt in Resources */,
 				5893D0CD24EA55CF0005E1AF /* StudyVC10.xib in Resources */,
 				58DB51E924E677C900F71C56 /* WXStudyCell.xib in Resources */,
-				58695C6424E66EA400155B80 /* Main.storyboard in Resources */,
+				5893D22B24EA771C0005E1AF /* WXStudyTabBarVC2.xib in Resources */,
 				58695C6124E66E6600155B80 /* LaunchScreen.storyboard in Resources */,
 				58FBED6624E68C2B003F7FE6 /* StudyVC1.xib in Resources */,
 				58695C3F24E6683100155B80 /* Assets.xcassets in Resources */,
 				5893D0D424EA55CF0005E1AF /* StudyVC9.xib in Resources */,
 				5893D0CE24EA55CF0005E1AF /* StudyVC11.xib in Resources */,
+				5893D0F624EA65B60005E1AF /* StudyVC13.xib in Resources */,
 				5893D0D224EA55CF0005E1AF /* StudyVC7.xib in Resources */,
 				5893D0D724EA55CF0005E1AF /* StudyVC12.xib in Resources */,
 			);
@@ -411,14 +471,21 @@
 				58695C5724E66CAF00155B80 /* StudyVC1.m in Sources */,
 				58695C5D24E66CCB00155B80 /* StudyVC3.m in Sources */,
 				5893D0B924EA53870005E1AF /* StudyVC6.m in Sources */,
+				5893D0F524EA65B60005E1AF /* StudyVC13.m in Sources */,
 				5893D0E024EA55DA0005E1AF /* ChartLineInfoView.m in Sources */,
+				5893D22624EA6BFE0005E1AF /* UITabBar+BadgeView.m in Sources */,
 				58FBED7024E6B8C8003F7FE6 /* StudyVC4.m in Sources */,
+				5893D21824EA68980005E1AF /* UITabBarController+WXConvertSkin.m in Sources */,
+				5893D0F124EA62610005E1AF /* SlideAppTabBarVC.m in Sources */,
 				58695C5424E66C3E00155B80 /* WXStudyBaseVC.m in Sources */,
 				58DB51EC24E6791A00F71C56 /* WXDataModel.m in Sources */,
 				5893D0EE24EA5A0C0005E1AF /* WXPublicConst.m in Sources */,
+				5893D22124EA6AE40005E1AF /* WXStudyTabBarVC2.m in Sources */,
 				5893D0CC24EA55CF0005E1AF /* StudyVC12.m in Sources */,
 				58DB51E024E6749800F71C56 /* WXTableViewManager.m in Sources */,
 				5893D0E224EA55DA0005E1AF /* DrawPathView.m in Sources */,
+				5893D21E24EA69700005E1AF /* WXTabBarSkinModel.m in Sources */,
+				5893D21B24EA68AE0005E1AF /* WXTabBarInfoModel.m in Sources */,
 				58695C3424E6683000155B80 /* AppDelegate.m in Sources */,
 				5893D0E324EA55DA0005E1AF /* LukeLayer.m in Sources */,
 				5893D0B624EA52610005E1AF /* StudyVC5.m in Sources */,
@@ -427,6 +494,7 @@
 				58695C5A24E66CBE00155B80 /* StudyVC2.m in Sources */,
 				5893D0D024EA55CF0005E1AF /* StudyVC7.m in Sources */,
 				5893D0D524EA55CF0005E1AF /* StudyVC8.m in Sources */,
+				5893D22924EA6C360005E1AF /* WXFileManager.m in Sources */,
 				5893D0D324EA55CF0005E1AF /* StudyVC10.m in Sources */,
 				58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */,
 				5893D0E624EA59C40005E1AF /* UIView+WXExtension.m in Sources */,

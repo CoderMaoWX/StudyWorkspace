@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XibSecondVC">
+            <connections>
+                <outlet property="textLabel" destination="wau-kU-anw" id="8dd-xc-etV"/>
+                <outlet property="view" destination="v4n-vA-ijh" id="GUg-NB-94l"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleAspectFit" id="v4n-vA-ijh">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EzN-wt-nmS">
+                    <rect key="frame" x="50" y="469" width="80" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="iZv-5n-rs3"/>
+                        <constraint firstAttribute="height" constant="80" id="neU-Ah-xUd"/>
+                    </constraints>
+                    <state key="normal" title="抖动动画">
+                        <color key="titleColor" red="1" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="btnAction1:" destination="-1" eventType="touchUpInside" id="wxX-cG-HAI"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="999H" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9u-X7-GdO">
+                    <rect key="frame" x="10" y="343" width="44" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：这里的地址会很长，这里的地址会很长，这里的地址会很长" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPS-Ht-9nN" userLabel="地址">
+                    <rect key="frame" x="64" y="343" width="301" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="首页-铃铛提醒" translatesAutoresizingMaskIntoConstraints="NO" id="WMa-RU-zsc">
+                    <rect key="frame" x="147.5" y="80" width="80" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="0Rk-Wh-PJX"/>
+                        <constraint firstAttribute="height" constant="80" id="3mN-ZS-GI9"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="动起来!动起来!动起来!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xyu-wR-r8e">
+                    <rect key="frame" x="68" y="189" width="239.5" height="29"/>
+                    <color key="backgroundColor" red="0.54901960780000003" green="0.77647058820000003" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5K-vG-EB2">
+                    <rect key="frame" x="245" y="469" width="80" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="DWM-vg-h8Z"/>
+                        <constraint firstAttribute="height" constant="80" id="MH5-rA-hd6"/>
+                    </constraints>
+                    <state key="normal" title="弹性动画">
+                        <color key="titleColor" red="1" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="btnAction2:" destination="-1" eventType="touchUpInside" id="FzS-AC-trh"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XibSecondVC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wau-kU-anw">
+                    <rect key="frame" x="96.5" y="258" width="182" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="Ig4-gp-xXd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="WMa-RU-zsc" firstAttribute="top" secondItem="v4n-vA-ijh" secondAttribute="top" constant="80" id="00b-dn-AT1"/>
+                <constraint firstItem="kPS-Ht-9nN" firstAttribute="centerY" secondItem="v4n-vA-ijh" secondAttribute="centerY" constant="20" id="2RV-cj-OiL"/>
+                <constraint firstAttribute="bottom" secondItem="EzN-wt-nmS" secondAttribute="bottom" constant="118" id="5b9-aJ-P3C"/>
+                <constraint firstItem="wau-kU-anw" firstAttribute="top" secondItem="Xyu-wR-r8e" secondAttribute="bottom" constant="40" id="Fb9-B8-yTm"/>
+                <constraint firstItem="wau-kU-anw" firstAttribute="centerX" secondItem="v4n-vA-ijh" secondAttribute="centerX" id="RIq-BQ-9Hd"/>
+                <constraint firstAttribute="trailing" secondItem="kPS-Ht-9nN" secondAttribute="trailing" constant="10" id="RgK-vG-J2b"/>
+                <constraint firstAttribute="trailing" secondItem="M5K-vG-EB2" secondAttribute="trailing" constant="50" id="VQs-rb-Y4C"/>
+                <constraint firstItem="a9u-X7-GdO" firstAttribute="centerY" secondItem="v4n-vA-ijh" secondAttribute="centerY" constant="20" id="W5N-dH-uBy"/>
+                <constraint firstItem="Xyu-wR-r8e" firstAttribute="centerX" secondItem="v4n-vA-ijh" secondAttribute="centerX" id="YAf-81-Af8"/>
+                <constraint firstItem="WMa-RU-zsc" firstAttribute="centerX" secondItem="v4n-vA-ijh" secondAttribute="centerX" id="h9i-bm-sAt"/>
+                <constraint firstItem="kPS-Ht-9nN" firstAttribute="top" secondItem="wau-kU-anw" secondAttribute="bottom" constant="35" id="hNi-Jn-Ofh"/>
+                <constraint firstItem="M5K-vG-EB2" firstAttribute="top" secondItem="EzN-wt-nmS" secondAttribute="top" id="hgS-8a-ec9"/>
+                <constraint firstItem="EzN-wt-nmS" firstAttribute="leading" secondItem="v4n-vA-ijh" secondAttribute="leading" constant="50" id="iSX-us-uEn"/>
+                <constraint firstItem="kPS-Ht-9nN" firstAttribute="leading" secondItem="a9u-X7-GdO" secondAttribute="trailing" constant="10" id="lJc-mF-AKI"/>
+                <constraint firstItem="a9u-X7-GdO" firstAttribute="leading" secondItem="v4n-vA-ijh" secondAttribute="leading" constant="10" id="p82-Xh-YXj"/>
+                <constraint firstItem="kPS-Ht-9nN" firstAttribute="top" secondItem="Xyu-wR-r8e" secondAttribute="bottom" priority="999" constant="30" id="u11-a8-xdL"/>
+            </constraints>
+            <point key="canvasLocation" x="-417.5" y="-37.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="首页-铃铛提醒" width="30" height="30"/>
+    </resources>
+</document>

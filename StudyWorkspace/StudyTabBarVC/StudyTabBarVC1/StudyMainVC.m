@@ -33,6 +33,7 @@
         @{@"StudyVC10":@"折线统计图"},
         @{@"StudyVC11":@"百叶窗动画"},
         @{@"StudyVC12":@"画笔涂鸦"},
+        @{@"StudyVC13":@"抖动弹性约束动画"},
      ]];
     [self.plainTableView reloadData];
 }
@@ -43,6 +44,7 @@
     UIViewController *vc = [[NSClassFromString(className) alloc] init];
     if (!vc) return;
     vc.title = className;
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -7,43 +7,70 @@
 //
 
 #import "AppDelegate.h"
+#import "SlideAppTabBarVC.h"
+#import "WXPublicHeader.h"
 
-@interface AppDelegate ()
-
+@interface AppDelegate ()<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic, strong) UITableView *plainTableView;
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window addSubview:self.plainTableView];
+    [self.window insertSubview:self.plainTableView atIndex:0];
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = [SlideAppTabBarVC new];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+#pragma mark - ========= 初始化基类表格,子类显示 =========
+
+- (UITableView *)plainTableView {
+    if (!_plainTableView) {
+        _plainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        _plainTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _plainTableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _plainTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.01)];
+        _plainTableView.tableFooterView = [UIView new];
+        _plainTableView.dataSource = self;
+        _plainTableView.delegate = self;
+        _plainTableView.rowHeight = 80;
+    }
+    return _plainTableView;
 }
 
+#pragma Mark - 表格代理
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
 }
 
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellID = @"cellID";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    }
+    cell.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
+    cell.textLabel.text = [NSString stringWithFormat:@"数据源===%zd",indexPath.row];
+    return cell;
 }
 
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIViewController *tmpVC = [UIViewController new];
+    tmpVC.view.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
+    SlideAppTabBarVC *tabbarVC = (SlideAppTabBarVC *)self.window.rootViewController;
+    UINavigationController *navVC = tabbarVC.selectedViewController;
+    [tabbarVC showLeftView:NO];
+    navVC.hidesBottomBarWhenPushed = YES;
+    [navVC pushViewController:tmpVC animated:YES];
 }
-
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
 
 @end

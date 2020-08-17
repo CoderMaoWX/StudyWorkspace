@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WXStudyTabBarVC2">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="P35-MS-RAr"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPw-Cx-Z25">
+                    <rect key="frame" x="123.5" y="128" width="128" height="34"/>
+                    <state key="normal" title="增加TabbarItem">
+                        <color key="titleColor" red="0.1656459673" green="0.16784044889999999" blue="0.96161717179999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="addTabbarAction:" destination="-1" eventType="touchUpInside" id="5gj-rn-q1A"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wvo-vo-V00">
+                    <rect key="frame" x="141.5" y="239" width="92" height="34"/>
+                    <state key="normal" title="切换新主题">
+                        <color key="titleColor" red="0.1656459673" green="0.16784044889999999" blue="0.96161717179999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="reduceTabbarItem:" destination="-1" eventType="touchUpInside" id="7dm-Iz-9NP"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="wvo-vo-V00" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="K71-VE-Ce7"/>
+                <constraint firstItem="wvo-vo-V00" firstAttribute="top" secondItem="NPw-Cx-Z25" secondAttribute="bottom" constant="77" id="N48-du-eSt"/>
+                <constraint firstItem="NPw-Cx-Z25" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="128" id="eT8-AU-jzL"/>
+                <constraint firstItem="NPw-Cx-Z25" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zfB-VI-JC4"/>
+            </constraints>
+            <point key="canvasLocation" x="-671" y="-56"/>
+        </view>
+    </objects>
+</document>
