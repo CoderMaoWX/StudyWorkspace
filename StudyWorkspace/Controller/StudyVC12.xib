@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawCGPathVC">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudyVC12">
             <connections>
                 <outlet property="view" destination="W5M-uq-C2Z" id="6kx-ql-7bc"/>
             </connections>
@@ -21,21 +18,21 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UIN-Kd-jdB">
-                    <rect key="frame" x="26" y="49" width="62" height="30"/>
+                    <rect key="frame" x="34" y="49" width="62" height="30"/>
                     <state key="normal" title="开始涂鸦"/>
                     <connections>
                         <action selector="startDrawPath:" destination="-1" eventType="touchUpInside" id="EBv-zi-wpr"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xaY-Cu-qkF">
-                    <rect key="frame" x="112" y="49" width="62" height="30"/>
+                    <rect key="frame" x="120" y="49" width="62" height="30"/>
                     <state key="normal" title="轨迹运动"/>
                     <connections>
                         <action selector="moveSport:" destination="-1" eventType="touchUpInside" id="MsU-Sr-1dd"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oC-Cu-jDO">
-                    <rect key="frame" x="209" y="49" width="62" height="30"/>
+                    <rect key="frame" x="217" y="49" width="62" height="30"/>
                     <state key="normal" title="重新涂鸦"/>
                     <connections>
                         <action selector="afreshDrawPath:" destination="-1" eventType="touchUpInside" id="khJ-Vj-wfP"/>

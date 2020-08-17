@@ -27,12 +27,12 @@
         @{@"StudyVC4":@"操作NSInvocation"},
         @{@"StudyVC5":@"操作ObjcMessage"},
         @{@"StudyVC6":@"操作WkWebview"},
-        @{@"DrawCoreAnimationVC":@"核心动画"},
-        @{@"DrawCircleVC":@"画圈"},
-        @{@"DrawQuartz2DVC":@"Quartz2D绘图"},
-        @{@"DrawChartVC":@"折线统计图"},
-        @{@"DrawTransitionVC":@"百叶窗动画"},
-        @{@"DrawCGPathVC":@"画笔涂鸦"},
+        @{@"StudyVC7":@"核心动画"},
+        @{@"StudyVC8":@"画圈"},
+        @{@"StudyVC9":@"Quartz2D绘图"},
+        @{@"StudyVC10":@"折线统计图"},
+        @{@"StudyVC11":@"百叶窗动画"},
+        @{@"StudyVC12":@"画笔涂鸦"},
      ]];
     [self.plainTableView reloadData];
 }

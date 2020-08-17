@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.imageView.image = [self fetchLaunchImage];
 }
 
 - (IBAction)downloadAction:(UISwitch *)sender {

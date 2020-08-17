@@ -1,18 +1,18 @@
 //
-//  DrawCGPathVC.m
+//  StudyVC12.m
 //  DrawDemo
 //
 //  Created by mao wangxin on 2017/6/4.
 //  Copyright © 2017年 Luke. All rights reserved.
 //
 
-#import "DrawCGPathVC.h"
+#import "StudyVC12.h"
 #import "DrawPathView.h"
 
-@interface DrawCGPathVC ()
+@interface StudyVC12 ()
 @end
 
-@implementation DrawCGPathVC
+@implementation StudyVC12
 
 - (void)viewDidLoad {
     [super viewDidLoad];

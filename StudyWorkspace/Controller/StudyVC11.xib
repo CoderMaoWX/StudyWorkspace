@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawTransitionVC">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StudyVC11">
             <connections>
                 <outlet property="view" destination="oPF-Zs-ysK" id="BpS-80-up3"/>
             </connections>
@@ -20,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW7-4B-DxG">
-                    <rect key="frame" x="156" y="318.5" width="62" height="30"/>
+                    <rect key="frame" x="156.5" y="318.5" width="62" height="30"/>
                     <state key="normal" title="转场动画"/>
                     <connections>
                         <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="W78-af-iZX"/>
@@ -32,6 +30,7 @@
                 <constraint firstItem="OW7-4B-DxG" firstAttribute="centerY" secondItem="oPF-Zs-ysK" secondAttribute="centerY" id="YHS-t3-0v7"/>
                 <constraint firstItem="OW7-4B-DxG" firstAttribute="centerX" secondItem="oPF-Zs-ysK" secondAttribute="centerX" id="mJW-g3-hF8"/>
             </constraints>
+            <point key="canvasLocation" x="134" y="155"/>
         </view>
     </objects>
 </document>

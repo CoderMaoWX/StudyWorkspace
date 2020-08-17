@@ -1,5 +1,5 @@
 //
-//  DrawQuartz2DVC.h
+//  StudyVC7.h
 //  DrawDemo
 //
 //  Created by mao wangxin on 2017/6/5.
@@ -8,6 +8,6 @@
 
 #import "WXStudyBaseVC.h"
 
-@interface DrawQuartz2DVC : WXStudyBaseVC
+@interface StudyVC7 : WXStudyBaseVC
 
 @end

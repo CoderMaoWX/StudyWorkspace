@@ -1,5 +1,5 @@
 //
-//  DrawCoreAnimationVC.h
+//  StudyVC10.h
 //  DrawDemo
 //
 //  Created by mao wangxin on 2017/6/5.
@@ -8,6 +8,6 @@
 
 #import "WXStudyBaseVC.h"
 
-@interface DrawCoreAnimationVC : WXStudyBaseVC
+@interface StudyVC10 : WXStudyBaseVC
 
 @end

@@ -1,20 +1,20 @@
 //
-//  DrawCircleVC.m
+//  StudyVC8.m
 //  DrawDemo
 //
 //  Created by mao wangxin on 2017/6/3.
 //  Copyright © 2017年 Luke. All rights reserved.
 //
 
-#import "DrawCircleVC.h"
+#import "StudyVC8.h"
 
-@interface DrawCircleVC ()
+@interface StudyVC8 ()
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, strong) CALayer *circleLayer;
 @property (nonatomic, strong) CAReplicatorLayer *replicatorLayer;
 @end
 
-@implementation DrawCircleVC
+@implementation StudyVC8
 
 - (void)viewDidLoad {
     [super viewDidLoad];

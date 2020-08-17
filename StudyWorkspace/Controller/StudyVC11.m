@@ -1,18 +1,18 @@
 //
-//  DrawTransitionVC.m
+//  StudyVC11.m
 //  DrawDemo
 //
 //  Created by mao wangxin on 2017/6/3.
 //  Copyright © 2017年 Luke. All rights reserved.
 //
 
-#import "DrawTransitionVC.h"
+#import "StudyVC11.h"
 
-@interface DrawTransitionVC ()<CAAnimationDelegate>
+@interface StudyVC11 ()<CAAnimationDelegate>
 
 @end
 
-@implementation DrawTransitionVC
+@implementation StudyVC11
 
 - (void)viewDidLoad {
     [super viewDidLoad];

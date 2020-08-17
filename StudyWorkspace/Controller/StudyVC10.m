@@ -1,21 +1,21 @@
 //
-//  DrawChartVC.m
+//  StudyVC10.m
 //  DrawDemo
 //
 //  Created by mao wangxin on 2017/6/5.
 //  Copyright © 2017年 Luke. All rights reserved.
 //
 
-#import "DrawChartVC.h"
+#import "StudyVC10.h"
 #import "ChartLineInfoView.h"
 
-@interface DrawChartVC ()
+@interface StudyVC10 ()
 @property (nonatomic, strong) ChartLineInfoView *chartLineInfoView;
 @property (nonatomic, strong) CAShapeLayer *shapeLayer;
 @property (nonatomic, strong) CALayer *circleLayer;
 @end
 
-@implementation DrawChartVC
+@implementation StudyVC10
 
 - (void)viewDidLoad {
     [super viewDidLoad];

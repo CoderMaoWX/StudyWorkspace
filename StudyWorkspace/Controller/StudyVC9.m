@@ -1,19 +1,19 @@
 //
-//  DrawQuartz2DVC.m
+//  StudyVC9.m
 //  DrawDemo
 //
 //  Created by mao wangxin on 2017/6/5.
 //  Copyright © 2017年 Luke. All rights reserved.
 //
 
-#import "DrawQuartz2DVC.h"
+#import "StudyVC9.h"
 #import "LukeView.h"
 
-@interface DrawQuartz2DVC ()
+@interface StudyVC9 ()
 @property (weak, nonatomic) IBOutlet LukeView *contentView;
 @end
 
-@implementation DrawQuartz2DVC
+@implementation StudyVC9
 
 - (void)viewDidLoad {
     [super viewDidLoad];

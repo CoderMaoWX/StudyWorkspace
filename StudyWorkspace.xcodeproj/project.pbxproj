@@ -21,18 +21,18 @@
 		58695C6424E66EA400155B80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58695C6324E66EA400155B80 /* Main.storyboard */; };
 		5893D0B624EA52610005E1AF /* StudyVC5.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0B524EA52610005E1AF /* StudyVC5.m */; };
 		5893D0B924EA53870005E1AF /* StudyVC6.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0B824EA53860005E1AF /* StudyVC6.m */; };
-		5893D0CC24EA55CF0005E1AF /* DrawCGPathVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BA24EA55CE0005E1AF /* DrawCGPathVC.m */; };
-		5893D0CD24EA55CF0005E1AF /* DrawChartVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0BC24EA55CE0005E1AF /* DrawChartVC.xib */; };
-		5893D0CE24EA55CF0005E1AF /* DrawTransitionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0BD24EA55CE0005E1AF /* DrawTransitionVC.xib */; };
-		5893D0CF24EA55CF0005E1AF /* DrawTransitionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BE24EA55CE0005E1AF /* DrawTransitionVC.m */; };
-		5893D0D024EA55CF0005E1AF /* DrawCoreAnimationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BF24EA55CE0005E1AF /* DrawCoreAnimationVC.m */; };
-		5893D0D124EA55CF0005E1AF /* DrawQuartz2DVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0C124EA55CE0005E1AF /* DrawQuartz2DVC.m */; };
-		5893D0D224EA55CF0005E1AF /* DrawCoreAnimationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0C324EA55CE0005E1AF /* DrawCoreAnimationVC.xib */; };
-		5893D0D324EA55CF0005E1AF /* DrawChartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0C424EA55CE0005E1AF /* DrawChartVC.m */; };
-		5893D0D424EA55CF0005E1AF /* DrawQuartz2DVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0C524EA55CE0005E1AF /* DrawQuartz2DVC.xib */; };
-		5893D0D524EA55CF0005E1AF /* DrawCircleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0C824EA55CE0005E1AF /* DrawCircleVC.m */; };
-		5893D0D624EA55CF0005E1AF /* DrawCircleVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0C924EA55CF0005E1AF /* DrawCircleVC.xib */; };
-		5893D0D724EA55CF0005E1AF /* DrawCGPathVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0CA24EA55CF0005E1AF /* DrawCGPathVC.xib */; };
+		5893D0CC24EA55CF0005E1AF /* StudyVC12.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BA24EA55CE0005E1AF /* StudyVC12.m */; };
+		5893D0CD24EA55CF0005E1AF /* StudyVC10.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0BC24EA55CE0005E1AF /* StudyVC10.xib */; };
+		5893D0CE24EA55CF0005E1AF /* StudyVC11.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0BD24EA55CE0005E1AF /* StudyVC11.xib */; };
+		5893D0CF24EA55CF0005E1AF /* StudyVC11.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BE24EA55CE0005E1AF /* StudyVC11.m */; };
+		5893D0D024EA55CF0005E1AF /* StudyVC7.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BF24EA55CE0005E1AF /* StudyVC7.m */; };
+		5893D0D124EA55CF0005E1AF /* StudyVC9.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0C124EA55CE0005E1AF /* StudyVC9.m */; };
+		5893D0D224EA55CF0005E1AF /* StudyVC7.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0C324EA55CE0005E1AF /* StudyVC7.xib */; };
+		5893D0D324EA55CF0005E1AF /* StudyVC10.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0C424EA55CE0005E1AF /* StudyVC10.m */; };
+		5893D0D424EA55CF0005E1AF /* StudyVC9.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0C524EA55CE0005E1AF /* StudyVC9.xib */; };
+		5893D0D524EA55CF0005E1AF /* StudyVC8.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0C824EA55CE0005E1AF /* StudyVC8.m */; };
+		5893D0D624EA55CF0005E1AF /* StudyVC8.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0C924EA55CF0005E1AF /* StudyVC8.xib */; };
+		5893D0D724EA55CF0005E1AF /* StudyVC12.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0CA24EA55CF0005E1AF /* StudyVC12.xib */; };
 		5893D0E024EA55DA0005E1AF /* ChartLineInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0D924EA55D90005E1AF /* ChartLineInfoView.m */; };
 		5893D0E124EA55DA0005E1AF /* LukeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0DC24EA55DA0005E1AF /* LukeView.m */; };
 		5893D0E224EA55DA0005E1AF /* DrawPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0DD24EA55DA0005E1AF /* DrawPathView.m */; };
@@ -74,24 +74,24 @@
 		5893D0B524EA52610005E1AF /* StudyVC5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC5.m; sourceTree = "<group>"; };
 		5893D0B724EA53860005E1AF /* StudyVC6.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC6.h; sourceTree = "<group>"; };
 		5893D0B824EA53860005E1AF /* StudyVC6.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC6.m; sourceTree = "<group>"; };
-		5893D0BA24EA55CE0005E1AF /* DrawCGPathVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCGPathVC.m; sourceTree = "<group>"; };
-		5893D0BB24EA55CE0005E1AF /* DrawChartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawChartVC.h; sourceTree = "<group>"; };
-		5893D0BC24EA55CE0005E1AF /* DrawChartVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawChartVC.xib; sourceTree = "<group>"; };
-		5893D0BD24EA55CE0005E1AF /* DrawTransitionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawTransitionVC.xib; sourceTree = "<group>"; };
-		5893D0BE24EA55CE0005E1AF /* DrawTransitionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawTransitionVC.m; sourceTree = "<group>"; };
-		5893D0BF24EA55CE0005E1AF /* DrawCoreAnimationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCoreAnimationVC.m; sourceTree = "<group>"; };
-		5893D0C024EA55CE0005E1AF /* DrawCircleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCircleVC.h; sourceTree = "<group>"; };
-		5893D0C124EA55CE0005E1AF /* DrawQuartz2DVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawQuartz2DVC.m; sourceTree = "<group>"; };
-		5893D0C224EA55CE0005E1AF /* DrawQuartz2DVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawQuartz2DVC.h; sourceTree = "<group>"; };
-		5893D0C324EA55CE0005E1AF /* DrawCoreAnimationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawCoreAnimationVC.xib; sourceTree = "<group>"; };
-		5893D0C424EA55CE0005E1AF /* DrawChartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawChartVC.m; sourceTree = "<group>"; };
-		5893D0C524EA55CE0005E1AF /* DrawQuartz2DVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawQuartz2DVC.xib; sourceTree = "<group>"; };
-		5893D0C624EA55CE0005E1AF /* DrawCoreAnimationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCoreAnimationVC.h; sourceTree = "<group>"; };
-		5893D0C724EA55CE0005E1AF /* DrawTransitionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawTransitionVC.h; sourceTree = "<group>"; };
-		5893D0C824EA55CE0005E1AF /* DrawCircleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCircleVC.m; sourceTree = "<group>"; };
-		5893D0C924EA55CF0005E1AF /* DrawCircleVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawCircleVC.xib; sourceTree = "<group>"; };
-		5893D0CA24EA55CF0005E1AF /* DrawCGPathVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawCGPathVC.xib; sourceTree = "<group>"; };
-		5893D0CB24EA55CF0005E1AF /* DrawCGPathVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCGPathVC.h; sourceTree = "<group>"; };
+		5893D0BA24EA55CE0005E1AF /* StudyVC12.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyVC12.m; sourceTree = "<group>"; };
+		5893D0BB24EA55CE0005E1AF /* StudyVC10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyVC10.h; sourceTree = "<group>"; };
+		5893D0BC24EA55CE0005E1AF /* StudyVC10.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudyVC10.xib; sourceTree = "<group>"; };
+		5893D0BD24EA55CE0005E1AF /* StudyVC11.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudyVC11.xib; sourceTree = "<group>"; };
+		5893D0BE24EA55CE0005E1AF /* StudyVC11.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyVC11.m; sourceTree = "<group>"; };
+		5893D0BF24EA55CE0005E1AF /* StudyVC7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyVC7.m; sourceTree = "<group>"; };
+		5893D0C024EA55CE0005E1AF /* StudyVC8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyVC8.h; sourceTree = "<group>"; };
+		5893D0C124EA55CE0005E1AF /* StudyVC9.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyVC9.m; sourceTree = "<group>"; };
+		5893D0C224EA55CE0005E1AF /* StudyVC9.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyVC9.h; sourceTree = "<group>"; };
+		5893D0C324EA55CE0005E1AF /* StudyVC7.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudyVC7.xib; sourceTree = "<group>"; };
+		5893D0C424EA55CE0005E1AF /* StudyVC10.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyVC10.m; sourceTree = "<group>"; };
+		5893D0C524EA55CE0005E1AF /* StudyVC9.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudyVC9.xib; sourceTree = "<group>"; };
+		5893D0C624EA55CE0005E1AF /* StudyVC7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyVC7.h; sourceTree = "<group>"; };
+		5893D0C724EA55CE0005E1AF /* StudyVC11.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyVC11.h; sourceTree = "<group>"; };
+		5893D0C824EA55CE0005E1AF /* StudyVC8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudyVC8.m; sourceTree = "<group>"; };
+		5893D0C924EA55CF0005E1AF /* StudyVC8.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudyVC8.xib; sourceTree = "<group>"; };
+		5893D0CA24EA55CF0005E1AF /* StudyVC12.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudyVC12.xib; sourceTree = "<group>"; };
+		5893D0CB24EA55CF0005E1AF /* StudyVC12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudyVC12.h; sourceTree = "<group>"; };
 		5893D0D824EA55D90005E1AF /* LukeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LukeView.h; sourceTree = "<group>"; };
 		5893D0D924EA55D90005E1AF /* ChartLineInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartLineInfoView.m; sourceTree = "<group>"; };
 		5893D0DA24EA55D90005E1AF /* LukeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LukeLayer.h; sourceTree = "<group>"; };
@@ -198,24 +198,24 @@
 				5893D0B524EA52610005E1AF /* StudyVC5.m */,
 				5893D0B724EA53860005E1AF /* StudyVC6.h */,
 				5893D0B824EA53860005E1AF /* StudyVC6.m */,
-				5893D0C624EA55CE0005E1AF /* DrawCoreAnimationVC.h */,
-				5893D0BF24EA55CE0005E1AF /* DrawCoreAnimationVC.m */,
-				5893D0C324EA55CE0005E1AF /* DrawCoreAnimationVC.xib */,
-				5893D0C024EA55CE0005E1AF /* DrawCircleVC.h */,
-				5893D0C824EA55CE0005E1AF /* DrawCircleVC.m */,
-				5893D0C924EA55CF0005E1AF /* DrawCircleVC.xib */,
-				5893D0C224EA55CE0005E1AF /* DrawQuartz2DVC.h */,
-				5893D0C124EA55CE0005E1AF /* DrawQuartz2DVC.m */,
-				5893D0C524EA55CE0005E1AF /* DrawQuartz2DVC.xib */,
-				5893D0BB24EA55CE0005E1AF /* DrawChartVC.h */,
-				5893D0C424EA55CE0005E1AF /* DrawChartVC.m */,
-				5893D0BC24EA55CE0005E1AF /* DrawChartVC.xib */,
-				5893D0C724EA55CE0005E1AF /* DrawTransitionVC.h */,
-				5893D0BE24EA55CE0005E1AF /* DrawTransitionVC.m */,
-				5893D0BD24EA55CE0005E1AF /* DrawTransitionVC.xib */,
-				5893D0CB24EA55CF0005E1AF /* DrawCGPathVC.h */,
-				5893D0BA24EA55CE0005E1AF /* DrawCGPathVC.m */,
-				5893D0CA24EA55CF0005E1AF /* DrawCGPathVC.xib */,
+				5893D0C624EA55CE0005E1AF /* StudyVC7.h */,
+				5893D0BF24EA55CE0005E1AF /* StudyVC7.m */,
+				5893D0C324EA55CE0005E1AF /* StudyVC7.xib */,
+				5893D0C024EA55CE0005E1AF /* StudyVC8.h */,
+				5893D0C824EA55CE0005E1AF /* StudyVC8.m */,
+				5893D0C924EA55CF0005E1AF /* StudyVC8.xib */,
+				5893D0C224EA55CE0005E1AF /* StudyVC9.h */,
+				5893D0C124EA55CE0005E1AF /* StudyVC9.m */,
+				5893D0C524EA55CE0005E1AF /* StudyVC9.xib */,
+				5893D0BB24EA55CE0005E1AF /* StudyVC10.h */,
+				5893D0C424EA55CE0005E1AF /* StudyVC10.m */,
+				5893D0BC24EA55CE0005E1AF /* StudyVC10.xib */,
+				5893D0C724EA55CE0005E1AF /* StudyVC11.h */,
+				5893D0BE24EA55CE0005E1AF /* StudyVC11.m */,
+				5893D0BD24EA55CE0005E1AF /* StudyVC11.xib */,
+				5893D0CB24EA55CF0005E1AF /* StudyVC12.h */,
+				5893D0BA24EA55CE0005E1AF /* StudyVC12.m */,
+				5893D0CA24EA55CF0005E1AF /* StudyVC12.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -360,18 +360,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5893D0D624EA55CF0005E1AF /* DrawCircleVC.xib in Resources */,
+				5893D0D624EA55CF0005E1AF /* StudyVC8.xib in Resources */,
 				58FBED5E24E68802003F7FE6 /* SkinZipURL.txt in Resources */,
-				5893D0CD24EA55CF0005E1AF /* DrawChartVC.xib in Resources */,
+				5893D0CD24EA55CF0005E1AF /* StudyVC10.xib in Resources */,
 				58DB51E924E677C900F71C56 /* WXStudyCell.xib in Resources */,
 				58695C6424E66EA400155B80 /* Main.storyboard in Resources */,
 				58695C6124E66E6600155B80 /* LaunchScreen.storyboard in Resources */,
 				58FBED6624E68C2B003F7FE6 /* StudyVC1.xib in Resources */,
 				58695C3F24E6683100155B80 /* Assets.xcassets in Resources */,
-				5893D0D424EA55CF0005E1AF /* DrawQuartz2DVC.xib in Resources */,
-				5893D0CE24EA55CF0005E1AF /* DrawTransitionVC.xib in Resources */,
-				5893D0D224EA55CF0005E1AF /* DrawCoreAnimationVC.xib in Resources */,
-				5893D0D724EA55CF0005E1AF /* DrawCGPathVC.xib in Resources */,
+				5893D0D424EA55CF0005E1AF /* StudyVC9.xib in Resources */,
+				5893D0CE24EA55CF0005E1AF /* StudyVC11.xib in Resources */,
+				5893D0D224EA55CF0005E1AF /* StudyVC7.xib in Resources */,
+				5893D0D724EA55CF0005E1AF /* StudyVC12.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,7 +416,7 @@
 				58695C5424E66C3E00155B80 /* WXStudyBaseVC.m in Sources */,
 				58DB51EC24E6791A00F71C56 /* WXDataModel.m in Sources */,
 				5893D0EE24EA5A0C0005E1AF /* WXPublicConst.m in Sources */,
-				5893D0CC24EA55CF0005E1AF /* DrawCGPathVC.m in Sources */,
+				5893D0CC24EA55CF0005E1AF /* StudyVC12.m in Sources */,
 				58DB51E024E6749800F71C56 /* WXTableViewManager.m in Sources */,
 				5893D0E224EA55DA0005E1AF /* DrawPathView.m in Sources */,
 				58695C3424E6683000155B80 /* AppDelegate.m in Sources */,
@@ -425,14 +425,14 @@
 				58695C4524E6683100155B80 /* main.m in Sources */,
 				5893D0E124EA55DA0005E1AF /* LukeView.m in Sources */,
 				58695C5A24E66CBE00155B80 /* StudyVC2.m in Sources */,
-				5893D0D024EA55CF0005E1AF /* DrawCoreAnimationVC.m in Sources */,
-				5893D0D524EA55CF0005E1AF /* DrawCircleVC.m in Sources */,
-				5893D0D324EA55CF0005E1AF /* DrawChartVC.m in Sources */,
+				5893D0D024EA55CF0005E1AF /* StudyVC7.m in Sources */,
+				5893D0D524EA55CF0005E1AF /* StudyVC8.m in Sources */,
+				5893D0D324EA55CF0005E1AF /* StudyVC10.m in Sources */,
 				58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */,
 				5893D0E624EA59C40005E1AF /* UIView+WXExtension.m in Sources */,
-				5893D0D124EA55CF0005E1AF /* DrawQuartz2DVC.m in Sources */,
+				5893D0D124EA55CF0005E1AF /* StudyVC9.m in Sources */,
 				58485A6A24E67EF300495E67 /* WXCFuntionTool.m in Sources */,
-				5893D0CF24EA55CF0005E1AF /* DrawTransitionVC.m in Sources */,
+				5893D0CF24EA55CF0005E1AF /* StudyVC11.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,18 +1,18 @@
 //
-//  DrawCoreAnimationVC.m
+//  StudyVC7.m
 //  DrawDemo
 //
 //  Created by mao wangxin on 2017/6/5.
 //  Copyright © 2017年 Luke. All rights reserved.
 //
 
-#import "DrawCoreAnimationVC.h"
+#import "StudyVC7.h"
 #import "LukeLayer.h"
 #import "WXPublicHeader.h"
 
 #define kAngle2Radian(x)   ((x / 180.0) * M_PI)
 
-@interface DrawCoreAnimationVC ()<CALayerDelegate,CAAnimationDelegate>
+@interface StudyVC7 ()<CALayerDelegate,CAAnimationDelegate>
 @property (nonatomic, strong) CALayer *layer;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView1;
@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UIImageView *tempView;
 @end
 
-@implementation DrawCoreAnimationVC
+@implementation StudyVC7
 
 - (void)viewDidLoad {
     [super viewDidLoad];

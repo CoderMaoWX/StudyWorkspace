@@ -1,13 +1,13 @@
 //
-//  DrawTransitionVC.h
+//  StudyVC9.h
 //  DrawDemo
 //
-//  Created by mao wangxin on 2017/6/3.
+//  Created by mao wangxin on 2017/6/5.
 //  Copyright © 2017年 Luke. All rights reserved.
 //
 
 #import "WXStudyBaseVC.h"
 
-@interface DrawTransitionVC : WXStudyBaseVC
+@interface StudyVC9 : WXStudyBaseVC
 
 @end
