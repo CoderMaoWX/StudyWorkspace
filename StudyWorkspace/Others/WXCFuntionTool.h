@@ -12,10 +12,10 @@
 #define kScreenHeight                   [UIScreen mainScreen].bounds.size.height
 #define kScreenWidth                    [UIScreen mainScreen].bounds.size.width
 #define kIsBangsScreen                  (KScreenHeight >= 812.0f)///是否为刘海屏幕
-#define kStatusBarHeight                [UIApplication sharedApplication].statusBarFrame.size.height
+//#define kStatusBarHeight                [UIApplication sharedApplication].statusBarFrame.size.height
+//#define kDefaultCellHeight              (44)
 #define kBottomSafeAreaHeight           (kIsBangsScreen ? 34 : 0)
 #define kTopSafeAreaHeight              (kIsBangsScreen ? 44.0f : 20.0f)
-#define kDefaultCellHeight              (44)
 
 //#define NAVBARHEIGHT                    self.navigationController.navigationBar.frame.size.height
 //#define kTabBarHeight                   self.tabBarController.tabBar.bounds.size.height

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawChartVC">
+            <connections>
+                <outlet property="view" destination="aZ7-y0-UpH" id="mFU-24-ycb"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="aZ7-y0-UpH">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYK-sV-h8f">
+                    <rect key="frame" x="8" y="50" width="46" height="30"/>
+                    <state key="normal" title="折线图"/>
+                    <connections>
+                        <action selector="drawBrokenLineAction:" destination="-1" eventType="touchUpInside" id="WnY-ts-zdg"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfY-ak-XEN">
+                    <rect key="frame" x="93" y="50" width="31" height="30"/>
+                    <state key="normal" title="画圈"/>
+                    <connections>
+                        <action selector="drawCircleAction:" destination="-1" eventType="touchUpInside" id="HCd-of-goo"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="iYK-sV-h8f" firstAttribute="top" secondItem="aZ7-y0-UpH" secondAttribute="top" constant="50" id="ASa-co-g5u"/>
+                <constraint firstItem="yfY-ak-XEN" firstAttribute="top" secondItem="iYK-sV-h8f" secondAttribute="top" id="L2K-vl-XnK"/>
+                <constraint firstAttribute="leadingMargin" secondItem="iYK-sV-h8f" secondAttribute="leading" id="Vtr-t8-kdd"/>
+                <constraint firstItem="yfY-ak-XEN" firstAttribute="leading" secondItem="iYK-sV-h8f" secondAttribute="trailing" constant="39" id="yQW-0j-eO1"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

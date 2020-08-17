@@ -1,6 +1,0 @@
-framework module GFZNetwork {
-  umbrella header "GFZNetwork-umbrella.h"
-
-  export *
-  module * { export * }
-}

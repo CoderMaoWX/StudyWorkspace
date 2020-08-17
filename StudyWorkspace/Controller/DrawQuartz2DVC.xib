@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawQuartz2DVC">
+            <connections>
+                <outlet property="contentView" destination="yMd-KN-Lx5" id="OfK-FO-K0n"/>
+                <outlet property="view" destination="p6b-Ip-Rkn" id="KKV-F8-dkk"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="p6b-Ip-Rkn">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yMd-KN-Lx5" customClass="LukeView">
+                    <rect key="frame" x="37" y="183" width="300" height="300"/>
+                    <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="4Vu-op-Kd7"/>
+                        <constraint firstAttribute="width" constant="300" id="MvR-7y-DlD"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="yMd-KN-Lx5" firstAttribute="centerX" secondItem="p6b-Ip-Rkn" secondAttribute="centerX" id="5Vh-ir-IwG"/>
+                <constraint firstItem="yMd-KN-Lx5" firstAttribute="centerY" secondItem="p6b-Ip-Rkn" secondAttribute="centerY" id="R2h-PK-XSP"/>
+            </constraints>
+            <point key="canvasLocation" x="-472" y="-273"/>
+        </view>
+    </objects>
+</document>

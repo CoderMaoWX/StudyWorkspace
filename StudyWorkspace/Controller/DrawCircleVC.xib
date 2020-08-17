@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawCircleVC">
+            <connections>
+                <outlet property="contentView" destination="QVK-Tw-7Jd" id="Zc4-Rp-bGM"/>
+                <outlet property="view" destination="gaR-HV-Yym" id="PCs-l1-40S"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="gaR-HV-Yym">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QVK-Tw-7Jd">
+                    <rect key="frame" x="62.5" y="208.5" width="250" height="250"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="250" id="4IK-y3-SLF"/>
+                        <constraint firstAttribute="height" constant="250" id="AEk-3s-Uc9"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q23-eM-IcH">
+                    <rect key="frame" x="172.5" y="120" width="31" height="30"/>
+                    <state key="normal" title="画圈"/>
+                    <connections>
+                        <action selector="drawCircleAction:" destination="-1" eventType="touchUpInside" id="Vmb-qd-ebW"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="QVK-Tw-7Jd" firstAttribute="top" secondItem="q23-eM-IcH" secondAttribute="bottom" constant="58.5" id="W7y-Y5-kbK"/>
+                <constraint firstItem="QVK-Tw-7Jd" firstAttribute="centerY" secondItem="gaR-HV-Yym" secondAttribute="centerY" id="XmL-xI-Deq"/>
+                <constraint firstItem="q23-eM-IcH" firstAttribute="centerX" secondItem="gaR-HV-Yym" secondAttribute="centerX" id="ai6-EO-jMp"/>
+                <constraint firstItem="QVK-Tw-7Jd" firstAttribute="centerX" secondItem="gaR-HV-Yym" secondAttribute="centerX" id="phb-r8-zj3"/>
+            </constraints>
+            <point key="canvasLocation" x="986" y="1904"/>
+        </view>
+    </objects>
+</document>

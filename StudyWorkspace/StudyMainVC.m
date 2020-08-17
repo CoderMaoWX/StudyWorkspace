@@ -25,6 +25,14 @@
         @{@"StudyVC2":@"操作谓词NSPredicate"},
         @{@"StudyVC3":@"操作UIStackView"},
         @{@"StudyVC4":@"操作NSInvocation"},
+        @{@"StudyVC5":@"操作ObjcMessage"},
+        @{@"StudyVC6":@"操作WkWebview"},
+        @{@"DrawCoreAnimationVC":@"核心动画"},
+        @{@"DrawCircleVC":@"画圈"},
+        @{@"DrawQuartz2DVC":@"Quartz2D绘图"},
+        @{@"DrawChartVC":@"折线统计图"},
+        @{@"DrawTransitionVC":@"百叶窗动画"},
+        @{@"DrawCGPathVC":@"画笔涂鸦"},
      ]];
     [self.plainTableView reloadData];
 }

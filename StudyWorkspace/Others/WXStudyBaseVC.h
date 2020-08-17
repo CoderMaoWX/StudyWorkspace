@@ -13,6 +13,12 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 
 @interface WXStudyBaseVC : UIViewController
 
+/** 是否使用全屏返回手势 */
+@property (nonatomic, assign) BOOL shouldPanBack;
+
+/** 系统下拉刷新控件 */
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 /** 子类请求对象数组 */
 @property (nonatomic, strong) NSMutableArray *requestTaskArr;
 
@@ -28,5 +34,11 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 
 /// 子类实现添加子视图
 - (void)configSubViewsUI;
+
+/** 返回上一页面  */
+- (void)backBtnClick:(UIButton *)backBtn;
+
+/** 父类释放时取消子类所有请求操作 */
+- (void)cancelRequestSessionTask;
 
 @end

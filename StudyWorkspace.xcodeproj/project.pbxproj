@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06E7F3C312D3A87001E9E8D3 /* libPods-StudyWorkspace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E7B8910ABCC69F72DE7163 /* libPods-StudyWorkspace.a */; };
 		58485A6A24E67EF300495E67 /* WXCFuntionTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 58485A6924E67EF300495E67 /* WXCFuntionTool.m */; };
 		58695C3424E6683000155B80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C3324E6683000155B80 /* AppDelegate.m */; };
 		58695C3A24E6683000155B80 /* StudyMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C3924E6683000155B80 /* StudyMainVC.m */; };
@@ -18,6 +19,26 @@
 		58695C5D24E66CCB00155B80 /* StudyVC3.m in Sources */ = {isa = PBXBuildFile; fileRef = 58695C5C24E66CCB00155B80 /* StudyVC3.m */; };
 		58695C6124E66E6600155B80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58695C4024E6683100155B80 /* LaunchScreen.storyboard */; };
 		58695C6424E66EA400155B80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58695C6324E66EA400155B80 /* Main.storyboard */; };
+		5893D0B624EA52610005E1AF /* StudyVC5.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0B524EA52610005E1AF /* StudyVC5.m */; };
+		5893D0B924EA53870005E1AF /* StudyVC6.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0B824EA53860005E1AF /* StudyVC6.m */; };
+		5893D0CC24EA55CF0005E1AF /* DrawCGPathVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BA24EA55CE0005E1AF /* DrawCGPathVC.m */; };
+		5893D0CD24EA55CF0005E1AF /* DrawChartVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0BC24EA55CE0005E1AF /* DrawChartVC.xib */; };
+		5893D0CE24EA55CF0005E1AF /* DrawTransitionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0BD24EA55CE0005E1AF /* DrawTransitionVC.xib */; };
+		5893D0CF24EA55CF0005E1AF /* DrawTransitionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BE24EA55CE0005E1AF /* DrawTransitionVC.m */; };
+		5893D0D024EA55CF0005E1AF /* DrawCoreAnimationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BF24EA55CE0005E1AF /* DrawCoreAnimationVC.m */; };
+		5893D0D124EA55CF0005E1AF /* DrawQuartz2DVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0C124EA55CE0005E1AF /* DrawQuartz2DVC.m */; };
+		5893D0D224EA55CF0005E1AF /* DrawCoreAnimationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0C324EA55CE0005E1AF /* DrawCoreAnimationVC.xib */; };
+		5893D0D324EA55CF0005E1AF /* DrawChartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0C424EA55CE0005E1AF /* DrawChartVC.m */; };
+		5893D0D424EA55CF0005E1AF /* DrawQuartz2DVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0C524EA55CE0005E1AF /* DrawQuartz2DVC.xib */; };
+		5893D0D524EA55CF0005E1AF /* DrawCircleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0C824EA55CE0005E1AF /* DrawCircleVC.m */; };
+		5893D0D624EA55CF0005E1AF /* DrawCircleVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0C924EA55CF0005E1AF /* DrawCircleVC.xib */; };
+		5893D0D724EA55CF0005E1AF /* DrawCGPathVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D0CA24EA55CF0005E1AF /* DrawCGPathVC.xib */; };
+		5893D0E024EA55DA0005E1AF /* ChartLineInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0D924EA55D90005E1AF /* ChartLineInfoView.m */; };
+		5893D0E124EA55DA0005E1AF /* LukeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0DC24EA55DA0005E1AF /* LukeView.m */; };
+		5893D0E224EA55DA0005E1AF /* DrawPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0DD24EA55DA0005E1AF /* DrawPathView.m */; };
+		5893D0E324EA55DA0005E1AF /* LukeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0DE24EA55DA0005E1AF /* LukeLayer.m */; };
+		5893D0E624EA59C40005E1AF /* UIView+WXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0E424EA59C30005E1AF /* UIView+WXExtension.m */; };
+		5893D0EE24EA5A0C0005E1AF /* WXPublicConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0EB24EA5A0C0005E1AF /* WXPublicConst.m */; };
 		58DB51E024E6749800F71C56 /* WXTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51DF24E6749800F71C56 /* WXTableViewManager.m */; };
 		58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51E624E677C900F71C56 /* WXStudyCell.m */; };
 		58DB51E924E677C900F71C56 /* WXStudyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58DB51E724E677C900F71C56 /* WXStudyCell.xib */; };
@@ -25,11 +46,10 @@
 		58FBED5E24E68802003F7FE6 /* SkinZipURL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 58FBED5D24E68802003F7FE6 /* SkinZipURL.txt */; };
 		58FBED6624E68C2B003F7FE6 /* StudyVC1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58FBED6524E68C2B003F7FE6 /* StudyVC1.xib */; };
 		58FBED7024E6B8C8003F7FE6 /* StudyVC4.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FBED6F24E6B8C8003F7FE6 /* StudyVC4.m */; };
-		7B39CC609BC1C7DB5807A233 /* Pods_StudyWorkspace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CBFC8E2FC91C868C7F9604B /* Pods_StudyWorkspace.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		58485A6724E67E4200495E67 /* WXHeadDefinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXHeadDefinder.h; sourceTree = "<group>"; };
+		05E7B8910ABCC69F72DE7163 /* libPods-StudyWorkspace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StudyWorkspace.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58485A6824E67EF300495E67 /* WXCFuntionTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXCFuntionTool.h; sourceTree = "<group>"; };
 		58485A6924E67EF300495E67 /* WXCFuntionTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXCFuntionTool.m; sourceTree = "<group>"; };
 		58695C2F24E6683000155B80 /* StudyWorkspace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyWorkspace.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,6 +70,44 @@
 		58695C5B24E66CCB00155B80 /* StudyVC3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC3.h; sourceTree = "<group>"; };
 		58695C5C24E66CCB00155B80 /* StudyVC3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC3.m; sourceTree = "<group>"; };
 		58695C6324E66EA400155B80 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5893D0B424EA52610005E1AF /* StudyVC5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC5.h; sourceTree = "<group>"; };
+		5893D0B524EA52610005E1AF /* StudyVC5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC5.m; sourceTree = "<group>"; };
+		5893D0B724EA53860005E1AF /* StudyVC6.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC6.h; sourceTree = "<group>"; };
+		5893D0B824EA53860005E1AF /* StudyVC6.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC6.m; sourceTree = "<group>"; };
+		5893D0BA24EA55CE0005E1AF /* DrawCGPathVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCGPathVC.m; sourceTree = "<group>"; };
+		5893D0BB24EA55CE0005E1AF /* DrawChartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawChartVC.h; sourceTree = "<group>"; };
+		5893D0BC24EA55CE0005E1AF /* DrawChartVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawChartVC.xib; sourceTree = "<group>"; };
+		5893D0BD24EA55CE0005E1AF /* DrawTransitionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawTransitionVC.xib; sourceTree = "<group>"; };
+		5893D0BE24EA55CE0005E1AF /* DrawTransitionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawTransitionVC.m; sourceTree = "<group>"; };
+		5893D0BF24EA55CE0005E1AF /* DrawCoreAnimationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCoreAnimationVC.m; sourceTree = "<group>"; };
+		5893D0C024EA55CE0005E1AF /* DrawCircleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCircleVC.h; sourceTree = "<group>"; };
+		5893D0C124EA55CE0005E1AF /* DrawQuartz2DVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawQuartz2DVC.m; sourceTree = "<group>"; };
+		5893D0C224EA55CE0005E1AF /* DrawQuartz2DVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawQuartz2DVC.h; sourceTree = "<group>"; };
+		5893D0C324EA55CE0005E1AF /* DrawCoreAnimationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawCoreAnimationVC.xib; sourceTree = "<group>"; };
+		5893D0C424EA55CE0005E1AF /* DrawChartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawChartVC.m; sourceTree = "<group>"; };
+		5893D0C524EA55CE0005E1AF /* DrawQuartz2DVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawQuartz2DVC.xib; sourceTree = "<group>"; };
+		5893D0C624EA55CE0005E1AF /* DrawCoreAnimationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCoreAnimationVC.h; sourceTree = "<group>"; };
+		5893D0C724EA55CE0005E1AF /* DrawTransitionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawTransitionVC.h; sourceTree = "<group>"; };
+		5893D0C824EA55CE0005E1AF /* DrawCircleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCircleVC.m; sourceTree = "<group>"; };
+		5893D0C924EA55CF0005E1AF /* DrawCircleVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawCircleVC.xib; sourceTree = "<group>"; };
+		5893D0CA24EA55CF0005E1AF /* DrawCGPathVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawCGPathVC.xib; sourceTree = "<group>"; };
+		5893D0CB24EA55CF0005E1AF /* DrawCGPathVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCGPathVC.h; sourceTree = "<group>"; };
+		5893D0D824EA55D90005E1AF /* LukeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LukeView.h; sourceTree = "<group>"; };
+		5893D0D924EA55D90005E1AF /* ChartLineInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartLineInfoView.m; sourceTree = "<group>"; };
+		5893D0DA24EA55D90005E1AF /* LukeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LukeLayer.h; sourceTree = "<group>"; };
+		5893D0DB24EA55DA0005E1AF /* ChartLineInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartLineInfoView.h; sourceTree = "<group>"; };
+		5893D0DC24EA55DA0005E1AF /* LukeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LukeView.m; sourceTree = "<group>"; };
+		5893D0DD24EA55DA0005E1AF /* DrawPathView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawPathView.m; sourceTree = "<group>"; };
+		5893D0DE24EA55DA0005E1AF /* LukeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LukeLayer.m; sourceTree = "<group>"; };
+		5893D0DF24EA55DA0005E1AF /* DrawPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawPathView.h; sourceTree = "<group>"; };
+		5893D0E424EA59C30005E1AF /* UIView+WXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WXExtension.m"; sourceTree = "<group>"; };
+		5893D0E524EA59C30005E1AF /* UIView+WXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WXExtension.h"; sourceTree = "<group>"; };
+		5893D0E824EA5A0C0005E1AF /* WXPublicConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXPublicConst.h; sourceTree = "<group>"; };
+		5893D0E924EA5A0C0005E1AF /* WXPubilcKeyDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXPubilcKeyDefiner.h; sourceTree = "<group>"; };
+		5893D0EA24EA5A0C0005E1AF /* WXPublicHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXPublicHeader.h; sourceTree = "<group>"; };
+		5893D0EB24EA5A0C0005E1AF /* WXPublicConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXPublicConst.m; sourceTree = "<group>"; };
+		5893D0EC24EA5A0C0005E1AF /* WXColorDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXColorDefiner.h; sourceTree = "<group>"; };
+		5893D0ED24EA5A0C0005E1AF /* WXFrameDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXFrameDefiner.h; sourceTree = "<group>"; };
 		58DB51DE24E6749800F71C56 /* WXTableViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXTableViewManager.h; sourceTree = "<group>"; };
 		58DB51DF24E6749800F71C56 /* WXTableViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXTableViewManager.m; sourceTree = "<group>"; };
 		58DB51E524E677C900F71C56 /* WXStudyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXStudyCell.h; sourceTree = "<group>"; };
@@ -61,7 +119,6 @@
 		58FBED6524E68C2B003F7FE6 /* StudyVC1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudyVC1.xib; sourceTree = "<group>"; };
 		58FBED6E24E6B8C8003F7FE6 /* StudyVC4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC4.h; sourceTree = "<group>"; };
 		58FBED6F24E6B8C8003F7FE6 /* StudyVC4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC4.m; sourceTree = "<group>"; };
-		9CBFC8E2FC91C868C7F9604B /* Pods_StudyWorkspace.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StudyWorkspace.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1AA72DA700F4E9C39AA7BD3 /* Pods-StudyWorkspace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyWorkspace.debug.xcconfig"; path = "Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace.debug.xcconfig"; sourceTree = "<group>"; };
 		ED99E3829806B653A60FC63E /* Pods-StudyWorkspace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyWorkspace.release.xcconfig"; path = "Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,7 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B39CC609BC1C7DB5807A233 /* Pods_StudyWorkspace.framework in Frameworks */,
+				06E7F3C312D3A87001E9E8D3 /* libPods-StudyWorkspace.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +162,7 @@
 				58695C4D24E6687B00155B80 /* View */,
 				58695C4E24E6687B00155B80 /* Model */,
 				58DB51E124E674A900F71C56 /* Others */,
+				5893D0E724EA5A0C0005E1AF /* HeadDefiner */,
 				58FBED5F24E68B99003F7FE6 /* SupportingFiles */,
 				58695C4B24E6687B00155B80 /* Main */,
 			);
@@ -136,6 +194,28 @@
 				58695C5C24E66CCB00155B80 /* StudyVC3.m */,
 				58FBED6E24E6B8C8003F7FE6 /* StudyVC4.h */,
 				58FBED6F24E6B8C8003F7FE6 /* StudyVC4.m */,
+				5893D0B424EA52610005E1AF /* StudyVC5.h */,
+				5893D0B524EA52610005E1AF /* StudyVC5.m */,
+				5893D0B724EA53860005E1AF /* StudyVC6.h */,
+				5893D0B824EA53860005E1AF /* StudyVC6.m */,
+				5893D0C624EA55CE0005E1AF /* DrawCoreAnimationVC.h */,
+				5893D0BF24EA55CE0005E1AF /* DrawCoreAnimationVC.m */,
+				5893D0C324EA55CE0005E1AF /* DrawCoreAnimationVC.xib */,
+				5893D0C024EA55CE0005E1AF /* DrawCircleVC.h */,
+				5893D0C824EA55CE0005E1AF /* DrawCircleVC.m */,
+				5893D0C924EA55CF0005E1AF /* DrawCircleVC.xib */,
+				5893D0C224EA55CE0005E1AF /* DrawQuartz2DVC.h */,
+				5893D0C124EA55CE0005E1AF /* DrawQuartz2DVC.m */,
+				5893D0C524EA55CE0005E1AF /* DrawQuartz2DVC.xib */,
+				5893D0BB24EA55CE0005E1AF /* DrawChartVC.h */,
+				5893D0C424EA55CE0005E1AF /* DrawChartVC.m */,
+				5893D0BC24EA55CE0005E1AF /* DrawChartVC.xib */,
+				5893D0C724EA55CE0005E1AF /* DrawTransitionVC.h */,
+				5893D0BE24EA55CE0005E1AF /* DrawTransitionVC.m */,
+				5893D0BD24EA55CE0005E1AF /* DrawTransitionVC.xib */,
+				5893D0CB24EA55CF0005E1AF /* DrawCGPathVC.h */,
+				5893D0BA24EA55CE0005E1AF /* DrawCGPathVC.m */,
+				5893D0CA24EA55CF0005E1AF /* DrawCGPathVC.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -146,6 +226,14 @@
 				58DB51E524E677C900F71C56 /* WXStudyCell.h */,
 				58DB51E624E677C900F71C56 /* WXStudyCell.m */,
 				58DB51E724E677C900F71C56 /* WXStudyCell.xib */,
+				5893D0DB24EA55DA0005E1AF /* ChartLineInfoView.h */,
+				5893D0D924EA55D90005E1AF /* ChartLineInfoView.m */,
+				5893D0DA24EA55D90005E1AF /* LukeLayer.h */,
+				5893D0DE24EA55DA0005E1AF /* LukeLayer.m */,
+				5893D0D824EA55D90005E1AF /* LukeView.h */,
+				5893D0DC24EA55DA0005E1AF /* LukeView.m */,
+				5893D0DF24EA55DA0005E1AF /* DrawPathView.h */,
+				5893D0DD24EA55DA0005E1AF /* DrawPathView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -159,10 +247,24 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5893D0E724EA5A0C0005E1AF /* HeadDefiner */ = {
+			isa = PBXGroup;
+			children = (
+				5893D0EA24EA5A0C0005E1AF /* WXPublicHeader.h */,
+				5893D0E824EA5A0C0005E1AF /* WXPublicConst.h */,
+				5893D0E924EA5A0C0005E1AF /* WXPubilcKeyDefiner.h */,
+				5893D0EB24EA5A0C0005E1AF /* WXPublicConst.m */,
+				5893D0EC24EA5A0C0005E1AF /* WXColorDefiner.h */,
+				5893D0ED24EA5A0C0005E1AF /* WXFrameDefiner.h */,
+			);
+			path = HeadDefiner;
+			sourceTree = "<group>";
+		};
 		58DB51E124E674A900F71C56 /* Others */ = {
 			isa = PBXGroup;
 			children = (
-				58485A6724E67E4200495E67 /* WXHeadDefinder.h */,
+				5893D0E524EA59C30005E1AF /* UIView+WXExtension.h */,
+				5893D0E424EA59C30005E1AF /* UIView+WXExtension.m */,
 				58485A6824E67EF300495E67 /* WXCFuntionTool.h */,
 				58485A6924E67EF300495E67 /* WXCFuntionTool.m */,
 				58695C5224E66C3E00155B80 /* WXStudyBaseVC.h */,
@@ -185,7 +287,7 @@
 		B0AF3CBD662629030743D43A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9CBFC8E2FC91C868C7F9604B /* Pods_StudyWorkspace.framework */,
+				05E7B8910ABCC69F72DE7163 /* libPods-StudyWorkspace.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,7 +312,6 @@
 				58695C2B24E6683000155B80 /* Sources */,
 				58695C2C24E6683000155B80 /* Frameworks */,
 				58695C2D24E6683000155B80 /* Resources */,
-				7906ED3CAF643412BE05B4DD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -259,12 +360,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5893D0D624EA55CF0005E1AF /* DrawCircleVC.xib in Resources */,
 				58FBED5E24E68802003F7FE6 /* SkinZipURL.txt in Resources */,
+				5893D0CD24EA55CF0005E1AF /* DrawChartVC.xib in Resources */,
 				58DB51E924E677C900F71C56 /* WXStudyCell.xib in Resources */,
 				58695C6424E66EA400155B80 /* Main.storyboard in Resources */,
 				58695C6124E66E6600155B80 /* LaunchScreen.storyboard in Resources */,
 				58FBED6624E68C2B003F7FE6 /* StudyVC1.xib in Resources */,
 				58695C3F24E6683100155B80 /* Assets.xcassets in Resources */,
+				5893D0D424EA55CF0005E1AF /* DrawQuartz2DVC.xib in Resources */,
+				5893D0CE24EA55CF0005E1AF /* DrawTransitionVC.xib in Resources */,
+				5893D0D224EA55CF0005E1AF /* DrawCoreAnimationVC.xib in Resources */,
+				5893D0D724EA55CF0005E1AF /* DrawCGPathVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,23 +400,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7906ED3CAF643412BE05B4DD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -320,15 +410,29 @@
 				58695C3A24E6683000155B80 /* StudyMainVC.m in Sources */,
 				58695C5724E66CAF00155B80 /* StudyVC1.m in Sources */,
 				58695C5D24E66CCB00155B80 /* StudyVC3.m in Sources */,
+				5893D0B924EA53870005E1AF /* StudyVC6.m in Sources */,
+				5893D0E024EA55DA0005E1AF /* ChartLineInfoView.m in Sources */,
 				58FBED7024E6B8C8003F7FE6 /* StudyVC4.m in Sources */,
 				58695C5424E66C3E00155B80 /* WXStudyBaseVC.m in Sources */,
 				58DB51EC24E6791A00F71C56 /* WXDataModel.m in Sources */,
+				5893D0EE24EA5A0C0005E1AF /* WXPublicConst.m in Sources */,
+				5893D0CC24EA55CF0005E1AF /* DrawCGPathVC.m in Sources */,
 				58DB51E024E6749800F71C56 /* WXTableViewManager.m in Sources */,
+				5893D0E224EA55DA0005E1AF /* DrawPathView.m in Sources */,
 				58695C3424E6683000155B80 /* AppDelegate.m in Sources */,
+				5893D0E324EA55DA0005E1AF /* LukeLayer.m in Sources */,
+				5893D0B624EA52610005E1AF /* StudyVC5.m in Sources */,
 				58695C4524E6683100155B80 /* main.m in Sources */,
+				5893D0E124EA55DA0005E1AF /* LukeView.m in Sources */,
 				58695C5A24E66CBE00155B80 /* StudyVC2.m in Sources */,
+				5893D0D024EA55CF0005E1AF /* DrawCoreAnimationVC.m in Sources */,
+				5893D0D524EA55CF0005E1AF /* DrawCircleVC.m in Sources */,
+				5893D0D324EA55CF0005E1AF /* DrawChartVC.m in Sources */,
 				58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */,
+				5893D0E624EA59C40005E1AF /* UIView+WXExtension.m in Sources */,
+				5893D0D124EA55CF0005E1AF /* DrawQuartz2DVC.m in Sources */,
 				58485A6A24E67EF300495E67 /* WXCFuntionTool.m in Sources */,
+				5893D0CF24EA55CF0005E1AF /* DrawTransitionVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,14 +568,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				INFOPLIST_FILE = StudyWorkspace/Main/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwx.StudyWorkspace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -483,14 +587,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				INFOPLIST_FILE = StudyWorkspace/Main/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mwx.StudyWorkspace;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

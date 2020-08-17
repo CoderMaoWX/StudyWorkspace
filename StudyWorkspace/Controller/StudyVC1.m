@@ -9,7 +9,7 @@
 #import "StudyVC1.h"
 #import "SSZipArchive.h"
 #import "WXDataModel.h"
-#import "GFZNetwork.h"
+#import "WXNetworking.h"
 
 @interface StudyVC1 ()
 @property (weak, nonatomic) IBOutlet UISwitch    *downloadSwitch;
@@ -39,10 +39,10 @@
 /// 动态下载例子
 - (void)downloadZipData:(NSString *)downloadURL {
     NSLog(@"下载URL: %@", downloadURL);
-    [GFZNetworkConfig sharedInstance].showRequestLaoding = YES;
+    [WXNetworkConfig sharedInstance].showRequestLaoding = YES;
 
-    GFZNetworkRequest *api = [[GFZNetworkRequest alloc] init];
-    api.requestType = GFZNetworkRequestTypeGET;
+    WXNetworkRequest *api = [[WXNetworkRequest alloc] init];
+    api.requestType = WXNetworkRequestTypeGET;
     api.loadingSuperView = self.view;
     api.downloadProgressBlock = ^(NSProgress *progress) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -57,7 +57,7 @@
     api.responseSerializer = [AFHTTPResponseSerializer serializer];
     api.requestUrl = downloadURL;
 
-    [api startRequestWithBlock:^(GFZResponseModel *responseModel) {
+    [api startRequestWithBlock:^(WXResponseModel *responseModel) {
         self.downloadSwitch.enabled = YES;
         if (responseModel.isSuccess) {
             NSLog(@"下载文件成功: %@", [responseModel.responseObject description]);

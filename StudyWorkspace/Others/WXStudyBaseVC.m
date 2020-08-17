@@ -8,18 +8,56 @@
 
 #import "WXStudyBaseVC.h"
 #import "WXStudyCell.h"
-#import "WXCFuntionTool.h"
+#import "WXPublicHeader.h"
+
+@interface WXStudyBaseVC ()<UIGestureRecognizerDelegate>
+@property (nonatomic, strong) UIPanGestureRecognizer *backPan;
+@end
 
 @implementation WXStudyBaseVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    //设置布局起始位置
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    //添加全屏右滑动返回
+    [self addScreenEdgePanGesture];
+    
     [self configSubViewsUI];
 }
+
+#pragma mark - 添加全屏右滑动返回
+
+/** 添加全屏右滑动返回 */
+- (void)addScreenEdgePanGesture {
+    //用系统的方法,全屏滑动返回
+    if (self.navigationController.viewControllers.count > 1) {
+        id target = self.navigationController.interactivePopGestureRecognizer.delegate;
+        //忽略警告
+        WXUndeclaredSelectorLeakWarning(
+          SEL selector = @selector(handleNavigationTransition:);
+                                        
+          if ([target respondsToSelector:selector]) { //需要滑动返回
+            UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:selector];
+            pan.delegate = self;
+            [self.view addGestureRecognizer:pan];
+            self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+            self.backPan = pan;
+           }
+        );
+    }
+}
+
+- (void)setShouldPanBack:(BOOL)shouldPanBack
+{
+    _shouldPanBack = shouldPanBack;
+    self.backPan.enabled = shouldPanBack;
+}
+
 
 #pragma mark - <SubClass Implementation>
 
@@ -67,6 +105,15 @@
 
 #pragma mark - ========= 初始化基类表格,子类显示 =========
 
+/** 初始化UIRefreshControl */
+- (UIRefreshControl *)refreshControl {
+    if (!_refreshControl) {
+        _refreshControl = [[UIRefreshControl alloc] init];
+        _refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉刷新"];
+    }
+    return _refreshControl;
+}
+
 - (UITableView *)plainTableView {
     if (!_plainTableView) {
         CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-(kStatusBarHeight+44));
@@ -99,6 +146,35 @@
         _requestTaskArr = [NSMutableArray array];
     }
     return _requestTaskArr;
+}
+
+/** 返回上一页面  */
+- (void)backBtnClick:(UIButton *)backBtn {
+    [self.view endEditing:YES];
+    if (self.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+/** 父类释放时取消子类所有请求操作 */
+- (void)cancelRequestSessionTask {
+    if (_requestTaskArr.count==0) return;
+    for (NSURLSessionDataTask *sessionTask in self.requestTaskArr) {
+        if ([sessionTask isKindOfClass:[NSURLSessionDataTask class]]) {
+            [sessionTask cancel];
+        }
+    }
+    //清除所有请求对象
+    [self.requestTaskArr removeAllObjects];
+}
+
+- (void)dealloc {
+    NSLog(@"%s",__func__);
+    //取消子类所有请求操作
+    [self cancelRequestSessionTask];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

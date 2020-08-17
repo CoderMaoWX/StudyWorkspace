@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawCoreAnimationVC">
+            <connections>
+                <outlet property="contentView" destination="OqO-wy-CzA" id="anM-PR-7hF"/>
+                <outlet property="imageView1" destination="sBB-Ip-ISY" id="Hzj-zZ-aY7"/>
+                <outlet property="imageView2" destination="U93-7G-VFO" id="HkV-mY-F3b"/>
+                <outlet property="view" destination="gfm-UP-oRy" id="mnA-24-1DA"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="gfm-UP-oRy">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OqO-wy-CzA" userLabel="ContentView">
+                    <rect key="frame" x="0.0" y="258" width="150" height="150"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2" translatesAutoresizingMaskIntoConstraints="NO" id="sBB-Ip-ISY" userLabel="imageView1">
+                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                            <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="75"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="U93-7G-VFO" userLabel="imageView2">
+                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="75"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="sBB-Ip-ISY" firstAttribute="height" secondItem="OqO-wy-CzA" secondAttribute="height" id="N4W-xm-YX8"/>
+                        <constraint firstItem="sBB-Ip-ISY" firstAttribute="width" secondItem="OqO-wy-CzA" secondAttribute="width" id="Qaa-jX-8nv"/>
+                        <constraint firstItem="sBB-Ip-ISY" firstAttribute="centerY" secondItem="OqO-wy-CzA" secondAttribute="centerY" id="Tko-kA-shY"/>
+                        <constraint firstItem="U93-7G-VFO" firstAttribute="centerY" secondItem="OqO-wy-CzA" secondAttribute="centerY" id="b4e-WB-ucG"/>
+                        <constraint firstAttribute="width" constant="150" id="dyQ-FS-gZy"/>
+                        <constraint firstItem="U93-7G-VFO" firstAttribute="width" secondItem="OqO-wy-CzA" secondAttribute="width" id="eLD-O5-ewP"/>
+                        <constraint firstAttribute="height" constant="150" id="iJB-Md-jZp"/>
+                        <constraint firstItem="U93-7G-VFO" firstAttribute="height" secondItem="OqO-wy-CzA" secondAttribute="height" id="or2-t6-sj1"/>
+                        <constraint firstItem="U93-7G-VFO" firstAttribute="centerX" secondItem="OqO-wy-CzA" secondAttribute="centerX" id="wQ6-ug-VFx"/>
+                        <constraint firstItem="sBB-Ip-ISY" firstAttribute="centerX" secondItem="OqO-wy-CzA" secondAttribute="centerX" id="zId-aN-Q87"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="75"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZf-9n-HcP">
+                    <rect key="frame" x="28" y="40" width="38" height="30"/>
+                    <state key="normal" title="动画1"/>
+                    <connections>
+                        <action selector="buttonAction1:" destination="-1" eventType="touchUpInside" id="cRO-C1-SRE"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RfC-Hd-RGd" userLabel="line">
+                    <rect key="frame" x="0.0" y="408" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="5gL-qX-dhd"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAl-YE-2e1">
+                    <rect key="frame" x="116" y="40" width="40" height="30"/>
+                    <state key="normal" title="动画2"/>
+                    <connections>
+                        <action selector="buttonAction2:" destination="-1" eventType="touchUpInside" id="EBb-0p-NCw"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="RZf-9n-HcP" firstAttribute="top" secondItem="gfm-UP-oRy" secondAttribute="top" constant="40" id="6Z0-C4-AeL"/>
+                <constraint firstItem="aAl-YE-2e1" firstAttribute="top" secondItem="RZf-9n-HcP" secondAttribute="top" id="7QQ-qp-Puf"/>
+                <constraint firstAttribute="trailing" secondItem="RfC-Hd-RGd" secondAttribute="trailing" id="V3p-8k-XvF"/>
+                <constraint firstItem="OqO-wy-CzA" firstAttribute="centerY" secondItem="gfm-UP-oRy" secondAttribute="centerY" id="brE-0m-f2k"/>
+                <constraint firstItem="OqO-wy-CzA" firstAttribute="leading" secondItem="gfm-UP-oRy" secondAttribute="leading" id="dWT-IH-mp4"/>
+                <constraint firstItem="RfC-Hd-RGd" firstAttribute="top" secondItem="OqO-wy-CzA" secondAttribute="bottom" id="iiF-BI-LIl"/>
+                <constraint firstItem="aAl-YE-2e1" firstAttribute="leading" secondItem="RZf-9n-HcP" secondAttribute="trailing" constant="50" id="mOK-YW-Fqe"/>
+                <constraint firstItem="RZf-9n-HcP" firstAttribute="leading" secondItem="gfm-UP-oRy" secondAttribute="leadingMargin" constant="20" id="uMz-1o-G3p"/>
+                <constraint firstItem="RfC-Hd-RGd" firstAttribute="leading" secondItem="gfm-UP-oRy" secondAttribute="leading" id="yth-Tc-hlG"/>
+            </constraints>
+            <point key="canvasLocation" x="198" y="-522"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="1" width="1280" height="852"/>
+        <image name="2" width="1280" height="852"/>
+    </resources>
+</document>

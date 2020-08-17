@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawCGPathVC">
+            <connections>
+                <outlet property="view" destination="W5M-uq-C2Z" id="6kx-ql-7bc"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="W5M-uq-C2Z" customClass="DrawPathView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UIN-Kd-jdB">
+                    <rect key="frame" x="26" y="49" width="62" height="30"/>
+                    <state key="normal" title="开始涂鸦"/>
+                    <connections>
+                        <action selector="startDrawPath:" destination="-1" eventType="touchUpInside" id="EBv-zi-wpr"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xaY-Cu-qkF">
+                    <rect key="frame" x="112" y="49" width="62" height="30"/>
+                    <state key="normal" title="轨迹运动"/>
+                    <connections>
+                        <action selector="moveSport:" destination="-1" eventType="touchUpInside" id="MsU-Sr-1dd"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oC-Cu-jDO">
+                    <rect key="frame" x="209" y="49" width="62" height="30"/>
+                    <state key="normal" title="重新涂鸦"/>
+                    <connections>
+                        <action selector="afreshDrawPath:" destination="-1" eventType="touchUpInside" id="khJ-Vj-wfP"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="xaY-Cu-qkF" firstAttribute="top" secondItem="UIN-Kd-jdB" secondAttribute="top" id="3wX-eb-qWG"/>
+                <constraint firstItem="UIN-Kd-jdB" firstAttribute="top" secondItem="W5M-uq-C2Z" secondAttribute="top" constant="49" id="8p8-tY-AGk"/>
+                <constraint firstItem="UIN-Kd-jdB" firstAttribute="leading" secondItem="W5M-uq-C2Z" secondAttribute="leadingMargin" constant="18" id="Dvf-gv-4Sb"/>
+                <constraint firstItem="5oC-Cu-jDO" firstAttribute="top" secondItem="UIN-Kd-jdB" secondAttribute="top" id="LGC-kR-2t4"/>
+                <constraint firstItem="xaY-Cu-qkF" firstAttribute="leading" secondItem="UIN-Kd-jdB" secondAttribute="trailing" constant="24" id="VKA-rb-18O"/>
+                <constraint firstItem="5oC-Cu-jDO" firstAttribute="leading" secondItem="xaY-Cu-qkF" secondAttribute="trailing" constant="35" id="n8m-1v-z4x"/>
+            </constraints>
+            <point key="canvasLocation" x="-953" y="1442"/>
+        </view>
+    </objects>
+</document>

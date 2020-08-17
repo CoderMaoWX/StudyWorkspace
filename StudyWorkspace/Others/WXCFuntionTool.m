@@ -6,7 +6,7 @@
 //  Copyright © 2020 MaoWX. All rights reserved.
 //
 
-#import "WXCFuntionTool.h"
+#import "WXPublicHeader.h"
 #import <AVFoundation/AVCaptureDevice.h>
 #import <AVFoundation/AVMediaFormat.h>
 #import <CommonCrypto/CommonDigest.h>

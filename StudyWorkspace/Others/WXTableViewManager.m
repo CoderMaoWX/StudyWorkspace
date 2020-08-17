@@ -7,7 +7,7 @@
 //
 
 #import "WXTableViewManager.h"
-#import "WXCFuntionTool.h"
+#import "WXPublicHeader.h"
 
 @interface WXTableViewManager ()
 @property (nonatomic, strong) Class CellCalss;
