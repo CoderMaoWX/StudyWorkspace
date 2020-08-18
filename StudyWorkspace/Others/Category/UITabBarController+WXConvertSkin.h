@@ -17,7 +17,7 @@
 #define	kTabBarItemNormolColorKey			@"kTabBarItemNormolColorKey"
 #define	kTabBarItemSelectedColorKey			@"kTabBarItemSelectedColorKey"
 
-@interface UITabBarController (OKConvertSkin)
+@interface UITabBarController (WXConvertSkin)
 
 #pragma mark =========================================切换主题===========================================
 

@@ -143,7 +143,7 @@
 @property (nonatomic, strong) WXAppSkinTabBar *appTabBar;
 @end
 
-@implementation UITabBarController (OKConvertSkin)
+@implementation UITabBarController (WXConvertSkin)
 
 /**
  * 初始化TabBar
