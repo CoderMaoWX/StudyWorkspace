@@ -40,7 +40,7 @@
 /**
  计算self这个文件夹\文件的大小
  */
-- (unsigned long long)ok_fileSize:(NSString *)filePath;
+- (unsigned long long)wx_fileSize:(NSString *)filePath;
 
 /**
  *  把对象归档存到沙盒里
