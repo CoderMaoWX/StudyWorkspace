@@ -13,6 +13,7 @@
 #import "WXTabBarSkinModel.h"
 #import "WXPublicHeader.h"
 #import "WXStudyTabBarVC2.h"
+#import "WXStudyTabBarVC3.h"
 #import "UITabBarController+WXConvertSkin.h"
 
 //获取屏幕宽度
@@ -75,7 +76,14 @@
     mineVC.title = @"Study3";
     mineVC.edgesForExtendedLayout = UIRectEdgeNone;
     
-    [self setViewControllers:@[firstNav, secondNav, mineNav] animated:NO];
+    
+    WXStudyBaseVC *tabBar3VC = [[WXStudyTabBarVC3 alloc] init];
+    UINavigationController *tabBar3Nav = [[UINavigationController alloc] initWithRootViewController:tabBar3VC];
+    tabBar3Nav.tabBarItem = [self createTabBarItemWithTitle:@"Study3" imageName:@"tabbar_cashier_nor" selectedImage:@"tabbar_cashier_ser"];
+    tabBar3Nav.title = @"Study3";
+    tabBar3Nav.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    [self setViewControllers:@[firstNav, secondNav, mineNav, tabBar3Nav] animated:NO];
 }
 
 /**
