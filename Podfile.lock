@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - LookinServer (1.0.0)
   - Masonry (1.1.0)
   - SSZipArchive (2.2.3)
   - WXNetworking (1.7):
@@ -24,6 +25,7 @@ PODS:
   - YYModel (1.0.4)
 
 DEPENDENCIES:
+  - LookinServer
   - Masonry
   - SSZipArchive
   - WXNetworking
@@ -31,6 +33,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://cdn.cocoapods.org/:
     - AFNetworking
+    - LookinServer
     - Masonry
     - SSZipArchive
     - WXNetworking
@@ -39,12 +42,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   WXNetworking: e5b55b59a82c0d10827d6a2cb52ead8cce84939d
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 0cd7f5809f6a4189ace29344fc2ac2746cf1eb6f
+PODFILE CHECKSUM: cceea35458f9e130e3845afa2d126a822dbeed64
 
 COCOAPODS: 1.8.4

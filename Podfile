@@ -11,5 +11,7 @@ target 'StudyWorkspace' do
   pod 'WXNetworking'
   
   pod 'Masonry'
+  
+  pod 'LookinServer', :configurations => ['Debug']
 
 end
