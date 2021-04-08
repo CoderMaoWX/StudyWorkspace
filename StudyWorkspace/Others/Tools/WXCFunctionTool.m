@@ -23,7 +23,7 @@ static NSInteger kWXToastHUDTag   = 9748;
 
 @implementation WXCFunctionTool
 
-/** 获取直播SDK Bundle */
+/** 获取Bundle */
 NSBundle *WX_Bundle(void) {
     NSBundle *bundle = [NSBundle bundleForClass:[WXCFunctionTool class]];
     NSURL *bundleURL = [bundle URLForResource:kWXBundName withExtension:@"bundle"];
@@ -33,7 +33,7 @@ NSBundle *WX_Bundle(void) {
     return bundleURL ? [NSBundle bundleWithURL:bundleURL] : [NSBundle mainBundle];
 }
 
-/** 获取直播SDK版本 */
+/** 获取版本 */
 NSString *WX_BundleVersion(void) {
     NSURL *url = [WX_Bundle() resourceURL];
     NSBundle *bundle = url ? [NSBundle bundleWithURL:url] : [NSBundle mainBundle];

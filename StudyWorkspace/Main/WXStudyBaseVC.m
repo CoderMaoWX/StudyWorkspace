@@ -246,8 +246,6 @@
     };
 }
 
-
-
 #pragma mark - <SubClass Implementation> 布局页面子视图
 
 /// 子类实现:添加子视图
@@ -274,19 +272,15 @@
         NSArray *fontArr = @[WX_FontSystem(16), WX_FontSystem(13)];
         NSArray *colorArr = @[WX_ColorBlackTextColor(), WX_ColorRGB(64,128,214, 1)];
         
-        subTitleLabel.attributedText = [NSString getAttriStrByTextArray:textArr
-                                                                fontArr:fontArr
-                                                               colorArr:colorArr
-                                                            lineSpacing:2
-                                                              alignment:1];
+        subTitleLabel.attributedText = [NSString getAttriStrByTextArray:textArr fontArr:fontArr colorArr:colorArr lineSpacing:2 alignment:1];
     }
     
     if (!WX_IsEmptyString(self.tipText)) {
         self.tipTextLabel.text = self.tipText;
-        [self.view addSubview:self.tipTextLabel];
         [self.view insertSubview:self.tipTextLabel atIndex:0];
         [self.tipTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.mas_equalTo(self.view);
+            make.size.mas_lessThanOrEqualTo(self.view);
         }];
     }
 }
@@ -294,9 +288,11 @@
 - (UILabel *)tipTextLabel {
     if (!_tipTextLabel) {
         _tipTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _tipTextLabel.preferredMaxLayoutWidth = self.view.bounds.size.width;
         _tipTextLabel.backgroundColor = [UIColor clearColor];
-        _tipTextLabel.font = WX_FontSystem(16);
         _tipTextLabel.textColor = WX_ColorHex(0xC0C0C0);
+        _tipTextLabel.font = WX_FontSystem(16);
+        _tipTextLabel.numberOfLines = 0;
     }
     return _tipTextLabel;
 }

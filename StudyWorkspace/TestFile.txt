@@ -1,0 +1,42 @@
+
+http://www.cocoachina.com/articles/21902
+
+
+AOP (Aspect-oriented programming) 译为 “面向切面编程”，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。利用 AOP 可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。
+
+Emmmmm...AOP 目前是较为热门的一个话题，尽管你也许没有听说过它，但是你的项目中可能已经渗入了它，例如：用户统计（不添加一行代码即实现对所有 ViewController 的跟踪日志）。
+
+对于 iOS 开发者而言，无外乎 Swift 和 Objective-C 两种主流开发语言：
+
+Swift 受限于 ABI 尚未稳定，动态性依赖 dynamic 修饰符，在 Runtime 没有留给我们太多的发挥空间（前几日新增了 swift-5.0-branch 分支，写这篇文章时看了一眼 181 commits behind master ??）。
+
+Objective-C 在动态性上相对 Swift 具有无限大的优势，这几年 Objective-C Runtime 相关文章多如牛毛，相信现在的 iOSer 都具备一定的 Runtime 基础知识。
+
+Aspects 作为 Objective-C 语言编写的 AOP 库，适用于 iOS 和 Mac OS X，使用体验简单愉快，已经在 GitHub 摘得 5k+ Star。Aspects 内部实现比较健全，考虑到了 Hook 安全方面可能发生的种种问题，非常值得我们学习。
+
+Note: 本文内引用 Aspects 源码版本为 v1.4.2，要求读者具备一定的 Runtime 知识。
+
+在运行时，动态地将代码切入到类的指定方法、指定位置上的编程思想就是面向切面的编程。
+AOP (Aspect-oriented programming)，即 “面向切面编程” 是一种编程范式，或者说是一种编程思想，它解决了 OOP (Object-oriented programming) 的延伸问题。
+
+什么时候需要使用 AOP
+
+光是给个概念可能初次接触 AOP 的人还是无法 Get 到其中微秒，拿我们前言中举的例子，假设随着我们所在的公司逐步发展，之前第三方的用户页面统计已经不能满足需求了，公司要求实现一个我们自己的用户页面统计。
+
+嘛~ 我们来理一下 OOP 思想下该怎么办？
+
+一个熟悉 OOP 思想的程序猿会理所应当的想到要把用户页面统计这一任务放到 ViewController 中；
+
+考虑到一个个的手动添加统计代码要死人（而且还会漏，以后新增 ViewController 也要手动加），于是想到了 OOP 思想中的继承；
+
+不巧由于项目久远，所有的 ViewController 都是直接继承自系统类 UIViewController（笑），此时选择抽一个项目 RootViewController，替换所有 ViewController 继承 RootViewController；
+
+然后在 RootViewController 的 viewWillAppear: 和 viewWillDisappear: 方法加入时间统计代码，记录 ViewController 以及 Router 传参。
+
+你会想，明明 OOP 也能解决问题是不是？不要急，再假设你们公司有多个 App，你被抽调至基础技术组专门给这些 App 写通用组件，要把之前实现过的用户页面统计重新以通用的形式实现，提供给你们公司所有的 App 使用。
+
+MMP，使用标准 OOP 思想貌似无解啊...这个时候就是 AOP 的用武之地了。
+
+这里简单给个思路：Hook UIViewController 的 viewWillAppear: 和 viewWillDisappear: 方法，在原方法执行之后记录需要统计的信息上报即可。
+
+Note: 简单通过 Method Swizzling 来 Hook 不是不可以，但是有很多安全隐患！

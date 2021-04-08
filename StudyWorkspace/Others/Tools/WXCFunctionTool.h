@@ -12,7 +12,10 @@
 
 @interface WXCFunctionTool : NSObject
 
-/** 获取直播SDK版本 */
+/** 获取Bundle */
+NSBundle *WX_Bundle(void);
+
+/** 获取版本 */
 NSString *WX_BundleVersion(void);
 
 /** 统一获取图片方法 */

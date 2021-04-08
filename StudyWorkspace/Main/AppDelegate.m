@@ -27,6 +27,7 @@
     
     //查看一键切换启动图效果
     if ([WX_GetUserDefault(kSavedLaunchImgKey) boolValue]) {
+        WX_SaveUserDefault(kSavedLaunchImgKey, @(NO));
         sleep(1);
     }
     return YES;
