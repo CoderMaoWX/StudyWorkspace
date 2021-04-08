@@ -14,12 +14,13 @@ typedef enum : NSUInteger {
     FooterType,
 } SectionType;
 
+
+@interface ZXTableViewManager<CellType: UITableViewCell *> : NSObject<UITableViewDelegate,UITableViewDataSource>
+
 typedef CGFloat (^ZXTableViewRowHeightBlock) (id rowData, NSIndexPath *indexPath);
-typedef void (^ZXTableViewConfigBlock) (id cell, id rowData, NSIndexPath *indexPath);
+typedef void (^ZXTableViewConfigBlock) (CellType cell, id rowData, NSIndexPath *indexPath);
 typedef void (^ZXTableViewDidScrollBlock) (CGPoint contentOffset);
 
-
-@interface ZXTableViewManager : NSObject<UITableViewDelegate,UITableViewDataSource>
 
 /** numberOfSections组数目, 默认为1组 */
 @property (nonatomic, assign) NSInteger numberOfSections;
