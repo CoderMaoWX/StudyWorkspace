@@ -18,23 +18,23 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCW-aU-gQZ">
-                        <rect key="frame" x="12" y="45" width="31.5" height="19.5"/>
+                        <rect key="frame" x="12" y="48" width="31.5" height="19.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subTitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1QP-5O-eYe">
-                        <rect key="frame" x="12" y="70.5" width="50.5" height="17"/>
+                        <rect key="frame" x="12" y="67.5" width="50.5" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" red="0.75294117647058822" green="0.75294117647058822" blue="0.75294117647058822" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="1QP-5O-eYe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="3" id="FJn-f5-cgW"/>
+                    <constraint firstItem="1QP-5O-eYe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="FJn-f5-cgW"/>
                     <constraint firstItem="aCW-aU-gQZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="J9t-In-PcW"/>
                     <constraint firstItem="1QP-5O-eYe" firstAttribute="leading" secondItem="aCW-aU-gQZ" secondAttribute="leading" id="OF2-MP-cTw"/>
-                    <constraint firstItem="aCW-aU-gQZ" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-3" id="rPy-L4-B9K"/>
+                    <constraint firstItem="aCW-aU-gQZ" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="rPy-L4-B9K"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
@@ -42,7 +42,7 @@
                 <outlet property="subTitleLabel" destination="1QP-5O-eYe" id="iWc-Dq-FWx"/>
                 <outlet property="titleLabel" destination="aCW-aU-gQZ" id="ngq-v9-6aR"/>
             </connections>
-            <point key="canvasLocation" x="-156" y="51"/>
+            <point key="canvasLocation" x="-349" y="4"/>
         </tableViewCell>
     </objects>
 </document>

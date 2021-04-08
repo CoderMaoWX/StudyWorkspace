@@ -9,7 +9,7 @@
 #import "UILabel+HTML.h"
 
 @implementation UILabel (HTML)
-- (void)zf_setHTMLFromString:(NSString *)string {
+- (void)WX_setHTMLFromString:(NSString *)string {
     
     if (![string length]) return;
     
@@ -29,7 +29,7 @@
     
 }
 
-- (void)zf_setHTMLFromString:(NSString *)string textColor:(NSString *)textColor {
+- (void)WX_setHTMLFromString:(NSString *)string textColor:(NSString *)textColor {
     
     if (![string length]) return;
     
@@ -51,7 +51,7 @@
 }
 
 
-- (void)zf_setHTMLFromString:(NSString *)string completion: (void (^)(NSAttributedString *stringAttributed))completion {
+- (void)WX_setHTMLFromString:(NSString *)string completion: (void (^)(NSAttributedString *stringAttributed))completion {
     
     if (![string length]) return;
     

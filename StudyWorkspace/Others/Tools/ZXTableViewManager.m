@@ -1,33 +1,35 @@
 //
-//  WXTableViewManager.m
-//  StudyWorkspace
+//  ZXTableViewManager.m
+//  ZXOwner
 //
 //  Created by 610582 on 2020/8/14.
-//  Copyright © 2020 MaoWX. All rights reserved.
+//  Copyright © 2020 MaoZX. All rights reserved.
 //
 
-#import "WXTableViewManager.h"
-#import "WXPublicHeader.h"
+#import "ZXTableViewManager.h"
+#import "WXMacroDefiner.h"
+#import "WXFrameDefiner.h"
 
-@interface WXTableViewManager ()
+@interface ZXTableViewManager ()
 @property (nonatomic, strong) Class CellCalss;
 @property (nonatomic, assign) BOOL isXibCell;
 @property (nonatomic, assign) BOOL hasRegisterCell;
 @property (nonatomic, copy)   NSString *cellIdentifier;
 @end
 
-@implementation WXTableViewManager
+@implementation ZXTableViewManager
 
 /**
  * 创建表格dataSource (适用于相同类型的Cell)
  */
 + (instancetype)createWithCellClass:(Class)cellClass {
-    return [[WXTableViewManager alloc] initWithClass:cellClass];
+    return [[ZXTableViewManager alloc] initWithClass:cellClass];
 }
 
 - (instancetype)initWithClass:(Class)cellClass {
     self = [super init];
     if (self) {
+        self.numberOfSections = 1;
         NSAssert([cellClass isSubclassOfClass:[UITableViewCell class]], @"❌❌❌初始化参数:cellClass 必须为UITableViewCell的类型");
         _CellCalss = cellClass;
         _cellIdentifier = NSStringFromClass(cellClass);
@@ -41,15 +43,15 @@
  *  获取数组中的元素
  */
 - (id)rowDataForIndexPath:(NSIndexPath *)indexPath {
-    if (self.groupTabDataOfSections) {
-        NSArray *arrary = self.groupTabDataOfSections(indexPath.section);
+    if (self.dataOfSections) {
+        NSArray *arrary = self.dataOfSections(indexPath.section);
         if ([arrary isKindOfClass:[NSArray class]]) {
             if (arrary.count>indexPath.row) {
                 return arrary[indexPath.row];
             }
         }
-    } else if (self.plainTabDataArrBlcok) {
-        NSArray *rowDataArr = self.plainTabDataArrBlcok();
+    } else if (self.plainTabDataArr) {
+        NSArray *rowDataArr = self.plainTabDataArr;
         if ([rowDataArr isKindOfClass:[NSArray class]]) {
             if (indexPath.row < rowDataArr.count) {
                 return rowDataArr[indexPath.row];
@@ -62,19 +64,15 @@
 #pragma mark -===========UITableViewDataSource===========
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.groupTabNumberOfSections) {
-        return self.groupTabNumberOfSections();
-    } else {
-        return (self.plainTabDataArrBlcok && self.plainTabDataArrBlcok().count != 0) ? 1 : 0;
-    }
+    return self.numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.groupTabDataOfSections) {
-        NSArray *arrary = self.groupTabDataOfSections(section);
+    if (self.dataOfSections) {
+        NSArray *arrary = self.dataOfSections(section);
         return arrary.count;
     } else {
-        return self.plainTabDataArrBlcok ? self.plainTabDataArrBlcok().count : 0;
+        return self.plainTabDataArr.count;
     }
 }
 
@@ -89,7 +87,8 @@
         }
     }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellIdentifier forIndexPath:indexPath];
-
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     id rowData = [self rowDataForIndexPath:indexPath];
     if (self.cellForRowBlock) {
         self.cellForRowBlock(cell, rowData, indexPath);
@@ -102,6 +101,14 @@
         }
     }
     return cell;
+}
+
+//隐藏最后一条细线
+- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+    cell.separatorInset = UIEdgeInsetsMake(0, 12, 0, 0);
+    if (indexPath.row == ([tableView numberOfRowsInSection:indexPath.section] - 1)) {
+        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, kScreenWidth);
+    }
 }
 
 #pragma mark -===========UITableViewDelegate===========
@@ -150,16 +157,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.didSelectRowBlcok) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         id rowData = [self rowDataForIndexPath:indexPath];
-        self.didSelectRowBlcok(rowData, indexPath);
+        self.didSelectRowBlcok(cell, rowData, indexPath);
     }
 }
 
--(void)dealloc{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.didScrollBlock) {
+        self.didScrollBlock(scrollView.contentOffset);
+    }
+}
+
+- (void)dealloc {
     self.cellForRowBlock = nil;
-    self.groupTabNumberOfSections = nil;
-    self.groupTabDataOfSections = nil;
-    self.plainTabDataArrBlcok = nil;
+    self.dataOfSections = nil;
     self.heightForRowBlcok = nil;
     self.heightForSectionBlcok = nil;
     self.viewForSectionBlcok = nil;

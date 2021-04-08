@@ -14,5 +14,6 @@
 #import "WXMacroDefiner.h"
 #import "WXPublicConst.h"
 #import "WXCFunctionTool.h"
+#import "Masonry.h"
 
 #endif /* WXPublicHeader_h */

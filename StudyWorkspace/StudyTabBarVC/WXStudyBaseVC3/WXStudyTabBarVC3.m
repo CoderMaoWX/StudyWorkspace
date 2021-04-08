@@ -13,8 +13,6 @@
 #import "WXNetworking.h"
 
 @interface WXStudyTabBarVC3 ()<UICollectionViewDelegate, UICollectionViewDataSource>
-@property (nonatomic, strong) NSMutableArray            *listDataArray;
-@property (nonatomic, strong) UICollectionView          *collectionView;
 @property (nonatomic, strong) StudyTmpView *studyTmpView;
 @end
 
@@ -59,48 +57,41 @@
     }];
 }
 
-- (NSMutableArray *)listDataArray {
-    if (!_listDataArray) {
-        _listDataArray = [NSMutableArray array];
-    }
-    return _listDataArray;
-}
-
 #pragma mark -============== <UICollectionView> 配置父类表格数据和代理 ==============
 
-- (UICollectionView *)collectionView {
-    if (!_collectionView) {
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        flowLayout.sectionInset = UIEdgeInsetsMake(12, 12, 12, 12);
-        flowLayout.minimumLineSpacing = 12;
-        flowLayout.minimumInteritemSpacing = 12;
-//        flowLayout.itemSize = CGSizeMake(150, 150);
-        flowLayout.estimatedItemSize = CGSizeMake(100, 150);
-        
-//        if (@available(iOS 10.0, *)) {
-            flowLayout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
-//        } else {
-//            // Fallback on earlier versions
-//        }//
-        
-        CGFloat width = [UIScreen mainScreen].bounds.size.width;
-        CGFloat height = [UIScreen mainScreen].bounds.size.height;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, width, height - 88) collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = self.view.backgroundColor;
-        _collectionView.delegate = self;
-        _collectionView.dataSource = self;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.alwaysBounceHorizontal = YES;
-        
-//        [_collectionView registerClass:[WXCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([WXCollectionViewCell class])];
-        
-        UINib *nib = [UINib nibWithNibName:NSStringFromClass([WXCollectionViewCell class]) bundle:nil];
-        [_collectionView registerNib:nib forCellWithReuseIdentifier:NSStringFromClass([WXCollectionViewCell class])];
-    }
-    return _collectionView;
-}
+//- (UICollectionView *)collectionView {
+//    if (!_collectionView) {
+//        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+//        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//        flowLayout.sectionInset = UIEdgeInsetsMake(12, 12, 12, 12);
+//        flowLayout.minimumLineSpacing = 12;
+//        flowLayout.minimumInteritemSpacing = 12;
+////        flowLayout.itemSize = CGSizeMake(150, 150);
+//        flowLayout.estimatedItemSize = CGSizeMake(100, 150);
+//
+////        if (@available(iOS 10.0, *)) {
+//            flowLayout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
+////        } else {
+////            // Fallback on earlier versions
+////        }//
+//
+//        CGFloat width = [UIScreen mainScreen].bounds.size.width;
+//        CGFloat height = [UIScreen mainScreen].bounds.size.height;
+//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, width, height - 88) collectionViewLayout:flowLayout];
+//        _collectionView.backgroundColor = self.view.backgroundColor;
+//        _collectionView.delegate = self;
+//        _collectionView.dataSource = self;
+//        _collectionView.showsVerticalScrollIndicator = NO;
+//        _collectionView.showsHorizontalScrollIndicator = NO;
+//        _collectionView.alwaysBounceHorizontal = YES;
+//
+////        [_collectionView registerClass:[WXCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([WXCollectionViewCell class])];
+//
+//        UINib *nib = [UINib nibWithNibName:NSStringFromClass([WXCollectionViewCell class]) bundle:nil];
+//        [_collectionView registerNib:nib forCellWithReuseIdentifier:NSStringFromClass([WXCollectionViewCell class])];
+//    }
+//    return _collectionView;
+//}
 
 #pragma mark - <UICollectionViewDelegate, UICollectionViewDataSource>
 

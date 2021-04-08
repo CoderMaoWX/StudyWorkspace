@@ -7,20 +7,15 @@
 //
 
 #import "StudyMainVC.h"
-#import "WXTableViewManager.h"
-
-@interface StudyMainVC ()
-
-@end
+#import "WXStudyCell.h"
 
 @implementation StudyMainVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     
     // @{ 要测试的VC : 对应类的功能描述 }
-    [self.tableDataArr addObjectsFromArray:@[
+    [self.listDataArray addObjectsFromArray:@[
         @{@"StudyVC1.m"   :   @"一键切换启动闪屏图AppLaunchImage"},
         @{@"StudyVC2.m"   :   @"操作谓词NSPredicate"},
         @{@"StudyVC3.m"   :   @"操作UIStackView"},
@@ -38,14 +33,42 @@
     [self.plainTableView reloadData];
 }
 
-- (void)didSelectedTableViewIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *celLDic = [self.tableDataArr objectAtIndex:indexPath.row];
-    NSString *className = [celLDic.allKeys.firstObject stringByReplacingOccurrencesOfString:@".m" withString:@""];
-    UIViewController *vc = [[NSClassFromString(className) alloc] init];
-    if (![vc isKindOfClass:[UIViewController class]]) return;
-    vc.title = className;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+#pragma mark -============== <UITableView> 配置父类表格数据和代理 ==============
+
+///由子类覆盖: 表格需要注册的Cell
+- (Class)registerTableViewCell {
+    return [WXStudyCell class];
+}
+
+///由子类覆盖: 配置表格Cell高度
+- (ZXTableViewRowHeightBlock)heightForRowBlcok {
+    return ^ CGFloat (id rowData, NSIndexPath *indexPath) {
+        return 60;
+    };
+}
+
+///由子类覆盖: 配置表格数据方法
+- (ZXTableViewConfigBlock)cellForRowBlock {
+    return ^ (UITableViewCell *c, NSDictionary *rowData, NSIndexPath *indexPath) {
+        if (![rowData isKindOfClass:[NSDictionary class]]) return ;
+        NSString *name = rowData.allKeys.firstObject;
+        WXStudyCell *cell = (WXStudyCell *)c;
+        cell.titleLabel.text = name;
+        cell.subTitleLabel.text = rowData[name];
+    };
+}
+
+///由子类覆盖: 点击表格代理方法
+- (ZXTableViewConfigBlock)didSelectRowBlcok {
+    return ^ (UITableViewCell *cell, NSDictionary *celLDic, NSIndexPath *indexPath) {
+        NSString *className = [celLDic.allKeys.firstObject stringByReplacingOccurrencesOfString:@".m" withString:@""];
+        UIViewController *vc = [[NSClassFromString(className) alloc] init];
+        if (![vc isKindOfClass:[UIViewController class]]) return;
+        vc.title = className;
+        vc.hidesBottomBarWhenPushed = YES;
+        [vc setValue:celLDic.allValues.firstObject forKey:@"subTitle"];
+        [self.navigationController pushViewController:vc animated:YES];
+    };
 }
 
 @end

@@ -16,6 +16,7 @@ PODS:
     - AFNetworking/NSURLSession
   - LookinServer (1.0.0)
   - Masonry (1.1.0)
+  - MJRefresh (3.5.0)
   - SSZipArchive (2.2.3)
   - WXNetworking (1.7):
     - AFNetworking
@@ -27,6 +28,7 @@ PODS:
 DEPENDENCIES:
   - LookinServer
   - Masonry
+  - MJRefresh
   - SSZipArchive
   - WXNetworking
 
@@ -35,6 +37,7 @@ SPEC REPOS:
     - AFNetworking
     - LookinServer
     - Masonry
+    - MJRefresh
     - SSZipArchive
     - WXNetworking
     - YYCache
@@ -44,11 +47,12 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   WXNetworking: e5b55b59a82c0d10827d6a2cb52ead8cce84939d
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: cceea35458f9e130e3845afa2d126a822dbeed64
+PODFILE CHECKSUM: a4b5e63c0822b5b271735ed3bb2af4ec934b8b02
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3
