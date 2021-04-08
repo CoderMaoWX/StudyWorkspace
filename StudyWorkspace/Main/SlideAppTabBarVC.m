@@ -15,13 +15,11 @@
 #import "WXStudyTabBarVC2.h"
 #import "WXStudyTabBarVC3.h"
 #import "UITabBarController+WXConvertSkin.h"
-
-//获取屏幕宽度
-#define Screen_Width    ([UIScreen  mainScreen].bounds.size.width)
+#import "WXPublicHeader.h"
 
 #define MaxOffsetX      (self.view.width-49)
 
-@interface SlideAppTabBarVC ()<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
+@interface SlideAppTabBarVC ()<UIGestureRecognizerDelegate>
 /** 单击右侧蒙板事件 */
 @property (nonatomic, strong) UIControl *tapMaskControl;
 /** TabBar起始Y */
@@ -40,7 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     //初始化tabBar控制器
     [self initTabBarVCS];
@@ -51,8 +48,7 @@
 
 #pragma mark - 初始化AppTabBar
 
-- (void)initTabBarVCS
-{
+- (void)initTabBarVCS {
     StudyMainVC *firstVC = [[StudyMainVC alloc] init];
     UINavigationController *firstNav = [[UINavigationController alloc] initWithRootViewController:firstVC];
     firstVC.tabBarItem = [self createTabBarItemWithTitle:@"Study1" imageName:@"icon_home1" selectedImage:@"icon_home2"];
@@ -102,11 +98,10 @@
 
 #pragma mark - 添加App侧滑事件
 
-- (UIView *)leftMaskView
-{
+- (UIView *)leftMaskView {
     if (!_leftMaskView) {
         _leftMaskView = [[UIView alloc] init];
-        _leftMaskView.frame = CGRectMake(0, 0, Screen_Width, Screen_Height);
+        _leftMaskView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         _leftMaskView.backgroundColor = [UIColor blackColor];
         _leftMaskView.alpha = 0.5;
         [self.parentViewController.view insertSubview:_leftMaskView atIndex:1];
@@ -114,11 +109,10 @@
     return _leftMaskView;
 }
 
-- (UIView *)rightMaskView
-{
+- (UIView *)rightMaskView {
     if (!_rightMaskView) {
         _rightMaskView = [[UIView alloc] init];
-        _rightMaskView.frame = CGRectMake(0, 0, Screen_Width, Screen_Height);
+        _rightMaskView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         _rightMaskView.backgroundColor = [UIColor blackColor];
         _rightMaskView.alpha = 0.0;
         [self.view addSubview:_rightMaskView];
@@ -175,7 +169,7 @@
 }
 
 #pragma mark - 单击手势
--(void)handeTap:(id)sender {
+- (void)handeTap:(id)sender {
     if ((self.view.x == MaxOffsetX)) {
         //点击关闭侧滑
         [self showLeftView:NO];
@@ -205,7 +199,7 @@
     [self.view.layer setShadowRadius:5];
     [self.view.layer setShadowOpacity:1];
     [self.view.layer setShadowColor:[UIColor colorWithWhite:0 alpha:0.48].CGColor];
-    self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 1, Screen_Height)].CGPath;
+    self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, 1, kScreenHeight)].CGPath;
 }
 
 #pragma mark - 滑动手势
@@ -253,7 +247,7 @@
 - (UIView *)nightsMaskView {
     if (!_nightsMaskView) {
         _nightsMaskView = [[UIView alloc] init];
-        _nightsMaskView.frame = CGRectMake(0, 0, Screen_Width, Screen_Height);
+        _nightsMaskView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         _nightsMaskView.backgroundColor = [UIColor blackColor];
         _nightsMaskView.alpha = 0.5;
         _nightsMaskView.hidden = YES;
@@ -268,7 +262,7 @@
  * 设置tabBar默认主题图片
  */
 - (void)setDefaultTabBarImages {
-    NSArray *defaultImageArr = @[ImageNamed(@"tabbar_home_n"),ImageNamed(@"tabbar_property_n"),ImageNamed(@"tabbar_my_n")];
+    NSArray *defaultImageArr = @[ZXImageName(@"tabbar_home_n"),ZXImageName(@"tabbar_property_n"),ZXImageName(@"tabbar_my_n")];
     NSLog(@"设置tabBar默认主题图片===%@",defaultImageArr);
     [self changeTabBarTheme:defaultImageArr newTheme:NO];
 }

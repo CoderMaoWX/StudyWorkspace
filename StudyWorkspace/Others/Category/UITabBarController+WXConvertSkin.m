@@ -152,9 +152,10 @@
 {
 	if (!self.appTabBar) {
 		self.appTabBar = [[WXAppSkinTabBar alloc] initWithFrame:self.tabBar.bounds];
-		WEAKSELF //监听重复点击tabBar回调
-		[self.appTabBar setRepeatTouchDownItemBlock:^(UITabBarItem *item) {
-			[weakSelf didRepeatTouchDownTabBarItem:item];
+        @weakify(self)//监听重复点击tabBar回调
+        [self.appTabBar setRepeatTouchDownItemBlock:^(UITabBarItem *item) {
+            @strongify(self)
+			[self didRepeatTouchDownTabBarItem:item];
 		}];
 
 		[self setValue:self.appTabBar forKeyPath:@"tabBar"];
@@ -177,7 +178,7 @@
 			touchItemVC = [((UINavigationController *)touchItemVC).viewControllers firstObject];
 		}
 		//忽略警告
-		WXUndeclaredSelectorLeakWarning(
+		ZXUndeclaredSelectorLeakWarning(
 			if ([touchItemVC respondsToSelector:@selector(repeatTouchTabBarToViewController:)]) {
 				[touchItemVC performSelector:@selector(repeatTouchTabBarToViewController:) withObject:touchItemVC];
 			}

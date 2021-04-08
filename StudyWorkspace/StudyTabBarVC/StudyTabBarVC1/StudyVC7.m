@@ -131,16 +131,16 @@
         
     } completion:^(BOOL finished) {
         
-        Weakify(self)
+        @weakify(self)
         [UIView animateWithDuration:3 animations:^{
-            Strongify(self)
+            @strongify(self)
             //self.imageView3.transform = CGAffineTransformMakeTranslation(0, 0);
             self.tempView.transform = CGAffineTransformMakeRotation(-M_PI * 2);
             rect.origin.x = 0;
             self.tempView.frame = rect;
             
         } completion:^(BOOL finished) {
-            Strongify(self)
+            @strongify(self)
             [self viewAnimation];
         }];
     }];

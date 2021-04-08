@@ -199,7 +199,7 @@ typedef void (^TouchedBlock)(UIButton *btn);
  */
 +(UITextField *)textfieldWithPlaceholder:(NSString *)placeholder
 {
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, Screen_Width*2/3, kDefaultCellHeight)];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth*2/3, kDefaultCellHeight)];
     textField.font = TextFieldFontSize;
     textField.textColor = Color_BlackFont;
     textField.returnKeyType = UIReturnKeyNext;

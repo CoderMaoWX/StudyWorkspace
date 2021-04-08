@@ -11,8 +11,8 @@
 
 #import "WXColorDefiner.h"
 #import "WXFrameDefiner.h"
-#import "WXPubilcKeyDefiner.h"
+#import "WXMacroDefiner.h"
 #import "WXPublicConst.h"
-#import "WXCFuntionTool.h"
+#import "ZXCFunctionTool.h"
 
 #endif /* WXPublicHeader_h */

@@ -28,6 +28,15 @@ UIImage* ZXImageBlurry(UIImage *originImage, CGFloat blurLevel);
 UIImage * ZXCreateImageWithColor(UIColor *color);
 
 
+#pragma mark -==================================多语言====================================
+
+/** 获取多语言 */
+NSString* WXLanguage(NSString *languageKey);
+
+/** 获取指定国家的多语言 */
+NSString* WXLanguageCountry(NSString *languageKey, NSString *countryCode);
+
+
 #pragma mark -==================================颜色====================================
 
 /** 获取白颜色 */
@@ -122,6 +131,29 @@ NSString* ZXToMD5String(NSString *originStr);
 ///时间戳变为格式时间
 NSString *ZXConvertTimeStamp(NSTimeInterval timeStamp, NSString *dateFormat);
 
+
+#pragma mark -==================================权限操作判断====================================
+
+/** 相机是否可用 (1.没申请过权限 2.已申请且已关闭) */
+BOOL isCanUseCamera(void);
+
+/** 是否已经申请过相机权限 */
+BOOL hasApplyCameraPermission(void);
+
+/** 主动申请相机权限 */
+void applyCameraPermission(void (^applyPermission)(BOOL));
+
+
+
+/** 麦克风是否可用 (1.没申请过权限 2.已申请且已关闭) */
+BOOL isCanUseMicrophone (void);
+
+/** 是否已经申请过麦克风权限 */
+BOOL hasApplyMicrophonePermission(void);
+
+/** 主动申请麦克风权限 */
+void applyMicrophonePermission(void (^applyPermission)(BOOL));
+
     
 #pragma mark -==================================系统弹框操作====================================
 /** 跳转到系统授权设置页面 */
@@ -147,7 +179,8 @@ NSString *ZXCodingString(NSString *originStr, BOOL reservedSymbol);
  */
 NSString *ZXDecodeString(NSString *originStr);
 
-#pragma mark -======== 播放系统声音 ========
+
+#pragma mark -==================================播放系统声音====================================
 
 /**
  * 播放系统声音: http://iphonedevwiki.net/index.php/AudioServices

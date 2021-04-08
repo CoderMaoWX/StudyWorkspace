@@ -20,11 +20,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window addSubview:self.plainTableView];
     [self.window insertSubview:self.plainTableView atIndex:0];
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [SlideAppTabBarVC new];
     [self.window makeKeyAndVisible];
+    
+    //查看一键切换启动图效果
+    sleep(2);
     
     return YES;
 }
@@ -69,7 +71,7 @@
     SlideAppTabBarVC *tabbarVC = (SlideAppTabBarVC *)self.window.rootViewController;
     UINavigationController *navVC = tabbarVC.selectedViewController;
     [tabbarVC showLeftView:NO];
-    navVC.hidesBottomBarWhenPushed = YES;
+    tmpVC.hidesBottomBarWhenPushed = YES;
     [navVC pushViewController:tmpVC animated:YES];
 }
 

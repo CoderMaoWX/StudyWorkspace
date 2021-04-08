@@ -38,7 +38,7 @@
     if (self.navigationController.viewControllers.count > 1) {
         id target = self.navigationController.interactivePopGestureRecognizer.delegate;
         //忽略警告
-        WXUndeclaredSelectorLeakWarning(
+        ZXUndeclaredSelectorLeakWarning(
           SEL selector = @selector(handleNavigationTransition:);
                                         
           if ([target respondsToSelector:selector]) { //需要滑动返回
@@ -70,30 +70,29 @@
 
 - (ConfigCellBlock)baseCellBlock {
     //__weak typeof(self) weakSelf = self;
-    return ^ (UITableViewCell *c, id rowData, NSIndexPath *indexPath) {
+    return ^ (UITableViewCell *c, NSDictionary *rowData, NSIndexPath *indexPath) {
         if (![rowData isKindOfClass:[NSDictionary class]]) return ;
-        NSDictionary *celLDic = rowData;
-        NSString *name = celLDic.allKeys[0];
+        NSString *name = rowData.allKeys.firstObject;
         WXStudyCell *cell = (WXStudyCell *)c;
         cell.titleLabel.text = name;
-        cell.subTitleLabel.text = celLDic[name];
+        cell.subTitleLabel.text = rowData[name];
     };
 }
 
 - (WXTableViewManager *)tableViewManager {
     if(!_tableViewManager){
         _tableViewManager = [WXTableViewManager createWithCellClass:[WXStudyCell class]];
-        
         _tableViewManager.cellForRowBlock = self.configCellBlock ?: self.baseCellBlock;
-        
         __weak typeof(self) weakSelf = self;
         [_tableViewManager setPlainTabDataArrBlcok:^NSArray * {
             return weakSelf.tableDataArr;
         }];
-        
         [_tableViewManager setDidSelectRowBlcok:^(NSDictionary *rowDataDic, NSIndexPath *indexPath) {
             [weakSelf didSelectedTableViewIndexPath:indexPath];
         }];
+        _tableViewManager.heightForRowBlcok = ^CGFloat(id rowData, NSIndexPath *indexPath) {
+            return 60;
+        };
     }
     return _tableViewManager;
 }

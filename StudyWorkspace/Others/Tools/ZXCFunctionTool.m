@@ -12,7 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <objc/message.h>
-#import "ZXPublicHeader.h"
+#import "WXPublicHeader.h"
 
 static NSString *kZXBundName = @"ZXOwner";
 
@@ -106,6 +106,30 @@ UIImage* ZXImageBlurry(UIImage *originImage, CGFloat blurLevel) {
     return blurImage;
 }
 
+#pragma mark -==================================多语言====================================
+
+/** 获取多语言 */
+NSString* WXLanguage(NSString *languageKey) {
+    NSBundle *bundle = ZXBundle() ?: [NSBundle mainBundle];
+    NSString *appLanguage = @"en";//[GlobalConfig sharedInstance].appLanguage;
+    if (ZXIsEmptyString(appLanguage)) {
+        appLanguage = @"en";
+    }
+    NSBundle *languageBundle = [NSBundle bundleWithPath:[bundle pathForResource:appLanguage ofType:@"lproj"]];
+    NSString *language = [languageBundle localizedStringForKey:ZXToString(languageKey) value:nil table:nil];
+    return [NSString stringWithFormat:@"%@",language];
+}
+
+/** 获取指定国家的多语言 */
+NSString* WXLanguageCountry(NSString *languageKey, NSString *countryCode) {
+    if (ZXIsEmptyString(countryCode)) {
+        return WXLanguage(languageKey);
+    }
+    NSBundle *bundle = ZXBundle() ?: [NSBundle mainBundle];
+    NSBundle *languageBundle = [NSBundle bundleWithPath:[bundle pathForResource:countryCode ofType:@"lproj"]];
+    NSString *language = [languageBundle localizedStringForKey:ZXToString(languageKey) value:nil table:nil];
+    return [NSString stringWithFormat:@"%@",language];
+}
 
 #pragma mark -==================================颜色====================================
 
@@ -499,6 +523,74 @@ NSString* ZXConvertTimeStamp(NSTimeInterval timeStamp, NSString *dateFormat) {
     return currentDateStr;
 }
 
+#pragma mark -==================================权限操作判断===================================
+
+
+/** 相机是否可用 (1.没申请过权限 2.已申请且已关闭) */
+BOOL isCanUseCamera(void) {
+    BOOL hasAuthorize = NO;
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusAuthorized) { //已授权
+        hasAuthorize = YES;
+    }
+    return hasAuthorize;
+}
+
+/** 麦克风是否可用 (1.没申请过权限 2.已申请且已关闭) */
+BOOL isCanUseMicrophone (void) {
+    BOOL hasAuthorize = NO;
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    if (authStatus == AVAuthorizationStatusAuthorized) { //已授权
+        hasAuthorize = YES;
+    }
+    return hasAuthorize;
+}
+
+/** 主动申请相机权限 */
+void applyCameraPermission(void (^applyPermission)(BOOL)) {
+    //如果是第一次申请,系统会弹框询问提示用户授权, 否则不会弹框
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (applyPermission) {
+                applyPermission(granted);
+            }
+        });
+    }];
+}
+
+/** 主动申请麦克风权限 */
+void applyMicrophonePermission(void (^applyPermission)(BOOL)) {
+    //如果是第一次申请,系统会弹框询问提示用户授权, 否则不会弹框
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (applyPermission) {
+                applyPermission(granted);
+            }
+        });
+    }];
+}
+
+/** 是否已经申请过相机权限 */
+BOOL hasApplyCameraPermission(void) {
+    BOOL hasApply = YES;
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusNotDetermined) { //没有询问是否开启麦克风
+        hasApply = NO;
+    }
+    return hasApply;
+}
+
+/** 是否已经申请过麦克风权限 */
+BOOL hasApplyMicrophonePermission(void) {
+    BOOL hasApply = YES;
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    if (authStatus == AVAuthorizationStatusNotDetermined) { //没有询问是否开启麦克风
+        hasApply = NO;
+    }
+    return hasApply;
+}
+
+
 #pragma mark -==================================系统弹框操作====================================
 
 /** 跳转到系统授权设置页面 */
@@ -507,7 +599,7 @@ void jumpApplicationOpenSetting(void) {
     if (@available(iOS 10.0, *)) {
         [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:^(BOOL success) {
             if (!success) {
-                ZXLog(@"打开设置页面失败,页面需要Toast提示");
+                WXLog(@"打开设置页面失败,页面需要Toast提示");
             }
         }];
     } else {
@@ -528,7 +620,7 @@ void openSystemPreferencesSetting(NSString *alerTitle) {
         if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:^(BOOL success) {
                 if (!success) {
-                    ZXLog(@"打开设置页面失败,页面需要Toast提示");
+                    WXLog(@"打开设置页面失败,页面需要Toast提示");
                 }
             }];
         } else {
@@ -539,8 +631,6 @@ void openSystemPreferencesSetting(NSString *alerTitle) {
     UIWindow* window = ZXFetchHUDSuperView(nil);
     [window.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
-
-
 
 /** 系统弹框 */
 void showAlertController(NSString *title, NSString *message,
@@ -625,7 +715,7 @@ NSString *ZXDecodeString(NSString *originStr) {
     return [originStr stringByRemovingPercentEncoding];
 }
 
-#pragma mark -======== 播放系统声音 ========
+#pragma mark -==================================播放系统声音====================================
 
 /**
  * http://iphonedevwiki.net/index.php/AudioServices
@@ -635,7 +725,7 @@ NSString *ZXDecodeString(NSString *originStr) {
  * 缺点:无法精准控制震动力度
  */
 - (void)playSystemSound:(SystemSoundID)soundID {
-    ZXLog(@"系统声音编号: %ld", (long)soundID);
+    WXLog(@"系统声音编号: %ld", (long)soundID);
     AudioServicesPlaySystemSound(soundID);
     
     // NSString *path = [[NSBundle mainBundle] pathForResource:@"glass" ofType:@"wav"];

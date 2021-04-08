@@ -603,7 +603,7 @@ static char const * const kDateTimeLabelKey = "kDateTimeLabelKey";
     if (!_scaleLabel) {
         _scaleLabel = [[UILabel alloc]init];
         _scaleLabel.textAlignment = 1;
-        _scaleLabel.font = FontSystemSize(11);
+        _scaleLabel.font = ZXFontSystem(14);
         _scaleLabel.backgroundColor = UIColorFromHex(0xfe9b00);
         _scaleLabel.textColor = WhiteColor;
         _scaleLabel.userInteractionEnabled = YES;
@@ -617,7 +617,7 @@ static char const * const kDateTimeLabelKey = "kDateTimeLabelKey";
         _dateTimeLabel = [[UILabel alloc]init];
         _dateTimeLabel.textAlignment = 1;
         _dateTimeLabel.userInteractionEnabled = YES;
-        _dateTimeLabel.font = FontSystemSize(11);
+        _dateTimeLabel.font = ZXFontSystem(11);
         _dateTimeLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _dateTimeLabel.textColor = Color_grayFont;
         [_dateTimeLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchTipView:)]];
