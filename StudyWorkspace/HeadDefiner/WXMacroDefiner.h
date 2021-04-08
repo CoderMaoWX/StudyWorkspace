@@ -1,9 +1,9 @@
 //
 //  WXMacroDefiner.h
-//  ZXOwner
+//  WX_Owner
 //Macro
 //  Created by Luke on 2020/8/17.
-//  Copyright © 2020 51zxwang. All rights reserved.
+//  Copyright © 2020 51WX_wang. All rights reserved.
 //
 
 #ifndef WXMacroDefiner_h
@@ -22,7 +22,7 @@
 
 #pragma mark -===========================其他相关宏=============================
 // 版本号
-#define ZXAppVersion                    [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define WX_AppVersion                    [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
 //获取 appdelegate
 #define APPDELEGATE                     (AppDelegate *)[[UIApplication sharedApplication] delegate]
@@ -32,14 +32,14 @@
 #ifdef DEBUG
     // 判断是真机还是模拟器
     #if TARGET_OS_IPHONE
-        //#define WXLog(fmt, ...) fprintf(stderr,"%s: %s [Line %d]\t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],__PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:fmt, ##__VA_ARGS__] UTF8String]);
-        #define WXLog(fmt, ...) fprintf(stderr,"%s: [Line %d] %s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:fmt, ##__VA_ARGS__] UTF8String]);
+        //#define WX_Log(fmt, ...) fprintf(stderr,"%s: %s [Line %d]\t%s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],__PRETTY_FUNCTION__, __LINE__, [[NSString stringWithFormat:fmt, ##__VA_ARGS__] UTF8String]);
+        #define WX_Log(fmt, ...) fprintf(stderr,"%s: [Line %d] %s\n",[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:fmt, ##__VA_ARGS__] UTF8String]);
 
     #elif TARGET_IPHONE_SIMULATOR
-        #define ZXLog(arg,...) //NSLog(@"%s " arg ,__PRETTY_FUNCTION__, ##__VA_ARGS__)
+        #define WX_Log(arg,...) //NSLog(@"%s " arg ,__PRETTY_FUNCTION__, ##__VA_ARGS__)
     #endif
 #else
-    #define WXLog(...)
+    #define WX_Log(...)
     #define NSLog(format,...)
 #endif
 
@@ -80,7 +80,7 @@
 
 #pragma mark -==================================忽略警告====================================
 //-忽略警告的宏-
-#define ZXPerformSelectorLeakWarning(Stuff) \
+#define WX_PerformSelectorLeakWarning(Stuff) \
 do { \
     _Pragma("clang diagnostic push") \
     _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
@@ -91,7 +91,7 @@ do { \
 
 
 //-忽略警告的宏- eg: [obj respondsToSelector:@(xxx)]
-#define ZXUndeclaredSelectorLeakWarning(Stuff) \
+#define WX_UndeclaredSelectorLeakWarning(Stuff) \
 do { \
     _Pragma("clang diagnostic push") \
     _Pragma("clang diagnostic ignored \"-Wundeclared-selector\"") \
@@ -105,31 +105,31 @@ do { \
 #define isNull(obj)         (((NSNull *)obj == [NSNull null])?YES:NO)
 
 /** 保存数据到偏好设置 */
-#define ZXSaveUserDefault(key,Obj) \
+#define WX_SaveUserDefault(key,Obj) \
 ({  if (!isNull(key) && key != nil) { \
     [[NSUserDefaults standardUserDefaults] setObject:Obj forKey:key]; \
     [[NSUserDefaults standardUserDefaults] synchronize]; } \
 })
 /** 获取偏好设置数据 */
-#define ZXGetUserDefault(key)  key!=nil ? [[NSUserDefaults standardUserDefaults] objectForKey:key] : nil
+#define WX_GetUserDefault(key)  key!=nil ? [[NSUserDefaults standardUserDefaults] objectForKey:key] : nil
 
 
 
 #pragma mark -==================================通知相关====================================
 //注册通知
-#define ZXObserveNotification(notifyObserver, notifySelector, notifyName, notifyObject) \
+#define WX_ObserveNotification(notifyObserver, notifySelector, notifyName, notifyObject) \
 [[NSNotificationCenter defaultCenter] addObserver:notifyObserver selector:notifySelector name:notifyName object:notifyObject]
 
 /** 移除通知 */
-#define ZXRemoveNotification(notifyObserver, notifyName, notifyObject) \
+#define WX_RemoveNotification(notifyObserver, notifyName, notifyObject) \
 [[NSNotificationCenter defaultCenter] removeObserver:notifyObserver name:notifyName object:notifyObject]
 
 /** 移除通知 */
-#define ZXRemoveAllNotification(observer) \
+#define WX_RemoveAllNotification(observer) \
 [[NSNotificationCenter defaultCenter] removeObserver:observer]
 
 /** 发送通知 */
-#define ZXPostNotification(name, postObject) \
+#define WX_PostNotification(name, postObject) \
 [[NSNotificationCenter defaultCenter] postNotificationName:name object:postObject]
 
 

@@ -13,6 +13,6 @@
 #import "WXFrameDefiner.h"
 #import "WXMacroDefiner.h"
 #import "WXPublicConst.h"
-#import "ZXCFunctionTool.h"
+#import "WXCFunctionTool.h"
 
 #endif /* WXPublicHeader_h */

@@ -9,11 +9,9 @@
 #import "WXStudyTabBarVC2.h"
 #import "UITabBarController+WXConvertSkin.h"
 #import "UIView+WXExtension.h"
-#import "WXPublicHeader.h"
 #import "SlideAppTabBarVC.h"
 #import "UITabBar+BadgeView.h"
 #import "WXFileManager.h"
-#import "WXPublicHeader.h"
 
 @interface WXStudyTabBarVC2 ()<UIGestureRecognizerDelegate>
 /** tabBar图标缓存 */
@@ -53,7 +51,7 @@
     } else {
         [button setTitle:@"切换新主题" forState:UIControlStateSelected];
 
-        NSArray *imageArr = @[ZXImageName(@"tabbar_home_n"),ZXImageName(@"tabbar_property_n"),ZXImageName(@"tabbar_my_n")];
+        NSArray *imageArr = @[WX_ImageName(@"tabbar_home_n"),WX_ImageName(@"tabbar_property_n"),WX_ImageName(@"tabbar_my_n")];
         NSLog(@"更换默认主题===%@",imageArr);
         [(SlideAppTabBarVC *)self.tabBarController changeTabBarTheme:imageArr newTheme:NO];
     }

@@ -64,7 +64,7 @@
 		58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51E624E677C900F71C56 /* WXStudyCell.m */; };
 		58DB51E924E677C900F71C56 /* WXStudyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58DB51E724E677C900F71C56 /* WXStudyCell.xib */; };
 		58DB51EC24E6791A00F71C56 /* WXDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51EB24E6791A00F71C56 /* WXDataModel.m */; };
-		58EB3A6E261EE66100397F49 /* ZXCFunctionTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A6D261EE66100397F49 /* ZXCFunctionTool.m */; };
+		58EB3A6E261EE66100397F49 /* WXCFunctionTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A6D261EE66100397F49 /* WXCFunctionTool.m */; };
 		58FBED5E24E68802003F7FE6 /* SkinZipURL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 58FBED5D24E68802003F7FE6 /* SkinZipURL.txt */; };
 		58FBED6624E68C2B003F7FE6 /* StudyVC1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58FBED6524E68C2B003F7FE6 /* StudyVC1.xib */; };
 		58FBED7024E6B8C8003F7FE6 /* StudyVC4.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FBED6F24E6B8C8003F7FE6 /* StudyVC4.m */; };
@@ -176,8 +176,8 @@
 		58DB51E724E677C900F71C56 /* WXStudyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WXStudyCell.xib; sourceTree = "<group>"; };
 		58DB51EA24E6791A00F71C56 /* WXDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXDataModel.h; sourceTree = "<group>"; };
 		58DB51EB24E6791A00F71C56 /* WXDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXDataModel.m; sourceTree = "<group>"; };
-		58EB3A6C261EE66100397F49 /* ZXCFunctionTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXCFunctionTool.h; sourceTree = "<group>"; };
-		58EB3A6D261EE66100397F49 /* ZXCFunctionTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXCFunctionTool.m; sourceTree = "<group>"; };
+		58EB3A6C261EE66100397F49 /* WXCFunctionTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXCFunctionTool.h; sourceTree = "<group>"; };
+		58EB3A6D261EE66100397F49 /* WXCFunctionTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXCFunctionTool.m; sourceTree = "<group>"; };
 		58EB3A70261EE6EC00397F49 /* WXMacroDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXMacroDefiner.h; sourceTree = "<group>"; };
 		58FBED5D24E68802003F7FE6 /* SkinZipURL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SkinZipURL.txt; sourceTree = "<group>"; };
 		58FBED6524E68C2B003F7FE6 /* StudyVC1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudyVC1.xib; sourceTree = "<group>"; };
@@ -244,8 +244,8 @@
 				58DB51DF24E6749800F71C56 /* WXTableViewManager.m */,
 				5811051824EB6F6D006EB5FA /* CHTCollectionViewWaterfallLayout.h */,
 				5811051924EB6F6D006EB5FA /* CHTCollectionViewWaterfallLayout.m */,
-				58EB3A6C261EE66100397F49 /* ZXCFunctionTool.h */,
-				58EB3A6D261EE66100397F49 /* ZXCFunctionTool.m */,
+				58EB3A6C261EE66100397F49 /* WXCFunctionTool.h */,
+				58EB3A6D261EE66100397F49 /* WXCFunctionTool.m */,
 				5811052324EB71DD006EB5FA /* NSObjectSafe.h */,
 				5811052224EB71DD006EB5FA /* NSObjectSafe.m */,
 			);
@@ -382,9 +382,9 @@
 			children = (
 				5893D0EA24EA5A0C0005E1AF /* WXPublicHeader.h */,
 				58EB3A70261EE6EC00397F49 /* WXMacroDefiner.h */,
+				5893D0E824EA5A0C0005E1AF /* WXPublicConst.h */,
 				5893D0EC24EA5A0C0005E1AF /* WXColorDefiner.h */,
 				5893D0ED24EA5A0C0005E1AF /* WXFrameDefiner.h */,
-				5893D0E824EA5A0C0005E1AF /* WXPublicConst.h */,
 			);
 			path = HeadDefiner;
 			sourceTree = "<group>";
@@ -596,7 +596,7 @@
 				5893D0CC24EA55CF0005E1AF /* StudyVC12.m in Sources */,
 				58DB51E024E6749800F71C56 /* WXTableViewManager.m in Sources */,
 				5893D0E224EA55DA0005E1AF /* DrawPathView.m in Sources */,
-				58EB3A6E261EE66100397F49 /* ZXCFunctionTool.m in Sources */,
+				58EB3A6E261EE66100397F49 /* WXCFunctionTool.m in Sources */,
 				5893D21E24EA69700005E1AF /* WXTabBarSkinModel.m in Sources */,
 				5811051224EB6BAC006EB5FA /* UITextField+Extension.m in Sources */,
 				5893D21B24EA68AE0005E1AF /* WXTabBarInfoModel.m in Sources */,

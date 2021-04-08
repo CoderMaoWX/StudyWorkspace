@@ -1,12 +1,12 @@
 //
-//  ZXCFunctionTool.m
+//  WXCFunctionTool.m
 //  ZXOwner
 //
 //  Created by Luke on 2020/8/17.
 //  Copyright © 2020 51zxwang. All rights reserved.
 //
 
-#import "ZXCFunctionTool.h"
+#import "WXCFunctionTool.h"
 #import <AVFoundation/AVCaptureDevice.h>
 #import <AVFoundation/AVMediaFormat.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -14,37 +14,37 @@
 #import <objc/message.h>
 #import "WXPublicHeader.h"
 
-static NSString *kZXBundName = @"ZXOwner";
+static NSString *kWXBundName = @"WXCFunctionTool";
 
-static NSInteger kZXToastShowTime = 1.5;
-static NSInteger kZXLoadingHUDTag = 7987;
-static NSInteger kZXToastHUDTag   = 9748;
+static NSInteger kWXToastShowTime = 1.5;
+static NSInteger kWXLoadingHUDTag = 7987;
+static NSInteger kWXToastHUDTag   = 9748;
 
 
-@implementation ZXCFunctionTool
+@implementation WXCFunctionTool
 
 /** 获取直播SDK Bundle */
-NSBundle* ZXBundle(void) {
-    NSBundle *bundle = [NSBundle bundleForClass:[ZXCFunctionTool class]];
-    NSURL *bundleURL = [bundle URLForResource:kZXBundName withExtension:@"bundle"];
+NSBundle *WX_Bundle(void) {
+    NSBundle *bundle = [NSBundle bundleForClass:[WXCFunctionTool class]];
+    NSURL *bundleURL = [bundle URLForResource:kWXBundName withExtension:@"bundle"];
     if (!bundleURL) {
-        bundleURL = [[NSBundle mainBundle] URLForResource:kZXBundName withExtension:@"bundle"];
+        bundleURL = [[NSBundle mainBundle] URLForResource:kWXBundName withExtension:@"bundle"];
     }
     return bundleURL ? [NSBundle bundleWithURL:bundleURL] : [NSBundle mainBundle];
 }
 
 /** 获取直播SDK版本 */
-NSString* ZXBundleVersion(void) {
-    NSURL *url = [ZXBundle() resourceURL];
+NSString *WX_BundleVersion(void) {
+    NSURL *url = [WX_Bundle() resourceURL];
     NSBundle *bundle = url ? [NSBundle bundleWithURL:url] : [NSBundle mainBundle];
-    NSString *path = [bundle pathForResource:kZXBundName ofType:@"plist"];
+    NSString *path = [bundle pathForResource:kWXBundName ofType:@"plist"];
     NSMutableDictionary *infoDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
     return [infoDict objectForKey:@"CFBundleShortVersionString"];
 }
 
 /** 统一获取图片方法 */
-UIImage* ZXImageName(NSString *imageName) {
-    NSURL *url = [ZXBundle() resourceURL];
+UIImage *WX_ImageName(NSString *imageName) {
+    NSURL *url = [WX_Bundle() resourceURL];
     NSBundle *imageBundle = [NSBundle bundleWithURL:url];
     if (!imageBundle) {
         imageBundle = [NSBundle mainBundle];
@@ -60,7 +60,7 @@ UIImage* ZXImageName(NSString *imageName) {
 }
 
 /** 根据颜色绘制图片 */
-UIImage * ZXCreateImageWithColor(UIColor *color) {
+UIImage *WX_CreateImageWithColor(UIColor *color) {
     CGRect rect = CGRectMake(0.0f, 0.0f, 20.0f, 2.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -72,7 +72,7 @@ UIImage * ZXCreateImageWithColor(UIColor *color) {
 }
 
 /** 给图片设置颜色 */
-UIImage* ZXConvertImageColor(UIImage *image, UIColor *color) {
+UIImage *WX_ConvertImageColor(UIImage *image, UIColor *color) {
     if (![color isKindOfClass:[UIColor class]]) {
         return image;
     }
@@ -91,7 +91,7 @@ UIImage* ZXConvertImageColor(UIImage *image, UIColor *color) {
 }
 
 /// 高斯模糊图片
-UIImage* ZXImageBlurry(UIImage *originImage, CGFloat blurLevel) {
+UIImage *WX_ImageBlurry(UIImage *originImage, CGFloat blurLevel) {
     if (![originImage isKindOfClass:[UIImage class]]) return nil;
     
     CIContext *context = [CIContext contextWithOptions:nil];
@@ -109,57 +109,57 @@ UIImage* ZXImageBlurry(UIImage *originImage, CGFloat blurLevel) {
 #pragma mark -==================================多语言====================================
 
 /** 获取多语言 */
-NSString* WXLanguage(NSString *languageKey) {
-    NSBundle *bundle = ZXBundle() ?: [NSBundle mainBundle];
+NSString *WX_Language(NSString *languageKey) {
+    NSBundle *bundle = WX_Bundle() ?: [NSBundle mainBundle];
     NSString *appLanguage = @"en";//[GlobalConfig sharedInstance].appLanguage;
-    if (ZXIsEmptyString(appLanguage)) {
+    if (WX_IsEmptyString(appLanguage)) {
         appLanguage = @"en";
     }
     NSBundle *languageBundle = [NSBundle bundleWithPath:[bundle pathForResource:appLanguage ofType:@"lproj"]];
-    NSString *language = [languageBundle localizedStringForKey:ZXToString(languageKey) value:nil table:nil];
+    NSString *language = [languageBundle localizedStringForKey:WX_ToString(languageKey) value:nil table:nil];
     return [NSString stringWithFormat:@"%@",language];
 }
 
 /** 获取指定国家的多语言 */
-NSString* WXLanguageCountry(NSString *languageKey, NSString *countryCode) {
-    if (ZXIsEmptyString(countryCode)) {
-        return WXLanguage(languageKey);
+NSString *WX_LanguageCountry(NSString *languageKey, NSString *countryCode) {
+    if (WX_IsEmptyString(countryCode)) {
+        return WX_Language(languageKey);
     }
-    NSBundle *bundle = ZXBundle() ?: [NSBundle mainBundle];
+    NSBundle *bundle = WX_Bundle() ?: [NSBundle mainBundle];
     NSBundle *languageBundle = [NSBundle bundleWithPath:[bundle pathForResource:countryCode ofType:@"lproj"]];
-    NSString *language = [languageBundle localizedStringForKey:ZXToString(languageKey) value:nil table:nil];
+    NSString *language = [languageBundle localizedStringForKey:WX_ToString(languageKey) value:nil table:nil];
     return [NSString stringWithFormat:@"%@",language];
 }
 
 #pragma mark -==================================颜色====================================
 
 /** 获取白颜色 */
-UIColor* ZXColorWhite(void) {
+UIColor *WX_ColorWhite(void) {
     return [UIColor whiteColor];
 }
 
 /** 线条颜色 */
-UIColor* ZXColorLineColor(void) {
-    return ZXColorHex(0xDDDDDD);
+UIColor *WX_ColorLineColor(void) {
+    return WX_ColorHex(0xDDDDDD);
 }
 
 /** 黑色字体颜色 */
-UIColor* ZXColorBlackTextColor(void) {
-    return ZXColorHex(0x4A4A4A);
+UIColor *WX_ColorBlackTextColor(void) {
+    return WX_ColorHex(0x4A4A4A);
 }
 
 /** App主色: 黄色 */
-UIColor* ZXColorMainColor(void) {
-    return ZXColorHex(0xF29448);
+UIColor *WX_ColorMainColor(void) {
+    return WX_ColorHex(0xF29448);
 }
 
 /** 获取RGB颜色 */
-UIColor* ZXColorRGB(NSInteger R, NSInteger G, NSInteger B, CGFloat a) {
+UIColor *WX_ColorRGB(NSInteger R, NSInteger G, NSInteger B, CGFloat a) {
     return [UIColor colorWithRed:(R)/255.0 green:(G)/255.0 blue:(B)/255.0 alpha:a];
 }
 
 /** 获取十六进制颜色 */
-UIColor* ZXColorHex(NSInteger hexValue) {
+UIColor *WX_ColorHex(NSInteger hexValue) {
     return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:1];
 }
 /** 获取十六进制颜色, a:透明度 */
@@ -168,7 +168,7 @@ UIColor* ZXColorHex_a(NSInteger hexValue, CGFloat a) {
 }
 
 /** 获取随机颜色 */
-UIColor* ZXColorRandom(void) {
+UIColor *WX_ColorRandom(void) {
     CGFloat hue = ( arc4random() % 256 / 256.0 ); //0.0 to 1.0
     CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5; // 0.5 to 1.0,away from white
     CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5; //0.5 to 1.0,away from black
@@ -176,8 +176,8 @@ UIColor* ZXColorRandom(void) {
 }
 
 /** 十六进制的颜色（以#/0X开头）转换为UIColor */
-UIColor* colorWithHexString(NSString *colorString) {
-    if (!ZXJudgeNSString(colorString)) return nil;
+UIColor *WX_ColorWithHexString(NSString *colorString) {
+    if (!WX_JudgeNSString(colorString)) return nil;
     
     NSString *cString = [[colorString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
@@ -221,22 +221,22 @@ UIColor* colorWithHexString(NSString *colorString) {
 #pragma mark -==================================字体操作===================================
 
 /** 获取系统粗体字 */
-UIFont* ZXFontSystem(CGFloat size) {
+UIFont *WX_FontSystem(CGFloat size) {
     return [UIFont systemFontOfSize:size];
 }
 
 /** 获取系统粗体字 */
-UIFont* ZXFontBold(CGFloat size) {
+UIFont *WX_FontBold(CGFloat size) {
     return [UIFont boldSystemFontOfSize:size];
 }
 
 /** 获取系统自定义字体 */
-UIFont* ZXFontCustom(NSString *fontName, CGFloat size) {
+UIFont *WX_FontCustom(NSString *fontName, CGFloat size) {
     return [UIFont fontWithName:fontName size:size];
 }
 
 /** 数字等宽字体 (eg: 倒计时数字不抖动) */
-UIFont* ZXFontMonospacedDigit(CGFloat size) {
+UIFont *WX_FontMonospacedDigit(CGFloat size) {
     return [UIFont monospacedDigitSystemFontOfSize:size weight:UIFontWeightRegular];
 }
 
@@ -244,8 +244,8 @@ UIFont* ZXFontMonospacedDigit(CGFloat size) {
 #pragma mark -==================================HUD====================================
 
 /** 获取弹框window */
-UIWindow* ZXFetchHUDSuperView(id parmaters) {
-    if (ZXJudgeNSDictionary(parmaters)) {
+UIWindow *WX_FetchHUDSuperView(id parmaters) {
+    if (WX_JudgeNSDictionary(parmaters)) {
         if ([parmaters[kLoadingView] isKindOfClass:[UIView class]]) {
             return parmaters[kLoadingView];
         }
@@ -264,20 +264,20 @@ UIWindow* ZXFetchHUDSuperView(id parmaters) {
 }
 
 /** 显示loading框现在window上禁止交互 */
-void ZXShowLoadingToView(id parmaters) {
-    UIView *loadingSuperView = ZXFetchHUDSuperView(parmaters);
+void WX_ShowLoadingToView(id parmaters) {
+    UIView *loadingSuperView = WX_FetchHUDSuperView(parmaters);
     if (![loadingSuperView isKindOfClass:[UIView class]]) return;
 
-    ZXHideLoadingFromView(parmaters);
+    WX_HideLoadingFromView(parmaters);
     
-    UIView *oldToastView = [loadingSuperView viewWithTag:kZXToastHUDTag];
+    UIView *oldToastView = [loadingSuperView viewWithTag:kWXToastHUDTag];
     if (oldToastView) {
         [oldToastView removeFromSuperview];
     }
     
     UIView *maskBgView = [[UIView alloc] initWithFrame:loadingSuperView.bounds];
     maskBgView.backgroundColor = [UIColor clearColor];
-    maskBgView.tag = kZXLoadingHUDTag;
+    maskBgView.tag = kWXLoadingHUDTag;
     [loadingSuperView addSubview:maskBgView];
     
     CGFloat HUDSize = 72;
@@ -289,38 +289,38 @@ void ZXShowLoadingToView(id parmaters) {
     indicatorBg.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
     [maskBgView addSubview:indicatorBg];
     
-    UIActivityIndicatorView *loadingView = ZXFetchIndicatorView(UIActivityIndicatorViewStyleWhiteLarge, [UIColor grayColor]);
+    UIActivityIndicatorView *loadingView = WX_FetchIndicatorView(UIActivityIndicatorViewStyleWhiteLarge, [UIColor grayColor]);
     loadingView.center = CGPointMake(HUDSize/2, HUDSize/2);
     [indicatorBg addSubview:loadingView];
 }
 
 /** 隐藏window上的loading框 */
-void ZXHideLoadingFromView(id parmaters) {
-    UIWindow *loadingSuperView = ZXFetchHUDSuperView(parmaters);
+void WX_HideLoadingFromView(id parmaters) {
+    UIWindow *loadingSuperView = WX_FetchHUDSuperView(parmaters);
     if (![loadingSuperView isKindOfClass:[UIView class]]) return;
     for (UIView *tempLoadingView in loadingSuperView.subviews) {
-        if (tempLoadingView.tag == kZXLoadingHUDTag) {
+        if (tempLoadingView.tag == kWXLoadingHUDTag) {
             [tempLoadingView removeFromSuperview];
         }
     }
 }
 
 /** 显示纯文本Toast展示 */
-void ZXShowToastWithText(id parmaters, NSString *message) {
-    if (ZXIsEmptyString(message)) return;
+void WX_ShowToastWithText(id parmaters, NSString *message) {
+    if (WX_IsEmptyString(message)) return;
     
-    UIWindow *loadingSuperView = ZXFetchHUDSuperView(parmaters);
-    ZXHideLoadingFromView(parmaters);
+    UIWindow *loadingSuperView = WX_FetchHUDSuperView(parmaters);
+    WX_HideLoadingFromView(parmaters);
     
-    UIView *oldToastView = [loadingSuperView viewWithTag:kZXToastHUDTag];
+    UIView *oldToastView = [loadingSuperView viewWithTag:kWXToastHUDTag];
     if (oldToastView) {
         [oldToastView removeFromSuperview];
     }
     
     //黑色半透明View
     UIView *blackView = [[UIView alloc] initWithFrame:CGRectZero];
-    blackView.tag = kZXToastHUDTag;
-    blackView.backgroundColor = ZXColorRGB(51, 51, 51, 0.9);
+    blackView.tag = kWXToastHUDTag;
+    blackView.backgroundColor = WX_ColorRGB(51, 51, 51, 0.9);
     blackView.layer.cornerRadius = 4;
     blackView.layer.masksToBounds = YES;
     [loadingSuperView addSubview:blackView];
@@ -333,7 +333,7 @@ void ZXShowToastWithText(id parmaters, NSString *message) {
     UILabel *messageLabel = [[UILabel alloc] init];
     messageLabel.frame = CGRectMake(0, 0, maxTextWidth, 0);
     messageLabel.textColor = [UIColor whiteColor];
-    messageLabel.font = ZXFontSystem(14.0);
+    messageLabel.font = WX_FontSystem(14.0);
     messageLabel.textAlignment = NSTextAlignmentCenter;
     messageLabel.preferredMaxLayoutWidth = maxTextWidth;
     messageLabel.numberOfLines = 0;
@@ -350,8 +350,8 @@ void ZXShowToastWithText(id parmaters, NSString *message) {
     
     NSInteger messageLength = message.length;
     CGFloat time = messageLength / 6;
-    if (time < kZXToastShowTime) {
-        time = kZXToastShowTime;
+    if (time < kWXToastShowTime) {
+        time = kWXToastShowTime;
     }
     if (time > 5) {
         time = 5;
@@ -364,9 +364,9 @@ void ZXShowToastWithText(id parmaters, NSString *message) {
 }
 
 /** 系统菊花转圈 */
-UIActivityIndicatorView * ZXFetchIndicatorView(UIActivityIndicatorViewStyle style, UIColor *color) {
+UIActivityIndicatorView *WX_FetchIndicatorView(UIActivityIndicatorViewStyle style, UIColor *color) {
     UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
-    indicatorView.color = ZXColorWhite();
+    indicatorView.color = WX_ColorWhite();
     indicatorView.hidesWhenStopped = YES;
     [indicatorView startAnimating];
     if ([color isKindOfClass:[UIColor class]]) {
@@ -380,7 +380,7 @@ UIActivityIndicatorView * ZXFetchIndicatorView(UIActivityIndicatorViewStyle styl
 /**
  * 判断是否为NSString
  */
-BOOL ZXJudgeNSString(id obj) {
+BOOL WX_JudgeNSString(id obj) {
     if ([obj isKindOfClass:[NSString class]]) {
         return YES;
     }
@@ -390,7 +390,7 @@ BOOL ZXJudgeNSString(id obj) {
 /**
  * 判断是否为NSDictionary
  */
-BOOL ZXJudgeNSDictionary(id obj) {
+BOOL WX_JudgeNSDictionary(id obj) {
     if ([obj isKindOfClass:[NSDictionary class]]) {
         return YES;
     }
@@ -400,7 +400,7 @@ BOOL ZXJudgeNSDictionary(id obj) {
 /**
  * 判断是否为NSArray
  */
-BOOL ZXJudgeNSArray(id obj) {
+BOOL WX_JudgeNSArray(id obj) {
     if ([obj isKindOfClass:[NSArray class]]) {
         return YES;
     }
@@ -410,7 +410,7 @@ BOOL ZXJudgeNSArray(id obj) {
 /**
  * 判断字符串是否为空
  */
-BOOL ZXIsEmptyString(id obj) {
+BOOL WX_IsEmptyString(id obj) {
     if (![obj isKindOfClass:[NSString class]]) {
         return YES;
     }
@@ -436,13 +436,13 @@ BOOL ZXIsEmptyString(id obj) {
  *  转化为NSString来返回，如果为数组或字典转为String返回, 其他对象则返回@""
  *  适用于取一个值后赋值给文本显示时用
  */
-NSString* ZXToString(id obj) {
+NSString *WX_ToString(id obj) {
     if (!obj) return @"";
     
-    if (ZXJudgeNSString(obj)) {
+    if (WX_JudgeNSString(obj)) {
         return obj;
     }
-    if (ZXJudgeNSDictionary(obj) || ZXJudgeNSArray(obj)) {
+    if (WX_JudgeNSDictionary(obj) || WX_JudgeNSArray(obj)) {
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj
                                                            options:0
                                                              error:nil];
@@ -464,7 +464,7 @@ NSString* ZXToString(id obj) {
 /**
  *  格式化字符串
  */
-NSString* ZXFormatString(NSString *format, ...) {
+NSString *WX_FormatString(NSString *format, ...) {
     if (![format isKindOfClass:[NSString class]]) return @"";
     
     va_list argList;
@@ -475,9 +475,9 @@ NSString* ZXFormatString(NSString *format, ...) {
 }
 
 ///转换为字典
-NSDictionary* ZXToDictiontry(id objc) {
+NSDictionary *WX_ToDictiontry(id objc) {
     NSData *data = objc;
-    if (ZXJudgeNSString(objc)) {
+    if (WX_JudgeNSString(objc)) {
         data = [objc dataUsingEncoding:NSUTF8StringEncoding];
     }
     if (![data isKindOfClass:[NSData class]]) return nil;
@@ -488,15 +488,15 @@ NSDictionary* ZXToDictiontry(id objc) {
 }
 
 ///字典转换为字符串
-NSString* ZXDictionaryToJson(NSDictionary *dic) {
-    if (!ZXJudgeNSDictionary(dic)) return nil;
+NSString *WX_DictionaryToJson(NSDictionary *dic) {
+    if (!WX_JudgeNSDictionary(dic)) return nil;
     NSError *parseError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:&parseError];
     return parseError ? nil : [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
 /// 转成MD5字符串
-NSString* ZXToMD5String(NSString *string) {
+NSString *WX_ToMD5String(NSString *string) {
     if (!string) return nil;
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
     unsigned char result[CC_MD5_DIGEST_LENGTH];
@@ -511,14 +511,14 @@ NSString* ZXToMD5String(NSString *string) {
 }
 
 ///时间戳变为格式时间
-NSString* ZXConvertTimeStamp(NSTimeInterval timeStamp, NSString *dateFormat) {
+NSString *WX_ConvertTimeStamp(NSTimeInterval timeStamp, NSString *dateFormat) {
     if (timeStamp == 0) { //不存在用当前的时间戳
         NSDate *dat = [NSDate dateWithTimeIntervalSinceNow:0];
         timeStamp = [dat timeIntervalSince1970] * 1000;
     }
     NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:timeStamp];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:ZXToString(dateFormat)];
+    [formatter setDateFormat:WX_ToString(dateFormat)];
     NSString *currentDateStr = [formatter stringFromDate:date];
     return currentDateStr;
 }
@@ -527,7 +527,7 @@ NSString* ZXConvertTimeStamp(NSTimeInterval timeStamp, NSString *dateFormat) {
 
 
 /** 相机是否可用 (1.没申请过权限 2.已申请且已关闭) */
-BOOL isCanUseCamera(void) {
+BOOL WX_isCanUseCamera(void) {
     BOOL hasAuthorize = NO;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (authStatus == AVAuthorizationStatusAuthorized) { //已授权
@@ -537,7 +537,7 @@ BOOL isCanUseCamera(void) {
 }
 
 /** 麦克风是否可用 (1.没申请过权限 2.已申请且已关闭) */
-BOOL isCanUseMicrophone (void) {
+BOOL WX_isCanUseMicrophone (void) {
     BOOL hasAuthorize = NO;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     if (authStatus == AVAuthorizationStatusAuthorized) { //已授权
@@ -547,7 +547,7 @@ BOOL isCanUseMicrophone (void) {
 }
 
 /** 主动申请相机权限 */
-void applyCameraPermission(void (^applyPermission)(BOOL)) {
+void WX_applyCameraPermission(void (^applyPermission)(BOOL)) {
     //如果是第一次申请,系统会弹框询问提示用户授权, 否则不会弹框
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -559,7 +559,7 @@ void applyCameraPermission(void (^applyPermission)(BOOL)) {
 }
 
 /** 主动申请麦克风权限 */
-void applyMicrophonePermission(void (^applyPermission)(BOOL)) {
+void WX_applyMicrophonePermission(void (^applyPermission)(BOOL)) {
     //如果是第一次申请,系统会弹框询问提示用户授权, 否则不会弹框
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -571,7 +571,7 @@ void applyMicrophonePermission(void (^applyPermission)(BOOL)) {
 }
 
 /** 是否已经申请过相机权限 */
-BOOL hasApplyCameraPermission(void) {
+BOOL WX_hasApplyCameraPermission(void) {
     BOOL hasApply = YES;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (authStatus == AVAuthorizationStatusNotDetermined) { //没有询问是否开启麦克风
@@ -581,7 +581,7 @@ BOOL hasApplyCameraPermission(void) {
 }
 
 /** 是否已经申请过麦克风权限 */
-BOOL hasApplyMicrophonePermission(void) {
+BOOL WX_hasApplyMicrophonePermission(void) {
     BOOL hasApply = YES;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     if (authStatus == AVAuthorizationStatusNotDetermined) { //没有询问是否开启麦克风
@@ -594,12 +594,12 @@ BOOL hasApplyMicrophonePermission(void) {
 #pragma mark -==================================系统弹框操作====================================
 
 /** 跳转到系统授权设置页面 */
-void jumpApplicationOpenSetting(void) {
+void WX_jumpApplicationOpenSetting(void) {
     NSURL *URL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
     if (@available(iOS 10.0, *)) {
         [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:^(BOOL success) {
             if (!success) {
-                WXLog(@"打开设置页面失败,页面需要Toast提示");
+                WX_Log(@"打开设置页面失败,页面需要Toast提示");
             }
         }];
     } else {
@@ -608,19 +608,19 @@ void jumpApplicationOpenSetting(void) {
 }
 
 /** 跳转到系统设置授权 */
-void openSystemPreferencesSetting(NSString *alerTitle) {
+void WX_openSystemPreferencesSetting(NSString *alerTitle) {
     UIAlertController *alertController = [UIAlertController
-             alertControllerWithTitle:ZXToString(alerTitle)
-                              message:ZXToString(@"跳转到系统设置授权")
+             alertControllerWithTitle:WX_ToString(alerTitle)
+                              message:WX_ToString(@"跳转到系统设置授权")
                        preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *settingAction = [UIAlertAction actionWithTitle:ZXToString(@"去授权") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
+    UIAlertAction *settingAction = [UIAlertAction actionWithTitle:WX_ToString(@"去授权") style:UIAlertActionStyleDefault handler:^(UIAlertAction * action)
     {
         NSURL *URL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
         if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:^(BOOL success) {
                 if (!success) {
-                    WXLog(@"打开设置页面失败,页面需要Toast提示");
+                    WX_Log(@"打开设置页面失败,页面需要Toast提示");
                 }
             }];
         } else {
@@ -628,12 +628,12 @@ void openSystemPreferencesSetting(NSString *alerTitle) {
         }
     }];
     [alertController addAction:settingAction];
-    UIWindow* window = ZXFetchHUDSuperView(nil);
+    UIWindow* window = WX_FetchHUDSuperView(nil);
     [window.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
 /** 系统弹框 */
-void showAlertController(NSString *title, NSString *message,
+void WX_showAlertController(NSString *title, NSString *message,
                          NSString *otherTitle, void(^otherBtnBlock)(void),
                          NSString *cancelTitle, void(^cancelBtnBlock)(void))
 {
@@ -651,7 +651,7 @@ void showAlertController(NSString *title, NSString *message,
             }
         }];
         if (checkObjectHasVarName([UIAlertAction class], colorKey)) {
-            [cancelAction setValue:ZXColorHex(0x2D2D2D) forKey:colorKey];
+            [cancelAction setValue:WX_ColorHex(0x2D2D2D) forKey:colorKey];
         }
         [alertController addAction:cancelAction];
     }
@@ -662,11 +662,11 @@ void showAlertController(NSString *title, NSString *message,
             }
         }];
         if (checkObjectHasVarName([UIAlertAction class], colorKey)) {
-            [otherAction setValue:ZXColorMainColor() forKey:colorKey];
+            [otherAction setValue:WX_ColorMainColor() forKey:colorKey];
         }
         [alertController addAction:otherAction];
     }
-    UIWindow* window = ZXFetchHUDSuperView(nil);
+    UIWindow* window = WX_FetchHUDSuperView(nil);
     [window.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -696,7 +696,7 @@ BOOL checkObjectHasVarName(id verifyObject, NSString *varName) {
  *  @param originStr 源字符串
  *  @param reservedSymbol 是否保留特殊字符不编码
  */
-NSString *ZXCodingString(NSString *originStr, BOOL reservedSymbol) {
+NSString *WX_CodingString(NSString *originStr, BOOL reservedSymbol) {
     NSMutableCharacterSet *cs = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
     NSString * const kReservedChars = @":/?[]@!$&'()*+,;=";
     if (reservedSymbol) {
@@ -711,7 +711,7 @@ NSString *ZXCodingString(NSString *originStr, BOOL reservedSymbol) {
 /**
  *  字符串解码
  */
-NSString *ZXDecodeString(NSString *originStr) {
+NSString *WX_DecodeString(NSString *originStr) {
     return [originStr stringByRemovingPercentEncoding];
 }
 
@@ -724,8 +724,8 @@ NSString *ZXDecodeString(NSString *originStr) {
  * 优点:能满足大部分震动场景, (使用时倒入头文件: #import <AudioToolbox/AudioToolbox.h> )
  * 缺点:无法精准控制震动力度
  */
-- (void)playSystemSound:(SystemSoundID)soundID {
-    WXLog(@"系统声音编号: %ld", (long)soundID);
+- (void)WX_playSystemSound:(SystemSoundID)soundID {
+    WX_Log(@"系统声音编号: %ld", (long)soundID);
     AudioServicesPlaySystemSound(soundID);
     
     // NSString *path = [[NSBundle mainBundle] pathForResource:@"glass" ofType:@"wav"];
@@ -740,7 +740,7 @@ NSString *ZXDecodeString(NSString *originStr) {
  *  iOS13及以上系统启动图截屏文件保存目录: ~/Library/SplashBoard/Snapshots/com.xxx.xxx - {DEFAULT GROUP}/xxxx@3x.ktx
  *  替换后的变化: 原图大小约8K左右, 替换后大小约28K左右
  */
-BOOL replaceCacheLibraryLaunchImage (UIImage *newImage) {
+BOOL WX_replaceCacheLibraryLaunchImage (UIImage *newImage) {
     if (![newImage isKindOfClass:[UIImage class]]) return NO;
     
     NSString *Library = @"Library";
@@ -816,7 +816,7 @@ BOOL replaceCacheLibraryLaunchImage (UIImage *newImage) {
  * iOS13以下系统启动图截屏文件保存目录: ~/Library/Caches/Snapshots/com.xxx.xxx/xxxx@2x.ktx
  * iOS13及以上系统启动图截屏文件保存目录: ~/Library/SplashBoard/Snapshots/com.xxx.xxx - {DEFAULT GROUP}/xxxx@3x.ktx
  * */
- UIImage *fetchLaunchImage(void) {
+ UIImage *WX_fetchLaunchImage(void) {
     NSString *bundleID = [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleIdentifier"];
     NSString *launchImagePath = @"Library/SplashBoard/Snapshots";
     NSString *shotsDirName = nil;

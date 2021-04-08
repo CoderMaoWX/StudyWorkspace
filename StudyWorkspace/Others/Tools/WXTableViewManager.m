@@ -96,7 +96,7 @@
     } else {
         SEL sel = NSSelectorFromString(@"setDataModel:");
         if ([cell respondsToSelector:sel]) {
-            ZXPerformSelectorLeakWarning(
+            WX_PerformSelectorLeakWarning(
               [cell performSelector:sel withObject:rowData];
             );
         }

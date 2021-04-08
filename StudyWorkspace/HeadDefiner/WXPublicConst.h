@@ -9,9 +9,6 @@
 #ifndef WXPublicConst_h
 #define WXPublicConst_h
 
-
-static NSString * const kLoadingView  = @"kLoadingView";
-
 /** tabBar item标题key */
 static NSString * const WXTabBarItemTitleKey = @"WXTabBarItemTitleKey";
 
@@ -27,6 +24,11 @@ static NSString * const WXTabBarSelectedImageKey = @"WXTabBarSelectedImageKey";
 /** tabbar图片文件夹的目录 */
 static NSString * const kWXabBarImagePathKey = @"kWXabBarImagePathKey";
 
+
+static NSString * const kLoadingView  = @"kLoadingView";
+
+
+static NSString * const kSavedLaunchImgKey  = @"kSavedLaunchImgKey";
 
 
 #endif /* WXPublicConst_h */

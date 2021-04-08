@@ -178,7 +178,7 @@
 			touchItemVC = [((UINavigationController *)touchItemVC).viewControllers firstObject];
 		}
 		//忽略警告
-		ZXUndeclaredSelectorLeakWarning(
+		WX_UndeclaredSelectorLeakWarning(
 			if ([touchItemVC respondsToSelector:@selector(repeatTouchTabBarToViewController:)]) {
 				[touchItemVC performSelector:@selector(repeatTouchTabBarToViewController:) withObject:touchItemVC];
 			}

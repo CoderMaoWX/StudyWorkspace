@@ -10,7 +10,6 @@
 #import "SSZipArchive.h"
 #import "WXDataModel.h"
 #import "WXNetworking.h"
-#import "WXPublicHeader.h"
 
 @interface StudyVC1 ()
 @property (weak, nonatomic) IBOutlet UISwitch    *downloadSwitch;
@@ -23,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.imageView.image = fetchLaunchImage();
+    self.imageView.image = WX_fetchLaunchImage();
 }
 
 - (IBAction)downloadAction:(UISwitch *)sender {
@@ -66,11 +65,10 @@
 
             if ([responseModel.responseObject isKindOfClass:[UIImage class]]) {
                 UIImage *newImage = (UIImage *)responseModel.responseObject;
-                BOOL success = replaceCacheLibraryLaunchImage(newImage);
+                BOOL success = WX_replaceCacheLibraryLaunchImage(newImage);
                 if (success) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         self.tipLabel.text = @"动态更换成功! 重新启动App可查看闪屏页效果";
-                        
                     });
                 }
             } else if([responseModel.responseObject isKindOfClass:[NSData class]]) {
@@ -126,10 +124,11 @@
                     NSLog(@"启动图截屏文件替换: %@", replacePath);
                     
                     self.imageView.image = newImage;
-                    BOOL success = replaceCacheLibraryLaunchImage(newImage);
+                    BOOL success = WX_replaceCacheLibraryLaunchImage(newImage);
                     if (success) {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            self.tipLabel.text = @"动态更换成功,重新启动生效";
+                            self.tipLabel.text = @"动态更换成功! 重新启动App可查看闪屏页效果";
+                            WX_SaveUserDefault(kSavedLaunchImgKey, @(YES));
                         });
                     }
                 }
@@ -147,7 +146,7 @@
 // *  iOS13及以上系统启动图截屏文件保存目录: ~/Library/SplashBoard/Snapshots/com.xxx.xxx - {DEFAULT GROUP}/xxxx@3x.ktx
 // *  替换后的变化: 原图大小约8K左右, 替换后大小约28K左右
 // */
-//BOOL replaceCacheLibraryLaunchImage (UIImage *newImage) {
+//BOOL WX_replaceCacheLibraryLaunchImage (UIImage *newImage) {
 //    if (![newImage isKindOfClass:[UIImage class]]) return NO;
 //
 //    NSString *Library = @"Library";
@@ -223,7 +222,7 @@
 // * iOS13以下系统启动图截屏文件保存目录: ~/Library/Caches/Snapshots/com.xxx.xxx/xxxx@2x.ktx
 // * iOS13及以上系统启动图截屏文件保存目录: ~/Library/SplashBoard/Snapshots/com.xxx.xxx - {DEFAULT GROUP}/xxxx@3x.ktx
 // * */
-//- (UIImage *)fetchLaunchImage {
+//- (UIImage *)WX_fetchLaunchImage {
 //    NSString *bundleID = [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleIdentifier"];
 //    NSString *launchImagePath = @"Library/SplashBoard/Snapshots";
 //    NSString *shotsDirName = nil;

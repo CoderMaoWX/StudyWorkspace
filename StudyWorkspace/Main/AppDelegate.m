@@ -26,8 +26,9 @@
     [self.window makeKeyAndVisible];
     
     //查看一键切换启动图效果
-    sleep(2);
-    
+    if ([WX_GetUserDefault(kSavedLaunchImgKey) boolValue]) {
+        sleep(2);
+    }
     return YES;
 }
 

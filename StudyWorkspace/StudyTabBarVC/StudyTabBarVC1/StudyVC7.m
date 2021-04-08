@@ -8,7 +8,6 @@
 
 #import "StudyVC7.h"
 #import "LukeLayer.h"
-#import "WXPublicHeader.h"
 
 #define kAngle2Radian(x)   ((x / 180.0) * M_PI)
 

@@ -15,7 +15,6 @@
 #import "WXStudyTabBarVC2.h"
 #import "WXStudyTabBarVC3.h"
 #import "UITabBarController+WXConvertSkin.h"
-#import "WXPublicHeader.h"
 
 #define MaxOffsetX      (self.view.width-49)
 
@@ -262,7 +261,7 @@
  * 设置tabBar默认主题图片
  */
 - (void)setDefaultTabBarImages {
-    NSArray *defaultImageArr = @[ZXImageName(@"tabbar_home_n"),ZXImageName(@"tabbar_property_n"),ZXImageName(@"tabbar_my_n")];
+    NSArray *defaultImageArr = @[WX_ImageName(@"tabbar_home_n"),WX_ImageName(@"tabbar_property_n"),WX_ImageName(@"tabbar_my_n")];
     NSLog(@"设置tabBar默认主题图片===%@",defaultImageArr);
     [self changeTabBarTheme:defaultImageArr newTheme:NO];
 }

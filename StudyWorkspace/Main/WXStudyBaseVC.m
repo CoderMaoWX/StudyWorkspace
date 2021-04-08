@@ -8,7 +8,6 @@
 
 #import "WXStudyBaseVC.h"
 #import "WXStudyCell.h"
-#import "WXPublicHeader.h"
 
 @interface WXStudyBaseVC ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIPanGestureRecognizer *backPan;
@@ -38,7 +37,7 @@
     if (self.navigationController.viewControllers.count > 1) {
         id target = self.navigationController.interactivePopGestureRecognizer.delegate;
         //忽略警告
-        ZXUndeclaredSelectorLeakWarning(
+        WX_UndeclaredSelectorLeakWarning(
           SEL selector = @selector(handleNavigationTransition:);
                                         
           if ([target respondsToSelector:selector]) { //需要滑动返回
