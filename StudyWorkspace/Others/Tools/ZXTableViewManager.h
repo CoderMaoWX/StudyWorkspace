@@ -32,10 +32,10 @@ typedef void (^ZXTableViewDidScrollBlock) (CGPoint contentOffset);
 @property (nonatomic, strong) NSArray* (^dataOfSections)(NSInteger section);
 
 /** 获取SectionView高度Block */
-@property (nonatomic, copy) CGFloat (^heightForSectionBlcok)(SectionType sectionType,NSInteger section);
+@property (nonatomic, copy) CGFloat (^heightForSectionBlcok)(SectionType sectionType, NSInteger section);
 
 /** 获取SectionView的Block */
-@property (nonatomic, copy) UIView * (^viewForSectionBlcok)(SectionType sectionType,NSInteger section);
+@property (nonatomic, copy) UIView * (^viewForSectionBlcok)(SectionType sectionType, NSInteger section);
 
 /** 获取Row高度Block */
 @property (nonatomic, copy) ZXTableViewRowHeightBlock heightForRowBlcok;

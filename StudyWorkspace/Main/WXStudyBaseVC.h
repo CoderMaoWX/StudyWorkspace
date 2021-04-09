@@ -83,10 +83,6 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 - (ZXCollectionViewConfigBlock)didSelectItemBlcok;
 
 
-
-///添加一个透明视图让事件传递到顶层,使其能够侧滑返回
-- (void)showLeftSlidBackView;
-
 /** 返回上一页面  */
 - (void)backBtnClick:(UIButton *)backBtn;
 

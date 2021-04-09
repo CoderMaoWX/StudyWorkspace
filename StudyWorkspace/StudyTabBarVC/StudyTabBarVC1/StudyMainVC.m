@@ -13,6 +13,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.plainTableView.rowHeight = 60;
     
     // @{ 要测试的VC : 对应类的功能描述 }
     [self.listDataArray addObjectsFromArray:@[
@@ -38,13 +39,6 @@
 ///由子类覆盖: 表格需要注册的Cell
 - (Class)registerTableViewCell {
     return [WXStudyCell class];
-}
-
-///由子类覆盖: 配置表格Cell高度
-- (ZXTableViewRowHeightBlock)heightForRowBlcok {
-    return ^ CGFloat (id rowData, NSIndexPath *indexPath) {
-        return 60;
-    };
 }
 
 ///由子类覆盖: 配置表格数据方法

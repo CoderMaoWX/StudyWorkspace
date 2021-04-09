@@ -17,12 +17,7 @@
 @property (nonatomic, strong) UILabel                   *tipTextLabel;
 @end
 
-///忽略两个可选实现的方法警告: 1. -heightForRowBlcok, 2.-sizeForItemBlcok
-///https://www.cnblogs.com/yfming/p/5936173.html
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation WXStudyBaseVC
-#pragma clang diagnostic pop
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,7 +50,6 @@
         //忽略警告
         WX_UndeclaredSelectorLeakWarning(
           SEL selector = @selector(handleNavigationTransition:);
-                                        
           if ([target respondsToSelector:selector]) { //需要滑动返回
             UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:selector];
             pan.delegate = self;
@@ -94,6 +88,7 @@
         _plainTableView.delegate = self.tableViewManager;
         _plainTableView.emptyDataImage = WX_ImageName(@"empty_collection");
         _plainTableView.emptyDataTitle = @"暂无数据";
+        _plainTableView.automaticShowBlankView = YES;
         [self.view addSubview:_plainTableView];
         if (@available(iOS 11.0, *)) {
             _plainTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -107,14 +102,10 @@
     if(!_tableViewManager){
         _tableViewManager = [ZXTableViewManager createWithCellClass:self.registerTableViewCell];
         _tableViewManager.plainTabDataArr = self.listDataArray;
+        _tableViewManager.heightForRowBlcok = self.heightForRowBlcok;
         _tableViewManager.cellForRowBlock = self.cellForRowBlock;
         _tableViewManager.didSelectRowBlcok = self.didSelectRowBlcok;
-        if ([self respondsToSelector:@selector(didScrollBlock)]) {
-            _tableViewManager.didScrollBlock = self.didScrollBlock;
-        }
-        if ([self respondsToSelector:@selector(heightForRowBlcok)]) {
-            _tableViewManager.heightForRowBlcok = self.heightForRowBlcok;
-        }
+        _tableViewManager.didScrollBlock = self.didScrollBlock;
     }
     return _tableViewManager;
 }
@@ -124,18 +115,20 @@
     return [UITableViewCell class];
 }
 
-/////由子类覆盖: 配置表格Cell高度 (警告: 父类不能复写次方法, 只能留给之类复写次方法)
-//- (ZXTableViewRowHeightBlock)heightForRowBlcok {
-//    return ^ CGFloat (id rowData, NSIndexPath *indexPath) {
-//        return kDefaultCellHeight;
-//    };
-//}
+/////由子类覆盖: 配置表格Cell高度
+- (ZXTableViewRowHeightBlock)heightForRowBlcok {
+    @weakify(self)
+    return ^ CGFloat (id rowData, NSIndexPath *indexPath) {
+        @strongify(self)
+        CGFloat rowHeight = self.plainTableView.rowHeight;
+        return (rowHeight!= 0.0) ? rowHeight : kDefaultCellHeight;
+    };
+}
 
 ///由子类覆盖: 配置表格数据方法
 - (ZXTableViewConfigBlock)cellForRowBlock {
     return ^ (UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
         WX_Log(@"cellForRowAtIndexPath: %@", cell)
-        
         SEL sel = NSSelectorFromString(@"setDataModel:");
         if ([cell respondsToSelector:sel]) {
             WX_PerformSelectorLeakWarning(
@@ -152,12 +145,11 @@
     };
 }
 
-///滚动列表回调
-//- (void(^)(CGPoint contentOffset))didScrollBlock {
-//    return ^(CGPoint contentOffset) {
-//
-//    };
-//}
+///由子类覆盖: 滚动列表回调
+- (void(^)(CGPoint contentOffset))didScrollBlock {
+    return ^(CGPoint contentOffset) {
+    };
+}
 
 #pragma mark -============== <UICollectionView> 配置父类表格数据和代理 ==============
 
@@ -168,9 +160,7 @@
         flowLayout.sectionInset = UIEdgeInsetsMake(12, 12, 12, 12);
         flowLayout.minimumLineSpacing = 12;
         flowLayout.minimumInteritemSpacing = 12;
-        if ([self respondsToSelector:@selector(configFlowLayout:)]) {
-            [self configFlowLayout:flowLayout];
-        }
+        [self configFlowLayout:flowLayout];
         
         CGFloat bottomH = (self.navigationController.viewControllers.count == 1 ) ? kBottomSafeAreaHeight : 0;
         CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight - (kStatusAddNavBarHeight + bottomH));
@@ -182,6 +172,8 @@
         _collectionView.dataSource = self.collectionViewManager;
         _collectionView.emptyDataImage = WX_ImageName(@"empty_collection");
         _collectionView.emptyDataTitle = @"暂无数据";
+        _collectionView.automaticShowBlankView = YES;
+        [self.view addSubview:_collectionView];
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -194,14 +186,10 @@
     if(!_collectionViewManager){
         _collectionViewManager = [ZXCollectionViewManager createWithCellClass:self.registerCollectionViewCell];
         _collectionViewManager.listDataArray = self.listDataArray;
+        _collectionViewManager.sizeForItemBlcok = self.sizeForItemBlcok;
         _collectionViewManager.cellForItemBlock = self.cellForItemBlock;
         _collectionViewManager.didSelectItemBlcok = self.didSelectItemBlcok;
-        if ([self respondsToSelector:@selector(didScrollBlock)]) {
-            _collectionViewManager.didScrollBlock = self.didScrollBlock;
-        }
-        if ([self respondsToSelector:@selector(sizeForItemBlcok)]) {
-            _collectionViewManager.sizeForItemBlcok = self.sizeForItemBlcok;
-        }
+        _collectionViewManager.didScrollBlock = self.didScrollBlock;
     }
     return _collectionViewManager;
 }
@@ -213,17 +201,26 @@
 
 ///由子类覆盖: 配置表格布局样式
 - (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout {
+    BOOL isTopNav = (self.navigationController.viewControllers.count == 1);
+    CGFloat bottomH = isTopNav ? kTabBarHeight : (isPhoneXSeries ? 34 : 12);
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, bottomH, 0);
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, (isPhoneXSeries ? 34 : 12), 0);
-    flowLayout.estimatedItemSize = CGSizeMake(94, 28);
 }
 
-/////由子类覆盖: 配置表格Cell高度 (警告: 父类不能复写次方法, 只能留给之类复写次方法)
-//- (ZXCollectionViewItemSizeBlock)sizeForItemBlcok {
-//    return ^ CGSize (id itemData, NSIndexPath *indexPath) {
-//        return CGSizeMake(50.0, 50.0);
-//    };
-//}
+///由子类覆盖: 配置表格Cell高度
+- (ZXCollectionViewItemSizeBlock)sizeForItemBlcok {
+    @weakify(self)
+    return ^ CGSize (id itemData, NSIndexPath *indexPath) {
+        @strongify(self)
+        UICollectionViewLayout *flowLayout = self.collectionView.collectionViewLayout;
+        if ([flowLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
+            return ((UICollectionViewFlowLayout *)flowLayout).itemSize;
+        } else {
+            return CGSizeMake(50.0, 50.0);//the system default size
+            //return flowLayout.collectionViewContentSize;
+        }
+    };
+}
 
 ///由子类覆盖: 配置表格数据方法
 - (ZXCollectionViewConfigBlock)cellForItemBlock {

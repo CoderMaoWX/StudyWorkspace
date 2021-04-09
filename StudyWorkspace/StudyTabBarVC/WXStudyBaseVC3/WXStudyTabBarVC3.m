@@ -12,7 +12,7 @@
 #import "Masonry.h"
 #import "WXNetworking.h"
 
-@interface WXStudyTabBarVC3 ()<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface WXStudyTabBarVC3 ()
 @property (nonatomic, strong) StudyTmpView *studyTmpView;
 @end
 
@@ -20,29 +20,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self.view addSubview:self.collectionView];
-    // Do any additional setup after loading the view.
     
-//    NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"StudyTmpView" owner:nil options:nil];
-//
-//    // Find the view among nib contents (not too hard assuming there is only one view in it).
-//    StudyTmpView *plainView = [nibContents lastObject];
-//
-//    // Some hardcoded layout.
-////    CGSize padding = (CGSize){ 22.0, 22.0 };
-////    plainView.frame = (CGRect){padding.width, padding.height, plainView.frame.size};
-//
-//    // Add to the view hierarchy (thus retain).
-//    [self.view addSubview:plainView];
-//    self.studyTmpView = plainView;
-//
-//    [self.studyTmpView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.leading.mas_equalTo(self.view);
-//    }];
-    
+    // @{ 要测试的VC : 对应类的功能描述 }
+    for (NSInteger i=0; i<100; i++) {
+        [self.listDataArray addObject:@(i)];
+    }
+    [self.collectionView reloadData];
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+///由子类覆盖: 表格需要注册的Cell
+- (Class)registerCollectionViewCell {
+    return [WXCollectionViewCell class];
+}
+
+///由子类覆盖: 配置表格布局样式
+- (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout {
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, kStatusBarHeight, 0);
+    flowLayout.itemSize = CGSizeMake(200.0, 200.0);
+}
+
+///由子类覆盖: 配置表格数据方法
+- (ZXCollectionViewConfigBlock)cellForItemBlock {
+    return ^ (UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
+        cell.contentView.backgroundColor = WX_ColorRandom();
+    };
+}
+
+- (void)requestData {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-services://?action=download-manifest&url=https://www.pgyer.com/app/plist/a7cb21c736b358d436d6c08038185154"]];
     
     WXNetworkRequest *request = [[WXNetworkRequest alloc] init];
@@ -57,64 +62,23 @@
     }];
 }
 
-#pragma mark -============== <UICollectionView> 配置父类表格数据和代理 ==============
+- (void)testLoadXib {
+    NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"StudyTmpView" owner:nil options:nil];
 
-//- (UICollectionView *)collectionView {
-//    if (!_collectionView) {
-//        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-//        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-//        flowLayout.sectionInset = UIEdgeInsetsMake(12, 12, 12, 12);
-//        flowLayout.minimumLineSpacing = 12;
-//        flowLayout.minimumInteritemSpacing = 12;
-////        flowLayout.itemSize = CGSizeMake(150, 150);
-//        flowLayout.estimatedItemSize = CGSizeMake(100, 150);
-//
-////        if (@available(iOS 10.0, *)) {
-//            flowLayout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
-////        } else {
-////            // Fallback on earlier versions
-////        }//
-//
-//        CGFloat width = [UIScreen mainScreen].bounds.size.width;
-//        CGFloat height = [UIScreen mainScreen].bounds.size.height;
-//        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, width, height - 88) collectionViewLayout:flowLayout];
-//        _collectionView.backgroundColor = self.view.backgroundColor;
-//        _collectionView.delegate = self;
-//        _collectionView.dataSource = self;
-//        _collectionView.showsVerticalScrollIndicator = NO;
-//        _collectionView.showsHorizontalScrollIndicator = NO;
-//        _collectionView.alwaysBounceHorizontal = YES;
-//
-////        [_collectionView registerClass:[WXCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([WXCollectionViewCell class])];
-//
-//        UINib *nib = [UINib nibWithNibName:NSStringFromClass([WXCollectionViewCell class]) bundle:nil];
-//        [_collectionView registerNib:nib forCellWithReuseIdentifier:NSStringFromClass([WXCollectionViewCell class])];
-//    }
-//    return _collectionView;
-//}
+    // Find the view among nib contents (not too hard assuming there is only one view in it).
+    StudyTmpView *plainView = [nibContents lastObject];
 
-#pragma mark - <UICollectionViewDelegate, UICollectionViewDataSource>
+    // Some hardcoded layout.
+//    CGSize padding = (CGSize){ 22.0, 22.0 };
+//    plainView.frame = (CGRect){padding.width, padding.height, plainView.frame.size};
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 100;//self.listDataArray.count;
-}
+    // Add to the view hierarchy (thus retain).
+    [self.view addSubview:plainView];
+    self.studyTmpView = plainView;
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    if ([collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
-//        UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)collectionViewLayout;
-//        if (CGSizeEqualToSize(flowLayout.estimatedItemSize, CGSizeZero)) {
-//            return flowLayout.itemSize;
-//        } else {
-//            return flowLayout.estimatedItemSize;
-//        }
-//    }
-//    return CGSizeMake(80.0, 80.0);//System Cell Size
-//}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    WXCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([WXCollectionViewCell class]) forIndexPath:indexPath];
-//    cell.contentView.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
-    return cell;
+    [self.studyTmpView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.leading.mas_equalTo(self.view);
+    }];
 }
 
 @end

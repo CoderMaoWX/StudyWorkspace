@@ -65,17 +65,17 @@
     secondVc.edgesForExtendedLayout = UIRectEdgeNone;
     
     
-    WXStudyBaseVC *mineVC = [[WXStudyBaseVC alloc] init];
+    WXStudyTabBarVC3 *mineVC = [[WXStudyTabBarVC3 alloc] init];
     UINavigationController *mineNav = [[UINavigationController alloc] initWithRootViewController:mineVC];
     mineVC.tabBarItem = [self createTabBarItemWithTitle:@"Study3" imageName:@"tabbar_cashier_nor" selectedImage:@"tabbar_cashier_ser"];
     mineVC.title = @"Study3";
     mineVC.edgesForExtendedLayout = UIRectEdgeNone;
     
     
-    WXStudyBaseVC *tabBar3VC = [[WXStudyTabBarVC3 alloc] init];
+    WXStudyBaseVC *tabBar3VC = [[WXStudyBaseVC alloc] init];
     UINavigationController *tabBar3Nav = [[UINavigationController alloc] initWithRootViewController:tabBar3VC];
     tabBar3Nav.tabBarItem = [self createTabBarItemWithTitle:@"Study3" imageName:@"tabbar_cashier_nor" selectedImage:@"tabbar_cashier_ser"];
-    tabBar3Nav.title = @"Study3";
+    tabBar3Nav.title = @"Study4";
     tabBar3Nav.edgesForExtendedLayout = UIRectEdgeNone;
     
     [self setViewControllers:@[firstNav, secondNav, mineNav, tabBar3Nav] animated:NO];
