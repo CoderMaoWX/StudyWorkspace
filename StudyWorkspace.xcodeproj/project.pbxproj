@@ -73,6 +73,7 @@
 		58FBED6624E68C2B003F7FE6 /* StudyVC1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58FBED6524E68C2B003F7FE6 /* StudyVC1.xib */; };
 		58FBED7024E6B8C8003F7FE6 /* StudyVC4.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FBED6F24E6B8C8003F7FE6 /* StudyVC4.m */; };
 		A33E5A7B261F53C8004E3A46 /* TestFile.txt in Resources */ = {isa = PBXBuildFile; fileRef = A33E5A7A261F53C8004E3A46 /* TestFile.txt */; };
+		A3A396C12622016C00A32116 /* WXTrandCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3A396C02622016C00A32116 /* WXTrandCCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -198,6 +199,8 @@
 		58FBED6F24E6B8C8003F7FE6 /* StudyVC4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC4.m; sourceTree = "<group>"; };
 		A1AA72DA700F4E9C39AA7BD3 /* Pods-StudyWorkspace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyWorkspace.debug.xcconfig"; path = "Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace.debug.xcconfig"; sourceTree = "<group>"; };
 		A33E5A7A261F53C8004E3A46 /* TestFile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestFile.txt; sourceTree = "<group>"; };
+		A3A396BF2622016C00A32116 /* WXTrandCCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXTrandCCell.h; sourceTree = "<group>"; };
+		A3A396C02622016C00A32116 /* WXTrandCCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXTrandCCell.m; sourceTree = "<group>"; };
 		ED99E3829806B653A60FC63E /* Pods-StudyWorkspace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyWorkspace.release.xcconfig"; path = "Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -372,6 +375,8 @@
 				580E844724F8D9CE003E6E0C /* WXCollectionViewCell.h */,
 				580E844824F8D9CE003E6E0C /* WXCollectionViewCell.m */,
 				580E844924F8D9CE003E6E0C /* WXCollectionViewCell.xib */,
+				A3A396BF2622016C00A32116 /* WXTrandCCell.h */,
+				A3A396C02622016C00A32116 /* WXTrandCCell.m */,
 				580E844F24F900E4003E6E0C /* StudyTmpView.h */,
 				580E845024F900E4003E6E0C /* StudyTmpView.m */,
 				580E845224F900FC003E6E0C /* StudyTmpView.xib */,
@@ -662,6 +667,7 @@
 				5893D0D324EA55CF0005E1AF /* StudyVC10.m in Sources */,
 				58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */,
 				5893D0E624EA59C40005E1AF /* UIView+WXExtension.m in Sources */,
+				A3A396C12622016C00A32116 /* WXTrandCCell.m in Sources */,
 				580E845124F900E4003E6E0C /* StudyTmpView.m in Sources */,
 				5893D0D124EA55CF0005E1AF /* StudyVC9.m in Sources */,
 				5893D0CF24EA55CF0005E1AF /* StudyVC11.m in Sources */,

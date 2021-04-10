@@ -42,23 +42,21 @@
 
 #pragma mark - 添加全屏右滑动返回
 
-/** 添加全屏右滑动返回 */
+/** 用系统的方法添加全屏右滑动返回 */
 - (void)addScreenEdgePanGesture {
-    //用系统的方法,全屏滑动返回
-    if (self.navigationController.viewControllers.count > 1) {
-        id target = self.navigationController.interactivePopGestureRecognizer.delegate;
-        //忽略警告
-        WX_UndeclaredSelectorLeakWarning(
-          SEL selector = @selector(handleNavigationTransition:);
-          if ([target respondsToSelector:selector]) { //需要滑动返回
-            UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:selector];
-            pan.delegate = self;
-            [self.view addGestureRecognizer:pan];
-            self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-            self.backPan = pan;
-           }
-        );
-    }
+    if (self.navigationController.viewControllers.count <= 1) return;
+    
+    WX_UndeclaredSelectorLeakWarning( //忽略警告
+      id target = self.navigationController.interactivePopGestureRecognizer.delegate;
+      SEL selector = @selector(handleNavigationTransition:);
+      if ([target respondsToSelector:selector]) { //需要滑动返回
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:selector];
+        pan.delegate = self;
+        [self.view addGestureRecognizer:pan];
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        self.backPan = pan;
+       }
+    );
 }
 
 - (void)setShouldPanBack:(BOOL)shouldPanBack {
@@ -115,51 +113,11 @@
     return [UITableViewCell class];
 }
 
-/////由子类覆盖: 配置表格Cell高度
-- (ZXTableViewRowHeightBlock)heightForRowBlcok {
-    @weakify(self)
-    return ^ CGFloat (id rowData, NSIndexPath *indexPath) {
-        @strongify(self)
-        CGFloat rowHeight = self.plainTableView.rowHeight;
-        return (rowHeight!= 0.0) ? rowHeight : kDefaultCellHeight;
-    };
-}
-
-///由子类覆盖: 配置表格数据方法
-- (ZXTableViewConfigBlock)cellForRowBlock {
-    return ^ (UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
-        WX_Log(@"cellForRowAtIndexPath: %@", cell)
-        SEL sel = NSSelectorFromString(@"setDataModel:");
-        if ([cell respondsToSelector:sel]) {
-            WX_PerformSelectorLeakWarning(
-              [cell performSelector:sel withObject:rowData];
-            );
-        }
-    };
-}
-
-///由子类覆盖: 点击表格代理方法
-- (ZXTableViewConfigBlock)didSelectRowBlcok {
-    return ^ (UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
-        WX_Log(@"didSelectRowBlcok: %@", rowData)
-    };
-}
-
-///由子类覆盖: 滚动列表回调
-- (void(^)(CGPoint contentOffset))didScrollBlock {
-    return ^(CGPoint contentOffset) {
-    };
-}
-
 #pragma mark -============== <UICollectionView> 配置父类表格数据和代理 ==============
 
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        flowLayout.sectionInset = UIEdgeInsetsMake(12, 12, 12, 12);
-        flowLayout.minimumLineSpacing = 12;
-        flowLayout.minimumInteritemSpacing = 12;
         [self configFlowLayout:flowLayout];
         
         CGFloat bottomH = (self.navigationController.viewControllers.count == 1 ) ? kBottomSafeAreaHeight : 0;
@@ -194,53 +152,19 @@
     return _collectionViewManager;
 }
 
-///由子类覆盖: 表格需要注册的Cell
+///必须由子类覆盖: 表格需要注册的Cell
 - (Class)registerCollectionViewCell {
     return [UICollectionViewCell class];
 }
 
-///由子类覆盖: 配置表格布局样式
+///可由子类覆盖: 配置表格布局样式
 - (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout {
     BOOL isTopNav = (self.navigationController.viewControllers.count == 1);
     CGFloat bottomH = isTopNav ? kTabBarHeight : (isPhoneXSeries ? 34 : 12);
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, bottomH, 0);
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-}
-
-///由子类覆盖: 配置表格Cell高度
-- (ZXCollectionViewItemSizeBlock)sizeForItemBlcok {
-    @weakify(self)
-    return ^ CGSize (id itemData, NSIndexPath *indexPath) {
-        @strongify(self)
-        UICollectionViewLayout *flowLayout = self.collectionView.collectionViewLayout;
-        if ([flowLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
-            return ((UICollectionViewFlowLayout *)flowLayout).itemSize;
-        } else {
-            return CGSizeMake(50.0, 50.0);//the system default size
-            //return flowLayout.collectionViewContentSize;
-        }
-    };
-}
-
-///由子类覆盖: 配置表格数据方法
-- (ZXCollectionViewConfigBlock)cellForItemBlock {
-    return ^ (UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
-        WX_Log(@"cellForItemAtIndexPath: %@", cell)
-        
-        SEL sel = NSSelectorFromString(@"setDataModel:");
-        if ([cell respondsToSelector:sel]) {
-            WX_PerformSelectorLeakWarning(
-              [cell performSelector:sel withObject:itemData];
-            );
-        }
-    };
-}
-
-///由子类覆盖: 点击表格代理方法
-- (ZXCollectionViewConfigBlock)didSelectItemBlcok {
-    return ^ (UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
-        WX_Log(@"didSelectItemBlcok: %@", itemData)
-    };
+    flowLayout.minimumLineSpacing = 10;
+    flowLayout.minimumInteritemSpacing = 10;
 }
 
 #pragma mark - <SubClass Implementation> 布局页面子视图

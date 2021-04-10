@@ -51,17 +51,16 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 - (Class)registerTableViewCell;
 
 ///由子类覆盖: 配置表格Cell高度
-- (ZXTableViewRowHeightBlock)heightForRowBlcok;
+@property (nonatomic, copy) ZXTableViewRowHeightBlock heightForRowBlcok;
 
 ///由子类覆盖: 配置表格数据方法
-- (ZXTableViewConfigBlock)cellForRowBlock;
+@property (nonatomic, copy) ZXTableViewConfigBlock cellForRowBlock;
 
 ///由子类覆盖: 点击表格代理方法
-- (ZXTableViewConfigBlock)didSelectRowBlcok;
+@property (nonatomic, copy) ZXTableViewConfigBlock didSelectRowBlcok;
 
-
-///滚动列表回调
-- (void(^)(CGPoint contentOffset))didScrollBlock;
+///列表滚动回调
+@property (nonatomic, copy) void (^didScrollBlock)(CGPoint contentOffset);
 
 
 
@@ -73,14 +72,15 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 ///由子类覆盖: 配置表格布局样式
 - (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout;
 
-///由子类覆盖: 配置表格Cell大小
-- (ZXCollectionViewItemSizeBlock)sizeForItemBlcok;
 
-///由子类覆盖: 配置表格数据方法
-- (ZXCollectionViewConfigBlock)cellForItemBlock;
+///由子类覆盖: 配置表格Cell高度
+@property (nonatomic, copy) ZXCollectionViewItemSizeBlock sizeForItemBlcok;
+
+///由子类覆盖: 配置表格Cell
+@property (nonatomic, copy) ZXCollectionViewConfigBlock cellForItemBlock;
 
 ///由子类覆盖: 点击表格代理方法
-- (ZXCollectionViewConfigBlock)didSelectItemBlcok;
+@property (nonatomic, copy) ZXCollectionViewConfigBlock didSelectItemBlcok;
 
 
 /** 返回上一页面  */

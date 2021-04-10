@@ -41,12 +41,10 @@
  *  获取数组中的元素
  */
 - (id)itemDataForIndexPath:(NSIndexPath *)indexPath {
-    if (self.listDataArray) {
-        NSArray *rowDataArr = self.listDataArray;
-        if ([rowDataArr isKindOfClass:[NSArray class]]) {
-            if (indexPath.row < rowDataArr.count) {
-                return rowDataArr[indexPath.item];
-            }
+    NSArray *rowDataArr = self.listDataArray;
+    if ([rowDataArr isKindOfClass:[NSArray class]]) {
+        if (indexPath.row < rowDataArr.count) {
+            return rowDataArr[indexPath.item];
         }
     }
     return nil;
@@ -68,10 +66,10 @@
         if (CGSizeEqualToSize(flowLayout.estimatedItemSize, CGSizeZero)) {
             return flowLayout.itemSize;
         } else {
-            //警告一定不能使用: UICollectionViewFlowLayoutAutomaticSize
             return flowLayout.estimatedItemSize;
         }
     }
+    //警告不能使用: UICollectionViewFlowLayoutAutomaticSize
     return CGSizeMake(50.0, 50.0);//System Item Size
 }
 
@@ -79,7 +77,7 @@
     if (!self.hasRegisterCell) {
         self.hasRegisterCell = YES;
         if (self.isXibCell) {
-            UINib *nib = [UINib nibWithNibName:NSStringFromClass(_CellCalss) bundle:nil];
+            UINib *nib = [UINib nibWithNibName:_cellIdentifier bundle:nil];
             [collectionView registerNib:nib forCellWithReuseIdentifier:_cellIdentifier];
         } else {
             [collectionView registerClass:_CellCalss forCellWithReuseIdentifier:_cellIdentifier];
