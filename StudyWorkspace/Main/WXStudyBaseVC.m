@@ -192,7 +192,6 @@
         NSArray *textArr = @[WX_FormatString(@"%@\n", self.title), WX_ToString(self.subTitle)];
         NSArray *fontArr = @[WX_FontSystem(16), WX_FontSystem(13)];
         NSArray *colorArr = @[WX_ColorBlackTextColor(), WX_ColorRGB(64,128,214, 1)];
-        
         subTitleLabel.attributedText = [NSString getAttriStrByTextArray:textArr fontArr:fontArr colorArr:colorArr lineSpacing:2 alignment:1];
     }
     
