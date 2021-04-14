@@ -56,13 +56,8 @@ static NSInteger const touchSize = 350;
     if (!_bgImgView) {
         _bgImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _bgImgView.contentMode = UIViewContentModeScaleAspectFill;
-        _bgImgView.userInteractionEnabled = YES;
         UIImage *bluredImage = [self bluredImageWithRadius:15];
         _bgImgView.image = bluredImage;
-        
-        UILongPressGestureRecognizer *longPre = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longGesture:)];
-        longPre.minimumPressDuration = 0.5;
-        [_bgImgView addGestureRecognizer:longPre];
     }
     return _bgImgView;
 }
@@ -71,7 +66,7 @@ static NSInteger const touchSize = 350;
     if (!_maskImgView) {
         _maskImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _maskImgView.contentMode = UIViewContentModeScaleAspectFill;
-        _maskImgView.userInteractionEnabled = NO;
+        _maskImgView.userInteractionEnabled = YES;
         _maskImgView.image = [UIImage imageNamed:@"women"];
         
         CALayer *imageMaskLayer = [CALayer layer];
@@ -81,6 +76,10 @@ static NSInteger const touchSize = 350;
         _maskImgView.layer.mask = imageMaskLayer;
         imageMaskLayer.hidden = YES;
         self.imageMaskLayer = imageMaskLayer;
+        
+        UILongPressGestureRecognizer *longPre = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longGesture:)];
+        longPre.minimumPressDuration = 0.5;
+        [_maskImgView addGestureRecognizer:longPre];
     }
     return _maskImgView;
 }
