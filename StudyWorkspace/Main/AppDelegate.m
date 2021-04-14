@@ -38,9 +38,11 @@
 - (UITableView *)plainTableView {
     if (!_plainTableView) {
         _plainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
-        _plainTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        _plainTableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        _plainTableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.01)];
+        UIImageView *imageV = [[UIImageView alloc] initWithImage:WX_ImageName(@"sidebar_fullbg")];
+        imageV.contentMode = UIViewContentModeScaleAspectFill;
+        _plainTableView.backgroundView = imageV;
+        _plainTableView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
+        _plainTableView.tableHeaderView = [UIView new];
         _plainTableView.tableFooterView = [UIView new];
         _plainTableView.dataSource = self;
         _plainTableView.delegate = self;
@@ -55,8 +57,7 @@
     return 5;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellID = @"cellID";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
@@ -68,12 +69,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     UIViewController *tmpVC = [UIViewController new];
-    tmpVC.view.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1];
-    SlideAppTabBarVC *tabbarVC = (SlideAppTabBarVC *)self.window.rootViewController;
-    UINavigationController *navVC = tabbarVC.selectedViewController;
-    [tabbarVC showLeftView:NO];
+    tmpVC.view.backgroundColor = cell.backgroundColor;
+    tmpVC.title = cell.textLabel.text;
     tmpVC.hidesBottomBarWhenPushed = YES;
+    
+    SlideAppTabBarVC *tabbarVC = (SlideAppTabBarVC *)self.window.rootViewController;
+    [tabbarVC showLeftView:NO];
+    UINavigationController *navVC = tabbarVC.selectedViewController;
     [navVC pushViewController:tmpVC animated:YES];
 }
 

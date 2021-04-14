@@ -54,7 +54,7 @@
     firstVC.title = @"Study1";
     firstVC.edgesForExtendedLayout = UIRectEdgeNone;
     
-    firstVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"开关" style:UIBarButtonItemStylePlain target:self action:@selector(converLeftViewAction:)];
+    firstVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"抽屉" style:UIBarButtonItemStylePlain target:self action:@selector(converLeftViewAction:)];
     firstVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"夜间模式" style:UIBarButtonItemStylePlain target:self action:@selector(showAppMaskView:)];
     
 
