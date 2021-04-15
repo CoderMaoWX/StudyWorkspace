@@ -11,14 +11,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="WXCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="819" height="461"/>
+            <rect key="frame" x="0.0" y="0.0" width="498" height="239"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="819" height="461"/>
+                <rect key="frame" x="0.0" y="0.0" width="498" height="239"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWz-Ow-GQ0">
-                        <rect key="frame" x="0.0" y="0.0" width="819" height="461"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="180" translatesAutoresizingMaskIntoConstraints="NO" id="EWz-Ow-GQ0">
+                        <rect key="frame" x="0.0" y="0.0" width="498" height="239"/>
                         <string key="text">在消息转发中提到过NSInvocation这个类，这里说一下我所理解的NSInvocation。NSInvocation是命令模式的一种实现，它包含选择器、方法签名、相应的参数以及目标对象。所谓的方法签名，即方法所对应的返回值类型和参数类型。当NSInvocation被调用，它会在运行时通过目标对象去寻找对应的方法，从而确保唯一性，可以用[receiver message]来解释。实际开发过程中直接创建NSInvocation的情况不多见，这些事情通常交给系统来做。比如bang的JSPatch中arm64方法替换的实现就是利用runtime消息转发最后一步中的NSInvocation实现的。</string>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -34,8 +34,11 @@
                 <constraint firstItem="EWz-Ow-GQ0" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="W2Z-VQ-mdZ"/>
                 <constraint firstAttribute="trailing" secondItem="EWz-Ow-GQ0" secondAttribute="trailing" id="nlG-LW-ikN"/>
             </constraints>
-            <size key="customSize" width="819" height="461"/>
-            <point key="canvasLocation" x="263" y="71"/>
+            <size key="customSize" width="498" height="239"/>
+            <connections>
+                <outlet property="textLabel" destination="EWz-Ow-GQ0" id="b4q-ca-ZqY"/>
+            </connections>
+            <point key="canvasLocation" x="-362" y="79"/>
         </collectionViewCell>
     </objects>
     <resources>

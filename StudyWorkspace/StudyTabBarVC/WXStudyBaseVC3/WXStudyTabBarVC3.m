@@ -20,10 +20,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    NSString *text = @"随着网络的迅速发展，万维网成为大量信息的载体，如何有效地提取并利用这些信息成为一个巨大的挑战 ! ";
     
-    // @{ 要测试的VC : 对应类的功能描述 }
-    for (NSInteger i=0; i<100; i++) {
-        [self.listDataArray addObject:@(i)];
+    for (NSInteger i=0; i<20; i++) {
+        NSMutableString *string = [NSMutableString stringWithString:text];
+        for (NSInteger j=0; j<i; j++) {
+            [string appendFormat:@"%@ %ld", text, (long)j];
+        }
+        [self.listDataArray addObject:string];
     }
     [self.collectionView reloadData];
 }
@@ -36,14 +41,17 @@
 ///由子类覆盖: 配置表格布局样式
 - (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout {
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, kStatusBarHeight, 0);
-    flowLayout.itemSize = CGSizeMake(200.0, 200.0);
+    flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, kStatusBarHeight+10, 10);
+    CGFloat size = (kScreenWidth - 10 * 3) / 2.0;
+    flowLayout.itemSize = CGSizeMake(size, size);
+//    flowLayout.estimatedItemSize = CGSizeMake(150, 150);
 }
 
 ///由子类覆盖: 配置表格数据方法
 - (ZXCollectionViewConfigBlock)cellForItemBlock {
-    return ^ (UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
+    return ^ (WXCollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
         cell.contentView.backgroundColor = WX_ColorRandom();
+        cell.textLabel.text = itemData;
     };
 }
 
