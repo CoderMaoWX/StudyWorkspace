@@ -7,15 +7,21 @@
 //
 
 #import "StudyVC14.h"
-#import <Accelerate/Accelerate.h>
+#import "UIImage+Extension.h"
 
 // 默认的触摸清晰size
 static NSInteger const touchSize = 350;
 
 @interface StudyVC14 ()
-@property (nonatomic, weak) CALayer             *imageMaskLayer;
 @property (nonatomic, strong) UIImageView       *bgImgView;
 @property (nonatomic, strong) UIImageView       *maskImgView;
+@property (nonatomic, weak) CALayer             *imageMaskLayer;
+
+@property (nonatomic, strong) UILabel           *backgroundTextLabel;
+@property (nonatomic, strong) UILabel           *foregroundTextLabel;
+@property (nonatomic, weak) CALayer             *textMaskLayer;
+@property (nonatomic, assign) CGFloat           textMaskWidth;
+@property (nonatomic, strong) NSTimer           *textTimer;
 @end
 
 @implementation StudyVC14
@@ -23,40 +29,50 @@ static NSInteger const touchSize = 350;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.shouldPanBack = NO;
+    
+    //开始显示歌词效果
+    [self.textTimer fire];
 }
 
-- (void)longGesture:(UIGestureRecognizer *)gesture {
-    CGPoint touchPoint = [gesture locationInView:gesture.view];
-    if (gesture.state == UIGestureRecognizerStateBegan || gesture.state == UIGestureRecognizerStateChanged) {
-        self.imageMaskLayer.hidden = NO;
-        [CATransaction begin];
-        [CATransaction setDisableActions:YES];
-        self.imageMaskLayer.position = CGPointMake(touchPoint.x, touchPoint.y - 50);
-        [CATransaction commit];
-    } else  {
-        self.imageMaskLayer.hidden = YES;
-    }
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.textTimer invalidate];
 }
 
 - (void)wx_InitView {
     [self.view addSubview:self.bgImgView];
     [self.view addSubview:self.maskImgView];
+    [self.view addSubview:self.backgroundTextLabel];
+    [self.view addSubview:self.foregroundTextLabel];
 }
 
 - (void)wx_AutoLayoutView {
     [self.bgImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
+    
     [self.maskImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
+    
+    [self.backgroundTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.offset(12);
+        make.trailing.offset(-12);
+        make.top.offset(40);
+    }];
+    
+    [self.foregroundTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.top.mas_equalTo(self.backgroundTextLabel);
+    }];
 }
+
+#pragma mark -======== 按住看图效果 ========
 
 - (UIImageView *)bgImgView {
     if (!_bgImgView) {
         _bgImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _bgImgView.contentMode = UIViewContentModeScaleAspectFill;
-        _bgImgView.image = [self blurImageWithDegree:15 originImage:self.maskImgView.image];;
+        _bgImgView.image = [self.maskImgView.image blurImageWithDegree:15];;
     }
     return _bgImgView;
 }
@@ -76,51 +92,74 @@ static NSInteger const touchSize = 350;
         imageMaskLayer.hidden = YES;
         self.imageMaskLayer = imageMaskLayer;
         
-        UIPanGestureRecognizer *longPre = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(longGesture:)];
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureAction:)];
         // longPre.minimumPressDuration = 0.5;
-        [_maskImgView addGestureRecognizer:longPre];
+        [_maskImgView addGestureRecognizer:panGesture];
     }
     return _maskImgView;
 }
 
-///原图 -> 高斯模糊图
-- (UIImage *)blurImageWithDegree:(CGFloat)blurDegree originImage:(UIImage *)originImage
-{
-    UIGraphicsBeginImageContextWithOptions(originImage.size, NO, [originImage scale]);
-    CGContextRef effectInContext = UIGraphicsGetCurrentContext();
-    CGContextScaleCTM(effectInContext, 1.0, -1.0);
-    CGContextTranslateCTM(effectInContext, 0, -originImage.size.height);
-    CGContextDrawImage(effectInContext, CGRectMake(0, 0, originImage.size.width, originImage.size.height), originImage.CGImage);
-    vImage_Buffer effectInBuffer;
-    effectInBuffer.data     = CGBitmapContextGetData(effectInContext);
-    effectInBuffer.width    = CGBitmapContextGetWidth(effectInContext);
-    effectInBuffer.height   = CGBitmapContextGetHeight(effectInContext);
-    effectInBuffer.rowBytes = CGBitmapContextGetBytesPerRow(effectInContext);
-    
-    UIGraphicsBeginImageContextWithOptions(originImage.size, NO, [originImage scale]);
-    CGContextRef effectOutContext = UIGraphicsGetCurrentContext();
-    vImage_Buffer effectOutBuffer;
-    effectOutBuffer.data     = CGBitmapContextGetData(effectOutContext);
-    effectOutBuffer.width    = CGBitmapContextGetWidth(effectOutContext);
-    effectOutBuffer.height   = CGBitmapContextGetHeight(effectOutContext);
-    effectOutBuffer.rowBytes = CGBitmapContextGetBytesPerRow(effectOutContext);
-    
-    BOOL hasBlur = blurDegree > __FLT_EPSILON__;
-    
-    if (hasBlur) {
-        CGFloat inputRadius = blurDegree * [[UIScreen mainScreen] scale];
-        int radius = floor(inputRadius * 3. * sqrt(2 * M_PI) / 4 + 0.5);
-        if (radius % 2 != 1) {
-            radius += 1; // force radius to be odd so that the three box-blur methodology works.
-        }
-        vImageBoxConvolve_ARGB8888(&effectInBuffer, &effectOutBuffer, NULL, 0, 0, radius, radius, 0, kvImageEdgeExtend);
-        vImageBoxConvolve_ARGB8888(&effectOutBuffer, &effectInBuffer, NULL, 0, 0, radius, radius, 0, kvImageEdgeExtend);
-        vImageBoxConvolve_ARGB8888(&effectInBuffer, &effectOutBuffer, NULL, 0, 0, radius, radius, 0, kvImageEdgeExtend);
+- (void)panGestureAction:(UIGestureRecognizer *)panGesture {
+    CGPoint touchPoint = [panGesture locationInView:panGesture.view];
+    if (panGesture.state == UIGestureRecognizerStateBegan || panGesture.state == UIGestureRecognizerStateChanged) {
+        self.imageMaskLayer.hidden = NO;
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        self.imageMaskLayer.position = CGPointMake(touchPoint.x, touchPoint.y - 50);
+        [CATransaction commit];
+    } else  {
+        self.imageMaskLayer.hidden = YES;
     }
-    UIImage *returnImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    UIGraphicsEndImageContext();
-    return returnImage;
+}
+
+#pragma mark -======== 歌词效果 ========
+
+- (UILabel *)backgroundTextLabel {
+    if (!_backgroundTextLabel) {
+        _backgroundTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _backgroundTextLabel.backgroundColor = [UIColor whiteColor];
+        _backgroundTextLabel.text = @"我是一句很长很长很长很长很长很长很长的歌词";
+    }
+    return _backgroundTextLabel;
+}
+
+- (UILabel *)foregroundTextLabel {
+    if (!_foregroundTextLabel) {
+        _foregroundTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _foregroundTextLabel.backgroundColor = [UIColor whiteColor];
+        _foregroundTextLabel.text = self.backgroundTextLabel.text;
+        _foregroundTextLabel.textColor = [UIColor redColor];
+        _foregroundTextLabel.userInteractionEnabled = YES;
+        
+        CALayer *textMaskLayer = [CALayer layer];
+        textMaskLayer.backgroundColor = [UIColor redColor].CGColor;
+        textMaskLayer.frame = CGRectMake(0, 0, 0, 30);
+        _foregroundTextLabel.layer.mask = textMaskLayer;
+        self.textMaskLayer = textMaskLayer;
+//        UIImage *displayerImage = [UIImage imageNamed:@"header_bg_ios7"];
+//        textMaskLayer.contents = (__bridge id)displayerImage.CGImage;
+//        textMaskLayer.position = CGPointMake(0, 0);
+    }
+    return _foregroundTextLabel;
+}
+
+- (NSTimer *)textTimer {
+    if (!_textTimer) {
+        _textTimer = [NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(timerfire) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:_textTimer forMode:NSRunLoopCommonModes];
+    }
+    return _textTimer;
+}
+
+- (void)timerfire {
+    self.textMaskWidth += 5;
+    if (self.textMaskWidth >= (kScreenWidth - 12 *2)) {
+        self.textMaskWidth = 0;
+    }
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.textMaskLayer.frame = CGRectMake(0, 0, self.textMaskWidth, 30);
+    [CATransaction commit];
 }
 
 @end
