@@ -189,18 +189,6 @@ static NSString *const kEmptyDataDefaultTipText = @"暂无可用数据";
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
 
-/**
- * 配置下拉列表分页标识
- * 当前类配合调用 -judgeBlankView: 方法来决定是否能显示下一页控件
- */
-NSDictionary* ZXManageMorePageInfo(NSDictionary *dataDict) {
-    if (![dataDict isKindOfClass:[NSDictionary class]]) return nil;
-    return @{
-        kBlankViewTotalPageKey   : @([dataDict[@"maxPage"] integerValue]),
-        kBlankViewCurrentPageKey : @([dataDict[@"currPage"] integerValue]),
-    };
-}
-
 #pragma mark - 给表格添加上下拉刷新事件
 
 /**
@@ -259,6 +247,18 @@ NSDictionary* ZXManageMorePageInfo(NSDictionary *dataDict) {
             [self.mj_header executeRefreshingCallback];
         }
     }
+}
+
+/**
+ * 配置下拉列表分页标识
+ * 当前类配合调用 -judgeBlankView: 方法来决定是否能显示下一页控件
+ */
+NSDictionary* WXManageMorePageInfo(NSDictionary *dataDict) {
+    if (![dataDict isKindOfClass:[NSDictionary class]]) return nil;
+    return @{
+        kBlankViewTotalPageKey   : @([dataDict[@"maxPage"] integerValue]),
+        kBlankViewCurrentPageKey : @([dataDict[@"currPage"] integerValue]),
+    };
 }
 
 #pragma mark - 给表格添加上请求失败提示事件
@@ -462,7 +462,7 @@ NSDictionary* ZXManageMorePageInfo(NSDictionary *dataDict) {
         }
     } else {
         [self.mj_footer endRefreshingWithNoMoreData];
-        self.mj_footer.hidden = YES;
+        self.mj_footer.hidden = NO;
     }
 }
 

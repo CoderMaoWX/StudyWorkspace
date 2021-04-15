@@ -25,9 +25,9 @@ static NSInteger const touchSize = 350;
     self.shouldPanBack = NO;
 }
 
-- (void)longGesture:(UILongPressGestureRecognizer *)pre {
-    CGPoint touchPoint = [pre locationInView:pre.view];
-    if (pre.state == UIGestureRecognizerStateBegan || pre.state == UIGestureRecognizerStateChanged) {
+- (void)longGesture:(UIGestureRecognizer *)gesture {
+    CGPoint touchPoint = [gesture locationInView:gesture.view];
+    if (gesture.state == UIGestureRecognizerStateBegan || gesture.state == UIGestureRecognizerStateChanged) {
         self.imageMaskLayer.hidden = NO;
         [CATransaction begin];
         [CATransaction setDisableActions:YES];
@@ -56,8 +56,7 @@ static NSInteger const touchSize = 350;
     if (!_bgImgView) {
         _bgImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _bgImgView.contentMode = UIViewContentModeScaleAspectFill;
-        UIImage *bluredImage = [self bluredImageWithRadius:15];
-        _bgImgView.image = bluredImage;
+        _bgImgView.image = [self blurImageWithDegree:15 originImage:self.maskImgView.image];;
     }
     return _bgImgView;
 }
@@ -77,29 +76,28 @@ static NSInteger const touchSize = 350;
         imageMaskLayer.hidden = YES;
         self.imageMaskLayer = imageMaskLayer;
         
-        UILongPressGestureRecognizer *longPre = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longGesture:)];
-        longPre.minimumPressDuration = 0.5;
+        UIPanGestureRecognizer *longPre = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(longGesture:)];
+        // longPre.minimumPressDuration = 0.5;
         [_maskImgView addGestureRecognizer:longPre];
     }
     return _maskImgView;
 }
 
-- (UIImage *)bluredImageWithRadius:(CGFloat)blurRadius
+///原图 -> 高斯模糊图
+- (UIImage *)blurImageWithDegree:(CGFloat)blurDegree originImage:(UIImage *)originImage
 {
-    UIImage *image = self.maskImgView.image;
-    
-    UIGraphicsBeginImageContextWithOptions(image.size, NO, [image scale]);
+    UIGraphicsBeginImageContextWithOptions(originImage.size, NO, [originImage scale]);
     CGContextRef effectInContext = UIGraphicsGetCurrentContext();
     CGContextScaleCTM(effectInContext, 1.0, -1.0);
-    CGContextTranslateCTM(effectInContext, 0, -image.size.height);
-    CGContextDrawImage(effectInContext, CGRectMake(0, 0, image.size.width, image.size.height), image.CGImage);
+    CGContextTranslateCTM(effectInContext, 0, -originImage.size.height);
+    CGContextDrawImage(effectInContext, CGRectMake(0, 0, originImage.size.width, originImage.size.height), originImage.CGImage);
     vImage_Buffer effectInBuffer;
     effectInBuffer.data     = CGBitmapContextGetData(effectInContext);
     effectInBuffer.width    = CGBitmapContextGetWidth(effectInContext);
     effectInBuffer.height   = CGBitmapContextGetHeight(effectInContext);
     effectInBuffer.rowBytes = CGBitmapContextGetBytesPerRow(effectInContext);
     
-    UIGraphicsBeginImageContextWithOptions(image.size, NO, [image scale]);
+    UIGraphicsBeginImageContextWithOptions(originImage.size, NO, [originImage scale]);
     CGContextRef effectOutContext = UIGraphicsGetCurrentContext();
     vImage_Buffer effectOutBuffer;
     effectOutBuffer.data     = CGBitmapContextGetData(effectOutContext);
@@ -107,10 +105,10 @@ static NSInteger const touchSize = 350;
     effectOutBuffer.height   = CGBitmapContextGetHeight(effectOutContext);
     effectOutBuffer.rowBytes = CGBitmapContextGetBytesPerRow(effectOutContext);
     
-    BOOL hasBlur = blurRadius > __FLT_EPSILON__;
+    BOOL hasBlur = blurDegree > __FLT_EPSILON__;
     
     if (hasBlur) {
-        CGFloat inputRadius = blurRadius * [[UIScreen mainScreen] scale];
+        CGFloat inputRadius = blurDegree * [[UIScreen mainScreen] scale];
         int radius = floor(inputRadius * 3. * sqrt(2 * M_PI) / 4 + 0.5);
         if (radius % 2 != 1) {
             radius += 1; // force radius to be odd so that the three box-blur methodology works.

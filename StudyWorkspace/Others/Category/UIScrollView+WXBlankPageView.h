@@ -56,11 +56,12 @@ typedef enum : NSUInteger {
 /** 网络连接失败按钮 */
 @property (nonatomic, copy) NSString *networkErrorBtnTitle;
 
+
 /** 按钮点击的事件 */
 @property (nonatomic, copy) void (^blankTipViewActionBlcok)(WXBlankTipViewStatus status);
 
 /**
- * 一个属性即可自动设置显示请求提示view,(但是在请求失败时只能显示无数据提示)
+ * 一个属性即可自动设置显示请求提示view,(但是在请求失败时仅显示无数据提示)
  * 此方法一定要放在请求数据回来时的reloadData之前设置此属性效果才正常
  */
 @property(nonatomic, assign) BOOL automaticShowBlankView;
@@ -68,12 +69,6 @@ typedef enum : NSUInteger {
 
 /** 外部可控制整体View的中心点上下偏移位置 {0, 0}:表示上下居中显示, 默认居中显示 */
 @property(nonatomic, assign) CGPoint blankViewOffsetPoint;
-
-/**
- * 配置下拉列表分页标识
- * 当前类配合调用 -judgeBlankView: 方法来决定是否能显示下一页控件
- */
-NSDictionary* ZXManageMorePageInfo(NSDictionary *dataDict);
 
 
 #pragma mark -- 给表格添加上下拉刷新事件
@@ -100,6 +95,12 @@ NSDictionary* ZXManageMorePageInfo(NSDictionary *dataDict);
 #pragma mark -- 处理表格上下拉刷新,分页,添加空白页事件
 
 /**
+ * 配置下拉列表分页标识
+ * 当前类配合调用 -judgeBlankView: 方法来决定是否能显示下一页控件
+ */
+NSDictionary* WXManageMorePageInfo(NSDictionary *dataDict);
+
+/**
  此方法作用: 调用后会自动收起表格上下拉刷新控件, 判断分页逻辑, 添加数据空白页等操作
  调用条件：  必须要在UITableView/UICollectionView 实例的reloadData方法执行后调用才能生效
  
@@ -121,7 +122,7 @@ NSDictionary* ZXManageMorePageInfo(NSDictionary *dataDict);
  */
 - (void)judgeBlankViewCurrentPage:(NSNumber *)currentPage totalPage:(NSNumber *)totalPage;
 
-//移除
+///主动移除提示View
 - (void)removeBlankView;
 
 @end
