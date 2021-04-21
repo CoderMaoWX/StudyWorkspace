@@ -31,6 +31,28 @@
         [self.listDataArray addObject:string];
     }
     [self.collectionView reloadData];
+    
+    [self saveDocument];
+}
+
+- (void)saveDocument {
+    
+//    //云端文档转存: https://developer.apple.com/library/archive/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html
+    
+//    NSURL *cloudImgUrl = [NSURL fileURLWithPath:
+//                          [NSString stringWithFormat:@"%@/%@",kCacheDirectory,self.fileObject.name]];
+//    UIDocumentInteractionController *tmpUIDocumentInteractionController
+//    = [[UIDocumentInteractionController interactionControllerWithURL:cloudImgUrl] retain];
+//    tmpUIDocumentInteractionController.UTI = @"public.data";
+//    tmpUIDocumentInteractionController.delegate = self;
+//    if (![tmpUIDocumentInteractionController presentOpenInMenuFromRect:CGRectZero inView:self.view animated:YES])
+//    {
+//        [tmpUIDocumentInteractionController release];
+//        [[YBProgressShow defaultProgress] showText:NSLocalizedString(@"filemgr_other_app_canotopen", nil)
+//                                            InMode:MBProgressHUDModeText
+//                             OriginViewEnableTouch:YES HideAfterDelayTime:1];
+//    }
+//
 }
 
 ///由子类覆盖: 表格需要注册的Cell
