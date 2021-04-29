@@ -38,9 +38,9 @@
 
 #pragma mark -============== <UITableView> 配置父类表格数据和代理 ==============
 
-///由子类覆盖: 表格需要注册的Cell
-- (Class)registerTableViewCell {
-    return [WXStudyCell class];
+///由子类覆盖: 表格需要注册的Cell <UITableViewCell.type>
+- (NSArray<Class> *)registerTableViewCell {
+    return @[ [WXStudyCell class] ];
 }
 
 ///由子类覆盖: 配置表格数据方法
@@ -53,6 +53,20 @@
         cell.subTitleLabel.text = rowData[name];
     };
 }
+
+///由子类覆盖: 配置表格数据方法
+- (ZXTableViewMutableCellBlock)mutableCellForRowBlock {
+    return ^UITableViewCell* (UITableView *tableView, NSDictionary *rowData, NSIndexPath *indexPath) {
+        UITableViewCell *c = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WXStudyCell class]) forIndexPath:indexPath];
+        if (![rowData isKindOfClass:[NSDictionary class]]) return c;
+        NSString *name = rowData.allKeys.firstObject;
+        WXStudyCell *cell = (WXStudyCell *)c;
+        cell.titleLabel.text = name;
+        cell.subTitleLabel.text = rowData[name];
+        return c;
+    };
+}
+
 
 ///由子类覆盖: 点击表格代理方法
 - (ZXTableViewConfigBlock)didSelectRowBlcok {

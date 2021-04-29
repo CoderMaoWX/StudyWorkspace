@@ -11,9 +11,6 @@
 #import "WXFrameDefiner.h"
 
 @interface ZXTableViewManager ()
-@property (nonatomic, strong) Class CellCalss;
-@property (nonatomic, assign) BOOL isXibCell;
-@property (nonatomic, assign) BOOL hasRegisterCell;
 @property (nonatomic, copy)   NSString *cellIdentifier;
 @end
 
@@ -22,19 +19,16 @@
 /**
  * 创建表格dataSource (适用于相同类型的Cell)
  */
-+ (instancetype)createWithCellClass:(Class)cellClass {
++ (instancetype)createWithCellClass:(NSArray<Class> *)cellClass {
     return [[ZXTableViewManager alloc] initWithClass:cellClass];
 }
 
-- (instancetype)initWithClass:(Class)cellClass {
+- (instancetype)initWithClass:(NSArray<Class> *)cellClass {
     self = [super init];
     if (self) {
         self.numberOfSections = 1;
-        NSAssert([cellClass isSubclassOfClass:[UITableViewCell class]], @"❌❌❌初始化参数:cellClass 必须为UITableViewCell的类型");
-        _CellCalss = cellClass;
-        _cellIdentifier = NSStringFromClass(cellClass);
-        NSString *path = [[NSBundle mainBundle] pathForResource:_cellIdentifier ofType:@"nib"];
-        _isXibCell = (path.length>0);
+//        NSAssert(cellClass.count == 0, @"必须要传入UITableViewCell类型来注册");
+        _cellIdentifier = NSStringFromClass(cellClass.firstObject);
     }
     return self;
 }
@@ -77,30 +71,24 @@
 }
 
 - (UITableViewCell * )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.hasRegisterCell) {
-        self.hasRegisterCell = YES;
-        if (self.isXibCell) {
-            UINib *nib = [UINib nibWithNibName:NSStringFromClass(_CellCalss) bundle:nil];
-            [tableView registerNib:nib forCellReuseIdentifier:_cellIdentifier];
-        } else {
-            [tableView registerClass:_CellCalss forCellReuseIdentifier:_cellIdentifier];
-        }
-    }
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellIdentifier forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     id rowData = [self rowDataForIndexPath:indexPath];
-    if (self.cellForRowBlock) {
-        self.cellForRowBlock(cell, rowData, indexPath);
+    if (self.mutableCellForRowBlock) {
+        return self.mutableCellForRowBlock(tableView, rowData, indexPath);
     } else {
-        SEL sel = NSSelectorFromString(@"setDataModel:");
-        if ([cell respondsToSelector:sel]) {
-            WX_PerformSelectorLeakWarning(
-              [cell performSelector:sel withObject:rowData];
-            );
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellIdentifier forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (self.cellForRowBlock) {
+            self.cellForRowBlock(cell, rowData, indexPath);
+        } else {
+            SEL sel = NSSelectorFromString(@"setDataModel:");
+            if ([cell respondsToSelector:sel]) {
+                WX_PerformSelectorLeakWarning(
+                  [cell performSelector:sel withObject:rowData];
+                );
+            }
         }
+        return cell;
     }
-    return cell;
 }
 
 //隐藏最后一条细线

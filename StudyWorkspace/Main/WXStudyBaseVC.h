@@ -47,8 +47,8 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 
 #pragma mark -============== <UITableView> 配置父类表格数据和代理 ==============
 
-///由子类覆盖: 表格需要注册的Cell
-- (Class)registerTableViewCell;
+///由子类覆盖: 表格需要注册的Cell <UITableViewCell.type>
+- (NSArray<Class> *)registerTableViewCell;
 
 ///由子类覆盖: 配置表格Cell高度
 @property (nonatomic, copy) ZXTableViewRowHeightBlock heightForRowBlcok;

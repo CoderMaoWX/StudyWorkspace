@@ -14,18 +14,18 @@ typedef enum : NSUInteger {
     FooterType,
 } SectionType;
 
-
 @interface ZXTableViewManager<CellType: UITableViewCell *> : NSObject<UITableViewDelegate,UITableViewDataSource>
 
 typedef CGFloat (^ZXTableViewRowHeightBlock) (id rowData, NSIndexPath *indexPath);
 typedef void (^ZXTableViewConfigBlock) (CellType cell, id rowData, NSIndexPath *indexPath);
 typedef void (^ZXTableViewDidScrollBlock) (CGPoint contentOffset);
+typedef UITableViewCell* (^ZXTableViewMutableCellBlock) (UITableView *tableView, id rowData, NSIndexPath *indexPath);
 
 
 /** numberOfSections组数目, 默认为1组 */
 @property (nonatomic, assign) NSInteger numberOfSections;
 
-/** 单组的数据源 */
+/** 单组时: 单组的数据源 */
 @property (nonatomic, strong) NSArray *plainTabDataArr;
 
 /** 多组时: 获取每组的数据源 */
@@ -40,8 +40,16 @@ typedef void (^ZXTableViewDidScrollBlock) (CGPoint contentOffset);
 /** 获取Row高度Block */
 @property (nonatomic, copy) ZXTableViewRowHeightBlock heightForRowBlcok;
 
-/** 配置表格Cell */
+/**
+ * 配置表格Cell, 不同类型的Cell就传多个
+ */
+@property (nonatomic, strong) NSArray<NSArray<Class> *> *cellClass;
+
+/** 配置相同类型的Cell回调 */
 @property (nonatomic, copy) ZXTableViewConfigBlock cellForRowBlock;
+
+/** 配置不同类型的Cell回调 */
+@property (nonatomic, copy) ZXTableViewMutableCellBlock mutableCellForRowBlock;
 
 /** 点击Cell回调 */
 @property (nonatomic, copy) ZXTableViewConfigBlock didSelectRowBlcok;
@@ -52,7 +60,7 @@ typedef void (^ZXTableViewDidScrollBlock) (CGPoint contentOffset);
 /**
  * 创建表格dataSource (适用于相同类型的Cell)
  */
-+ (instancetype)createWithCellClass:(Class)cellClass;
++ (instancetype)createWithCellClass:(NSArray<Class> *)cellClass;
 
 /**
  *  获取数组中的元素
