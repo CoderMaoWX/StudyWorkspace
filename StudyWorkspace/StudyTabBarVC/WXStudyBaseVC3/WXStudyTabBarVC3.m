@@ -55,9 +55,9 @@
 //
 }
 
-///由子类覆盖: 表格需要注册的Cell
-- (Class)registerCollectionViewCell {
-    return [WXCollectionViewCell class];
+///由子类覆盖: 表格需要注册的Cell <UICollectionViewCell.type>
+- (NSArray<Class> *)registerCollectionViewCell {
+    return @[ [WXCollectionViewCell class] ];
 }
 
 ///由子类覆盖: 配置表格布局样式
