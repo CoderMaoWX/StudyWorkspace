@@ -15,25 +15,35 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 
 @interface WXStudyBaseVC : UIViewController
 
-/// UITableView/UICollectionView的数据源代理
-@property (nonatomic, strong) NSMutableArray            *listDataArray;
-
-@property (nonatomic, strong) UITableView               *plainTableView;
-
-@property (nonatomic, strong) UICollectionView          *collectionView;
-
 /** 是否使用全屏返回手势 */
-@property (nonatomic, assign) BOOL                      shouldPanBack;
+@property (nonatomic, assign) BOOL                              shouldPanBack;
 
 /** 系统下拉刷新控件 */
-@property (nonatomic, strong) UIRefreshControl          *refreshControl;
+@property (nonatomic, strong) UIRefreshControl                  *refreshControl;
 
 /** 子类请求对象数组 */
-@property (nonatomic, strong) NSMutableArray            *requestTaskArr;
+@property (nonatomic, strong) NSMutableArray                    *requestTaskArr;
 
-@property (nonatomic, copy) NSString                    *subTitle;
+@property (nonatomic, copy) NSString                            *subTitle;
 
-@property (nonatomic, copy) NSString                    *tipText;
+@property (nonatomic, copy) NSString                            *tipText;
+
+/**
+ * UITableView/UICollectionView的数据源代理
+ * 注意: 两个列表的使用的数据源都是: self.listDataArray
+ * 警告: 页面上不要同事出现UITableView/UICollectionView两个列表
+ */
+@property (nonatomic, strong) NSMutableArray                    *listDataArray;
+
+/// 懒加载的UITableView列表
+@property (nonatomic, strong) UITableView                       *plainTableView;
+
+@property (nonatomic,strong,readonly) ZXTableViewManager        *tableViewManager;
+
+/// 懒加载的UICollectionView列表
+@property (nonatomic, strong) UICollectionView                  *collectionView;
+
+@property (nonatomic,strong,readonly) ZXCollectionViewManager   *collectionViewManager;
 
 
 #pragma mark -============== 布局页面子视图 ==============
@@ -47,31 +57,23 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 
 #pragma mark -============== <UITableView> 配置父类表格数据和代理 ==============
 
-///由子类覆盖: 表格需要注册的Cell <UITableViewCell.type>
+/**
+ ///由子类覆盖: 表格需要注册的Cell <UITableViewCell.type>
+ - (NSArray<Class> *)registerTableViewCell {
+     return @[ [UITableViewCell class] ];
+ } */
 - (NSArray<Class> *)registerTableViewCell;
 
-///由子类覆盖: 配置表格Cell高度
-@property (nonatomic, copy) ZXTableViewRowHeightBlock heightForRowBlcok;
-
-///由子类覆盖: 配置表格数据方法
-@property (nonatomic, copy) ZXTableViewConfigBlock cellForRowBlock;
-
-///由子类覆盖: 点击表格代理方法
-@property (nonatomic, copy) ZXTableViewConfigBlock didSelectRowBlcok;
-
-///列表滚动回调
-@property (nonatomic, copy) void (^didScrollBlock)(CGPoint contentOffset);
-
 /**
- * TableView使用方法示例
- *
  ///由子类覆盖: 配置表格Cell高度 (警告: 父类不能复写次方法, 只能留给之类复写次方法)
  - (ZXTableViewRowHeightBlock)heightForRowBlcok {
      return ^CGFloat (id rowData, NSIndexPath *indexPath) {
          return kDefaultCellHeight;
      };
- }
+ } */
+@property (nonatomic, copy) ZXTableViewRowHeightBlock heightForRowBlcok;
 
+/**
  ///由子类覆盖: 配置表格数据方法
  - (ZXTableViewConfigBlock)cellForRowBlock {
      return ^(UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
@@ -84,22 +86,28 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
              );
          }
      };
- }
+ } */
+@property (nonatomic, copy) ZXTableViewConfigBlock cellForRowBlock;
 
+///由子类覆盖: 点击表格代理方法
+/**
  ///由子类覆盖: 点击表格代理方法
  - (ZXTableViewConfigBlock)didSelectRowBlcok {
      return ^(UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
          WX_Log(@"didSelectRowBlcok: %@", rowData)
      };
- }
+ } */
+@property (nonatomic, copy) ZXTableViewConfigBlock didSelectRowBlcok;
 
+/**
  ///滚动列表回调
  - (void(^)(CGPoint contentOffset))didScrollBlock {
      return ^(CGPoint contentOffset) {
- 
      };
- }
- */
+ } */
+@property (nonatomic, copy) void (^didScrollBlock)(CGPoint contentOffset);
+
+
 
 #pragma mark -============== <UICollectionView> 配置父类表格数据和代理 ==============
 
@@ -107,40 +115,32 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 - (Class)registerCollectionViewCell;
 
 ///由子类覆盖: 配置表格布局样式
-- (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout;
-
-
-///由子类覆盖: 配置表格Cell高度
-@property (nonatomic, copy) ZXCollectionViewItemSizeBlock sizeForItemBlcok;
-
-///由子类覆盖: 配置表格Cell
-@property (nonatomic, copy) ZXCollectionViewConfigBlock cellForItemBlock;
-
-///由子类覆盖: 点击表格代理方法
-@property (nonatomic, copy) ZXCollectionViewConfigBlock didSelectItemBlcok;
 
 /**
- * CollectionView使用方法示例
- *
  ///由子类覆盖: 配置表格布局样式
  - (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout {
      flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
      flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, (isPhoneXSeries ? 34 : 12), 0);
      flowLayout.estimatedItemSize = CGSizeMake(94, 28);
- }
+ } */
+- (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout;
 
+
+///由子类覆盖: 配置表格Cell高度
+/**
  ///由子类覆盖: 配置表格Cell高度 (警告: 父类不能复写次方法, 只能留给之类复写次方法)
  - (ZXCollectionViewItemSizeBlock)sizeForItemBlcok {
      return ^ CGSize (id itemData, NSIndexPath *indexPath) {
          return CGSizeMake(50.0, 50.0);
      };
- }
+ } */
+@property (nonatomic, copy) ZXCollectionViewItemSizeBlock sizeForItemBlcok;
 
+/**
  ///由子类覆盖: 配置表格数据方法
  - (ZXCollectionViewConfigBlock)cellForItemBlock {
      return ^(UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
          WX_Log(@"cellForItemAtIndexPath: %@", cell)
-         
          SEL sel = NSSelectorFromString(@"setDataModel:");
          if ([cell respondsToSelector:sel]) {
              WX_PerformSelectorLeakWarning(
@@ -148,22 +148,18 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
              );
          }
      };
- }
+ }*/
+@property (nonatomic, copy) ZXCollectionViewConfigBlock cellForItemBlock;
 
+/**
  ///由子类覆盖: 点击表格代理方法
  - (ZXCollectionViewConfigBlock)didSelectItemBlcok {
      return ^(UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
          WX_Log(@"didSelectItemBlcok: %@", itemData)
      };
- }
- 
- ///滚动列表回调
- - (void(^)(CGPoint contentOffset))didScrollBlock {
-     return ^(CGPoint contentOffset) {
- 
-     };
- }
- */
+ } */
+@property (nonatomic, copy) ZXCollectionViewConfigBlock didSelectItemBlcok;
+
 
 /** 返回上一页面  */
 - (void)backBtnClick:(UIButton *)backBtn;

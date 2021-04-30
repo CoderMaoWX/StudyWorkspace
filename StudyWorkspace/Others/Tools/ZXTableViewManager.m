@@ -11,7 +11,6 @@
 #import "WXFrameDefiner.h"
 
 @interface ZXTableViewManager ()
-@property (nonatomic, copy)   NSString *cellIdentifier;
 @end
 
 @implementation ZXTableViewManager
@@ -19,16 +18,14 @@
 /**
  * 创建表格dataSource (适用于相同类型的Cell)
  */
-+ (instancetype)createWithCellClass:(NSArray<Class> *)cellClass {
-    return [[ZXTableViewManager alloc] initWithClass:cellClass];
++ (instancetype)createWithCellClass:(NSArray<Class> *)cellClases {
+    return [[ZXTableViewManager alloc] initWithClass:cellClases];
 }
 
-- (instancetype)initWithClass:(NSArray<Class> *)cellClass {
+- (instancetype)initWithClass:(NSArray<Class> *)cellClases {
     self = [super init];
     if (self) {
-        self.numberOfSections = 1;
-//        NSAssert(cellClass.count == 0, @"必须要传入UITableViewCell类型来注册");
-        _cellIdentifier = NSStringFromClass(cellClass.firstObject);
+        self.cellClases = cellClases;
     }
     return self;
 }
@@ -38,17 +35,10 @@
  */
 - (id)rowDataForIndexPath:(NSIndexPath *)indexPath {
     if (self.dataOfSections) {
-        NSArray *arrary = self.dataOfSections(indexPath.section);
-        if ([arrary isKindOfClass:[NSArray class]]) {
-            if (arrary.count>indexPath.row) {
-                return arrary[indexPath.row];
-            }
-        }
-    } else if (self.plainTabDataArr) {
-        NSArray *rowDataArr = self.plainTabDataArr;
-        if ([rowDataArr isKindOfClass:[NSArray class]]) {
-            if (indexPath.row < rowDataArr.count) {
-                return rowDataArr[indexPath.row];
+        NSArray *sectionArrary = self.dataOfSections(indexPath.section);
+        if ([sectionArrary isKindOfClass:[NSArray class]]) {
+            if (sectionArrary.count > indexPath.row) {
+                return sectionArrary[indexPath.row];
             }
         }
     }
@@ -58,16 +48,15 @@
 #pragma mark -===========UITableViewDataSource===========
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.numberOfSections;
+    return MAX(self.numberOfSections, 1);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.dataOfSections) {
         NSArray *arrary = self.dataOfSections(section);
         return arrary.count;
-    } else {
-        return self.plainTabDataArr.count;
     }
+    return 0;
 }
 
 - (UITableViewCell * )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -75,7 +64,11 @@
     if (self.mutableCellForRowBlock) {
         return self.mutableCellForRowBlock(tableView, rowData, indexPath);
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_cellIdentifier forIndexPath:indexPath];
+        NSAssert(self.cellClases.count > 0, @"❌❌❌至少要传入一个UITableViewCell的类型来注册");
+        Class cls = (Class)self.cellClases.firstObject;
+        NSAssert([cls isSubclassOfClass:[UITableViewCell class]], @"❌❌❌传入的Class注册类型不是UITableViewCell的子类");
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(cls) forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if (self.cellForRowBlock) {
             self.cellForRowBlock(cell, rowData, indexPath);

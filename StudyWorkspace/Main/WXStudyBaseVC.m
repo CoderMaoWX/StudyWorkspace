@@ -98,12 +98,17 @@
 ///表格代理方法管理类
 - (ZXTableViewManager *)tableViewManager {
     if(!_tableViewManager){
-        _tableViewManager = [ZXTableViewManager createWithCellClass:self.registerTableViewAllCell];
-        _tableViewManager.plainTabDataArr = self.listDataArray;
+        _tableViewManager = [[ZXTableViewManager alloc] init];
+        _tableViewManager.cellClases = self.registerTableViewAllCell;
         _tableViewManager.heightForRowBlcok = self.heightForRowBlcok;
         _tableViewManager.cellForRowBlock = self.cellForRowBlock;
         _tableViewManager.didSelectRowBlcok = self.didSelectRowBlcok;
         _tableViewManager.didScrollBlock = self.didScrollBlock;
+        @weakify(self)
+        _tableViewManager.dataOfSections = ^NSArray *(NSInteger section) {
+            @strongify(self)
+            return self.listDataArray;
+        };
     }
     return _tableViewManager;
 }
@@ -116,7 +121,7 @@
         
         NSString *identifier = NSStringFromClass(cellClass);
         NSString *path = [[NSBundle mainBundle] pathForResource:identifier ofType:@"nib"];
-        if ((path.length>0)) { //isXibCell
+        if (path.length > 0) { //isXibCell
             UINib *nib = [UINib nibWithNibName:identifier bundle:nil];
             [self.plainTableView registerNib:nib forCellReuseIdentifier:identifier];
         } else {

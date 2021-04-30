@@ -12,7 +12,7 @@
 typedef enum : NSUInteger {
     HeaderType,
     FooterType,
-} SectionType;
+} ZXSectionType;
 
 @interface ZXTableViewManager<CellType: UITableViewCell *> : NSObject<UITableViewDelegate,UITableViewDataSource>
 
@@ -21,29 +21,32 @@ typedef void (^ZXTableViewConfigBlock) (CellType cell, id rowData, NSIndexPath *
 typedef void (^ZXTableViewDidScrollBlock) (CGPoint contentOffset);
 typedef UITableViewCell* (^ZXTableViewMutableCellBlock) (UITableView *tableView, id rowData, NSIndexPath *indexPath);
 
+/**
+ * 配置表格Cell, 不同类型的Cell就传多个, 单组就传一个, eg: @[ [UITableViewCell Class] ]
+ */
++ (instancetype)createWithCellClass:(NSArray<Class> *)cellClases;
 
-/** numberOfSections组数目, 默认为1组 */
+/**
+ * 配置表格Cell, 不同类型的Cell就传多个, 单组就传一个, eg: @[ [UITableViewCell Class] ]
+ */
+@property (nonatomic, strong) NSArray<NSArray<Class> *> *cellClases;
+
+
+
+/** numberOfSections组数目, 默认为:1 */
 @property (nonatomic, assign) NSInteger numberOfSections;
 
-/** 单组时: 单组的数据源 */
-@property (nonatomic, strong) NSArray *plainTabDataArr;
-
 /** 多组时: 获取每组的数据源 */
-@property (nonatomic, strong) NSArray* (^dataOfSections)(NSInteger section);
+@property (nonatomic, strong) NSArray * (^dataOfSections)(NSInteger section);
 
 /** 获取SectionView高度Block */
-@property (nonatomic, copy) CGFloat (^heightForSectionBlcok)(SectionType sectionType, NSInteger section);
+@property (nonatomic, copy) CGFloat (^heightForSectionBlcok)(ZXSectionType sectionType, NSInteger section);
 
 /** 获取SectionView的Block */
-@property (nonatomic, copy) UIView * (^viewForSectionBlcok)(SectionType sectionType, NSInteger section);
+@property (nonatomic, copy) UIView * (^viewForSectionBlcok)(ZXSectionType sectionType, NSInteger section);
 
 /** 获取Row高度Block */
 @property (nonatomic, copy) ZXTableViewRowHeightBlock heightForRowBlcok;
-
-/**
- * 配置表格Cell, 不同类型的Cell就传多个
- */
-@property (nonatomic, strong) NSArray<NSArray<Class> *> *cellClass;
 
 /** 配置相同类型的Cell回调 */
 @property (nonatomic, copy) ZXTableViewConfigBlock cellForRowBlock;
@@ -58,12 +61,7 @@ typedef UITableViewCell* (^ZXTableViewMutableCellBlock) (UITableView *tableView,
 @property (nonatomic, copy) ZXTableViewDidScrollBlock didScrollBlock;
 
 /**
- * 创建表格dataSource (适用于相同类型的Cell)
- */
-+ (instancetype)createWithCellClass:(NSArray<Class> *)cellClass;
-
-/**
- *  获取数组中的元素
+ *  获取表中元素
  */
 - (id)rowDataForIndexPath:(NSIndexPath *)indexPath;
 
