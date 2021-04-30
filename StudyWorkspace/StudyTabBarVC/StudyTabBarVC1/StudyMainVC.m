@@ -44,7 +44,7 @@
 }
 
 ///由子类覆盖: 配置相同类型Cell的表格
-- (ZXTableViewCellBlock)cellForRowBlock {
+- (WXTableViewCellBlock)cellForRowBlock {
     return ^ (UITableViewCell *c, NSDictionary *rowData, NSIndexPath *indexPath) {
         if (![rowData isKindOfClass:[NSDictionary class]]) return;
         NSString *name = rowData.allKeys.firstObject;
@@ -55,7 +55,7 @@
 }
 
 ///由子类覆盖: 点击表格代理方法
-- (ZXTableViewCellBlock)didSelectRowBlcok {
+- (WXTableViewCellBlock)didSelectRowBlcok {
     return ^ (UITableViewCell *cell, NSDictionary *celLDic, NSIndexPath *indexPath) {
         NSString *className = [celLDic.allKeys.firstObject stringByReplacingOccurrencesOfString:@".m" withString:@""];
         UIViewController *vc = [[NSClassFromString(className) alloc] init];

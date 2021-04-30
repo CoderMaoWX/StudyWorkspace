@@ -68,8 +68,8 @@
 		58DB51EC24E6791A00F71C56 /* WXDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51EB24E6791A00F71C56 /* WXDataModel.m */; };
 		58EB3A6E261EE66100397F49 /* WXCFunctionTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A6D261EE66100397F49 /* WXCFunctionTool.m */; };
 		58EB3A7F261F015700397F49 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A7E261F015700397F49 /* NSObject+Swizzling.m */; };
-		58EB3A85261F0ABC00397F49 /* ZXCollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A81261F0ABC00397F49 /* ZXCollectionViewManager.m */; };
-		58EB3A86261F0ABC00397F49 /* ZXTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A82261F0ABC00397F49 /* ZXTableViewManager.m */; };
+		58EB3A85261F0ABC00397F49 /* WXCollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A81261F0ABC00397F49 /* WXCollectionViewManager.m */; };
+		58EB3A86261F0ABC00397F49 /* WXTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A82261F0ABC00397F49 /* WXTableViewManager.m */; };
 		58EB3A8A261F0C2200397F49 /* UIScrollView+WXBlankPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A88261F0C2200397F49 /* UIScrollView+WXBlankPageView.m */; };
 		58EB3A8E261F0C3C00397F49 /* WXBlankTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A8D261F0C3C00397F49 /* WXBlankTipView.m */; };
 		58FBED5E24E68802003F7FE6 /* SkinZipURL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 58FBED5D24E68802003F7FE6 /* SkinZipURL.txt */; };
@@ -194,10 +194,10 @@
 		58EB3A70261EE6EC00397F49 /* WXMacroDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXMacroDefiner.h; sourceTree = "<group>"; };
 		58EB3A7D261F015700397F49 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Swizzling.h"; sourceTree = "<group>"; };
 		58EB3A7E261F015700397F49 /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzling.m"; sourceTree = "<group>"; };
-		58EB3A81261F0ABC00397F49 /* ZXCollectionViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXCollectionViewManager.m; sourceTree = "<group>"; };
-		58EB3A82261F0ABC00397F49 /* ZXTableViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXTableViewManager.m; sourceTree = "<group>"; };
-		58EB3A83261F0ABC00397F49 /* ZXCollectionViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXCollectionViewManager.h; sourceTree = "<group>"; };
-		58EB3A84261F0ABC00397F49 /* ZXTableViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXTableViewManager.h; sourceTree = "<group>"; };
+		58EB3A81261F0ABC00397F49 /* WXCollectionViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXCollectionViewManager.m; sourceTree = "<group>"; };
+		58EB3A82261F0ABC00397F49 /* WXTableViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXTableViewManager.m; sourceTree = "<group>"; };
+		58EB3A83261F0ABC00397F49 /* WXCollectionViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXCollectionViewManager.h; sourceTree = "<group>"; };
+		58EB3A84261F0ABC00397F49 /* WXTableViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXTableViewManager.h; sourceTree = "<group>"; };
 		58EB3A88261F0C2200397F49 /* UIScrollView+WXBlankPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+WXBlankPageView.m"; sourceTree = "<group>"; };
 		58EB3A89261F0C2200397F49 /* UIScrollView+WXBlankPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+WXBlankPageView.h"; sourceTree = "<group>"; };
 		58EB3A8C261F0C3C00397F49 /* WXBlankTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXBlankTipView.h; sourceTree = "<group>"; };
@@ -274,10 +274,10 @@
 			children = (
 				5893D22724EA6C360005E1AF /* WXFileManager.h */,
 				5893D22824EA6C360005E1AF /* WXFileManager.m */,
-				58EB3A83261F0ABC00397F49 /* ZXCollectionViewManager.h */,
-				58EB3A81261F0ABC00397F49 /* ZXCollectionViewManager.m */,
-				58EB3A84261F0ABC00397F49 /* ZXTableViewManager.h */,
-				58EB3A82261F0ABC00397F49 /* ZXTableViewManager.m */,
+				58EB3A84261F0ABC00397F49 /* WXTableViewManager.h */,
+				58EB3A82261F0ABC00397F49 /* WXTableViewManager.m */,
+				58EB3A83261F0ABC00397F49 /* WXCollectionViewManager.h */,
+				58EB3A81261F0ABC00397F49 /* WXCollectionViewManager.m */,
 				5811051824EB6F6D006EB5FA /* CHTCollectionViewWaterfallLayout.h */,
 				5811051924EB6F6D006EB5FA /* CHTCollectionViewWaterfallLayout.m */,
 				58EB3A6C261EE66100397F49 /* WXCFunctionTool.h */,
@@ -659,7 +659,7 @@
 				5893D22124EA6AE40005E1AF /* WXStudyTabBarVC2.m in Sources */,
 				5893D0CC24EA55CF0005E1AF /* StudyVC12.m in Sources */,
 				5893D0E224EA55DA0005E1AF /* DrawPathView.m in Sources */,
-				58EB3A85261F0ABC00397F49 /* ZXCollectionViewManager.m in Sources */,
+				58EB3A85261F0ABC00397F49 /* WXCollectionViewManager.m in Sources */,
 				58EB3A8E261F0C3C00397F49 /* WXBlankTipView.m in Sources */,
 				58EB3A6E261EE66100397F49 /* WXCFunctionTool.m in Sources */,
 				5893D21E24EA69700005E1AF /* WXTabBarSkinModel.m in Sources */,
@@ -669,7 +669,7 @@
 				58695C3424E6683000155B80 /* AppDelegate.m in Sources */,
 				5893D0E324EA55DA0005E1AF /* LukeLayer.m in Sources */,
 				5893D0B624EA52610005E1AF /* StudyVC5.m in Sources */,
-				58EB3A86261F0ABC00397F49 /* ZXTableViewManager.m in Sources */,
+				58EB3A86261F0ABC00397F49 /* WXTableViewManager.m in Sources */,
 				5811051324EB6BAC006EB5FA /* UIButton+WXShortcut.m in Sources */,
 				58695C4524E6683100155B80 /* main.m in Sources */,
 				580E844524F8D75C003E6E0C /* WXStudyTabBarVC3.m in Sources */,

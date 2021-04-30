@@ -11,8 +11,8 @@
 #import "NSString+Extension.h"
 
 @interface WXStudyBaseVC ()<UIGestureRecognizerDelegate>
-@property (nonatomic, strong) ZXTableViewManager        *tableViewManager;
-@property (nonatomic, strong) ZXCollectionViewManager   *collectionViewManager;
+@property (nonatomic, strong) WXTableViewManager        *tableViewManager;
+@property (nonatomic, strong) WXCollectionViewManager   *collectionViewManager;
 @property (nonatomic, strong) UIPanGestureRecognizer    *backPan;
 @property (nonatomic, strong) UILabel                   *tipTextLabel;
 @end
@@ -96,9 +96,9 @@
 }
 
 ///表格代理方法管理类
-- (ZXTableViewManager *)tableViewManager {
+- (WXTableViewManager *)tableViewManager {
     if(!_tableViewManager){
-        _tableViewManager = [[ZXTableViewManager alloc] init];
+        _tableViewManager = [[WXTableViewManager alloc] init];
         _tableViewManager.cellClases = self.registerTableViewCell;
         _tableViewManager.heightForRowBlcok = self.heightForRowBlcok;
         _tableViewManager.cellForRowBlock = self.cellForRowBlock;//二选一
@@ -151,9 +151,9 @@
 }
 
 ///表格代理方法管理类
-- (ZXCollectionViewManager *)collectionViewManager {
+- (WXCollectionViewManager *)collectionViewManager {
     if(!_collectionViewManager){
-        _collectionViewManager = [[ZXCollectionViewManager alloc] init];
+        _collectionViewManager = [[WXCollectionViewManager alloc] init];
         _collectionViewManager.cellClases = self.registerCollectionViewCell;
         _collectionViewManager.sizeForItemBlcok = self.sizeForItemBlcok;
         _collectionViewManager.mutableCellForItemBlock = self.mutableCellForItemBlock;

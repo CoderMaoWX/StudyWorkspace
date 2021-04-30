@@ -1,26 +1,26 @@
 //
-//  ZXTableViewManager.m
+//  WXTableViewManager.m
 //  ZXOwner
 //
 //  Created by 610582 on 2020/8/14.
 //  Copyright © 2020 MaoZX. All rights reserved.
 //
 
-#import "ZXTableViewManager.h"
+#import "WXTableViewManager.h"
 #import "WXMacroDefiner.h"
 #import "WXFrameDefiner.h"
 
-@interface ZXTableViewManager ()
+@interface WXTableViewManager ()
 @property (nonatomic, assign) BOOL hasRegisterCell;
 @end
 
-@implementation ZXTableViewManager
+@implementation WXTableViewManager
 
 /**
  * 创建表格dataSource (适用于相同类型的Cell)
  */
 + (instancetype)createWithCellClass:(NSArray<Class> *)cellClases {
-    return [[ZXTableViewManager alloc] initWithClass:cellClases];
+    return [[WXTableViewManager alloc] initWithClass:cellClases];
 }
 
 - (instancetype)initWithClass:(NSArray<Class> *)cellClases {

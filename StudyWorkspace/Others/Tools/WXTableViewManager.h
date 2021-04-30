@@ -14,12 +14,12 @@ typedef enum : NSUInteger {
     FooterType,
 } ZXSectionType;
 
-typedef CGFloat (^ZXTableViewRowHeightBlock) (id rowData, NSIndexPath *indexPath);
-typedef CGFloat (^ZXTableViewSectionHeightBlock) (ZXSectionType sectionType, NSInteger section);
-typedef UIView* (^ZXTableViewSectionViewBlock) (ZXSectionType sectionType, NSInteger section);
-typedef void (^ZXTableViewCellBlock) (id cell, id rowData, NSIndexPath *indexPath);
-typedef UITableViewCell* (^ZXTableViewMutableCellBlock) (UITableView *tableView, id rowData, NSIndexPath *indexPath);
-typedef void (^ZXTableViewDidScrollBlock) (UIScrollView *scrollView);
+typedef CGFloat (^WXTableViewRowHeightBlock) (id rowData, NSIndexPath *indexPath);
+typedef CGFloat (^WXTableViewSectionHeightBlock) (ZXSectionType sectionType, NSInteger section);
+typedef UIView* (^WXTableViewSectionViewBlock) (ZXSectionType sectionType, NSInteger section);
+typedef void (^WXTableViewCellBlock) (id cell, id rowData, NSIndexPath *indexPath);
+typedef UITableViewCell* (^WXTableViewMutableCellBlock) (UITableView *tableView, id rowData, NSIndexPath *indexPath);
+typedef void (^WXTableViewDidScrollBlock) (UIScrollView *scrollView);
 
 @interface WXTableViewManager : NSObject<UITableViewDelegate,UITableViewDataSource>
 
@@ -41,25 +41,25 @@ typedef void (^ZXTableViewDidScrollBlock) (UIScrollView *scrollView);
 @property (nonatomic, strong) NSArray * (^dataOfSections)(NSInteger section);
 
 /** 获取SectionView高度Block */
-@property (nonatomic, copy) ZXTableViewSectionHeightBlock heightForSectionBlcok;
+@property (nonatomic, copy) WXTableViewSectionHeightBlock heightForSectionBlcok;
 
 /** 获取SectionView的Block */
-@property (nonatomic, copy) ZXTableViewSectionViewBlock viewForSectionBlcok;
+@property (nonatomic, copy) WXTableViewSectionViewBlock viewForSectionBlcok;
 
 /** 获取Row高度Block */
-@property (nonatomic, copy) ZXTableViewRowHeightBlock heightForRowBlcok;
+@property (nonatomic, copy) WXTableViewRowHeightBlock heightForRowBlcok;
 
 /** 配置相同类型的Cell回调 (和mutableCellForRowBlock二选一) */
-@property (nonatomic, copy) ZXTableViewCellBlock cellForRowBlock;
+@property (nonatomic, copy) WXTableViewCellBlock cellForRowBlock;
 
 /** 配置不同类型的Cell回调 (和cellForRowBlock二选一) */
-@property (nonatomic, copy) ZXTableViewMutableCellBlock mutableCellForRowBlock;
+@property (nonatomic, copy) WXTableViewMutableCellBlock mutableCellForRowBlock;
 
 /** 点击Cell回调 */
-@property (nonatomic, copy) ZXTableViewCellBlock didSelectRowBlcok;
+@property (nonatomic, copy) WXTableViewCellBlock didSelectRowBlcok;
 
 /** 滚动列表回调 */
-@property (nonatomic, copy) ZXTableViewDidScrollBlock didScrollBlock;
+@property (nonatomic, copy) WXTableViewDidScrollBlock didScrollBlock;
 
 /**
  *  获取表中元素

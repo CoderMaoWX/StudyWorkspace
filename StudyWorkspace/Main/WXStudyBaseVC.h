@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "WXPublicHeader.h"
-#import "ZXCollectionViewManager.h"
-#import "ZXTableViewManager.h"
+#import "WXCollectionViewManager.h"
+#import "WXTableViewManager.h"
 
 typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath *indexPath);
 
@@ -38,12 +38,12 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 /// 懒加载的UITableView列表
 @property (nonatomic, strong) UITableView                       *plainTableView;
 
-@property (nonatomic,strong,readonly) ZXTableViewManager        *tableViewManager;
+@property (nonatomic,strong,readonly) WXTableViewManager        *tableViewManager;
 
 /// 懒加载的UICollectionView列表
 @property (nonatomic, strong) UICollectionView                  *collectionView;
 
-@property (nonatomic,strong,readonly) ZXCollectionViewManager   *collectionViewManager;
+@property (nonatomic,strong,readonly) WXCollectionViewManager   *collectionViewManager;
 
 
 #pragma mark -============== 布局页面子视图 ==============
@@ -68,15 +68,15 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 - (NSArray<Class> *)registerTableViewCell;
 
 // ///由子类覆盖: 配置表格Cell高度 (警告: 父类不能复写次方法, 只能留给之类复写次方法)
-// - (ZXTableViewRowHeightBlock)heightForRowBlcok {
+// - (WXTableViewRowHeightBlock)heightForRowBlcok {
 //     return ^CGFloat (id rowData, NSIndexPath *indexPath) {
 //         return kDefaultCellHeight; 或者: UITableViewAutomaticDimension;
 //     };
 // }
-@property (nonatomic, copy) ZXTableViewRowHeightBlock heightForRowBlcok;
+@property (nonatomic, copy) WXTableViewRowHeightBlock heightForRowBlcok;
 
 // ///由子类覆盖: 配置相同类型Cell表格
-// - (ZXTableViewCellBlock)cellForRowBlock {
+// - (WXTableViewCellBlock)cellForRowBlock {
 //     return ^(UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
 //         WX_Log(@"cellForRowAtIndexPath: %@", cell)
 //
@@ -88,11 +88,11 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 //         }
 //     };
 // }
-@property (nonatomic, copy) ZXTableViewCellBlock cellForRowBlock;
+@property (nonatomic, copy) WXTableViewCellBlock cellForRowBlock;
 
 
 // ///由子类覆盖: 根据数据自定义配置不同类型Cell表格
-//- (ZXTableViewMutableCellBlock)mutableCellForRowBlock {
+//- (WXTableViewMutableCellBlock)mutableCellForRowBlock {
 //    return ^UITableViewCell* (UITableView *tableView, NSDictionary *rowData, NSIndexPath *indexPath) {
 //        UITableViewCell *c = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([xxxCell class]) forIndexPath:indexPath];
 //        if (![rowData isKindOfClass:[NSDictionary class]]) return c;
@@ -103,16 +103,16 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 //        return c;
 //    };
 //}
-@property (nonatomic, copy) ZXTableViewMutableCellBlock mutableCellForRowBlock;
+@property (nonatomic, copy) WXTableViewMutableCellBlock mutableCellForRowBlock;
 
 
 // ///由子类覆盖: 点击表格代理方法
-// - (ZXTableViewCellBlock)didSelectRowBlcok {
+// - (WXTableViewCellBlock)didSelectRowBlcok {
 //     return ^(UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
 //         WX_Log(@"didSelectRowBlcok: %@", rowData)
 //     };
 // }
-@property (nonatomic, copy) ZXTableViewCellBlock didSelectRowBlcok;
+@property (nonatomic, copy) WXTableViewCellBlock didSelectRowBlcok;
 
 // ///滚动列表回调
 // - (void(^)(CGPoint contentOffset))didScrollBlock {
@@ -145,12 +145,12 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 
 
 // ///由子类覆盖: 配置表格Cell高度 (警告: 父类不能复写次方法, 只能留给之类复写次方法)
-// - (ZXCollectionViewItemSizeBlock)sizeForItemBlcok {
+// - (WXCollectionViewItemSizeBlock)sizeForItemBlcok {
 //     return ^ CGSize (id itemData, NSIndexPath *indexPath) {
 //         return CGSizeMake(50.0, 50.0);
 //     };
 // }
-@property (nonatomic, copy) ZXCollectionViewItemSizeBlock sizeForItemBlcok;
+@property (nonatomic, copy) WXCollectionViewItemSizeBlock sizeForItemBlcok;
 
 // ///由子类覆盖: 配置表格数据方法
 // - (ZXCollectionViewConfigBlock)cellForItemBlock {
@@ -164,10 +164,10 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 //         }
 //     };
 // }
-@property (nonatomic, copy) ZXCollectionViewCellBlock cellForItemBlock;
+@property (nonatomic, copy) WXCollectionViewCellBlock cellForItemBlock;
 
 // ///由子类覆盖: 根据数据自定义配置不同类型Cell表格
-//- (ZXTableViewMutableCellBlock)mutableCellForRowBlock {
+//- (WXTableViewMutableCellBlock)mutableCellForRowBlock {
 //    return ^UICollectionViewCell* (UICollectionView *collectionView, NSDictionary *rowData, NSIndexPath *indexPath) {
 //        UICollectionViewCell *c = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([xxxCell class]) forIndexPath:indexPath];
 //        if (![rowData isKindOfClass:[NSDictionary class]]) return c;
@@ -178,16 +178,16 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 //        return c;
 //    };
 //}
-@property (nonatomic, copy) ZXCollectionViewMutableCellBlock mutableCellForItemBlock;
+@property (nonatomic, copy) WXCollectionViewMutableCellBlock mutableCellForItemBlock;
 
 
 // ///由子类覆盖: 点击表格代理方法
-// - (ZXCollectionViewCellBlock)didSelectItemBlcok {
+// - (WXCollectionViewCellBlock)didSelectItemBlcok {
 //     return ^(UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
 //         WX_Log(@"didSelectItemBlcok: %@", itemData)
 //     };
 // }
-@property (nonatomic, copy) ZXCollectionViewCellBlock didSelectItemBlcok;
+@property (nonatomic, copy) WXCollectionViewCellBlock didSelectItemBlcok;
 
 
 /** 返回上一页面  */

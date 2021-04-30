@@ -70,7 +70,7 @@
 }
 
 ///由子类覆盖: 配置表格数据方法
-- (ZXCollectionViewCellBlock)cellForItemBlock {
+- (WXCollectionViewCellBlock)cellForItemBlock {
     return ^ (WXCollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
         cell.contentView.backgroundColor = WX_ColorRandom();
         cell.textLabel.text = itemData;

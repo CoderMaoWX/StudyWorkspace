@@ -1,25 +1,25 @@
 //
-//  ZXCollectionViewManager.m
+//  WXCollectionViewManager.m
 //  ZXOwner
 //
 //  Created by 610582 on 2020/8/28.
 //  Copyright © 2020 51zxwang. All rights reserved.
 //
 
-#import "ZXCollectionViewManager.h"
+#import "WXCollectionViewManager.h"
 #import "WXMacroDefiner.h"
 
-@interface ZXCollectionViewManager ()
+@interface WXCollectionViewManager ()
 @property (nonatomic, assign) BOOL hasRegisterCell;
 @end
 
-@implementation ZXCollectionViewManager
+@implementation WXCollectionViewManager
 
 /**
  * 创建表格dataSource (适用于相同类型的Cell)
  */
 + (instancetype)createWithCellClass:(NSArray<Class> *)cellClases {
-    return [[ZXCollectionViewManager alloc] initWithClass:cellClases];
+    return [[WXCollectionViewManager alloc] initWithClass:cellClases];
 }
 
 - (instancetype)initWithClass:(NSArray<Class> *)cellClases {
