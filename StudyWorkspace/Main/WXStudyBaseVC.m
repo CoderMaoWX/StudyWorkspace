@@ -153,19 +153,30 @@
 ///表格代理方法管理类
 - (ZXCollectionViewManager *)collectionViewManager {
     if(!_collectionViewManager){
-        _collectionViewManager = [ZXCollectionViewManager createWithCellClass:self.registerCollectionViewCell];
-        _collectionViewManager.listDataArray = self.listDataArray;
+        _collectionViewManager = [[ZXCollectionViewManager alloc] init];
+        _collectionViewManager.cellClases = self.registerCollectionViewCell;
         _collectionViewManager.sizeForItemBlcok = self.sizeForItemBlcok;
+        _collectionViewManager.mutableCellForItemBlock = self.mutableCellForItemBlock;
         _collectionViewManager.cellForItemBlock = self.cellForItemBlock;
         _collectionViewManager.didSelectItemBlcok = self.didSelectItemBlcok;
         _collectionViewManager.didScrollBlock = self.didScrollBlock;
+        @weakify(self)
+        _collectionViewManager.dataOfSections = ^NSArray *(NSInteger section) {
+            @strongify(self)
+            ///当前示例为只配置一组数据源, 外部可重写当前dataOfSections的Block来配置多组不同的数据源
+            return self.listDataArray;
+        };
     }
     return _collectionViewManager;
 }
 
-///必须由子类覆盖: 表格需要注册的Cell
-- (Class)registerCollectionViewCell {
-    return [UICollectionViewCell class];
+///由子类覆盖: 表格需要注册的Cell <UICollectionViewCell.type>
+- (NSArray<Class> *)registerCollectionViewCell {
+#ifdef DEBUG
+    return @[ /* [需要注册的Cell class] */ ];
+#else
+    return @[ [UICollectionViewCell class] ];
+#endif
 }
 
 ///可由子类覆盖: 配置表格布局样式

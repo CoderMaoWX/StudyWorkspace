@@ -94,7 +94,7 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 // ///由子类覆盖: 根据数据自定义配置不同类型Cell表格
 //- (ZXTableViewMutableCellBlock)mutableCellForRowBlock {
 //    return ^UITableViewCell* (UITableView *tableView, NSDictionary *rowData, NSIndexPath *indexPath) {
-//        UITableViewCell *c = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WXStudyCell class]) forIndexPath:indexPath];
+//        UITableViewCell *c = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([xxxCell class]) forIndexPath:indexPath];
 //        if (![rowData isKindOfClass:[NSDictionary class]]) return c;
 //        NSString *name = rowData.allKeys.firstObject;
 //        WXStudyCell *cell = (WXStudyCell *)c;
@@ -125,9 +125,15 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 
 #pragma mark -============== <UICollectionView> 配置父类表格数据和代理 ==============
 
-///由子类覆盖: 表格需要注册的Cell
-- (Class)registerCollectionViewCell;
-
+// ///由子类覆盖: 表格需要注册的Cell <UICollectionViewCell.type>
+// - (NSArray<Class> *)registerCollectionCell {
+//     return @[
+//         [UICollectionViewCell1 class],
+//         [UICollectionViewCell2 class],
+//         ...
+//      ];
+// }
+- (NSArray<Class> *)registerCollectionViewCell;
 
 // ///由子类覆盖: 配置表格布局样式
 // - (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout {
@@ -158,15 +164,30 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 //         }
 //     };
 // }
-@property (nonatomic, copy) ZXCollectionViewConfigBlock cellForItemBlock;
+@property (nonatomic, copy) ZXCollectionViewCellBlock cellForItemBlock;
+
+// ///由子类覆盖: 根据数据自定义配置不同类型Cell表格
+//- (ZXTableViewMutableCellBlock)mutableCellForRowBlock {
+//    return ^UICollectionViewCell* (UICollectionView *collectionView, NSDictionary *rowData, NSIndexPath *indexPath) {
+//        UICollectionViewCell *c = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([xxxCell class]) forIndexPath:indexPath];
+//        if (![rowData isKindOfClass:[NSDictionary class]]) return c;
+//        NSString *name = rowData.allKeys.firstObject;
+//        WXStudyCell *cell = (WXStudyCell *)c;
+//        cell.titleLabel.text = name;
+//        cell.subTitleLabel.text = rowData[name];
+//        return c;
+//    };
+//}
+@property (nonatomic, copy) ZXCollectionViewMutableCellBlock mutableCellForItemBlock;
+
 
 // ///由子类覆盖: 点击表格代理方法
-// - (ZXCollectionViewConfigBlock)didSelectItemBlcok {
+// - (ZXCollectionViewCellBlock)didSelectItemBlcok {
 //     return ^(UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
 //         WX_Log(@"didSelectItemBlcok: %@", itemData)
 //     };
 // }
-@property (nonatomic, copy) ZXCollectionViewConfigBlock didSelectItemBlcok;
+@property (nonatomic, copy) ZXCollectionViewCellBlock didSelectItemBlcok;
 
 
 /** 返回上一页面  */

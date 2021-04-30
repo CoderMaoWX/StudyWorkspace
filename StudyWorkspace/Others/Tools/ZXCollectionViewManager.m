@@ -10,10 +10,7 @@
 #import "WXMacroDefiner.h"
 
 @interface ZXCollectionViewManager ()
-@property (nonatomic, strong) Class CellCalss;
-@property (nonatomic, assign) BOOL isXibCell;
 @property (nonatomic, assign) BOOL hasRegisterCell;
-@property (nonatomic, copy)   NSString *cellIdentifier;
 @end
 
 @implementation ZXCollectionViewManager
@@ -21,30 +18,52 @@
 /**
  * 创建表格dataSource (适用于相同类型的Cell)
  */
-+ (instancetype)createWithCellClass:(Class)cellClass {
-    return [[ZXCollectionViewManager alloc] initWithClass:cellClass];
++ (instancetype)createWithCellClass:(NSArray<Class> *)cellClases {
+    return [[ZXCollectionViewManager alloc] initWithClass:cellClases];
 }
 
-- (instancetype)initWithClass:(Class)cellClass {
+- (instancetype)initWithClass:(NSArray<Class> *)cellClases {
     self = [super init];
     if (self) {
-        NSAssert([cellClass isSubclassOfClass:[UICollectionViewCell class]], @"❌❌❌初始化参数:cellClass 必须为UICollectionViewCell的类型");
-        _CellCalss = cellClass;
-        _cellIdentifier = NSStringFromClass(cellClass);
-        NSString *path = [[NSBundle mainBundle] pathForResource:_cellIdentifier ofType:@"nib"];
-        _isXibCell = (path.length>0);
+        self.cellClases = cellClases;
     }
     return self;
+}
+
+- (void)setCellClases:(NSArray<NSArray<Class> *> *)cellClases {
+    _cellClases = cellClases;
+    self.hasRegisterCell = NO;
+}
+
+///手动注册所有 < UICollectionViewCell >
+- (void)registerCollectionViewCell:(UICollectionView *)collectionView {
+    NSLog(@"手动注册所有UITableViewCell: %@", self.cellClases);
+    NSAssert(self.cellClases.count > 0, @"❌❌❌cellClases: 至少要传入一个UICollectionViewCell的类型来注册");
+    
+    for (Class cellClass in self.cellClases) {
+        NSAssert([cellClass isSubclassOfClass:[UICollectionViewCell class]], @"❌❌❌初始化参数:cellClass 必须为UICollectionViewCell的类型");
+        
+        NSString *identifier = NSStringFromClass(cellClass);
+        NSString *path = [[NSBundle mainBundle] pathForResource:identifier ofType:@"nib"];
+        if (path.length > 0) { //isXibCell
+            UINib *nib = [UINib nibWithNibName:identifier bundle:nil];
+            [collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
+        } else {
+            [collectionView registerClass:cellClass forCellWithReuseIdentifier:identifier];
+        }
+    }
 }
 
 /**
  *  获取数组中的元素
  */
 - (id)itemDataForIndexPath:(NSIndexPath *)indexPath {
-    NSArray *rowDataArr = self.listDataArray;
-    if ([rowDataArr isKindOfClass:[NSArray class]]) {
-        if (indexPath.row < rowDataArr.count) {
-            return rowDataArr[indexPath.item];
+    if (self.dataOfSections) {
+        NSArray *sectionArrary = self.dataOfSections(indexPath.section);
+        if ([sectionArrary isKindOfClass:[NSArray class]]) {
+            if (sectionArrary.count > indexPath.item) {
+                return sectionArrary[indexPath.item];
+            }
         }
     }
     return nil;
@@ -52,8 +71,16 @@
 
 #pragma mark - <UICollectionViewDelegate, UICollectionViewDataSource>
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return MAX(self.numberOfSections, 1);
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.listDataArray.count;
+    if (self.dataOfSections) {
+        NSArray *arrary = self.dataOfSections(section);
+        return arrary.count;
+    }
+    return 0;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -76,27 +103,26 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.hasRegisterCell) {
         self.hasRegisterCell = YES;
-        if (self.isXibCell) {
-            UINib *nib = [UINib nibWithNibName:_cellIdentifier bundle:nil];
-            [collectionView registerNib:nib forCellWithReuseIdentifier:_cellIdentifier];
-        } else {
-            [collectionView registerClass:_CellCalss forCellWithReuseIdentifier:_cellIdentifier];
-        }
+        [self registerCollectionViewCell:collectionView];
     }
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:_cellIdentifier forIndexPath:indexPath];
-
-    id itemData = [self itemDataForIndexPath:indexPath];
-    if (self.cellForItemBlock) {
-        self.cellForItemBlock(cell, itemData, indexPath);
+    id rowData = [self itemDataForIndexPath:indexPath];
+    if (self.mutableCellForItemBlock) {
+        return self.mutableCellForItemBlock(collectionView, rowData, indexPath);
     } else {
-        SEL sel = NSSelectorFromString(@"setDataModel:");
-        if ([cell respondsToSelector:sel]) {
-            WX_PerformSelectorLeakWarning(
-              [cell performSelector:sel withObject:itemData];
-            );
+        NSString *identifier = NSStringFromClass((Class)self.cellClases.firstObject);
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        if (self.cellForItemBlock) {
+            self.cellForItemBlock(cell, rowData, indexPath);
+        } else {
+            SEL sel = NSSelectorFromString(@"setDataModel:");
+            if ([cell respondsToSelector:sel]) {
+                WX_PerformSelectorLeakWarning(
+                  [cell performSelector:sel withObject:rowData];
+                );
+            }
         }
+        return cell;
     }
-    return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
