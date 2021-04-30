@@ -11,6 +11,7 @@
 #import "WXFrameDefiner.h"
 
 @interface ZXTableViewManager ()
+@property (nonatomic, assign) BOOL hasRegisterCell;
 @end
 
 @implementation ZXTableViewManager
@@ -28,6 +29,30 @@
         self.cellClases = cellClases;
     }
     return self;
+}
+
+- (void)setCellClases:(NSArray<NSArray<Class> *> *)cellClases {
+    _cellClases = cellClases;
+    self.hasRegisterCell = NO;
+}
+
+///手动注册所有 < UITableViewCell >
+- (void)registerTableViewCell:(UITableView *)tableView {
+    NSLog(@"手动注册所有UITableViewCell: %@", self.cellClases);
+    NSAssert(self.cellClases.count > 0, @"❌❌❌cellClases: 至少要传入一个UITableViewCell的类型来注册");
+    
+    for (Class cellClass in self.cellClases) {
+        NSAssert([cellClass isSubclassOfClass:[UITableViewCell class]], @"❌❌❌初始化参数:cellClass 必须为UITableViewCell的类型");
+        
+        NSString *identifier = NSStringFromClass(cellClass);
+        NSString *path = [[NSBundle mainBundle] pathForResource:identifier ofType:@"nib"];
+        if (path.length > 0) { //isXibCell
+            UINib *nib = [UINib nibWithNibName:identifier bundle:nil];
+            [tableView registerNib:nib forCellReuseIdentifier:identifier];
+        } else {
+            [tableView registerClass:cellClass forCellReuseIdentifier:identifier];
+        }
+    }
 }
 
 /**
@@ -60,15 +85,16 @@
 }
 
 - (UITableViewCell * )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.hasRegisterCell) {
+        self.hasRegisterCell = YES;
+        [self registerTableViewCell:tableView];
+    }
     id rowData = [self rowDataForIndexPath:indexPath];
     if (self.mutableCellForRowBlock) {
         return self.mutableCellForRowBlock(tableView, rowData, indexPath);
     } else {
-        NSAssert(self.cellClases.count > 0, @"❌❌❌至少要传入一个UITableViewCell的类型来注册");
-        Class cls = (Class)self.cellClases.firstObject;
-        NSAssert([cls isSubclassOfClass:[UITableViewCell class]], @"❌❌❌传入的Class注册类型不是UITableViewCell的子类");
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(cls) forIndexPath:indexPath];
+        NSString *identifier = NSStringFromClass((Class)self.cellClases.firstObject);
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if (self.cellForRowBlock) {
             self.cellForRowBlock(cell, rowData, indexPath);
@@ -146,7 +172,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.didScrollBlock) {
-        self.didScrollBlock(scrollView.contentOffset);
+        self.didScrollBlock(scrollView);
     }
 }
 

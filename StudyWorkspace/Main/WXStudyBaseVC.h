@@ -57,55 +57,69 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 
 #pragma mark -============== <UITableView> 配置父类表格数据和代理 ==============
 
-/**
- ///由子类覆盖: 表格需要注册的Cell <UITableViewCell.type>
- - (NSArray<Class> *)registerTableViewCell {
-     return @[ [UITableViewCell class] ];
- } */
+// ///由子类覆盖: 表格需要注册的Cell <UITableViewCell.type>
+// - (NSArray<Class> *)registerTableViewCell {
+//     return @[
+//         [UITableViewCell1 class],
+//         [UITableViewCell2 class],
+//         ...
+//      ];
+// }
 - (NSArray<Class> *)registerTableViewCell;
 
-/**
- ///由子类覆盖: 配置表格Cell高度 (警告: 父类不能复写次方法, 只能留给之类复写次方法)
- - (ZXTableViewRowHeightBlock)heightForRowBlcok {
-     return ^CGFloat (id rowData, NSIndexPath *indexPath) {
-         return kDefaultCellHeight;
-     };
- } */
+// ///由子类覆盖: 配置表格Cell高度 (警告: 父类不能复写次方法, 只能留给之类复写次方法)
+// - (ZXTableViewRowHeightBlock)heightForRowBlcok {
+//     return ^CGFloat (id rowData, NSIndexPath *indexPath) {
+//         return kDefaultCellHeight; 或者: UITableViewAutomaticDimension;
+//     };
+// }
 @property (nonatomic, copy) ZXTableViewRowHeightBlock heightForRowBlcok;
 
-/**
- ///由子类覆盖: 配置表格数据方法
- - (ZXTableViewConfigBlock)cellForRowBlock {
-     return ^(UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
-         WX_Log(@"cellForRowAtIndexPath: %@", cell)
-         
-         SEL sel = NSSelectorFromString(@"setDataModel:");
-         if ([cell respondsToSelector:sel]) {
-             WX_PerformSelectorLeakWarning(
-               [cell performSelector:sel withObject:rowData];
-             );
-         }
-     };
- } */
-@property (nonatomic, copy) ZXTableViewConfigBlock cellForRowBlock;
+// ///由子类覆盖: 配置相同类型Cell表格
+// - (ZXTableViewCellBlock)cellForRowBlock {
+//     return ^(UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
+//         WX_Log(@"cellForRowAtIndexPath: %@", cell)
+//
+//         SEL sel = NSSelectorFromString(@"setDataModel:");
+//         if ([cell respondsToSelector:sel]) {
+//             WX_PerformSelectorLeakWarning(
+//               [cell performSelector:sel withObject:rowData];
+//             );
+//         }
+//     };
+// }
+@property (nonatomic, copy) ZXTableViewCellBlock cellForRowBlock;
 
-///由子类覆盖: 点击表格代理方法
-/**
- ///由子类覆盖: 点击表格代理方法
- - (ZXTableViewConfigBlock)didSelectRowBlcok {
-     return ^(UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
-         WX_Log(@"didSelectRowBlcok: %@", rowData)
-     };
- } */
-@property (nonatomic, copy) ZXTableViewConfigBlock didSelectRowBlcok;
 
-/**
- ///滚动列表回调
- - (void(^)(CGPoint contentOffset))didScrollBlock {
-     return ^(CGPoint contentOffset) {
-     };
- } */
-@property (nonatomic, copy) void (^didScrollBlock)(CGPoint contentOffset);
+// ///由子类覆盖: 根据数据自定义配置不同类型Cell表格
+//- (ZXTableViewMutableCellBlock)mutableCellForRowBlock {
+//    return ^UITableViewCell* (UITableView *tableView, NSDictionary *rowData, NSIndexPath *indexPath) {
+//        UITableViewCell *c = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WXStudyCell class]) forIndexPath:indexPath];
+//        if (![rowData isKindOfClass:[NSDictionary class]]) return c;
+//        NSString *name = rowData.allKeys.firstObject;
+//        WXStudyCell *cell = (WXStudyCell *)c;
+//        cell.titleLabel.text = name;
+//        cell.subTitleLabel.text = rowData[name];
+//        return c;
+//    };
+//}
+@property (nonatomic, copy) ZXTableViewMutableCellBlock mutableCellForRowBlock;
+
+
+// ///由子类覆盖: 点击表格代理方法
+// - (ZXTableViewCellBlock)didSelectRowBlcok {
+//     return ^(UITableViewCell *cell, id rowData, NSIndexPath *indexPath) {
+//         WX_Log(@"didSelectRowBlcok: %@", rowData)
+//     };
+// }
+@property (nonatomic, copy) ZXTableViewCellBlock didSelectRowBlcok;
+
+// ///滚动列表回调
+// - (void(^)(CGPoint contentOffset))didScrollBlock {
+//     return ^(CGPoint contentOffset) {
+//     };
+// }
+@property (nonatomic, copy) void (^didScrollBlock)(UIScrollView *scrollView);
 
 
 
@@ -114,55 +128,50 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 ///由子类覆盖: 表格需要注册的Cell
 - (Class)registerCollectionViewCell;
 
-///由子类覆盖: 配置表格布局样式
 
-/**
- ///由子类覆盖: 配置表格布局样式
- - (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout {
-     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, (isPhoneXSeries ? 34 : 12), 0);
-     flowLayout.estimatedItemSize = CGSizeMake(94, 28);
- } */
+// ///由子类覆盖: 配置表格布局样式
+// - (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout {
+//     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, (isPhoneXSeries ? 34 : 12), 0);
+//     flowLayout.estimatedItemSize = CGSizeMake(94, 28);
+// }
 - (void)configFlowLayout:(UICollectionViewFlowLayout *)flowLayout;
 
 
-///由子类覆盖: 配置表格Cell高度
-/**
- ///由子类覆盖: 配置表格Cell高度 (警告: 父类不能复写次方法, 只能留给之类复写次方法)
- - (ZXCollectionViewItemSizeBlock)sizeForItemBlcok {
-     return ^ CGSize (id itemData, NSIndexPath *indexPath) {
-         return CGSizeMake(50.0, 50.0);
-     };
- } */
+// ///由子类覆盖: 配置表格Cell高度 (警告: 父类不能复写次方法, 只能留给之类复写次方法)
+// - (ZXCollectionViewItemSizeBlock)sizeForItemBlcok {
+//     return ^ CGSize (id itemData, NSIndexPath *indexPath) {
+//         return CGSizeMake(50.0, 50.0);
+//     };
+// }
 @property (nonatomic, copy) ZXCollectionViewItemSizeBlock sizeForItemBlcok;
 
-/**
- ///由子类覆盖: 配置表格数据方法
- - (ZXCollectionViewConfigBlock)cellForItemBlock {
-     return ^(UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
-         WX_Log(@"cellForItemAtIndexPath: %@", cell)
-         SEL sel = NSSelectorFromString(@"setDataModel:");
-         if ([cell respondsToSelector:sel]) {
-             WX_PerformSelectorLeakWarning(
-               [cell performSelector:sel withObject:itemData];
-             );
-         }
-     };
- }*/
+// ///由子类覆盖: 配置表格数据方法
+// - (ZXCollectionViewConfigBlock)cellForItemBlock {
+//     return ^(UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
+//         WX_Log(@"cellForItemAtIndexPath: %@", cell)
+//         SEL sel = NSSelectorFromString(@"setDataModel:");
+//         if ([cell respondsToSelector:sel]) {
+//             WX_PerformSelectorLeakWarning(
+//               [cell performSelector:sel withObject:itemData];
+//             );
+//         }
+//     };
+// }
 @property (nonatomic, copy) ZXCollectionViewConfigBlock cellForItemBlock;
 
-/**
- ///由子类覆盖: 点击表格代理方法
- - (ZXCollectionViewConfigBlock)didSelectItemBlcok {
-     return ^(UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
-         WX_Log(@"didSelectItemBlcok: %@", itemData)
-     };
- } */
+// ///由子类覆盖: 点击表格代理方法
+// - (ZXCollectionViewConfigBlock)didSelectItemBlcok {
+//     return ^(UICollectionViewCell *cell, id itemData, NSIndexPath *indexPath) {
+//         WX_Log(@"didSelectItemBlcok: %@", itemData)
+//     };
+// }
 @property (nonatomic, copy) ZXCollectionViewConfigBlock didSelectItemBlcok;
 
 
 /** 返回上一页面  */
 - (void)backBtnClick:(UIButton *)backBtn;
+
 
 /** 父类释放时取消子类所有请求操作 */
 - (void)cancelRequestSessionTask;

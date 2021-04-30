@@ -11,7 +11,7 @@
 
 typedef CGSize (^ZXCollectionViewItemSizeBlock) (id itemData, NSIndexPath *indexPath);
 typedef void (^ZXCollectionViewConfigBlock) (id cell, id itemData, NSIndexPath *indexPath);
-typedef void (^ZXCollectionViewDidScrollBlock) (CGPoint contentOffset);
+typedef void (^ZXCollectionViewDidScrollBlock) (UIScrollView *scrollView);
 
 /**
  * 默认为单组的CollectionView

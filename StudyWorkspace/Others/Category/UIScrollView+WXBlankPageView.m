@@ -537,6 +537,9 @@ NSDictionary* WXManageMorePageInfo(NSDictionary *dataDict) {
             }
         }
         
+        ///无数据提示后就阻止滚动
+        tableView.scrollEnabled = !isEmptyCell;
+        
     } else if ([self isKindOfClass:[UICollectionView class]]) {
         UICollectionView *collectionView = (UICollectionView *)self;
         
@@ -581,6 +584,8 @@ NSDictionary* WXManageMorePageInfo(NSDictionary *dataDict) {
                 }
             }
         }
+        ///无数据提示后就阻止滚动
+        collectionView.scrollEnabled = !isEmptyCell;
         
     } else {
         if (self.hidden || self.alpha == 0) {

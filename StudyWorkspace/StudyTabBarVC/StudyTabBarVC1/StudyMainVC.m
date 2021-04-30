@@ -43,33 +43,19 @@
     return @[ [WXStudyCell class] ];
 }
 
-///由子类覆盖: 配置表格数据方法
-- (ZXTableViewConfigBlock)cellForRowBlock {
+///由子类覆盖: 配置相同类型Cell的表格
+- (ZXTableViewCellBlock)cellForRowBlock {
     return ^ (UITableViewCell *c, NSDictionary *rowData, NSIndexPath *indexPath) {
-        if (![rowData isKindOfClass:[NSDictionary class]]) return ;
+        if (![rowData isKindOfClass:[NSDictionary class]]) return;
         NSString *name = rowData.allKeys.firstObject;
         WXStudyCell *cell = (WXStudyCell *)c;
         cell.titleLabel.text = name;
         cell.subTitleLabel.text = rowData[name];
     };
 }
-
-///由子类覆盖: 配置表格数据方法
-- (ZXTableViewMutableCellBlock)mutableCellForRowBlock {
-    return ^UITableViewCell* (UITableView *tableView, NSDictionary *rowData, NSIndexPath *indexPath) {
-        UITableViewCell *c = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([WXStudyCell class]) forIndexPath:indexPath];
-        if (![rowData isKindOfClass:[NSDictionary class]]) return c;
-        NSString *name = rowData.allKeys.firstObject;
-        WXStudyCell *cell = (WXStudyCell *)c;
-        cell.titleLabel.text = name;
-        cell.subTitleLabel.text = rowData[name];
-        return c;
-    };
-}
-
 
 ///由子类覆盖: 点击表格代理方法
-- (ZXTableViewConfigBlock)didSelectRowBlcok {
+- (ZXTableViewCellBlock)didSelectRowBlcok {
     return ^ (UITableViewCell *cell, NSDictionary *celLDic, NSIndexPath *indexPath) {
         NSString *className = [celLDic.allKeys.firstObject stringByReplacingOccurrencesOfString:@".m" withString:@""];
         UIViewController *vc = [[NSClassFromString(className) alloc] init];

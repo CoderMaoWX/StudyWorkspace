@@ -99,41 +99,29 @@
 - (ZXTableViewManager *)tableViewManager {
     if(!_tableViewManager){
         _tableViewManager = [[ZXTableViewManager alloc] init];
-        _tableViewManager.cellClases = self.registerTableViewAllCell;
+        _tableViewManager.cellClases = self.registerTableViewCell;
         _tableViewManager.heightForRowBlcok = self.heightForRowBlcok;
-        _tableViewManager.cellForRowBlock = self.cellForRowBlock;
+        _tableViewManager.cellForRowBlock = self.cellForRowBlock;//二选一
+        _tableViewManager.mutableCellForRowBlock = self.mutableCellForRowBlock;//二选一
         _tableViewManager.didSelectRowBlcok = self.didSelectRowBlcok;
         _tableViewManager.didScrollBlock = self.didScrollBlock;
         @weakify(self)
         _tableViewManager.dataOfSections = ^NSArray *(NSInteger section) {
             @strongify(self)
+            ///当前示例为只配置一组数据源, 外部可重写当前dataOfSections的Block来配置多组不同的数据源
             return self.listDataArray;
         };
     }
     return _tableViewManager;
 }
 
-///手动注册所有 < UITableViewCell >
-- (NSArray<Class> *)registerTableViewAllCell {
-    NSArray *cellClsArr = self.registerTableViewCell;
-    for (Class cellClass in cellClsArr) {
-        NSAssert([cellClass isSubclassOfClass:[UITableViewCell class]], @"❌❌❌初始化参数:cellClass 必须为UITableViewCell的类型");
-        
-        NSString *identifier = NSStringFromClass(cellClass);
-        NSString *path = [[NSBundle mainBundle] pathForResource:identifier ofType:@"nib"];
-        if (path.length > 0) { //isXibCell
-            UINib *nib = [UINib nibWithNibName:identifier bundle:nil];
-            [self.plainTableView registerNib:nib forCellReuseIdentifier:identifier];
-        } else {
-            [self.plainTableView registerClass:cellClass forCellReuseIdentifier:identifier];
-        }
-    }
-    return cellClsArr;
-}
-
 ///由子类覆盖: 表格需要注册的Cell <UITableViewCell.type>
 - (NSArray<Class> *)registerTableViewCell {
+#ifdef DEBUG
+    return @[ /* [需要注册的Cell class] */ ];
+#else
     return @[ [UITableViewCell class] ];
+#endif
 }
 
 #pragma mark -============== <UICollectionView> 配置父类表格数据和代理 ==============
@@ -185,9 +173,6 @@
     BOOL isTopNav = (self.navigationController.viewControllers.count == 1);
     CGFloat bottomH = isTopNav ? kTabBarHeight : (isPhoneXSeries ? 34 : 12);
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, bottomH, 0);
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    flowLayout.minimumLineSpacing = 10;
-    flowLayout.minimumInteritemSpacing = 10;
 }
 
 #pragma mark - <SubClass Implementation> 布局页面子视图
@@ -217,7 +202,6 @@
         NSArray *colorArr = @[WX_ColorBlackTextColor(), WX_ColorRGB(64,128,214, 1)];
         subTitleLabel.attributedText = [NSString getAttriStrByTextArray:textArr fontArr:fontArr colorArr:colorArr lineSpacing:2 alignment:1];
     }
-    
     if (!WX_IsEmptyString(self.tipText)) {
         self.tipTextLabel.text = self.tipText;
         [self.view insertSubview:self.tipTextLabel atIndex:0];

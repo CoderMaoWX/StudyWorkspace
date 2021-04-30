@@ -110,7 +110,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.didScrollBlock) {
-        self.didScrollBlock(scrollView.contentOffset);
+        self.didScrollBlock(scrollView);
     }
 }
 
