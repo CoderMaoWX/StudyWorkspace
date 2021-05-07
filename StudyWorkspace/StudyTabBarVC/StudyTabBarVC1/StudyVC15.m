@@ -9,29 +9,37 @@
 #import "StudyVC15.h"
 #import <Foundation/Foundation.h>
 
+@interface Favourite : NSObject
+@property (nonatomic, copy) NSString *title;
+@end
+@implementation Favourite
+- (instancetype)initWithName:(NSString *)name {
+    self = [super init];
+    if (self) {
+        self.title = name;
+    }
+    return self;
+}
+@end
+//===========
+
 @interface Person : NSObject
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, strong) NSNumber *age;
+@property (nonatomic, assign) CGFloat height;
+@property (nonatomic, copy) NSString *address;
+@property (nonatomic, strong) Favourite *favourite;
 @end
 @implementation Person
 
 - (instancetype)initWithName:(NSString *)name {
     self = [super init];
     if (self) {
+        self.name = name;
     }
     return self;
 }
 @end
-
-@interface Favourite : NSObject
-@end
-@implementation Favourite
-- (instancetype)initWithName:(NSString *)name {
-    self = [super init];
-    if (self) {
-    }
-    return self;
-}
-@end
-
 
 @interface StudyVC15 ()
 @property (nonatomic, copy) NSString *tmpURL;
@@ -41,7 +49,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self testMethodForOrderedSet];
+    [self testNSPredicate];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -125,4 +133,56 @@
      3
      )} */
 }
+
+///学习谓词: https://swift.gg/2019/11/19/nspredicate-objective-c/
+- (void)testNSPredicate {
+//    NSMutableArray *mutableArray = [NSMutableArray array];
+//    NSPredicate *pre = [[NSPredicate alloc] init];
+//
+//    // 修改原数组
+//    [mutableArray filterUsingPredicate:pre];
+//
+//    // 返回新的数组
+//    [mutableArray filteredArrayUsingPredicate:pre];
+    
+    
+    Favourite *favourite1 = [Favourite new];
+    favourite1.title = @"chang ge";
+    Person *person1 = [Person new];
+    person1.name = @"zhangsan";
+    person1.favourite = favourite1;
+    
+    
+    Favourite *favourite2 = [Favourite new];
+    favourite2.title = @"you yong";
+    Person *person2 = [Person new];
+    person2.name = @"lisi";
+    person2.favourite = favourite2;
+    
+    
+    Favourite *favourite3 = [Favourite new];
+    favourite3.title = @"xia qi";
+    Person *person3 = [Person new];
+    person3.name = @"wangwu";
+    person3.favourite = favourite3;
+    
+    
+    Favourite *favourite4 = [Favourite new];
+    favourite4.title = [@"爬山" uppercaseString];
+    Person *person4 = [Person new];
+    person4.name = @"xiaobai";
+    person4.favourite = favourite4;
+        
+    NSArray *employeeArray = @[ person1, person2, person3, person4 ];
+    
+    // 我们得到一个长度大于 10 的识别符字符串的数组
+    NSString *predicateFormat = @"SELF.name.length > 5";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat];
+    NSArray *longEmployeeIDs = [[employeeArray filteredArrayUsingPredicate:predicate] valueForKey:@"name"];
+    NSArray *longEmployeeIDs2 = [[employeeArray filteredArrayUsingPredicate:predicate] valueForKeyPath:@"favourite.title"];
+
+    // 现在 longEmployeeIDs 已经不含有 Person 对象了，只有字符串
+    NSLog(@"longEmployeeIDs: %@", longEmployeeIDs2);
+}
+
 @end
