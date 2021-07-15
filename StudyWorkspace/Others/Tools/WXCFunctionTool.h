@@ -164,10 +164,15 @@ void WX_jumpApplicationOpenSetting(void);
 /** 跳转到系统设置授权弹框 */
 void WX_openSystemPreferencesSetting(NSString *alerTitle);
 
-/** 系统弹框 */
+/** 系统弹框 (最多两个个按钮) */
 void WX_showAlertController(NSString *title, NSString *message,
                          NSString *otherTitle, void(^otherBtnBlock)(void),
                          NSString *cancelTitle, void(^cancelBtnBlock)(void));
+
+/** 系统弹框 (可显示多个按钮) */
+void WX_showAlertMultiple(NSString *title, NSString *message,
+                          NSArray *otherButtonTitles, void(^otherBtnBlock)(NSInteger buttonIndex, id buttonTitle),
+                          NSString *cancelTitle, void(^cancelBtnBlock)(void));
 
 /**
  *  字符串编码

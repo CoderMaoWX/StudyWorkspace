@@ -161,9 +161,10 @@ UIColor *WX_ColorRGB(NSInteger R, NSInteger G, NSInteger B, CGFloat a) {
 /** 获取十六进制颜色 */
 UIColor *WX_ColorHex(NSInteger hexValue) {
     return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:1];
+    
 }
 /** 获取十六进制颜色, a:透明度 */
-UIColor* ZXColorHex_a(NSInteger hexValue, CGFloat a) {
+UIColor *WX_ColorHex_a(NSInteger hexValue, CGFloat a) {
     return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:a];
 }
 
@@ -632,18 +633,44 @@ void WX_openSystemPreferencesSetting(NSString *alerTitle) {
     [window.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
-/** 系统弹框 */
+/** 系统弹框 (最多两个个按钮) */
 void WX_showAlertController(NSString *title, NSString *message,
                          NSString *otherTitle, void(^otherBtnBlock)(void),
                          NSString *cancelTitle, void(^cancelBtnBlock)(void))
 {
-    UIAlertController *alertController = [UIAlertController
-                                          alertControllerWithTitle:title
-                                          message:message
-                       preferredStyle:UIAlertControllerStyleAlert];
+    NSArray *array = otherTitle ? @[otherTitle] : nil;
+    WX_showAlertMultiple(title, message, array, ^(NSInteger buttonIndex, id buttonTitle) {
+        if (otherBtnBlock) {
+            otherBtnBlock();
+        }
+    }, cancelTitle, cancelBtnBlock);
+}
 
+/** 系统弹框 (可显示多个按钮) */
+void WX_showAlertMultiple(NSString *title, NSString *message,
+                         NSArray *otherButtonTitles, void(^otherBtnBlock)(NSInteger buttonIndex, id buttonTitle),
+                         NSString *cancelTitle, void(^cancelBtnBlock)(void))
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
     NSString *colorKey = @"_titleTextColor";
-    
+    //普通按钮
+    for (int i = 0; i<otherButtonTitles.count; i++) {
+        NSString *btnTitle = otherButtonTitles[i];
+        if (![btnTitle isKindOfClass:[NSString class]]) continue;
+        
+        UIAlertAction *otherAction = [UIAlertAction actionWithTitle:btnTitle style:UIAlertActionStyleDefault  handler:^(UIAlertAction * action) {
+            if (otherBtnBlock) {
+                otherBtnBlock(i, btnTitle);
+            }
+        }];
+        if (checkObjectHasVarName([UIAlertAction class], colorKey)) {
+            [otherAction setValue:WX_ColorMainColor() forKey:colorKey];
+        }
+        [alertController addAction:otherAction];
+    }
+    //取消按钮
     if ([cancelTitle isKindOfClass:[NSString class]]) {
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             if (cancelBtnBlock) {
@@ -655,18 +682,7 @@ void WX_showAlertController(NSString *title, NSString *message,
         }
         [alertController addAction:cancelAction];
     }
-    if ([otherTitle isKindOfClass:[NSString class]]) {
-        UIAlertAction *otherAction = [UIAlertAction actionWithTitle:otherTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-            if (otherBtnBlock) {
-                otherBtnBlock();
-            }
-        }];
-        if (checkObjectHasVarName([UIAlertAction class], colorKey)) {
-            [otherAction setValue:WX_ColorMainColor() forKey:colorKey];
-        }
-        [alertController addAction:otherAction];
-    }
-    UIWindow* window = WX_FetchHUDSuperView(nil);
+    UIWindow *window = WX_FetchHUDSuperView(nil);
     [window.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -735,7 +751,7 @@ NSString *WX_DecodeString(NSString *originStr) {
 /** 动态更换App的启动图 (闪屏图:LaunchScreenImage)
  *  重现场景: 偶现的发现在修改完storyboard中的启动图logo后, 可能会在不同机型上出现启动图logo黑屏的问题,
  *  解决办法: 找到沙盒目录中存在的启动图截屏文件目录位置, 自己绘制想要显示的启动图后替换原有的文件
- *  备注: 经过测试, 在不同系统版本的沙盒中, 启动图文件的目录位置不同,由于目前考虑到ZF在老版本系统上没有出现过黑屏logo问题, 暂时老系统版本不做处理
+ *  备注: 经过测试, 在不同系统版本的沙盒中, 启动图文件的目录位置不同,由于目前考虑到老版本系统上没有出现过黑屏logo问题, 暂时老系统版本不做处理
  *  iOS13以下系统启动图截屏文件保存目录: ~/Library/Caches/Snapshots/com.xxx.xxx/xxxx@2x.ktx
  *  iOS13及以上系统启动图截屏文件保存目录: ~/Library/SplashBoard/Snapshots/com.xxx.xxx - {DEFAULT GROUP}/xxxx@3x.ktx
  *  替换后的变化: 原图大小约8K左右, 替换后大小约28K左右

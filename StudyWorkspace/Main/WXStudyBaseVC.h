@@ -191,7 +191,7 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 
 
 /** 返回上一页面  */
-- (void)backBtnClick:(UIButton *)backBtn;
+- (void)goBackAction;
 
 
 /** 父类释放时取消子类所有请求操作 */

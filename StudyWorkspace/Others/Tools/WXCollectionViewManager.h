@@ -27,7 +27,7 @@ typedef UICollectionViewCell* (^WXCollectionViewMutableCellBlock) (UICollectionV
 /**
  * 可临时配置表格Cell, 不同类型的Cell就传多个, 相同就传一个, eg: @[ [UICollectionViewCell Class], ... ]
  */
-@property (nonatomic, strong) NSArray<NSArray<Class> *> *cellClases;
+@property (nonatomic, strong) NSArray<Class> *cellClases;
 
 
 /** numberOfSections组数目, 默认为:1 */

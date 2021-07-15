@@ -1,10 +1,11 @@
 //
-//  UILabel+HTML.m
-//  Zaful
+//  UILabel+HTML
+//  StudyWorkspace
 //
-//  Created by liuxi on 2017/9/25.
-//  Copyright © 2017年 Y001. All rights reserved.
+//  Created by 610582 on 2021/7/15.
+//  Copyright © 2021 MaoWX. All rights reserved.
 //
+
 
 #import "UILabel+HTML.h"
 

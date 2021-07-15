@@ -156,7 +156,7 @@
 - (void)closeBtnAction
 {
     //返回事件
-    [self backBtnClick:nil];
+    [self goBackAction];
 }
 
 /**

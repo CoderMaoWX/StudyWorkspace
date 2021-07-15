@@ -30,7 +30,7 @@
     return self;
 }
 
-- (void)setCellClases:(NSArray<NSArray<Class> *> *)cellClases {
+- (void)setCellClases:(NSArray<Class> *)cellClases {
     _cellClases = cellClases;
     self.hasRegisterCell = NO;
 }

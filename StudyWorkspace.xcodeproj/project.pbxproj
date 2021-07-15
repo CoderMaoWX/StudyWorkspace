@@ -72,6 +72,14 @@
 		58EB3A86261F0ABC00397F49 /* WXTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A82261F0ABC00397F49 /* WXTableViewManager.m */; };
 		58EB3A8A261F0C2200397F49 /* UIScrollView+WXBlankPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A88261F0C2200397F49 /* UIScrollView+WXBlankPageView.m */; };
 		58EB3A8E261F0C3C00397F49 /* WXBlankTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58EB3A8D261F0C3C00397F49 /* WXBlankTipView.m */; };
+		58F7B2DC26A00E680009FBB8 /* WXNavigationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F7B2DB26A00E680009FBB8 /* WXNavigationVC.m */; };
+		58F7B2DF26A0137C0009FBB8 /* WXWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F7B2DE26A0137C0009FBB8 /* WXWebViewVC.m */; };
+		58F7B2E326A014DF0009FBB8 /* WX_NetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F7B2E226A014DF0009FBB8 /* WX_NetworkRequest.m */; };
+		58F7B2E926A018C70009FBB8 /* WXApiHostManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F7B2E826A018C70009FBB8 /* WXApiHostManager.m */; };
+		58F7B2EC26A01AAE0009FBB8 /* WXDeeplinkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F7B2EB26A01AAE0009FBB8 /* WXDeeplinkManager.m */; };
+		58F7B2F226A01DE60009FBB8 /* UIButton+WXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F7B2F126A01DE60009FBB8 /* UIButton+WXExtension.m */; };
+		58F7B2F526A01F760009FBB8 /* UIViewController+WXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F7B2F426A01F760009FBB8 /* UIViewController+WXExtension.m */; };
+		58F7B2F826A0289E0009FBB8 /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F7B2F626A0289E0009FBB8 /* UINavigationController+FDFullscreenPopGesture.m */; };
 		58FBED5E24E68802003F7FE6 /* SkinZipURL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 58FBED5D24E68802003F7FE6 /* SkinZipURL.txt */; };
 		58FBED6624E68C2B003F7FE6 /* StudyVC1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58FBED6524E68C2B003F7FE6 /* StudyVC1.xib */; };
 		58FBED7024E6B8C8003F7FE6 /* StudyVC4.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FBED6F24E6B8C8003F7FE6 /* StudyVC4.m */; };
@@ -158,7 +166,6 @@
 		5893D0DF24EA55DA0005E1AF /* DrawPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawPathView.h; sourceTree = "<group>"; };
 		5893D0E424EA59C30005E1AF /* UIView+WXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WXExtension.m"; sourceTree = "<group>"; };
 		5893D0E524EA59C30005E1AF /* UIView+WXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WXExtension.h"; sourceTree = "<group>"; };
-		5893D0E824EA5A0C0005E1AF /* WXPublicConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXPublicConst.h; sourceTree = "<group>"; };
 		5893D0EA24EA5A0C0005E1AF /* WXPublicHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXPublicHeader.h; sourceTree = "<group>"; };
 		5893D0EC24EA5A0C0005E1AF /* WXColorDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXColorDefiner.h; sourceTree = "<group>"; };
 		5893D0ED24EA5A0C0005E1AF /* WXFrameDefiner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXFrameDefiner.h; sourceTree = "<group>"; };
@@ -202,6 +209,24 @@
 		58EB3A89261F0C2200397F49 /* UIScrollView+WXBlankPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+WXBlankPageView.h"; sourceTree = "<group>"; };
 		58EB3A8C261F0C3C00397F49 /* WXBlankTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXBlankTipView.h; sourceTree = "<group>"; };
 		58EB3A8D261F0C3C00397F49 /* WXBlankTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXBlankTipView.m; sourceTree = "<group>"; };
+		58F7B2DA26A00E680009FBB8 /* WXNavigationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXNavigationVC.h; sourceTree = "<group>"; };
+		58F7B2DB26A00E680009FBB8 /* WXNavigationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXNavigationVC.m; sourceTree = "<group>"; };
+		58F7B2DD26A0137C0009FBB8 /* WXWebViewVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXWebViewVC.h; sourceTree = "<group>"; };
+		58F7B2DE26A0137C0009FBB8 /* WXWebViewVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXWebViewVC.m; sourceTree = "<group>"; };
+		58F7B2E126A014DF0009FBB8 /* WX_NetworkRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WX_NetworkRequest.h; sourceTree = "<group>"; };
+		58F7B2E226A014DF0009FBB8 /* WX_NetworkRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WX_NetworkRequest.m; sourceTree = "<group>"; };
+		58F7B2E526A016290009FBB8 /* WXConstDefiner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXConstDefiner.h; sourceTree = "<group>"; };
+		58F7B2E626A017DD0009FBB8 /* WXApiDefiner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApiDefiner.h; sourceTree = "<group>"; };
+		58F7B2E726A018C70009FBB8 /* WXApiHostManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApiHostManager.h; sourceTree = "<group>"; };
+		58F7B2E826A018C70009FBB8 /* WXApiHostManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXApiHostManager.m; sourceTree = "<group>"; };
+		58F7B2EA26A01AAE0009FBB8 /* WXDeeplinkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXDeeplinkManager.h; sourceTree = "<group>"; };
+		58F7B2EB26A01AAE0009FBB8 /* WXDeeplinkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXDeeplinkManager.m; sourceTree = "<group>"; };
+		58F7B2F026A01DE60009FBB8 /* UIButton+WXExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+WXExtension.h"; sourceTree = "<group>"; };
+		58F7B2F126A01DE60009FBB8 /* UIButton+WXExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WXExtension.m"; sourceTree = "<group>"; };
+		58F7B2F326A01F760009FBB8 /* UIViewController+WXExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WXExtension.h"; sourceTree = "<group>"; };
+		58F7B2F426A01F760009FBB8 /* UIViewController+WXExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WXExtension.m"; sourceTree = "<group>"; };
+		58F7B2F626A0289E0009FBB8 /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
+		58F7B2F726A0289E0009FBB8 /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
 		58FBED5D24E68802003F7FE6 /* SkinZipURL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SkinZipURL.txt; sourceTree = "<group>"; };
 		58FBED6524E68C2B003F7FE6 /* StudyVC1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudyVC1.xib; sourceTree = "<group>"; };
 		58FBED6E24E6B8C8003F7FE6 /* StudyVC4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC4.h; sourceTree = "<group>"; };
@@ -243,8 +268,14 @@
 				5893D0E424EA59C30005E1AF /* UIView+WXExtension.m */,
 				5893D21624EA68980005E1AF /* UITabBarController+WXConvertSkin.h */,
 				5893D21724EA68980005E1AF /* UITabBarController+WXConvertSkin.m */,
+				58F7B2F326A01F760009FBB8 /* UIViewController+WXExtension.h */,
+				58F7B2F426A01F760009FBB8 /* UIViewController+WXExtension.m */,
+				58F7B2F726A0289E0009FBB8 /* UINavigationController+FDFullscreenPopGesture.h */,
+				58F7B2F626A0289E0009FBB8 /* UINavigationController+FDFullscreenPopGesture.m */,
 				5811051124EB6BAC006EB5FA /* UIButton+WXShortcut.h */,
 				5811050D24EB6BAC006EB5FA /* UIButton+WXShortcut.m */,
+				58F7B2F026A01DE60009FBB8 /* UIButton+WXExtension.h */,
+				58F7B2F126A01DE60009FBB8 /* UIButton+WXExtension.m */,
 				5811050E24EB6BAC006EB5FA /* UILabel+WXShortcut.h */,
 				5811051024EB6BAC006EB5FA /* UILabel+WXShortcut.m */,
 				5811050F24EB6BAC006EB5FA /* UITextField+Extension.h */,
@@ -325,10 +356,16 @@
 			children = (
 				58695C3224E6683000155B80 /* AppDelegate.h */,
 				58695C3324E6683000155B80 /* AppDelegate.m */,
-				58695C5224E66C3E00155B80 /* WXStudyBaseVC.h */,
-				58695C5324E66C3E00155B80 /* WXStudyBaseVC.m */,
 				5893D0EF24EA62610005E1AF /* SlideAppTabBarVC.h */,
 				5893D0F024EA62610005E1AF /* SlideAppTabBarVC.m */,
+				58695C5224E66C3E00155B80 /* WXStudyBaseVC.h */,
+				58695C5324E66C3E00155B80 /* WXStudyBaseVC.m */,
+				58F7B2DA26A00E680009FBB8 /* WXNavigationVC.h */,
+				58F7B2DB26A00E680009FBB8 /* WXNavigationVC.m */,
+				58F7B2DD26A0137C0009FBB8 /* WXWebViewVC.h */,
+				58F7B2DE26A0137C0009FBB8 /* WXWebViewVC.m */,
+				58F7B2EA26A01AAE0009FBB8 /* WXDeeplinkManager.h */,
+				58F7B2EB26A01AAE0009FBB8 /* WXDeeplinkManager.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -424,7 +461,7 @@
 			children = (
 				5893D0EA24EA5A0C0005E1AF /* WXPublicHeader.h */,
 				58EB3A70261EE6EC00397F49 /* WXMacroDefiner.h */,
-				5893D0E824EA5A0C0005E1AF /* WXPublicConst.h */,
+				58F7B2E526A016290009FBB8 /* WXConstDefiner.h */,
 				5893D0EC24EA5A0C0005E1AF /* WXColorDefiner.h */,
 				5893D0ED24EA5A0C0005E1AF /* WXFrameDefiner.h */,
 			);
@@ -454,10 +491,23 @@
 		58DB51E124E674A900F71C56 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				58F7B2E026A014670009FBB8 /* Network */,
 				5811050B24EB6B6E006EB5FA /* Category */,
 				5811051B24EB6F83006EB5FA /* Tools */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		58F7B2E026A014670009FBB8 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				58F7B2E626A017DD0009FBB8 /* WXApiDefiner.h */,
+				58F7B2E726A018C70009FBB8 /* WXApiHostManager.h */,
+				58F7B2E826A018C70009FBB8 /* WXApiHostManager.m */,
+				58F7B2E126A014DF0009FBB8 /* WX_NetworkRequest.h */,
+				58F7B2E226A014DF0009FBB8 /* WX_NetworkRequest.m */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		58FBED5F24E68B99003F7FE6 /* SupportingFiles */ = {
@@ -649,9 +699,11 @@
 				5893D22624EA6BFE0005E1AF /* UITabBar+BadgeView.m in Sources */,
 				5811052724EB725E006EB5FA /* NSDictionary+SafeAccess.m in Sources */,
 				58FBED7024E6B8C8003F7FE6 /* StudyVC4.m in Sources */,
+				58F7B2E926A018C70009FBB8 /* WXApiHostManager.m in Sources */,
 				5893D21824EA68980005E1AF /* UITabBarController+WXConvertSkin.m in Sources */,
 				5860C1BC2509FD4D00C5A634 /* UIWindow+Lookin.m in Sources */,
 				5893D0F124EA62610005E1AF /* SlideAppTabBarVC.m in Sources */,
+				58F7B2F526A01F760009FBB8 /* UIViewController+WXExtension.m in Sources */,
 				58695C5424E66C3E00155B80 /* WXStudyBaseVC.m in Sources */,
 				58DB51EC24E6791A00F71C56 /* WXDataModel.m in Sources */,
 				586382972626D7E80078C5CC /* StudyVC14.m in Sources */,
@@ -659,17 +711,21 @@
 				5893D22124EA6AE40005E1AF /* WXStudyTabBarVC2.m in Sources */,
 				5893D0CC24EA55CF0005E1AF /* StudyVC12.m in Sources */,
 				5893D0E224EA55DA0005E1AF /* DrawPathView.m in Sources */,
+				58F7B2E326A014DF0009FBB8 /* WX_NetworkRequest.m in Sources */,
 				58EB3A85261F0ABC00397F49 /* WXCollectionViewManager.m in Sources */,
 				58EB3A8E261F0C3C00397F49 /* WXBlankTipView.m in Sources */,
 				58EB3A6E261EE66100397F49 /* WXCFunctionTool.m in Sources */,
 				5893D21E24EA69700005E1AF /* WXTabBarSkinModel.m in Sources */,
 				5811051224EB6BAC006EB5FA /* UITextField+Extension.m in Sources */,
 				5893D21B24EA68AE0005E1AF /* WXTabBarInfoModel.m in Sources */,
+				58F7B2DC26A00E680009FBB8 /* WXNavigationVC.m in Sources */,
 				5811051A24EB6F6D006EB5FA /* CHTCollectionViewWaterfallLayout.m in Sources */,
+				58F7B2DF26A0137C0009FBB8 /* WXWebViewVC.m in Sources */,
 				58695C3424E6683000155B80 /* AppDelegate.m in Sources */,
 				5893D0E324EA55DA0005E1AF /* LukeLayer.m in Sources */,
 				5893D0B624EA52610005E1AF /* StudyVC5.m in Sources */,
 				58EB3A86261F0ABC00397F49 /* WXTableViewManager.m in Sources */,
+				58F7B2F226A01DE60009FBB8 /* UIButton+WXExtension.m in Sources */,
 				5811051324EB6BAC006EB5FA /* UIButton+WXShortcut.m in Sources */,
 				58695C4524E6683100155B80 /* main.m in Sources */,
 				580E844524F8D75C003E6E0C /* WXStudyTabBarVC3.m in Sources */,
@@ -684,10 +740,12 @@
 				5893D0D324EA55CF0005E1AF /* StudyVC10.m in Sources */,
 				58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */,
 				5893D0E624EA59C40005E1AF /* UIView+WXExtension.m in Sources */,
+				58F7B2F826A0289E0009FBB8 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				58C82D162628332700AC3EA0 /* UIImage+Extension.m in Sources */,
 				A3A396C12622016C00A32116 /* WXTrandCCell.m in Sources */,
 				580E845124F900E4003E6E0C /* StudyTmpView.m in Sources */,
 				5893D0D124EA55CF0005E1AF /* StudyVC9.m in Sources */,
+				58F7B2EC26A01AAE0009FBB8 /* WXDeeplinkManager.m in Sources */,
 				5893D0CF24EA55CF0005E1AF /* StudyVC11.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

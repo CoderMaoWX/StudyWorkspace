@@ -11,10 +11,58 @@
 
 @interface NSString (Extension)
 
+/** 手机号码判断 */
+- (BOOL)CheckPhoneNumInput;
+
+/** 正则匹配用户密码8-32位数字和字母组合 */
+- (BOOL)checkPassword;
+
+/** 验证只能是数字或字母 */
+- (BOOL)isNumOrLetter;
+
+/** 校验特殊 */
+- (BOOL)veritySpecifyContent;
+
+/** 特殊字符串 */
++ (NSString *)specialCode;
+
+/** 特殊字符串 */
+- (NSString *)encodeURL;
+
+/** 身份证号 */
+- (BOOL)validateIdentityCard;
+
+/** 判断银行卡号 */
+-(BOOL)isValidCardNumber;
+
+/** 邮箱 */
+- (BOOL)validateEmail;
+
+/** 昵称 */
+- (BOOL)validateNickname;
+
+- (NSString *)sha256;
+
+/**
+ *  得到当前时间
+ *
+ *  @return yyyyMMddHHmmssSSS
+ */
++ (NSString *)getNowDate;
+
+//1. 整形判断
+- (BOOL)isPureInt:(NSString *)string;
+
+
+///校验只能输入指定的字符checkInputInclude
+- (BOOL)checkInputInclude:(NSString *)inputString;
+
+
 /// YY里面拷贝过来的URL编码的方法
 - (NSString *)stringByURLEncode;
 
-- (NSString*)decodeFromPercentEscapeString:(NSString *)string;
+- (NSString*)decodeFromPercentEscapeString:(NSString *) string;
+
 
 - (CGSize)textSizeWithFont:(UIFont *)font
          constrainedToSize:(CGSize)size
@@ -23,8 +71,15 @@
 
 + (CGSize)sizeForString:(NSString*)content
                    font:(UIFont*)font
-               maxWidth:(CGFloat) maxWidth;
+                maxSize:(CGSize)maxSize;
 
+/**
+ *  @brief 计算文字的大小
+ *
+ *  @param font   字体(默认为系统字体)
+ *  @param height 约束高度
+ */
+- (CGSize)sizeWithFont:(UIFont *)font constrainedToHeight:(CGFloat)height;
 
 - (NSDate *)date;
 
@@ -35,20 +90,16 @@
 
 /**
  *  获取文字内容大小
+ *
+ *  @param font 字体
+ *  @param size 大小
+ *  @param lineBreakMode 换行模式
+ *  @param paragraphStyle 段落样式
  */
 - (CGSize)textSizeWithFont:(UIFont *)font
          constrainedToSize:(CGSize)size
              lineBreakMode:(NSLineBreakMode)lineBreakMode
             paragraphStyle:(NSMutableParagraphStyle *)paragraphStyle;
-
-/**
- *  @brief 计算文字的大小
- *
- *  @param font   字体(默认为系统字体)
- *  @param height 约束高度
- */
-- (CGSize)sizeWithFont:(UIFont *)font constrainedToHeight:(CGFloat)height;
-
 
 /**
  *  计算 HTML NSAttributedString文字内容大小

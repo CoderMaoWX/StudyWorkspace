@@ -12,7 +12,7 @@
 #import "WXColorDefiner.h"
 #import "WXFrameDefiner.h"
 #import "WXMacroDefiner.h"
-#import "WXPublicConst.h"
+#import "WXConstDefiner.h"
 #import "WXCFunctionTool.h"
 #import "Masonry.h"
 

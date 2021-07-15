@@ -259,7 +259,7 @@
 }
 
 /** 返回上一页面  */
-- (void)backBtnClick:(UIButton *)backBtn {
+- (void)goBackAction {
     [self.view endEditing:YES];
     if (self.presentingViewController) {
         [self dismissViewControllerAnimated:YES completion:nil];

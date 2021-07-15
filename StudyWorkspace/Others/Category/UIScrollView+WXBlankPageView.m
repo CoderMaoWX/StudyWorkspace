@@ -630,7 +630,7 @@ NSDictionary* WXManageMorePageInfo(NSDictionary *dataDict) {
 
 #pragma mark -===========监听UITableView刷新方法===========
 
-@implementation UITableView (ZFBlankPageView)
+@implementation UITableView (WXBlankPageView)
 
 /**
  * 监听表格所有的刷新方法
@@ -667,7 +667,7 @@ NSDictionary* WXManageMorePageInfo(NSDictionary *dataDict) {
 
 #pragma mark -===========监听UICollectionView刷新方法===========
 
-@implementation UICollectionView (ZFBlankPageView)
+@implementation UICollectionView (WXBlankPageView)
 
 /**
  * 监听CollectionView所有的刷新方法
