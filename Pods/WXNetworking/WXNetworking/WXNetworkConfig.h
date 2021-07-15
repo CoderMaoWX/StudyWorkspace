@@ -19,8 +19,8 @@
 @property (nonatomic, copy) NSString        *statusCode;
 @property (nonatomic, copy) NSString        *messageKey;
 
-/** 需要单独解析Model时的key,(可选) */
-@property (nonatomic, copy) NSString        *resultKey;
+/** 需要解析Model时的全局key,(可选) */
+@property (nonatomic, copy) NSString        *customModelKey;
 
 /** 请求失败时的默认提示 */
 @property (nonatomic, copy) NSString        *requestFailDefaultMessage;
@@ -40,7 +40,10 @@
  */
 @property (nonatomic, weak) id<WXNetworkMulticenter> globleMulticenterDelegate;
 
-/** 是否打开多路径TCP服务，提供Wi-Fi和蜂窝之间的无缝切换，默认关闭 */
+/** 是否禁止所有的网络请求设置代理抓包，(默认不禁止) */
+@property (nonatomic, assign) BOOL          forbidProxyCaught;
+
+/** 是否打开多路径TCP服务，提供Wi-Fi和蜂窝之间的无缝切换，(默认关闭) */
 @property (nonatomic, assign) BOOL          openMultipathService;
 
 /** 请求HUD时的类名*/

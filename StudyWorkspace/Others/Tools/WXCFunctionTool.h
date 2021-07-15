@@ -88,7 +88,7 @@ UIFont *WX_FontMonospacedDigit(CGFloat size);
 
 #pragma mark -==================================HUD====================================
 
-/** 显示loading框现在window上禁止交互 */
+/** 显示loading框现在View上禁止交互 */
 void WX_ShowLoadingToView(id parmaters);
 
 /** 隐藏window上的loading框 */
@@ -104,16 +104,16 @@ UIActivityIndicatorView *WX_FetchIndicatorView(UIActivityIndicatorViewStyle styl
 #pragma mark -==================================字符串、对象====================================
 
 /**  判断是否为NSDictionary */
-BOOL WX_JudgeNSDictionary(id obj);
+BOOL WX_isNSDictionary(id obj);
 
 /** 判断是否为NSArray */
-BOOL WX_JudgeNSArray(id obj);
+BOOL WX_isNSArray(id obj);
 
 /** 判断字符串是否为空 */
-BOOL WX_IsEmptyString(id obj);
+BOOL WX_isEmptyString(id obj);
 
 /** 判断是否为NSString */
-BOOL WX_JudgeNSString(id obj);
+BOOL WX_isNSString(id obj);
 
 /** 转化为NSString来返回，如果为数组或字典转为Json String返回, 其他对象则返回@"" */
 NSString *WX_ToString(id obj);

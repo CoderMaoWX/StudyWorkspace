@@ -32,8 +32,7 @@ NSString *const KWXNetworkBatchRequestDeallocDesc  = @"WXNetworkBatchRequest dea
  @param request 请求对象
  */
 + (void)uploadNetworkResponseJson:(WXResponseModel *)responseModel
-                          request:(WXNetworkRequest *)request
-{
+                          request:(WXNetworkRequest *)request {
     if (responseModel.isCacheData) return;
     if ([WXNetworkConfig sharedInstance].isDistributionOnlineRelease) return;
     if (![WXNetworkConfig sharedInstance].uploadResponseJsonToLogSystem) return;
@@ -55,7 +54,6 @@ NSString *const KWXNetworkBatchRequestDeallocDesc  = @"WXNetworkBatchRequest dea
             requestJson = appsFlyerDict;
         }
     }
-    
     NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
     NSString *appName =  bundleInfo[(__bridge NSString *)kCFBundleExecutableKey] ?: bundleInfo[(__bridge NSString *)kCFBundleIdentifierKey];
     NSString *version = bundleInfo[@"CFBundleShortVersionString"] ?: bundleInfo[(__bridge NSString *)kCFBundleVersionKey];
@@ -87,7 +85,7 @@ NSString *const KWXNetworkBatchRequestDeallocDesc  = @"WXNetworkBatchRequest dea
     WXBaseRequest *baseRequest = [[WXBaseRequest alloc] init];
     baseRequest.requestUrl = uploadLogUrl;
     baseRequest.parameters = uploadInfo;
-    [baseRequest requestWithBlock:nil failureBlock:nil];
+    [baseRequest baseRequestBlock:nil failureBlock:nil];
 }
 
 /**
@@ -98,16 +96,15 @@ NSString *const KWXNetworkBatchRequestDeallocDesc  = @"WXNetworkBatchRequest dea
  @return 日志头部字符串
  */
 + (NSString *)appendingPrintfLogHeader:(WXResponseModel *)responseModel
-                               request:(WXNetworkRequest *)request
-{
+                               request:(WXNetworkRequest *)request {
     BOOL isSuccess          = responseModel.isSuccess;
     BOOL isCacheData        = responseModel.isCacheData;
     NSString *requestJson   = [request valueForKey:@"parmatersJsonString"];
     NSString *hostTitle     = [WXNetworkConfig sharedInstance].networkHostTitle ? : @"";
     NSDictionary *requestHeadersInfo = request.requestDataTask.originalRequest.allHTTPHeaderFields;
     NSString *successFlag   = isCacheData ? @"❤️❤️❤️" : (isSuccess ? @"✅✅✅" : @"❌❌❌");
-    NSString *statusString  = isCacheData ? @"缓存数据成功" : (isSuccess ? @"网络数据成功" : @"网络数据失败");
-    NSString *logBody = [NSString stringWithFormat:@"\n%@请求接口地址 %@= %@\n请求参数json=\n%@\n请求头信息: %@\n\n%@返回=\n",
+    NSString *statusString  = isCacheData ? @"缓存数据成功" : (isSuccess ? @"成功" : @"失败");
+    NSString *logBody = [NSString stringWithFormat:@"\n%@请求接口地址 %@= %@\n请求参数json=\n%@\n\n请求头信息: %@\n\n网络数据%@返回=\n",
                          successFlag, hostTitle, request.requestUrl,
                          requestJson, requestHeadersInfo, statusString];
     return logBody;
@@ -119,18 +116,20 @@ NSString *const KWXNetworkBatchRequestDeallocDesc  = @"WXNetworkBatchRequest dea
  @param responseModel 响应模型
  @return 日志头部字符串
  */
-+ (NSString *)appendingPrintfLogFooter:(WXResponseModel *)responseModel
-{
-    NSString *responseJson  = [responseModel.responseDict description];
-    if ([responseModel.responseDict isKindOfClass:[NSDictionary class]]) {
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseModel.responseDict options:NSJSONWritingPrettyPrinted error:nil];
-        if (jsonData) {
-            responseJson = [[NSString alloc] initWithData:jsonData encoding:(NSUTF8StringEncoding)];
++ (NSString *)appendingPrintfLogFooter:(WXResponseModel *)responseModel {
+    if (responseModel.isSuccess) {
+        NSString *responseJson  = [responseModel.responseDict description];
+        if ([responseModel.responseDict isKindOfClass:[NSDictionary class]]) {
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseModel.responseDict options:NSJSONWritingPrettyPrinted error:nil];
+            if (jsonData) {
+                responseJson = [[NSString alloc] initWithData:jsonData encoding:(NSUTF8StringEncoding)];
+            }
         }
+        return responseJson;
+    } else {
+        return [responseModel.error description];
     }
-    return responseJson;
 }
-
 
 #pragma mark - <ImageType>
 /**
@@ -139,19 +138,34 @@ NSString *const KWXNetworkBatchRequestDeallocDesc  = @"WXNetworkBatchRequest dea
  @param imageData 图片Data
  @return 图片类型描述数组
  */
-+ (NSArray *)typeForImageData:(NSData *)imageData {
++ (NSArray *)typeForFileData:(NSData *)data {
     uint8_t c;
-    [imageData getBytes:&c length:1];
+    [data getBytes:&c length:1];
     switch (c) {
         case 0xFF:
             return @[@"image/jpeg",@"jpg"];
+            break;
         case 0x89:
             return @[@"image/png",@"png"];
+            break;
         case 0x47:
             return @[@"image/gif",@"gif"];
+            break;
         case 0x49:
         case 0x4D:
             return @[@"image/tiff",@"tiff"];
+            break;
+        case 0x25:
+            return @[@"application/pdf", @"pdf"];
+            break;
+        case 0xD0:
+            return @[@"application/vnd", @"vnd"];
+            break;
+        case 0x46:
+            return @[@"text/plain", @"file"];
+            break;
+        default:
+            return @[@"application/octet-stream", @"stream"];
     }
     return nil;
 }
@@ -179,7 +193,6 @@ NSString *const KWXNetworkBatchRequestDeallocDesc  = @"WXNetworkBatchRequest dea
 @end
 
 #pragma mark -===========请求转圈弹框===========
-#define STATUSHEIGHT        [UIApplication sharedApplication].statusBarFrame.size.height
 #define kHUDLoadingViewTag  1234
 
 @implementation WXNetworkHUD
@@ -203,7 +216,8 @@ NSString *const KWXNetworkBatchRequestDeallocDesc  = @"WXNetworkBatchRequest dea
     if (![loadingSuperView isKindOfClass:[UIView class]]) return;
     
     CGRect rect = loadingSuperView.bounds;
-    CGFloat statusBarAndNavBarHeight = STATUSHEIGHT+44;
+    CGFloat statusHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGFloat statusBarAndNavBarHeight = statusHeight + 44;
     CGFloat offsetHeight = statusBarAndNavBarHeight/2;
     
     UIWindow *window = nil;
@@ -224,11 +238,22 @@ NSString *const KWXNetworkBatchRequestDeallocDesc  = @"WXNetworkBatchRequest dea
     [WXNetworkHUD hideLoadingFromView:loadingSuperView];
     
     //转圈背景蒙层
-    UIView *maskBgView = [[UIView alloc] initWithFrame:rect];
+    UIView *maskBgView = [[UIView alloc] init];
+    maskBgView.translatesAutoresizingMaskIntoConstraints = NO;
+//    UIView *maskBgView = [[UIView alloc] initWithFrame:rect];
     maskBgView.backgroundColor = [UIColor clearColor];
     maskBgView.tag = kHUDLoadingViewTag;
     [loadingSuperView addSubview:maskBgView];
     
+    NSDictionary *maskBgViewDic = NSDictionaryOfVariableBindings(maskBgView);
+    [loadingSuperView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[maskBgView]-0-|"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:maskBgViewDic]];
+    [loadingSuperView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[maskBgView]-0-|"
+                                                                             options:0
+                                                                             metrics:nil
+                                                                               views:maskBgViewDic]];
     //自定义类动画View
     CGFloat customWidth = 72;
     Class loadingClass = [WXNetworkConfig sharedInstance].requestLaodingCalss;
@@ -242,22 +267,50 @@ NSString *const KWXNetworkBatchRequestDeallocDesc  = @"WXNetworkBatchRequest dea
         
     } else {
         //转圈蒙层
-        CGFloat x = (maskBgView.bounds.size.width - customWidth) /2;
-        CGFloat y = (maskBgView.bounds.size.height - customWidth) /2;
-        if (windowHeight == loadingSuperView.bounds.size.height) {
-            y -= offsetHeight;
-        }
-        UIView *indicatorBg = [[UIView alloc] initWithFrame:CGRectMake(x, y, customWidth, customWidth)];
+//        CGFloat x = (maskBgView.bounds.size.width - customWidth) /2;
+//        CGFloat y = (maskBgView.bounds.size.height - customWidth) /2;
+//        if (windowHeight == loadingSuperView.bounds.size.height) {
+//            y -= offsetHeight;
+//        }
+        UIView *indicatorBg = [[UIView alloc] init];
+//        indicatorBg.frame = CGRectMake(x, y, customWidth, customWidth)
+        indicatorBg.translatesAutoresizingMaskIntoConstraints = NO;
         indicatorBg.layer.masksToBounds = YES;
         indicatorBg.layer.cornerRadius = 12;
         indicatorBg.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
         [maskBgView addSubview:indicatorBg];
         
+        NSMutableArray *result = [[NSMutableArray alloc] init];
+        NSDictionary *viewDic = NSDictionaryOfVariableBindings(indicatorBg);
+        [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[indicatorBg(72)]"
+                                                                            options:0
+                                                                            metrics:nil
+                                                                              views:viewDic]];
+        [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[indicatorBg(72)]"
+                                                                            options:0
+                                                                            metrics:nil
+                                                                              views:viewDic]];
+        [maskBgView addConstraints:result];
+        [maskBgView addConstraint:[NSLayoutConstraint constraintWithItem:indicatorBg
+                                                               attribute:NSLayoutAttributeCenterY
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:maskBgView
+                                                               attribute:NSLayoutAttributeCenterY
+                                                              multiplier:1
+                                                                constant:0]];
+        //水平居中
+        [maskBgView addConstraint:[NSLayoutConstraint constraintWithItem:indicatorBg
+                                                               attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual
+                                                                  toItem:maskBgView
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1
+                                                                constant:0]];
         UIActivityIndicatorView *loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [loadingView startAnimating];
         loadingView.center = CGPointMake(customWidth/2, customWidth/2);
         [indicatorBg addSubview:loadingView];
     }
 }
+
 @end
 

@@ -10,6 +10,10 @@
 #import "WXNetworkPlugin.h"
 #import "WXNetworkConfig.h"
 #import <AFNetworking/AFNetworking.h>
+#import <objc/runtime.h>
+
+///使用全局静态变量避免每次创建
+static AFHTTPSessionManager *_sessionManager;
 
 @interface WXBaseRequest ()
 @property (nonatomic, strong, readwrite) NSDictionary           *finalParameters;
@@ -21,7 +25,7 @@
 
 #pragma mark - <AFN-SessionManager>
 
-- (AFHTTPSessionManager*)setupHttpSessionManager {
++ (void)initialize {
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     Class class = [WXNetworkConfig sharedInstance].urlSessionProtocolClasses;
     if (class) {
@@ -33,42 +37,41 @@
             sessionConfig.multipathServiceType = NSURLSessionMultipathServiceTypeHandover;
         }
     }
-    
-    // AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:sessionConfig];
-    
+    _sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:sessionConfig];
+}
+
+- (AFHTTPSessionManager *)setupHttpSessionManager {
     // 自定义请求序列化对象
     if ([self.requestSerializer isKindOfClass:[AFHTTPRequestSerializer class]]) {
-        manager.requestSerializer = self.requestSerializer;
+        _sessionManager.requestSerializer = self.requestSerializer;
     } else {
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-        manager.requestSerializer.timeoutInterval = self.timeOut ? : 30;//默认请求超时时间30秒
+        _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+        _sessionManager.requestSerializer.timeoutInterval = self.timeOut ? : 30;//默认请求超时时间30秒
     }
+    _sessionManager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     
     // 添加自定义请求头信息
     NSDictionary *headerDict = self.requestHeaderDict;
     if ([headerDict isKindOfClass:[NSDictionary class]]) {
         for (NSString *headerField in headerDict.allKeys) {
             if (![headerField isKindOfClass:[NSString class]]) continue;
-            
             NSString *headerValue = headerDict[headerField];
             if (![headerValue isKindOfClass:[NSString class]]) continue;
-            [manager.requestSerializer setValue:headerValue forHTTPHeaderField:headerField];
+            [_sessionManager.requestSerializer setValue:headerValue forHTTPHeaderField:headerField];
         }
     }
     // 自定义响应序列化对象
     if ([self.responseSerializer isKindOfClass:[AFHTTPResponseSerializer class]]) {
-        manager.responseSerializer = self.responseSerializer;
+        _sessionManager.responseSerializer = self.responseSerializer;
     } else {
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
     }
     
     // 添加额外响应解析类型
-    NSMutableSet *acceptTypesSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
+    NSMutableSet *acceptTypesSet = [NSMutableSet setWithSet:_sessionManager.responseSerializer.acceptableContentTypes];
     [acceptTypesSet addObjectsFromArray:@[@"application/zip", @"text/html", @"text/plain"]];
-    manager.responseSerializer.acceptableContentTypes = acceptTypesSet;
-    return manager;
+    _sessionManager.responseSerializer.acceptableContentTypes = acceptTypesSet;
+    return _sessionManager;
 }
 
 - (NSDictionary *)finalParameters {
@@ -89,7 +92,7 @@
 #pragma mark - <Request Methods>
 
 /// 根据不同的type 走不同类型的网络请求
-- (NSURLSessionDataTask *)requestWithBlock:(WXNetworkSuccessBlock)successBlock
+- (NSURLSessionDataTask *)baseRequestBlock:(WXNetworkSuccessBlock)successBlock
                               failureBlock:(WXNetworkFailureBlcok)failureBlock
 {
     AFHTTPSessionManager *manager = [self setupHttpSessionManager];
@@ -123,7 +126,6 @@
         } else if (successBlock) {
             successBlock(responseObject);
         }
-        [manager.session finishTasksAndInvalidate];
     };
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request
                                                    uploadProgress:self.uploadProgressBlock
@@ -136,12 +138,14 @@
 }
 
 + (NSDictionary *)configRequestType {
-    return @{@(WXNetworkRequestTypePOST)   : @"POST",
-             @(WXNetworkRequestTypeGET)    : @"GET",
-             @(WXNetworkRequestTypeHEAD)   : @"HEAD",
-             @(WXNetworkRequestTypePUT)    : @"PUT",
-             @(WXNetworkRequestTypeDELETE) : @"DELETE",
-             @(WXNetworkRequestTypePATCH)  : @"PATCH" };
+    return @{
+        @(WXNetworkRequestTypePOST)   : @"POST",
+        @(WXNetworkRequestTypeGET)    : @"GET",
+        @(WXNetworkRequestTypeHEAD)   : @"HEAD",
+        @(WXNetworkRequestTypePUT)    : @"PUT",
+        @(WXNetworkRequestTypeDELETE) : @"DELETE",
+        @(WXNetworkRequestTypePATCH)  : @"PATCH",
+    };
 }
 
 #pragma mark - <ConfiguploadImage>
@@ -149,18 +153,18 @@
 - (WXNetworkUploadDataBlock)uploadConfigDataBaseBlock {
     if (!_uploadConfigDataBlock) {
         __weak typeof(self) weakSelf = self;
-        _uploadConfigDataBlock = ^(id<AFMultipartFormData> formData){            
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setTimeZone:[NSTimeZone localTimeZone]];
-            [formatter setDateFormat:KWXRequestAbsoluteDateFormatterKey];
-            
-            for (NSData *fileData in weakSelf.uploadFileDataArr) {
+        _uploadConfigDataBlock = ^(id<AFMultipartFormData> formData){
+
+            for (NSInteger i=0; i<weakSelf.uploadFileDataArr.count; i++) {
+                NSData *fileData = weakSelf.uploadFileDataArr[i];
                 if (![fileData isKindOfClass:[NSData class]]) continue;
-                NSArray *typeArray = [WXNetworkPlugin typeForImageData:fileData];
-                NSString *locationString = [formatter stringFromDate:[NSDate date]];
-                NSString *fileName = [locationString stringByAppendingFormat:@".%@", typeArray.lastObject];
+                
+                NSArray *typeArray = [WXNetworkPlugin typeForFileData:fileData];
+                NSString *name = [typeArray.firstObject stringByDeletingLastPathComponent];
+                NSString *fileName = [NSString stringWithFormat:@"%@-%d.%@", name, i, typeArray.lastObject];
+                
                 [formData appendPartWithFileData:fileData
-                                            name:@"image"
+                                            name:name
                                         fileName:fileName
                                         mimeType:typeArray.firstObject];
             }
@@ -170,3 +174,54 @@
 }
 
 @end
+
+//=====================================禁止网络代理抓包=====================================
+
+@implementation NSURLSession (WXHttpProxy)
+
++(void)wx_swizzingMethod:(Class)cls orgSel:(SEL) orgSel swiSel:(SEL) swiSel{
+    Method orgMethod = class_getClassMethod(cls, orgSel);
+    Method swiMethod = class_getClassMethod(cls, swiSel);
+    method_exchangeImplementations(orgMethod, swiMethod);
+}
+
++(void)load{
+    [super load];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [NSURLSession class];
+        [self wx_swizzingMethod:class
+                         orgSel:NSSelectorFromString(@"sessionWithConfiguration:")
+                         swiSel:NSSelectorFromString(@"wx_sessionWithConfiguration:")];
+        
+        [self wx_swizzingMethod:class
+                         orgSel:NSSelectorFromString(@"sessionWithConfiguration:delegate:delegateQueue:")
+                         swiSel:NSSelectorFromString(@"wx_sessionWithConfiguration:delegate:delegateQueue:")];
+    });
+}
+
++(NSURLSession *)wx_sessionWithConfiguration:(NSURLSessionConfiguration *)configuration
+                                    delegate:(nullable id<NSURLSessionDelegate>)delegate
+                               delegateQueue:(nullable NSOperationQueue *)queue{
+    if (!configuration){
+        configuration = [[NSURLSessionConfiguration alloc] init];
+    }
+    BOOL isForbid = [WXNetworkConfig sharedInstance].forbidProxyCaught;
+    if(isForbid){
+        configuration.connectionProxyDictionary = @{};
+    }
+    return [self wx_sessionWithConfiguration:configuration
+                                    delegate:delegate
+                               delegateQueue:queue];
+}
+
++(NSURLSession *)wx_sessionWithConfiguration:(NSURLSessionConfiguration *)configuration{
+    BOOL isForbid = [WXNetworkConfig sharedInstance].forbidProxyCaught;
+    if (configuration && isForbid){
+        configuration.connectionProxyDictionary = @{};
+    }
+    return [self wx_sessionWithConfiguration:configuration];
+}
+
+@end
+

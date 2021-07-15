@@ -213,7 +213,7 @@
         NSArray *colorArr = @[WX_ColorBlackTextColor(), WX_ColorRGB(64,128,214, 1)];
         subTitleLabel.attributedText = [NSString getAttriStrByTextArray:textArr fontArr:fontArr colorArr:colorArr lineSpacing:2 alignment:1];
     }
-    if (!WX_IsEmptyString(self.tipText)) {
+    if (!WX_isEmptyString(self.tipText)) {
         self.tipTextLabel.text = self.tipText;
         [self.view insertSubview:self.tipTextLabel atIndex:0];
         [self.tipTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {

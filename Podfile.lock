@@ -17,8 +17,11 @@ PODS:
   - LookinServer (1.0.0)
   - Masonry (1.1.0)
   - MJRefresh (3.5.0)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
   - SSZipArchive (2.2.3)
-  - WXNetworking (1.7):
+  - WXNetworking (2.8):
     - AFNetworking
     - YYCache
     - YYModel
@@ -29,6 +32,7 @@ DEPENDENCIES:
   - LookinServer
   - Masonry
   - MJRefresh
+  - SDWebImage
   - SSZipArchive
   - WXNetworking
 
@@ -38,6 +42,7 @@ SPEC REPOS:
     - LookinServer
     - Masonry
     - MJRefresh
+    - SDWebImage
     - SSZipArchive
     - WXNetworking
     - YYCache
@@ -48,11 +53,12 @@ SPEC CHECKSUMS:
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
-  WXNetworking: e5b55b59a82c0d10827d6a2cb52ead8cce84939d
+  WXNetworking: ee0ff72862360174c5fcf018313974ced7503b77
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: a4b5e63c0822b5b271735ed3bb2af4ec934b8b02
+PODFILE CHECKSUM: 17a557d19bbe4bb97ffa3fedbb3bb8f5b29d918c
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

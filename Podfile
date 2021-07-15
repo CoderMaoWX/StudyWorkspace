@@ -10,6 +10,8 @@ target 'StudyWorkspace' do
   
   pod 'WXNetworking'
   
+  pod 'SDWebImage'
+  
   pod 'Masonry'
   
   pod 'MJRefresh'

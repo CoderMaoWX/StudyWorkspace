@@ -112,7 +112,7 @@ UIImage *WX_ImageBlurry(UIImage *originImage, CGFloat blurLevel) {
 NSString *WX_Language(NSString *languageKey) {
     NSBundle *bundle = WX_Bundle() ?: [NSBundle mainBundle];
     NSString *appLanguage = @"en";//[GlobalConfig sharedInstance].appLanguage;
-    if (WX_IsEmptyString(appLanguage)) {
+    if (WX_isEmptyString(appLanguage)) {
         appLanguage = @"en";
     }
     NSBundle *languageBundle = [NSBundle bundleWithPath:[bundle pathForResource:appLanguage ofType:@"lproj"]];
@@ -122,7 +122,7 @@ NSString *WX_Language(NSString *languageKey) {
 
 /** 获取指定国家的多语言 */
 NSString *WX_LanguageCountry(NSString *languageKey, NSString *countryCode) {
-    if (WX_IsEmptyString(countryCode)) {
+    if (WX_isEmptyString(countryCode)) {
         return WX_Language(languageKey);
     }
     NSBundle *bundle = WX_Bundle() ?: [NSBundle mainBundle];
@@ -177,7 +177,7 @@ UIColor *WX_ColorRandom(void) {
 
 /** 十六进制的颜色（以#/0X开头）转换为UIColor */
 UIColor *WX_ColorWithHexString(NSString *colorString) {
-    if (!WX_JudgeNSString(colorString)) return nil;
+    if (!WX_isNSString(colorString)) return nil;
     
     NSString *cString = [[colorString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
@@ -245,7 +245,7 @@ UIFont *WX_FontMonospacedDigit(CGFloat size) {
 
 /** 获取弹框window */
 UIWindow *WX_FetchHUDSuperView(id parmaters) {
-    if (WX_JudgeNSDictionary(parmaters)) {
+    if (WX_isNSDictionary(parmaters)) {
         if ([parmaters[kLoadingView] isKindOfClass:[UIView class]]) {
             return parmaters[kLoadingView];
         }
@@ -307,7 +307,7 @@ void WX_HideLoadingFromView(id parmaters) {
 
 /** 显示纯文本Toast展示 */
 void WX_ShowToastWithText(id parmaters, NSString *message) {
-    if (WX_IsEmptyString(message)) return;
+    if (WX_isEmptyString(message)) return;
     
     UIWindow *loadingSuperView = WX_FetchHUDSuperView(parmaters);
     WX_HideLoadingFromView(parmaters);
@@ -380,7 +380,7 @@ UIActivityIndicatorView *WX_FetchIndicatorView(UIActivityIndicatorViewStyle styl
 /**
  * 判断是否为NSString
  */
-BOOL WX_JudgeNSString(id obj) {
+BOOL WX_isNSString(id obj) {
     if ([obj isKindOfClass:[NSString class]]) {
         return YES;
     }
@@ -390,7 +390,7 @@ BOOL WX_JudgeNSString(id obj) {
 /**
  * 判断是否为NSDictionary
  */
-BOOL WX_JudgeNSDictionary(id obj) {
+BOOL WX_isNSDictionary(id obj) {
     if ([obj isKindOfClass:[NSDictionary class]]) {
         return YES;
     }
@@ -400,7 +400,7 @@ BOOL WX_JudgeNSDictionary(id obj) {
 /**
  * 判断是否为NSArray
  */
-BOOL WX_JudgeNSArray(id obj) {
+BOOL WX_isNSArray(id obj) {
     if ([obj isKindOfClass:[NSArray class]]) {
         return YES;
     }
@@ -410,7 +410,7 @@ BOOL WX_JudgeNSArray(id obj) {
 /**
  * 判断字符串是否为空
  */
-BOOL WX_IsEmptyString(id obj) {
+BOOL WX_isEmptyString(id obj) {
     if (![obj isKindOfClass:[NSString class]]) {
         return YES;
     }
@@ -439,10 +439,10 @@ BOOL WX_IsEmptyString(id obj) {
 NSString *WX_ToString(id obj) {
     if (!obj) return @"";
     
-    if (WX_JudgeNSString(obj)) {
+    if (WX_isNSString(obj)) {
         return obj;
     }
-    if (WX_JudgeNSDictionary(obj) || WX_JudgeNSArray(obj)) {
+    if (WX_isNSDictionary(obj) || WX_isNSArray(obj)) {
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj
                                                            options:0
                                                              error:nil];
@@ -477,7 +477,7 @@ NSString *WX_FormatString(NSString *format, ...) {
 ///转换为字典
 NSDictionary *WX_ToDictiontry(id objc) {
     NSData *data = objc;
-    if (WX_JudgeNSString(objc)) {
+    if (WX_isNSString(objc)) {
         data = [objc dataUsingEncoding:NSUTF8StringEncoding];
     }
     if (![data isKindOfClass:[NSData class]]) return nil;
@@ -489,7 +489,7 @@ NSDictionary *WX_ToDictiontry(id objc) {
 
 ///字典转换为字符串
 NSString *WX_DictionaryToJson(NSDictionary *dic) {
-    if (!WX_JudgeNSDictionary(dic)) return nil;
+    if (!WX_isNSDictionary(dic)) return nil;
     NSError *parseError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:0 error:&parseError];
     return parseError ? nil : [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
@@ -514,7 +514,7 @@ NSString *WX_ToMD5String(NSString *string) {
 NSString *WX_ConvertTimeStamp(NSTimeInterval timeStamp, NSString *dateFormat) {
     if (timeStamp == 0) { //不存在用当前的时间戳
         NSDate *dat = [NSDate dateWithTimeIntervalSinceNow:0];
-        timeStamp = [dat timeIntervalSince1970] * 1000;
+        timeStamp = [dat timeIntervalSince1970];
     }
     NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:timeStamp];
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];

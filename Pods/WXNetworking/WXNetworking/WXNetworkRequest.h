@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL                        isCacheData;
 @property (nonatomic, assign, readonly) CGFloat                     responseDuration;
 @property (nonatomic, assign, readonly) NSInteger                   responseCode;
-@property (nonatomic, strong, readonly, nullable) id                responseModel;
+@property (nonatomic, strong, readonly, nullable) id                responseCustomModel;//解析成指定的模型
 @property (nonatomic, strong, readonly, nullable) id                responseObject;//NSDictionary/UIImage/NSData/...
 @property (nonatomic, strong, readonly, nullable) NSDictionary      *responseDict;
 @property (nonatomic, copy  , readonly, nullable) NSString          *responseMsg;
@@ -42,11 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  多个网络请求完成后响应一次回调
 
- @param batchRequest 请求对象数组
- @param responseModelArray 响应对象数组
+ @param batchRequest 批量请求管理对象
  */
-- (void)wxBatchResponseWithRequest:(WXNetworkBatchRequest *)batchRequest
-                         modelArray:(NSArray<WXResponseModel *> *)responseModelArray;
+- (void)wxBatchResponseWithRequest:(WXNetworkBatchRequest *)batchRequest;
 @end
 
 
@@ -75,20 +73,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WXNetworkRequest : WXBaseRequest
 
-
-/** 请求成功时是否需要自动缓存响应数据 */
+/** 请求成功时是否需要自动缓存响应数据, 默认不缓存 */
 @property (nonatomic, assign) BOOL      autoCacheResponse;
 
 /** 请求成功时自定义响应缓存数据, (返回的字典为此次需要保存的缓存数据, 返回nil时,底层则不缓存) */
 @property (nonatomic, copy) NSDictionary* (^cacheResponseBlock)(WXResponseModel *responseModel);
 
+/** 单独设置响应Model时的解析key, 否则使用单例中的全局解析 WXNetworkConfig.customModelKey */
+@property (nonatomic, copy) NSString    *customModelKey;
+
 /** 请求成功返回后解析成相应的Model返回 */
-@property (nonatomic, strong) Class     responseModelCalss;
+@property (nonatomic, strong) Class     responseCustomModelCalss;
 
 /** 请求转圈的父视图 */
 @property (nonatomic, strong) UIView    *loadingSuperView;
 
-/** 请求失败之后重新请求次数*/
+/** 请求失败之后重新请求次数, (每次重试时间隔3秒) */
 @property (nonatomic, assign) NSInteger retryCountWhenFailure;
 
 /**
@@ -97,22 +97,25 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak) id<WXNetworkMulticenter> multicenterDelegate;
 
-/** 可以用来添加几个accossories对象 来做额外的(请求HUD, 加解密, 自定义打印, 上传统计)插件等特殊功能 */
+/**
+ * 可以用来添加几个accossories对象 来做额外的插件等特殊功能
+ * 如: (请求HUD, 加解密, 自定义打印, 上传统计)
+ */
 @property (nonatomic, strong) NSArray<id<WXNetworkMulticenter>> *requestAccessories;
 
 /*
- * 缓存key, 可用于清除指定请求
+ * 缓存key, 可用于清除指定请求缓存
  */
 - (NSString *)cacheKey;
 
 /*
- * 单个网络请求->代理回调
+ * 单个网络请求: (代理回调方式)
  * @parm networkDelegate 请求成功失败回调代理
  */
 - (NSURLSessionDataTask *)startRequestWithDelegate:(id<WXNetworkDelegate>)responseDelegate;
 
 /*
- * 单个网络请求->Block回调
+ * 单个网络请求: (Block回调方式)
  * @parm responseBlock 请求响应block
  */
 - (NSURLSessionDataTask *)startRequestWithBlock:(WXNetworkResponseBlock)responseBlock;
@@ -132,33 +135,49 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WXNetworkBatchRequest : NSObject
 
-/** 批量请求是否都请求成功了 */
-@property(nonatomic, assign, readonly) BOOL isAllSuccess;
+/** 全部请求对象, 响应时按添加顺序返回 */
+@property (nonatomic, strong) NSArray<WXNetworkRequest *> *requestArray;
+
+/** 全部请求是否都请求完成了 */
+@property(nonatomic, assign, readonly) BOOL isAllDone;
+
+/** 全部响应数据,按请求Api的添加顺序返回 */
+@property (nonatomic, strong, readonly) NSArray<WXResponseModel *> *responseDataArray;
+
+/** 根据指定的请求获取响应数据 */
+- (WXResponseModel *)responseForRequest:(WXNetworkRequest *)request;
+
+/** 取消所有请求 */
+- (void)cancelAllRequest;
 
 /**
- * 便捷初始化多并发请求函数
- * @param requestArray 请求WXNetworkRequest对象数组
- * @return 多并发请求对象
- */
-+ (instancetype)batchArrayRequest:(NSArray<WXNetworkRequest *> *)requestArray;
-
-/**
- 批量网络请求
-
- @param responseDelegate 请求全部完成后的响应代理回调
- @param shouldAllSuccess 是否等待全部请求完成才回调
- */
-- (void)startRequestWithDelegate:(id<WXNetworkBatchDelegate>)responseDelegate
-                  waitAllSuccess:(BOOL)shouldAllSuccess;
-
-/**
- 批量网络请求
-
+ 批量网络请求: (类方法:Block回调方式1)
+ 
  @param responseBlock 请求全部完成后的响应block回调
- @param shouldAllSuccess 是否等待全部请求完成才回调
+ @param batchRequestArr 请求WXNetworkRequest对象数组
+ @param waitAllDone 是否等待全部请求完成才回调, 否则回调多次
+ */
++ (void)startRequestWithBlock:(WXNetworkBatchBlock)responseBlock
+                batchRequests:(NSArray<WXNetworkRequest *> *)batchRequestArr
+                  waitAllDone:(BOOL)waitAllDone;
+
+/**
+ 批量网络请求: (实例方法:Block回调方式)
+ 
+ @param responseBlock 请求全部完成后的响应block回调
+ @param waitAllDone 是否等待全部请求完成才回调, 否则回调多次
  */
 - (void)startRequestWithBlock:(WXNetworkBatchBlock)responseBlock
-               waitAllSuccess:(BOOL)shouldAllSuccess;
+                  waitAllDone:(BOOL)waitAllDone;
+
+/**
+ 批量网络请求: (实例方法:代理回调方式)
+ 
+ @param responseDelegate 请求全部完成后的响应代理回调
+ @param waitAllDone 是否等待全部请求完成才回调, 否则回调多次
+ */
+- (void)startRequestWithDelegate:(id<WXNetworkBatchDelegate>)responseDelegate
+                     waitAllDone:(BOOL)waitAllDone;
 
 @end
 

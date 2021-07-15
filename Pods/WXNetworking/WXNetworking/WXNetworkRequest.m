@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, WXRequestMulticenterType) {
 @interface WXResponseModel ()
 @property (nonatomic, assign, readwrite) BOOL              isSuccess;
 @property (nonatomic, assign, readwrite) BOOL              isCacheData;
-@property (nonatomic, strong, readwrite) id                responseModel;
+@property (nonatomic, strong, readwrite) id                responseCustomModel;
 @property (nonatomic, strong, readwrite) id                responseObject;//可能为UIimage/NSData/...
 @property (nonatomic, strong, readwrite) NSDictionary      *responseDict;
 @property (nonatomic, assign, readwrite) CGFloat           responseDuration;
@@ -42,16 +42,22 @@ typedef NS_ENUM(NSInteger, WXRequestMulticenterType) {
 - (void)configModel:(WXNetworkRequest *)requestApi
        responseDict:(NSDictionary *)responseDict
 {
-    if (requestApi.responseModelCalss && [responseDict isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *modelJSON = responseDict;
+    if (requestApi.responseCustomModelCalss && [responseDict isKindOfClass:[NSDictionary class]]) {
+        NSString *customModelKey = requestApi.customModelKey;
         
-        NSString *modelKey = [WXNetworkConfig sharedInstance].resultKey;
-        if ([modelKey isKindOfClass:[NSString class]]) {
-            if (responseDict[modelKey]) {
-                modelJSON = responseDict[modelKey];
+        if (!([customModelKey isKindOfClass:[NSString class]] && customModelKey.length > 0)) {
+            customModelKey = [WXNetworkConfig sharedInstance].customModelKey;
+        }
+        if ([customModelKey isKindOfClass:[NSString class]] && customModelKey.length > 0) {
+            NSObject *customObj = responseDict[customModelKey];
+            
+            if ([customObj isKindOfClass:[NSDictionary class]]) {
+                self.responseCustomModel = [requestApi.responseCustomModelCalss yy_modelWithJSON:customObj];
+                
+            } else if ([customObj isKindOfClass:[NSArray class]]) {
+                self.responseCustomModel = [NSArray yy_modelArrayWithClass:requestApi.responseCustomModelCalss json:customObj];
             }
         }
-        self.responseModel = [requestApi.responseModelCalss yy_modelWithJSON:modelJSON];
     }
 }
 @end
@@ -61,17 +67,16 @@ typedef NS_ENUM(NSInteger, WXRequestMulticenterType) {
 
 static NSMutableDictionary<NSString *, NSDictionary *> *         _globleRequestList;
 static NSMutableDictionary<NSString *, NSURLSessionDataTask *> * _globleTasksList;
-static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionList;
 
 @interface WXNetworkRequest ()
 @property (nonatomic, copy) NSString                *cacheKey;
 @property (nonatomic, copy) NSString                *apiUniquelyIp;
 @property (nonatomic, assign) NSInteger             retryCount;
 @property (nonatomic, assign) double                requestDuration;
-@property (nonatomic, weak) id<WXNetworkDelegate>  responseDelegate;
+@property (nonatomic, weak) id<WXNetworkDelegate>   responseDelegate;
 @property (nonatomic, strong) NSString              *parmatersJsonString;
 @property (nonatomic, strong) NSString              *managerRequestKey;
-@property (nonatomic, copy) WXNetworkResponseBlock configResponseCallback;
+@property (nonatomic, copy) WXNetworkResponseBlock  configResponseCallback;
 @end
 
 @implementation WXNetworkRequest
@@ -79,7 +84,6 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
 + (void)initialize {
     _globleRequestList = [NSMutableDictionary dictionary];
     _globleTasksList   = [NSMutableDictionary dictionary];
-    _globleSessionList = [NSMutableDictionary dictionary];
 }
 
 #pragma mark - <StartNetwork>
@@ -123,7 +127,7 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
         [self readRequestCacheWithBlock:networkBlock];
     }
     [self handleMulticenter:WXNetworkRequestWillStart responseModel:nil];
-    NSURLSessionDataTask *task = [self requestWithBlock:networkBlock failureBlock:networkBlock];
+    NSURLSessionDataTask *task = [self baseRequestBlock:networkBlock failureBlock:networkBlock];
     [self insertCurrentRequestToRequestTableList:task];
     if (![WXNetworkConfig sharedInstance].closeUrlResponsePrintfLog) {
         WXNetworkLog(@"\n👉👉👉页面已发出请求= %@", self.requestUrl);
@@ -172,7 +176,7 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
     if ([responseObj isKindOfClass:[NSError class]]) {
         rspModel.isSuccess     = NO;
         rspModel.isCacheData   = NO;
-        rspModel.responseMsg   = ((NSError *)responseObj).domain;
+        rspModel.responseMsg   = self.configFailMessage;
         rspModel.responseCode  = ((NSError *)responseObj).code;
         rspModel.error         = (NSError *)responseObj;
         
@@ -222,7 +226,7 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
         }
     } else {
         //注意:不能直接赋值responseObj, 因为插件库那边会dataWithJSONObject打印会崩溃
-        //responseDcit[config.resultKey] = [responseObj description];
+        //responseDcit[config.customModelKey] = [responseObj description];
     }
     // 只要返回为非Error就包装一个公共的key, 防止页面当失败解析
     if (![responseDcit valueForKey:config.statusKey]) {
@@ -245,7 +249,7 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
             [self judgeShowLoading:YES];
             self.requestDuration = [self getCurrentTimestamp];
             
-            SEL selector = @selector(requestWillStart:);            
+            SEL selector = @selector(requestWillStart:);
             if ([delegate respondsToSelector:selector]) {
                 [delegate requestWillStart:self];
             }
@@ -257,6 +261,11 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
         }
             break;
         case WXNetworkRequestWillStop: {
+            if (![WXNetworkConfig sharedInstance].closeUrlResponsePrintfLog) {
+                NSString *logHeader = [WXNetworkPlugin appendingPrintfLogHeader:responseModel request:self];
+                NSString *logFooter = [WXNetworkPlugin appendingPrintfLogFooter:responseModel];
+                WXNetworkLog(@"%@", [NSString stringWithFormat:@"%@%@", logHeader, logFooter]);
+            }
             SEL selector = @selector(requestWillStop:responseModel:);
             if ([delegate respondsToSelector:selector]) {
                 [delegate requestWillStop:self responseModel:responseModel];
@@ -274,11 +283,6 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
             [self checkPostNotification:responseModel.responseCode];
             [WXNetworkPlugin uploadNetworkResponseJson:responseModel request:self];
             
-            if (![WXNetworkConfig sharedInstance].closeUrlResponsePrintfLog) {
-                NSString *logHeader = [WXNetworkPlugin appendingPrintfLogHeader:responseModel request:self];
-                NSString *logFooter = [WXNetworkPlugin appendingPrintfLogFooter:responseModel];
-                WXNetworkLog(@"%@", [NSString stringWithFormat:@"%@%@", logHeader, logFooter]);
-            }
             SEL selector = @selector(requestDidCompletion:responseModel:);
             if ([delegate respondsToSelector:selector]) {
                 [delegate requestDidCompletion:self responseModel:responseModel];
@@ -316,7 +320,7 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
         if (![notifyName isKindOfClass:[NSString class]]) continue;
         
         NSNumber *notifyNumber = notifyDict[notifyName];
-        if ([notifyNumber isKindOfClass:[NSNumber class]]) continue;
+        if (![notifyNumber isKindOfClass:[NSNumber class]]) continue;
         
         if (responseCode == notifyNumber.integerValue) {
             [[NSNotificationCenter defaultCenter] postNotificationName:notifyName object:nil];
@@ -371,7 +375,6 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
 }
 
 - (void)saveResponseObjToCache:(WXResponseModel *)responseModel {
-    
     if (self.cacheResponseBlock) {
         NSDictionary *customResponseObject = self.cacheResponseBlock(responseModel);
         if (![customResponseObject isKindOfClass:[NSDictionary class]]) return;
@@ -403,11 +406,10 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
 }
 
 - (void)insertCurrentRequestToRequestTableList:(NSURLSessionDataTask *)sessionDataTask {
-    if (!(_globleRequestList && _globleTasksList && _globleSessionList) || !sessionDataTask)return ;
+    if (!(_globleRequestList && _globleTasksList) || !sessionDataTask)return ;
     
     if ([self.requestUrl isKindOfClass:[NSString class]]) {
         _globleRequestList[self.managerRequestKey] = self.finalParameters ?: @{};
-        _globleSessionList[self.managerRequestKey] = self.urlSession;
         
         if ([sessionDataTask isKindOfClass:[NSURLSessionDataTask class]]) {
             _globleTasksList[self.managerRequestKey] = sessionDataTask;
@@ -418,7 +420,6 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
 - (void)removeCompleteRequestFromGlobleRequestList {
     [_globleRequestList removeObjectForKey:self.managerRequestKey];
     [_globleTasksList removeObjectForKey:self.managerRequestKey];
-    [_globleSessionList removeObjectForKey:self.managerRequestKey];
 }
 
 + (void)cancelGlobleAllRequestMangerTask {
@@ -427,25 +428,14 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
             [task cancel];
         }
     }];
-    [_globleSessionList enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSURLSession * _Nonnull session, BOOL * _Nonnull stop) {
-        if ([session isKindOfClass:[NSURLSession class]]) {
-            [session finishTasksAndInvalidate];
-        }
-    }];
     [_globleRequestList removeAllObjects];
     [_globleTasksList removeAllObjects];
-    [_globleSessionList removeAllObjects];
 }
 
 + (void)cancelRequestsWithApiList:(NSArray<WXNetworkRequest *> *)requestList {
     if (!_globleRequestList || !_globleTasksList)return ;
     [requestList enumerateObjectsUsingBlock:^(WXNetworkRequest * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [_globleRequestList removeObjectForKey:obj.managerRequestKey];
-        
-        NSURLSession *session = _globleSessionList[obj.managerRequestKey];
-        if ([session isKindOfClass:[NSURLSession class]]) {
-            [session finishTasksAndInvalidate];
-        }
         NSURLSessionDataTask *task = _globleTasksList[obj.managerRequestKey];
         if ([task isKindOfClass:[NSURLSessionDataTask class]]) {
             [task cancel];
@@ -459,11 +449,13 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
 - (void)judgeShowLoading:(BOOL)show {
     if (![WXNetworkConfig sharedInstance].showRequestLaoding) return;
     if (![self.loadingSuperView isKindOfClass:[UIView class]]) return;
-    if (show) {
-        [WXNetworkHUD showLoadingToView:self.loadingSuperView];
-    } else {
-        [WXNetworkHUD hideLoadingFromView:self.loadingSuperView];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (show) {
+            [WXNetworkHUD showLoadingToView:self.loadingSuperView];
+        } else {
+            [WXNetworkHUD hideLoadingFromView:self.loadingSuperView];
+        }
+    });
 }
 
 - (double)getCurrentTimestamp {
@@ -499,85 +491,110 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
 @property (nonatomic, weak) id<WXNetworkBatchDelegate>  responseBatchDelegate;
 @property (nonatomic, copy) WXNetworkBatchBlock         responseBatchBlock;
 @property (nonatomic, copy) WXNetworkResponseBlock      configBatchDelegateCallback;
-@property (nonatomic, assign) NSInteger                  requestCount;
-@property (nonatomic, strong) NSMutableArray             *requestApiArray;
-@property (nonatomic, strong) NSMutableDictionary        *responseInfoDict;
-@property(nonatomic, assign, readwrite) BOOL             isAllSuccess;
-@property (nonatomic, assign) BOOL                       hasMarkBatchFailure;
-@property (nonatomic, assign) BOOL                       waitAllSuccess;
+@property (nonatomic, assign) NSInteger                 requestCount;
+@property(nonatomic, assign, readwrite) BOOL            isAllSuccess;
+@property (nonatomic, assign) BOOL                      hasMarkBatchFailure;
+@property (nonatomic, assign) BOOL                      waitAllSuccess;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, WXResponseModel *> *responseInfoDict;
 @property (nonatomic, strong) WXNetworkBatchRequest     *batchRequest;
+@property (nonatomic, strong) NSArray                   *responseDataArray;
 @end
 
 @implementation WXNetworkBatchRequest
 
-/**
- * 便捷初始化多并发请求函数
- * @param requestArray 请求WXNetworkRequest对象数组
- * @return 多并发请求对象
- */
-+ (instancetype)batchArrayRequest:(NSArray<WXNetworkRequest *> *)requestArray {
-    return [[WXNetworkBatchRequest alloc] initWithRequestArray:requestArray];
+
+/** 根据指定的请求获取响应数据 */
+- (WXResponseModel *)responseForRequest:(WXNetworkRequest *)request {
+    if (![request isKindOfClass:[WXNetworkRequest class]]) return nil;
+    WXResponseModel *rspModel = self.responseInfoDict[request.apiUniquelyIp];
+    return rspModel;
 }
 
-- (instancetype)initWithRequestArray:(NSArray<WXNetworkRequest *> *)requestArray {
-    self = [super init];
-    if (self) {
-        _requestApiArray = [requestArray copy];
-        _requestCount = _requestApiArray.count;
-        for (WXNetworkRequest *requestApi in _requestApiArray) {
-            BOOL isRequestApi = [requestApi isKindOfClass:[WXNetworkRequest class]];
-            if (!isRequestApi) {
-                NSAssert(isRequestApi, KWXRequestRequestArrayAssert);
-                return nil;
-            }
-        }
-    }
-    return self;
+/** 取消所有请求 */
+- (void)cancelAllRequest {
+    [WXNetworkRequest cancelRequestsWithApiList:self.requestArray];
 }
 
-/**
- 批量网络请求
- 
- @param responseDelegate 请求完成响应代理回调
- @param waitAllSuccess 是否等待全部请求完成
- */
-- (void)startRequestWithDelegate:(id<WXNetworkBatchDelegate>)responseDelegate
-                  waitAllSuccess:(BOOL)waitAllSuccess
-{
-    BOOL isApiArray = [_requestApiArray isKindOfClass:[NSArray class]];
+- (void)setRequestArray:(NSArray<WXNetworkRequest *> *)requestArray {
+    BOOL isApiArray = [requestArray isKindOfClass:[NSArray class]];
     if (!isApiArray) {
         NSAssert(isApiArray, KWXRequestRequestArrayObjAssert);
         return ;
     }
-    self.batchRequest = self;
-    self.responseBatchDelegate = responseDelegate;
-    self.waitAllSuccess = waitAllSuccess;
-    self.responseBatchBlock = nil;
-    for (WXNetworkRequest *serverApi in self.requestApiArray) {
-        serverApi.configResponseCallback = self.configBatchDelegateCallback;
-        [serverApi startRequestWithDelegate:responseDelegate];
+    for (WXNetworkRequest *requestApi in requestArray) {
+        BOOL isRequestApi = [requestApi isKindOfClass:[WXNetworkRequest class]];
+        if (!isRequestApi) {
+            NSAssert(isRequestApi, KWXRequestRequestArrayAssert);
+            return;
+        }
     }
+    _requestArray = [requestArray copy];
+    _requestCount = requestArray.count;
+}
+
+/**
+ 批量网络请求: (代理回调方式)
+
+ @param responseBlock 请求全部完成后的响应block回调
+ @param batchRequestArr 请求WXNetworkRequest对象数组
+ @param waitAllDone 是否等待全部请求完成才回调, 否则回调多次
+ */
++ (void)startRequestWithBlock:(WXNetworkBatchBlock)responseBlock
+                batchRequests:(NSArray<WXNetworkRequest *> *)batchRequestArr
+                  waitAllDone:(BOOL)waitAllDone {
+    WXNetworkBatchRequest *batchRequest = [[WXNetworkBatchRequest alloc] init];
+    batchRequest.requestArray = batchRequestArr;
+    [batchRequest startRequestWithBlock:responseBlock
+                            waitAllDone:waitAllDone];
 }
 
 /**
  *批量网络请求
  
  @param responseBlock 请求完成响应block回调
- @param waitAllSuccess 是否等待全部请求完成
+ @param waitAllDone 是否等待全部请求完成
  */
 - (void)startRequestWithBlock:(WXNetworkBatchBlock)responseBlock
-               waitAllSuccess:(BOOL)waitAllSuccess {
-    BOOL isApiArray = [_requestApiArray isKindOfClass:[NSArray class]];
-    if (!isApiArray) {
-        NSAssert(isApiArray, KWXRequestRequestArrayObjAssert);
-        return ;
+                  waitAllDone:(BOOL)waitAllDone {
+    for (WXNetworkRequest *requestApi in self.requestArray) {
+        BOOL isRequestApi = [requestApi isKindOfClass:[WXNetworkRequest class]];
+        if (!isRequestApi) {
+            NSAssert(isRequestApi, KWXRequestRequestArrayAssert);
+            return;
+        }
     }
     self.batchRequest = self;
     self.responseBatchBlock = responseBlock;
-    self.waitAllSuccess = waitAllSuccess;
+    self.waitAllSuccess = waitAllDone;
     self.responseBatchDelegate = nil;
-    for (WXNetworkRequest *requestApi in self.requestApiArray) {
+    for (WXNetworkRequest *requestApi in self.requestArray) {
         [requestApi startRequestWithBlock:self.configBatchDelegateCallback];
+    }
+}
+
+/**
+ 批量网络请求
+ 
+ @param responseDelegate 请求完成响应代理回调
+ @param waitAllDone 是否等待全部请求完成
+ */
+- (void)startRequestWithDelegate:(id<WXNetworkBatchDelegate>)responseDelegate
+                     waitAllDone:(BOOL)waitAllDone
+{
+    for (WXNetworkRequest *requestApi in self.requestArray) {
+        BOOL isRequestApi = [requestApi isKindOfClass:[WXNetworkRequest class]];
+        if (!isRequestApi) {
+            NSAssert(isRequestApi, KWXRequestRequestArrayAssert);
+            return;
+        }
+    }
+    self.batchRequest = self;
+    self.responseBatchDelegate = responseDelegate;
+    self.waitAllSuccess = waitAllDone;
+    self.responseBatchBlock = nil;
+    for (WXNetworkRequest *serverApi in self.requestArray) {
+        serverApi.configResponseCallback = self.configBatchDelegateCallback;
+        [serverApi startRequestWithDelegate:responseDelegate];
     }
 }
 
@@ -590,10 +607,9 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
             }
             if (!responseModel.isSuccess && !weakSelf.waitAllSuccess && !weakSelf.hasMarkBatchFailure) {
                 weakSelf.hasMarkBatchFailure = YES;
-                for (WXNetworkRequest *requestApi in weakSelf.requestApiArray) {
+                for (WXNetworkRequest *requestApi in weakSelf.requestArray) {
                     if (![requestApi.apiUniquelyIp isEqualToString:responseModel.apiUniquelyIp]) {
                         [requestApi.requestDataTask cancel];
-                        [requestApi.urlSession finishTasksAndInvalidate];
                     }
                 }
             }
@@ -610,20 +626,21 @@ static NSMutableDictionary<NSString *, NSURLSession *> *         _globleSessionL
         if (self.requestCount <= 0) {
             self.isAllSuccess = !self.hasMarkBatchFailure;
             NSMutableArray *responseArray = [NSMutableArray array];
-            for (NSInteger i=0; i<self.requestApiArray.count; i++) {
-                WXNetworkRequest *requestApi = self.requestApiArray[i];
+            for (NSInteger i=0; i<self.requestArray.count; i++) {
+                WXNetworkRequest *requestApi = self.requestArray[i];
                 id responseObj = self.responseInfoDict[requestApi.apiUniquelyIp];
                 if (responseObj) {
                     [responseArray addObject:responseObj];
                 }
             }
             // 请求最终回调
+            self.responseDataArray = responseArray;
             if (self.responseBatchBlock) {
-                self.responseBatchBlock(responseArray, self);
+                self.responseBatchBlock(self);
                 
             } else if (self.responseBatchDelegate &&
-                       [self.responseBatchDelegate respondsToSelector:@selector(wxBatchResponseWithRequest:modelArray:)]) {
-                [self.responseBatchDelegate wxBatchResponseWithRequest:self modelArray:responseArray];
+                       [self.responseBatchDelegate respondsToSelector:@selector(wxBatchResponseWithRequest:)]) {
+                [self.responseBatchDelegate wxBatchResponseWithRequest:self];
             }
             self.batchRequest = nil;
         }
