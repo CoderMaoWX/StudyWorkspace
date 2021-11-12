@@ -17,6 +17,7 @@
     
     // @{ 要测试的VC : 对应类的功能描述 }
     [self.listDataArray addObjectsFromArray:@[
+        @{@"StudyVC16.m"    :   @"不导第三方库加载GIf图片"},
         @{@"StudyVC15.m"    :   @"URLComponents"},
         @{@"StudyVC14.m"    :   @"长按模糊图片显示清晰背景"},
         @{@"StudyVC1.m"     :   @"一键切换启动闪屏图AppLaunchImage"},
