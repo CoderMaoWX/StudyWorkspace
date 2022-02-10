@@ -8,6 +8,9 @@
 
 #import "StudyMainVC.h"
 #import "WXStudyCell.h"
+#import <StudyWorkspace-Swift.h>
+
+
 
 @implementation StudyMainVC
 
@@ -35,6 +38,13 @@
         @{@"StudyVC13.m"    :   @"抖动弹性约束动画"},
      ]];
     [self.plainTableView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated ];
+    
+    WXLoadingHUD *hud = [[WXLoadingHUD alloc] initWithFrame:CGRectMake(100, 100, 100, 100 )];
+    [self.view addSubview:hud];
 }
 
 #pragma mark -============== <UITableView> 配置父类表格数据和代理 ==============

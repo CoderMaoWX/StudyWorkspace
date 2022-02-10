@@ -1,6 +1,6 @@
-#source 'https://cdn.cocoapods.org/'
+source 'https://cdn.cocoapods.org/'
 
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'StudyWorkspace' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -10,6 +10,8 @@ target 'StudyWorkspace' do
   
   pod 'WXNetworking'
   
+  pod 'WXNetworkingSwift'
+
   pod 'SDWebImage'
   
   pod 'Masonry'

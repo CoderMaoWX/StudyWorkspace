@@ -14,6 +14,8 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - Alamofire (5.5.0)
+  - KakaJSON (1.1.2)
   - LookinServer (1.0.0)
   - Masonry (1.1.0)
   - MJRefresh (3.5.0)
@@ -25,6 +27,9 @@ PODS:
     - AFNetworking
     - YYCache
     - YYModel
+  - WXNetworkingSwift (0.3.1):
+    - Alamofire
+    - KakaJSON
   - YYCache (1.0.4)
   - YYModel (1.0.4)
 
@@ -35,30 +40,37 @@ DEPENDENCIES:
   - SDWebImage
   - SSZipArchive
   - WXNetworking
+  - WXNetworkingSwift
 
 SPEC REPOS:
   https://cdn.cocoapods.org/:
     - AFNetworking
+    - Alamofire
+    - KakaJSON
     - LookinServer
     - Masonry
     - MJRefresh
     - SDWebImage
     - SSZipArchive
     - WXNetworking
+    - WXNetworkingSwift
     - YYCache
     - YYModel
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  KakaJSON: cc5ff50a8c1cfbb09413db8496cb709a209e6137
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   WXNetworking: ee0ff72862360174c5fcf018313974ced7503b77
+  WXNetworkingSwift: 3212e8194d4be71943e1b56aac918a3c5d19c5d9
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 17a557d19bbe4bb97ffa3fedbb3bb8f5b29d918c
+PODFILE CHECKSUM: 848d597f3ce9218aef39bcfe2bcde6d324494aea
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
