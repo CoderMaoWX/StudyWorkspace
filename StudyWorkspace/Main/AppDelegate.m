@@ -20,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window insertSubview:self.plainTableView atIndex:0];
+//    [self.window insertSubview:self.plainTableView atIndex:0];
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [SlideAppTabBarVC new];
     [self.window makeKeyAndVisible];

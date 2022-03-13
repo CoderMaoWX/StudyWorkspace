@@ -42,7 +42,7 @@
     [self initTabBarVCS];
     
     //添加边缘侧滑手势控制器
-    [self addScreenPan];
+//    [self addScreenPan];
 }
 
 #pragma mark - 初始化AppTabBar
