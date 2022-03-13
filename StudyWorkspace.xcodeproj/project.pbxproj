@@ -89,6 +89,7 @@
 		58FBED6624E68C2B003F7FE6 /* StudyVC1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58FBED6524E68C2B003F7FE6 /* StudyVC1.xib */; };
 		58FBED7024E6B8C8003F7FE6 /* StudyVC4.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FBED6F24E6B8C8003F7FE6 /* StudyVC4.m */; };
 		A33E5A7B261F53C8004E3A46 /* TestFile.txt in Resources */ = {isa = PBXBuildFile; fileRef = A33E5A7A261F53C8004E3A46 /* TestFile.txt */; };
+		A356DCE127DE41D8009EB901 /* WXButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A356DCE027DE41D8009EB901 /* WXButton.m */; };
 		A3A396C12622016C00A32116 /* WXTrandCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3A396C02622016C00A32116 /* WXTrandCCell.m */; };
 /* End PBXBuildFile section */
 
@@ -246,6 +247,8 @@
 		58FBED6F24E6B8C8003F7FE6 /* StudyVC4.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC4.m; sourceTree = "<group>"; };
 		A1AA72DA700F4E9C39AA7BD3 /* Pods-StudyWorkspace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyWorkspace.debug.xcconfig"; path = "Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace.debug.xcconfig"; sourceTree = "<group>"; };
 		A33E5A7A261F53C8004E3A46 /* TestFile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestFile.txt; sourceTree = "<group>"; };
+		A356DCDF27DE41D8009EB901 /* WXButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXButton.h; sourceTree = "<group>"; };
+		A356DCE027DE41D8009EB901 /* WXButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXButton.m; sourceTree = "<group>"; };
 		A3A396BF2622016C00A32116 /* WXTrandCCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXTrandCCell.h; sourceTree = "<group>"; };
 		A3A396C02622016C00A32116 /* WXTrandCCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXTrandCCell.m; sourceTree = "<group>"; };
 		ED99E3829806B653A60FC63E /* Pods-StudyWorkspace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyWorkspace.release.xcconfig"; path = "Target Support Files/Pods-StudyWorkspace/Pods-StudyWorkspace.release.xcconfig"; sourceTree = "<group>"; };
@@ -328,6 +331,8 @@
 				5811051924EB6F6D006EB5FA /* CHTCollectionViewWaterfallLayout.m */,
 				58EB3A6C261EE66100397F49 /* WXCFunctionTool.h */,
 				58EB3A6D261EE66100397F49 /* WXCFunctionTool.m */,
+				A356DCDF27DE41D8009EB901 /* WXButton.h */,
+				A356DCE027DE41D8009EB901 /* WXButton.m */,
 				5811052324EB71DD006EB5FA /* NSObjectSafe.h */,
 				5811052224EB71DD006EB5FA /* NSObjectSafe.m */,
 			);
@@ -727,6 +732,7 @@
 				58FBED7024E6B8C8003F7FE6 /* StudyVC4.m in Sources */,
 				58F7B2E926A018C70009FBB8 /* WXApiHostManager.m in Sources */,
 				5893D21824EA68980005E1AF /* UITabBarController+WXConvertSkin.m in Sources */,
+				A356DCE127DE41D8009EB901 /* WXButton.m in Sources */,
 				5860C1BC2509FD4D00C5A634 /* UIWindow+Lookin.m in Sources */,
 				5893D0F124EA62610005E1AF /* SlideAppTabBarVC.m in Sources */,
 				58F7B2F526A01F760009FBB8 /* UIViewController+WXExtension.m in Sources */,

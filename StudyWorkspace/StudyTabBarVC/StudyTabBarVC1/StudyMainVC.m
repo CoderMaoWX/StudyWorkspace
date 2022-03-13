@@ -23,6 +23,7 @@
         @{@"StudyVC16.m"    :   @"不导第三方库加载GIf图片"},
         @{@"StudyVC15.m"    :   @"URLComponents"},
         @{@"StudyVC14.m"    :   @"长按模糊图片显示清晰背景"},
+        @{@"StudyVC13.m"    :   @"抖动弹性约束动画"},
         @{@"StudyVC1.m"     :   @"一键切换启动闪屏图AppLaunchImage"},
         @{@"StudyVC2.m"     :   @"操作谓词NSPredicate"},
         @{@"StudyVC3.m"     :   @"操作UIStackView"},
@@ -35,7 +36,6 @@
         @{@"StudyVC10.m"    :   @"折线统计图"},
         @{@"StudyVC11.m"    :   @"百叶窗动画"},
         @{@"StudyVC12.m"    :   @"画笔涂鸦"},
-        @{@"StudyVC13.m"    :   @"抖动弹性约束动画"},
      ]];
     [self.plainTableView reloadData];
 }
