@@ -73,6 +73,10 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    self.blueBtn.topMargin = 15;
+    self.blueBtn.trailingMargin = 15;
+//    self.blueBtn.image = [UIImage imageNamed:@"icon_qq_zone"];
+    return;
     
 //    NSLog(@"orangeLabel 111:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
 //    self.orangeLabel.text = nil;
@@ -81,19 +85,19 @@
     
 //    NSLog(@"blueBtn 111 :%@", NSStringFromCGSize(self.blueBtn.intrinsicContentSize));
     
-    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案";
+    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案";
     
-//    self.blueBtn.title = title;
-    self.blueBtn.attributedTitle = [[NSAttributedString alloc] initWithString:title];
+    self.blueBtn.title = title;
+//    self.blueBtn.attributedTitle = [[NSAttributedString alloc] initWithString:title];
     self.blueBtn.topMargin = 15;
     self.blueBtn.trailingMargin = 15;
     self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
     self.blueBtn.preferredMaxLayoutWidth = 200;
-    self.blueBtn.image = nil;
-    self.blueBtn.attributedTitle = nil;
+    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
+//    self.blueBtn.attributedTitle = nil;
 //    self.blueBtn.attributedTitle = nil;
 //    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
-    self.blueBtn.numberOfLines = 2;
+    self.blueBtn.numberOfLines = 0;
     self.blueBtn.imageTitleSpace = 5;
     self.blueBtn.imagePlacementStyle = WXImagePlacementTop;
 
@@ -162,13 +166,28 @@
         _blueBtn = [WXButton buttonWithType:(UIButtonTypeCustom)];
         _blueBtn.backgroundColor = UIColor.blueColor;
         _blueBtn.titleFont = [UIFont boldSystemFontOfSize:16.0];
-        _blueBtn.title = @"Blue Color Button";
-        _blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
+//        _blueBtn.title = @"Blue Color Button";
+//        _blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
         _blueBtn.titleColor = UIColor.whiteColor;
 //        _blueBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
 //        [_blueBtn setTitle:@"Blue Color Button" forState:UIControlStateNormal];
 //        [_blueBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         [self.view addSubview:_blueBtn];
+        
+        NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案";
+        
+        _blueBtn.title = title;
+    //    self.blueBtn.attributedTitle = [[NSAttributedString alloc] initWithString:title];
+        _blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
+        _blueBtn.preferredMaxLayoutWidth = 200;
+        _blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
+    //    self.blueBtn.attributedTitle = nil;
+    //    self.blueBtn.attributedTitle = nil;
+    //    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
+        _blueBtn.numberOfLines = 0;
+        _blueBtn.imageTitleSpace = 5;
+        _blueBtn.imagePlacementStyle = WXImagePlacementTop;
+        
         [_blueBtn addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _blueBtn;

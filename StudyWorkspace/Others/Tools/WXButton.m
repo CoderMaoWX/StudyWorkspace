@@ -125,6 +125,38 @@
     }
 }
 
+- (void)setTopMargin:(CGFloat)topMargin {
+    _topMargin = topMargin;
+    UIEdgeInsets insets = self.contentEdgeInsets;
+    insets.top = topMargin;
+    self.contentEdgeInsets = insets;
+    [self layoutIfNeeded];
+}
+
+- (void)setBottomMargin:(CGFloat)bottomMargin {
+    _bottomMargin = bottomMargin;
+    UIEdgeInsets insets = self.contentEdgeInsets;
+    insets.bottom = bottomMargin;
+    self.contentEdgeInsets = insets;
+    [self layoutIfNeeded];
+}
+
+- (void)setLeadingMargin:(CGFloat)leadingMargin {
+    _leadingMargin = leadingMargin;
+    UIEdgeInsets insets = self.contentEdgeInsets;
+    insets.left = leadingMargin;
+    self.contentEdgeInsets = insets;
+    [self layoutIfNeeded];
+}
+
+- (void)setTrailingMargin:(CGFloat)trailingMargin {
+    _trailingMargin = trailingMargin;
+    UIEdgeInsets insets = self.contentEdgeInsets;
+    insets.right = trailingMargin;
+    self.contentEdgeInsets = insets;
+    [self layoutIfNeeded];
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (self.preferredMaxLayoutWidth > 0) {
@@ -132,10 +164,12 @@
     }
     
     //Margin: (top/leading/bottom/trailing)
-    self.contentEdgeInsets = UIEdgeInsetsMake(self.topMargin,
-                                              self.leadingMargin,
-                                              self.bottomMargin,
-                                              self.trailingMargin);
+    if (UIEdgeInsetsEqualToEdgeInsets(self.contentEdgeInsets, UIEdgeInsetsZero)) {
+        self.contentEdgeInsets = UIEdgeInsetsMake(self.topMargin,
+                                                  self.leadingMargin,
+                                                  self.bottomMargin,
+                                                  self.trailingMargin);
+    }
     
     [self layoutStyle:self.imagePlacementStyle imageTitleSpace:self.imageTitleSpace];
     

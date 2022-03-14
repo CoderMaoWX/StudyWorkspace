@@ -46,5 +46,4 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 @property (nonatomic, assign) CGFloat bottomMargin;
 @property (nonatomic, assign) CGFloat trailingMargin;
 
-
 @end
