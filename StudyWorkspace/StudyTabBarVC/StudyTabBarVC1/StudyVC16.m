@@ -13,51 +13,6 @@
 #import "UIButton+WXExtension.h"
 #import "WXButton.h"
 
-//@interface WXButton : UIButton
-//@end
-//
-//@implementation WXButton
-//
-//- (instancetype)initWithCoder:(NSCoder *)coder {
-//    self = [super initWithCoder:coder];
-//    if (self) {
-//        self.titleLabel.numberOfLines = 0;
-//        self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-//    }
-//    return self;
-//}
-//
-//- (instancetype)initWithFrame:(CGRect)frame {
-//    self = [super initWithFrame:frame];
-//    if (self) {
-//        self.titleLabel.numberOfLines = 0;
-//        self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-//    }
-//    return self;
-//}
-//
-//- (CGSize)intrinsicContentSize {
-////    CGSize s = [super intrinsicContentSize];
-//////    CGFloat w = s.width + self.titleEdgeInsets.left;
-////    if (!self.currentTitle && !self.currentImage) {
-////        return CGSizeZero;
-////    }
-//////    return s;
-////    NSString *title = [self titleForState:UIControlStateNormal];
-////    NSString *font = self.titleLabel.font;
-////    CGSize titleSize = [[[NSAttributedString alloc] initWithString:title attributes:@{NSFontAttributeName: font}] size];
-////    return titleSize;
-//
-//    return self.titleLabel.intrinsicContentSize;
-//}
-//
-//- (void)layoutSubviews {
-//    [super layoutSubviews];
-//    self.titleLabel.preferredMaxLayoutWidth = self.titleLabel.frame.size.width;
-//}
-//
-//@end
-
 @interface StudyVC16 ()
 @property (nonatomic, strong) UIButton *redBtn;
 @property (nonatomic, strong) UILabel *orangeLabel;
@@ -72,42 +27,22 @@
     [self layoutSubview];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    self.blueBtn.topMargin = 15;
-    self.blueBtn.trailingMargin = 15;
-//    self.blueBtn.image = [UIImage imageNamed:@"icon_qq_zone"];
-    return;
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {  
     
-//    NSLog(@"orangeLabel 111:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
-//    self.orangeLabel.text = nil;
-//    NSLog(@"orangeLabel 222:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
-    
-    
-//    NSLog(@"blueBtn 111 :%@", NSStringFromCGSize(self.blueBtn.intrinsicContentSize));
+    NSLog(@"orangeLabel 111:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
+    self.orangeLabel.text = nil;
+    NSLog(@"orangeLabel 222:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
     
     NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案";
-    
     self.blueBtn.title = title;
-//    self.blueBtn.attributedTitle = [[NSAttributedString alloc] initWithString:title];
     self.blueBtn.topMargin = 15;
     self.blueBtn.trailingMargin = 15;
     self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
-    self.blueBtn.preferredMaxLayoutWidth = 200;
     self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
-//    self.blueBtn.attributedTitle = nil;
-//    self.blueBtn.attributedTitle = nil;
-//    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
+    self.blueBtn.preferredMaxLayoutWidth = 200;
     self.blueBtn.numberOfLines = 0;
     self.blueBtn.imageTitleSpace = 5;
     self.blueBtn.imagePlacementStyle = WXImagePlacementTop;
-
-    
-//    [self.blueBtn setTitle:nil forState:UIControlStateNormal];
-//    [self.blueBtn setImage:nil forState:UIControlStateNormal];
-//    self.blueBtn.contentEdgeInsets = UIEdgeInsetsZero;
-//    self.blueBtn.imageEdgeInsets = UIEdgeInsetsZero;
-//    self.blueBtn.titleEdgeInsets = UIEdgeInsetsZero;
-//    NSLog(@"intrinsicContentSize222 :%@", NSStringFromCGSize(self.blueBtn.intrinsicContentSize));
 }
 
 #pragma mark -======== LayoutSubView ========
@@ -166,27 +101,8 @@
         _blueBtn = [WXButton buttonWithType:(UIButtonTypeCustom)];
         _blueBtn.backgroundColor = UIColor.blueColor;
         _blueBtn.titleFont = [UIFont boldSystemFontOfSize:16.0];
-//        _blueBtn.title = @"Blue Color Button";
-//        _blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
         _blueBtn.titleColor = UIColor.whiteColor;
-//        _blueBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-//        [_blueBtn setTitle:@"Blue Color Button" forState:UIControlStateNormal];
-//        [_blueBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         [self.view addSubview:_blueBtn];
-        
-        NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案";
-        
-        _blueBtn.title = title;
-    //    self.blueBtn.attributedTitle = [[NSAttributedString alloc] initWithString:title];
-        _blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
-        _blueBtn.preferredMaxLayoutWidth = 200;
-        _blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
-    //    self.blueBtn.attributedTitle = nil;
-    //    self.blueBtn.attributedTitle = nil;
-    //    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
-        _blueBtn.numberOfLines = 0;
-        _blueBtn.imageTitleSpace = 5;
-        _blueBtn.imagePlacementStyle = WXImagePlacementTop;
         
         [_blueBtn addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     }

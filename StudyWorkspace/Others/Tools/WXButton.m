@@ -83,6 +83,9 @@
     if (!self.currentTitle && !self.attributedTitle && !self.currentImage) {
         return CGSizeZero;
     }
+    if (self.preferredMaxLayoutWidth > 0) {
+        self.titleLabel.preferredMaxLayoutWidth = self.preferredMaxLayoutWidth;
+    }
     CGSize titleSize = self.titleLabel.intrinsicContentSize;
     
     CGFloat titleWidth = 0.0;
@@ -90,6 +93,9 @@
     if (titleSize.width > 0 && titleSize.height > 0) {
         titleWidth = titleSize.width;
         titleHeight = titleSize.height;
+    }
+    if (self.preferredMaxLayoutWidth > 0) {
+        titleWidth = MIN(self.preferredMaxLayoutWidth, titleWidth);
     }
     
     CGSize imgSize = self.imageView.intrinsicContentSize;
@@ -105,20 +111,17 @@
     if (titleWidth == 0 || imgWidth == 0) {
         imageTitleSpace = 0;
     }
-    
     //左右布局
     if (self.imagePlacementStyle == WXImagePlacementLeading ||
         self.imagePlacementStyle == WXImagePlacementTrailing) {
         
         CGFloat width = self.leadingMargin + titleWidth + imageTitleSpace + imgWidth + self.trailingMargin;
-        
         CGFloat height = self.topMargin + MAX(titleHeight, imgHeight) + self.bottomMargin;
         
         return CGSizeMake(width, height);
         
     } else {  //上下布局
         CGFloat width = self.leadingMargin + MAX(titleWidth, imgWidth) + self.trailingMargin;
-        
         CGFloat height = self.topMargin + titleHeight + imageTitleSpace + imgHeight + self.bottomMargin;
         
         return CGSizeMake(width, height);
@@ -195,6 +198,9 @@
     if (titleSize.width > 0 && titleSize.height > 0) {
         titleWidth = titleSize.width;
         titleHeight = titleSize.height;
+    }
+    if (self.preferredMaxLayoutWidth > 0) {
+        titleWidth = MIN(self.preferredMaxLayoutWidth, titleWidth);
     }
     
     CGSize imgSize = self.imageView.intrinsicContentSize;
