@@ -29,7 +29,9 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    self.blueBtn.title = nil;
+    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
+    
+    self.blueBtn.title = title;
     self.blueBtn.topMargin = 15;
     self.blueBtn.trailingMargin = 15;
     self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
@@ -43,8 +45,7 @@
     self.orangeLabel.text = nil;
     NSLog(@"orangeLabel 222:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
     
-    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
-    self.orangeLabel.text = title;
+    self.orangeLabel.text = nil;
     self.orangeLabel.preferredMaxLayoutWidth = 150;
     self.orangeLabel.numberOfLines = 0;
 }

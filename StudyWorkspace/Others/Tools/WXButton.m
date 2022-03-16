@@ -163,6 +163,13 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    for (UIImageView *subView in self.subviews) {
+        if ([subView isKindOfClass:[UIImageView class]] && CGSizeEqualToSize(subView.bounds.size, self.bounds.size)) {
+            subView.contentMode = UIViewContentModeScaleAspectFill;
+        }
+    }
+    
     if (self.preferredMaxLayoutWidth > 0) {
         self.titleLabel.preferredMaxLayoutWidth = self.preferredMaxLayoutWidth;
     }
@@ -174,10 +181,7 @@
                                                   self.bottomMargin,
                                                   self.trailingMargin);
     }
-    
     [self layoutStyle:self.imagePlacement imageTitleSpace:self.imageTitleSpace];
-    
-    [super layoutSubviews];
 }
 
 /** 布局标题和图片位置
