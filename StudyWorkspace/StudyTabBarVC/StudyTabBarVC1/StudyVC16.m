@@ -27,22 +27,26 @@
     [self layoutSubview];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {  
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    self.blueBtn.title = nil;
+    self.blueBtn.topMargin = 15;
+    self.blueBtn.trailingMargin = 15;
+    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
+    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
+    self.blueBtn.preferredMaxLayoutWidth = 150;
+    self.blueBtn.numberOfLines = 0;
+    self.blueBtn.imageTitleSpace = 5;
+    self.blueBtn.imagePlacement = WXImagePlacementTop;
     
     NSLog(@"orangeLabel 111:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
     self.orangeLabel.text = nil;
     NSLog(@"orangeLabel 222:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
     
-    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案";
-    self.blueBtn.title = title;
-    self.blueBtn.topMargin = 15;
-    self.blueBtn.trailingMargin = 15;
-    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
-    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
-    self.blueBtn.preferredMaxLayoutWidth = 200;
-    self.blueBtn.numberOfLines = 0;
-    self.blueBtn.imageTitleSpace = 5;
-    self.blueBtn.imagePlacementStyle = WXImagePlacementTop;
+    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
+    self.orangeLabel.text = title;
+    self.orangeLabel.preferredMaxLayoutWidth = 150;
+    self.orangeLabel.numberOfLines = 0;
 }
 
 #pragma mark -======== LayoutSubView ========
@@ -53,19 +57,18 @@
         make.centerX.offset(0);
     }];
     
-    [self.orangeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.blueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.redBtn.mas_bottom);
         make.centerX.offset(0);
     }];
     
-    [self.blueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.orangeLabel.mas_bottom);
+    [self.orangeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.blueBtn.mas_bottom);
         make.centerX.offset(0);
-//        make.leading.trailing.offset(0);
     }];
     
     [self.pinkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.blueBtn.mas_bottom);
+        make.top.mas_equalTo(self.orangeLabel.mas_bottom);
         make.centerX.offset(0);
     }];
 }
@@ -102,6 +105,7 @@
         _blueBtn.backgroundColor = UIColor.blueColor;
         _blueBtn.titleFont = [UIFont boldSystemFontOfSize:16.0];
         _blueBtn.titleColor = UIColor.whiteColor;
+        _blueBtn.title = @"Blue Color WXButton";
         [self.view addSubview:_blueBtn];
         
         [_blueBtn addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -117,10 +121,6 @@
         [_pinkBtn setTitle:@"Pink Color Button" forState:UIControlStateNormal];
         [_pinkBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         [self.view addSubview:_pinkBtn];
-        
-//        NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案";
-//        [_pinkBtn setAttributedTitle:[[NSAttributedString alloc] initWithString:title] forState:(UIControlStateNormal)];
-        
     }
     return _pinkBtn;
 }

@@ -13,6 +13,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.adjustsImageWhenHighlighted = NO;
         self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     return self;
@@ -112,8 +113,8 @@
         imageTitleSpace = 0;
     }
     //左右布局
-    if (self.imagePlacementStyle == WXImagePlacementLeading ||
-        self.imagePlacementStyle == WXImagePlacementTrailing) {
+    if (self.imagePlacement == WXImagePlacementLeading ||
+        self.imagePlacement == WXImagePlacementTrailing) {
         
         CGFloat width = self.leadingMargin + titleWidth + imageTitleSpace + imgWidth + self.trailingMargin;
         CGFloat height = self.topMargin + MAX(titleHeight, imgHeight) + self.bottomMargin;
@@ -174,7 +175,7 @@
                                                   self.trailingMargin);
     }
     
-    [self layoutStyle:self.imagePlacementStyle imageTitleSpace:self.imageTitleSpace];
+    [self layoutStyle:self.imagePlacement imageTitleSpace:self.imageTitleSpace];
     
     [super layoutSubviews];
 }
@@ -240,7 +241,6 @@
             if (isRightToLeftShow) {//阿语
                 imageEdgeInsets = UIEdgeInsetsMake(0, space/2.0, 0, -space/2.0);
                 labelEdgeInsets = UIEdgeInsetsMake(0, -space/2.0, 0, space/2.0);
-
             } else {
                 imageEdgeInsets = UIEdgeInsetsMake(0, -space/2.0, 0, space/2.0);
                 labelEdgeInsets = UIEdgeInsetsMake(0, space/2.0, 0, -space/2.0);

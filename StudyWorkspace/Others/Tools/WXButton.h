@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 @interface WXButton : UIButton
 
 /// Defaults to Leading, only single edge values (top/leading/bottom/trailing) are supported.
-@property (nonatomic, assign) WXImagePlacementStyle imagePlacementStyle;
+@property (nonatomic, assign) WXImagePlacementStyle imagePlacement;
 
 @property (nonatomic, assign) CGFloat imageTitleSpace;
 
