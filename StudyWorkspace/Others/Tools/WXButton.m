@@ -116,47 +116,47 @@
     if (self.imagePlacement == WXImagePlacementLeading ||
         self.imagePlacement == WXImagePlacementTrailing) {
         
-        CGFloat width = self.leadingMargin + titleWidth + imageTitleSpace + imgWidth + self.trailingMargin;
-        CGFloat height = self.topMargin + MAX(titleHeight, imgHeight) + self.bottomMargin;
+        CGFloat width = self.leftPadding + titleWidth + imageTitleSpace + imgWidth + self.rightPadding;
+        CGFloat height = self.topPadding + MAX(titleHeight, imgHeight) + self.bottomPadding;
         
         return CGSizeMake(width, height);
         
     } else {  //上下布局
-        CGFloat width = self.leadingMargin + MAX(titleWidth, imgWidth) + self.trailingMargin;
-        CGFloat height = self.topMargin + titleHeight + imageTitleSpace + imgHeight + self.bottomMargin;
+        CGFloat width = self.leftPadding + MAX(titleWidth, imgWidth) + self.rightPadding;
+        CGFloat height = self.topPadding + titleHeight + imageTitleSpace + imgHeight + self.bottomPadding;
         
         return CGSizeMake(width, height);
     }
 }
 
-- (void)setTopMargin:(CGFloat)topMargin {
-    _topMargin = topMargin;
+- (void)setTopPadding:(CGFloat)topPadding {
+    _topPadding = topPadding;
     UIEdgeInsets insets = self.contentEdgeInsets;
-    insets.top = topMargin;
+    insets.top = topPadding;
     self.contentEdgeInsets = insets;
     [self layoutIfNeeded];
 }
 
-- (void)setBottomMargin:(CGFloat)bottomMargin {
-    _bottomMargin = bottomMargin;
+- (void)setBottomPadding:(CGFloat)bottomPadding {
+    _bottomPadding = bottomPadding;
     UIEdgeInsets insets = self.contentEdgeInsets;
-    insets.bottom = bottomMargin;
+    insets.bottom = bottomPadding;
     self.contentEdgeInsets = insets;
     [self layoutIfNeeded];
 }
 
-- (void)setLeadingMargin:(CGFloat)leadingMargin {
-    _leadingMargin = leadingMargin;
+- (void)setLeftPadding:(CGFloat)leftPadding {
+    _leftPadding = leftPadding;
     UIEdgeInsets insets = self.contentEdgeInsets;
-    insets.left = leadingMargin;
+    insets.left = leftPadding;
     self.contentEdgeInsets = insets;
     [self layoutIfNeeded];
 }
 
-- (void)setTrailingMargin:(CGFloat)trailingMargin {
-    _trailingMargin = trailingMargin;
+- (void)setRightPadding:(CGFloat)rightPadding {
+    _rightPadding = rightPadding;
     UIEdgeInsets insets = self.contentEdgeInsets;
-    insets.right = trailingMargin;
+    insets.right = rightPadding;
     self.contentEdgeInsets = insets;
     [self layoutIfNeeded];
 }
@@ -174,14 +174,14 @@
         self.titleLabel.preferredMaxLayoutWidth = self.preferredMaxLayoutWidth;
     }
     
-    //Margin: (top/leading/bottom/trailing)
+    //内边距: (top/left/bottom/right)
     if (UIEdgeInsetsEqualToEdgeInsets(self.contentEdgeInsets, UIEdgeInsetsZero)) {
-        self.contentEdgeInsets = UIEdgeInsetsMake(self.topMargin,
-                                                  self.leadingMargin,
-                                                  self.bottomMargin,
-                                                  self.trailingMargin);
+        self.contentEdgeInsets = UIEdgeInsetsMake(self.topPadding,
+                                                  self.leftPadding,
+                                                  self.bottomPadding,
+                                                  self.rightPadding);
     }
-    [self layoutStyle:self.imagePlacement imageTitleSpace:self.imageTitleSpace];
+    [self layoutStyle:self.imagePlacement space:self.imageTitleSpace];
 }
 
 /** 布局标题和图片位置
@@ -190,7 +190,7 @@
  *  @param style titleLabel和imageView的布局样式
  *  @param space titleLabel和imageView的间距
  */
-- (void)layoutStyle:(WXImagePlacementStyle)style imageTitleSpace:(CGFloat)space {
+- (void)layoutStyle:(WXImagePlacementStyle)style space:(CGFloat)space {
     
     // 强制更新布局，以获得最新的 imageView 和 titleLabel 的 frame
     [self layoutIfNeeded];
@@ -220,12 +220,11 @@
     if (titleWidth == 0 || imgWidth == 0) {
         space = 0;
     }
-    
     // 2. 声明全局的imageEdgeInsets和labelEdgeInsets
     UIEdgeInsets imageEdgeInsets = UIEdgeInsetsZero;
     UIEdgeInsets labelEdgeInsets = UIEdgeInsetsZero;
     
-    BOOL isRightToLeftShow = NO;//阿语
+    BOOL isRightToLeftShow = NO;//是否从右往左布局 (如: 阿拉伯语布局)
     
     // 3. 根据style和space得到imageEdgeInsets和labelEdgeInsets的值
     switch (style) {
@@ -276,7 +275,6 @@
         default:
             break;
     }
-    
     // 4. 赋值
     self.titleEdgeInsets = labelEdgeInsets;
     self.imageEdgeInsets = imageEdgeInsets;

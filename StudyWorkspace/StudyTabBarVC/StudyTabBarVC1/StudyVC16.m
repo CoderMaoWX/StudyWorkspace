@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UILabel *orangeLabel;
 @property (nonatomic, strong) WXButton *blueBtn;
 @property (nonatomic, strong) UIButton *pinkBtn;
+@property (nonatomic, strong) UIImageView *imageView;
 @end
 
 @implementation StudyVC16
@@ -31,23 +32,26 @@
     
     NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
     
-    self.blueBtn.title = title;
-    self.blueBtn.topMargin = 15;
-    self.blueBtn.trailingMargin = 15;
-    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
-    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
+    self.blueBtn.title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案7";
+//    self.blueBtn.topPadding = 15;
+//    self.blueBtn.rightPadding = 15;
+//    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
+//    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
     self.blueBtn.preferredMaxLayoutWidth = 150;
-    self.blueBtn.numberOfLines = 0;
+//    self.blueBtn.numberOfLines = 0;
     self.blueBtn.imageTitleSpace = 5;
     self.blueBtn.imagePlacement = WXImagePlacementTop;
+
+    //图片
+    self.imageView.image = [UIImage imageNamed:@"Sticker Pack"];
     
     NSLog(@"orangeLabel 111:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
-    self.orangeLabel.text = nil;
+//    self.orangeLabel.text = nil;
     NSLog(@"orangeLabel 222:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
     
-    self.orangeLabel.text = nil;
-    self.orangeLabel.preferredMaxLayoutWidth = 150;
-    self.orangeLabel.numberOfLines = 0;
+//    self.orangeLabel.text = nil;
+//    self.orangeLabel.preferredMaxLayoutWidth = 150;
+//    self.orangeLabel.numberOfLines = 0;
 }
 
 #pragma mark -======== LayoutSubView ========
@@ -61,6 +65,7 @@
     [self.blueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.redBtn.mas_bottom);
         make.centerX.offset(0);
+//        make.size.mas_equalTo(CGSizeMake(200, 60));
     }];
     
     [self.orangeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -68,6 +73,10 @@
         make.centerX.offset(0);
     }];
     
+    [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.leading.mas_equalTo(self.orangeLabel);
+    }];
+
     [self.pinkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orangeLabel.mas_bottom);
         make.centerX.offset(0);
@@ -80,7 +89,7 @@
     if (!_redBtn) {
         _redBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _redBtn.backgroundColor = UIColor.redColor;
-        _redBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        _redBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
         [_redBtn setTitle:@"Red Color Button" forState:UIControlStateNormal];
         [_redBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         [self.view addSubview:_redBtn];
@@ -92,7 +101,7 @@
     if (!_orangeLabel) {
         _orangeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _orangeLabel.backgroundColor = UIColor.orangeColor;
-        _orangeLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        _orangeLabel.font = [UIFont systemFontOfSize:16.0];
         _orangeLabel.textColor = UIColor.whiteColor;
         _orangeLabel.text = @"Orange Lbael";
         [self.view addSubview:_orangeLabel];
@@ -104,7 +113,7 @@
     if (!_blueBtn) {
         _blueBtn = [WXButton buttonWithType:(UIButtonTypeCustom)];
         _blueBtn.backgroundColor = UIColor.blueColor;
-        _blueBtn.titleFont = [UIFont boldSystemFontOfSize:16.0];
+        _blueBtn.titleFont = [UIFont systemFontOfSize:16.0];
         _blueBtn.titleColor = UIColor.whiteColor;
         _blueBtn.title = @"Blue Color WXButton";
         [self.view addSubview:_blueBtn];
@@ -118,12 +127,22 @@
     if (!_pinkBtn) {
         _pinkBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         _pinkBtn.backgroundColor = UIColor.purpleColor;
-        _pinkBtn.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        _pinkBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
         [_pinkBtn setTitle:@"Pink Color Button" forState:UIControlStateNormal];
         [_pinkBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         [self.view addSubview:_pinkBtn];
     }
     return _pinkBtn;
+}
+
+- (UIImageView *)imageView {
+    if (!_imageView) {
+        UIImage *image = [UIImage imageNamed:@"Sticker Pack"];
+        _imageView = [[UIImageView alloc] initWithImage:image];
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.view addSubview:_imageView];
+    }
+    return _imageView;
 }
 
 - (void)setButtonGIFImage {
