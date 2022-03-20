@@ -8,7 +8,6 @@
 
 #import "WXButton.h"
 
-
 @implementation WXButton
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -29,6 +28,7 @@
     
     self.titleLabel.text = title;
     [self setTitle:title forState:(UIControlStateNormal)];
+    [self refreshTitleLabelInfo];
 }
 
 - (void)setTitleFont:(UIFont *)titleFont {
@@ -46,6 +46,16 @@
     self.titleLabel.numberOfLines = numberOfLines;
 }
 
+- (void)setPreferredMaxLayoutWidth:(CGFloat)preferredMaxLayoutWidth {
+    _preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+    self.titleLabel.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+}
+
+- (void)setTextLineBreakMode:(NSLineBreakMode)textLineBreakMode {
+    _textLineBreakMode = textLineBreakMode;
+    self.titleLabel.lineBreakMode = textLineBreakMode;
+}
+
 - (void)setAttributedTitle:(NSAttributedString *)attributedTitle {
     _attributedTitle = attributedTitle;
     
@@ -55,16 +65,21 @@
     
     self.titleLabel.attributedText = attributedTitle;
     [self setAttributedTitle:attributedTitle forState:UIControlStateNormal];
+    [self refreshTitleLabelInfo];
 }
 
-- (void)setTextLineBreakMode:(NSLineBreakMode)textLineBreakMode {
-    _textLineBreakMode = textLineBreakMode;
-    self.titleLabel.lineBreakMode = textLineBreakMode;
-}
-
-- (void)setPreferredMaxLayoutWidth:(CGFloat)preferredMaxLayoutWidth {
-    _preferredMaxLayoutWidth = preferredMaxLayoutWidth;
-    self.titleLabel.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+- (void)refreshTitleLabelInfo {
+    if (self.preferredMaxLayoutWidth > 0) {
+        self.titleLabel.preferredMaxLayoutWidth = self.preferredMaxLayoutWidth;
+    }
+    if (self.numberOfLines > 0) {
+        self.titleLabel.numberOfLines = self.numberOfLines;
+    }
+    if (self.textLineBreakMode) {
+        self.titleLabel.lineBreakMode = self.textLineBreakMode;
+    } else {
+        self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    }
 }
 
 - (void)setImage:(UIImage *)image {
@@ -155,7 +170,6 @@
     }
 
     BOOL hasTitleAndImage = ((hasTitle || hasAttribTitle) && self.currentImage);
-    
     CGFloat imageTitleSpace = hasTitleAndImage ? self.imageTitleSpace : 0;
     if (titleWidth == 0 || titleHeight == 0 ||
         imgWidth == 0 || imgHeight == 0) {
@@ -197,24 +211,12 @@
     NSLog(@"布局大小: %@", self);
 }
 
-/** 布局图片和标题位置
+/** 布局Image和Title位置
  *  设置button的titleLabel和imageView的布局样式，及间距
  */
 - (void)layoutImageTitleStyle {
     CGFloat maxWidth = self.frame.size.width;
     CGFloat maxHeight = self.frame.size.height;
-
-    if (self.preferredMaxLayoutWidth > 0 && self.frame.size.width > 0) {
-        maxWidth = MIN(self.frame.size.width, self.preferredMaxLayoutWidth);
-        
-    } else if (self.preferredMaxLayoutWidth > 0) {
-        maxWidth = self.preferredMaxLayoutWidth;
-    }
-    CGRect titleRect = self.titleLabel.frame;
-    titleRect.size.width = maxWidth;
-    titleRect.size.height = MIN(titleRect.size.height, maxHeight);
-    self.titleLabel.preferredMaxLayoutWidth = maxWidth;
-    self.titleLabel.frame = titleRect;
     
     // 1. 得到titleLabel的宽、高
     CGSize titleSize = self.titleLabel.intrinsicContentSize;
@@ -222,8 +224,8 @@
     CGFloat titleWidth = 0.0;
     CGFloat titleHeight = 0.0;
     if (titleSize.width > 0 && titleSize.height > 0) {
-        titleWidth = MIN(maxWidth, titleSize.width);
-        titleHeight = MIN(maxHeight, titleSize.height);
+        titleWidth = MIN(maxWidth-(self.leftPadding + self.rightPadding), titleSize.width);
+        titleHeight = MIN(maxHeight-(self.topPadding + self.bottomPadding), titleSize.height);
     }
     
     // 2.得到imageView的宽、高
@@ -232,74 +234,106 @@
     CGFloat imgWidth = 0.0;
     CGFloat imgHeight = 0.0;
     if (imgSize.width > 0 && imgSize.height > 0) {
-        imgWidth = MIN(maxWidth, imgSize.width);
-        imgHeight = MIN(maxHeight, imgSize.height);
+        imgWidth = MIN(maxWidth-(self.leftPadding + self.rightPadding), imgSize.width);
+        imgHeight = MIN(maxHeight-(self.topPadding + self.bottomPadding), imgSize.height);
     }
-
-    CGFloat space = self.imageTitleSpace;
+    
+    BOOL hasTitle = (self.currentTitle && self.currentTitle.length != 0);
+    BOOL hasAttribTitle = (self.attributedTitle && self.attributedTitle.string.length != 0);
+    BOOL hasTitleAndImage = ((hasTitle || hasAttribTitle) && self.currentImage);
+    
+    CGFloat imageTitleSpace = hasTitleAndImage ? self.imageTitleSpace : 0;
     if (titleWidth == 0 || titleHeight == 0 ||
         imgWidth == 0 || imgHeight == 0) {
-        space = 0;
+        imageTitleSpace = 0;
     }
-    
-    // 3. 声明全局的imageEdgeInsets和labelEdgeInsets
-    UIEdgeInsets imageEdge = UIEdgeInsetsZero;
-    UIEdgeInsets labelEdge = UIEdgeInsetsZero;
-    
-    BOOL isRightToLeftShow = NO;//是否从右往左布局 (如: 阿拉伯语布局)
-    
-    // 4. 根据style和space更新imageEdgeInsets和labelEdgeInsets的值
+
     switch (self.imagePlacement) {
-        case WXImagePlacementLeading: // image在左，label在右
-        {
-            if (isRightToLeftShow) {//阿语
-                imageEdge = UIEdgeInsetsMake(0, space/2.0, 0, -space/2.0);
-                labelEdge = UIEdgeInsetsMake(0, -space/2.0, 0, space/2.0);
-            } else {
-                imageEdge = UIEdgeInsetsMake(0, -space/2.0, 0, space/2.0);
-                labelEdge = UIEdgeInsetsMake(0, space/2.0, 0, -space/2.0);
-            }
+        case WXImagePlacementTop: {
+            //1.Image位置
+            CGRect imageRect = self.imageView.frame;
+            imageRect.origin.y = self.topPadding;
+            self.imageView.frame = imageRect;
+
+            //2.Title位置
+            CGRect titleRect = self.titleLabel.frame;
+            titleRect.origin.y = CGRectGetMaxY(imageRect) + imageTitleSpace;
+            titleRect.origin.x = self.leftPadding;
+            titleRect.size.width = maxWidth - (self.leftPadding + self.rightPadding);
+            titleRect.size.height = maxHeight - titleRect.origin.y;
+            self.titleLabel.frame = titleRect;
+            
+            CGPoint point = self.imageView.center;
+            point.x = self.titleLabel.center.x;
+            self.imageView.center = point;
         }
             break;
-        case WXImagePlacementTrailing: // image在右，label在左
-        {
-            if (isRightToLeftShow) {//阿语
-                imageEdge = UIEdgeInsetsMake(0, -titleWidth-space/2.0, 0, titleWidth+space/2.0);
-                labelEdge = UIEdgeInsetsMake(0, imgWidth+space/2.0, 0, -imgWidth-space/2.0);
-            } else {
-                imageEdge = UIEdgeInsetsMake(0, titleWidth+space/2.0, 0, -titleWidth-space/2.0);
-                labelEdge = UIEdgeInsetsMake(0, -imgWidth-space/2.0, 0, imgWidth+space/2.0);
-            }
+            
+        case WXImagePlacementLeading: {
+            //1.Image位置
+            CGRect imageRect = self.imageView.frame;
+            imageRect.origin.x = self.leftPadding;
+            self.imageView.frame = imageRect;
+
+            //2.Title位置
+            CGRect titleRect = self.titleLabel.frame;
+            titleRect.origin.x = CGRectGetMaxX(imageRect) + imageTitleSpace;
+            titleRect.origin.y = self.topPadding;
+            titleRect.size.width = maxWidth - (self.leftPadding + imageTitleSpace + imgWidth + self.rightPadding);
+            titleRect.size.height = maxHeight - (self.topPadding + self.bottomPadding);
+            self.titleLabel.frame = titleRect;
+            
+            CGPoint point = self.imageView.center;
+            point.y = self.titleLabel.center.y;
+            self.imageView.center = point;
         }
             break;
-        case WXImagePlacementTop: // image在上，label在下
-        {
-            if (isRightToLeftShow) {//阿语
-                imageEdge = UIEdgeInsetsMake(-titleHeight-space/2.0, -titleWidth, 0, 0);
-                labelEdge = UIEdgeInsetsMake(0, 0, -imgHeight-space/2.0, -imgWidth);
-            } else {
-                imageEdge = UIEdgeInsetsMake(-titleHeight-space/2.0, 0, 0, -titleWidth);
-                labelEdge = UIEdgeInsetsMake(0, -imgWidth, -imgHeight-space/2.0, 0);
-            }
+            
+        case WXImagePlacementBottom: {
+            //1.Title位置
+            CGRect titleRect = self.titleLabel.frame;
+            titleRect.origin.y = self.topPadding;
+            titleRect.origin.x = self.leftPadding;
+            titleRect.size.width = maxWidth - (self.leftPadding + self.rightPadding);
+            titleRect.size.height = maxHeight - (self.topPadding + imgHeight + imageTitleSpace + self.bottomPadding);
+            self.titleLabel.frame = titleRect;
+
+            //2.Image位置
+            CGRect imageRect = self.imageView.frame;
+            imageRect.origin.y = imageTitleSpace + CGRectGetMaxY(titleRect);
+            self.imageView.frame = imageRect;
+            
+            CGPoint point = self.imageView.center;
+            point.x = self.titleLabel.center.x;
+            self.imageView.center = point;
         }
             break;
-        case WXImagePlacementBottom: // image在下，label在上
-        {
-            if (isRightToLeftShow) {//阿语
-                imageEdge = UIEdgeInsetsMake(0, -titleWidth, -titleHeight-space/2.0, 0);
-                labelEdge = UIEdgeInsetsMake(-imgHeight-space/2.0, 0, 0, -imgWidth);
-            } else  {
-                imageEdge = UIEdgeInsetsMake(0, 0, -titleHeight-space/2.0, -titleWidth);
-                labelEdge = UIEdgeInsetsMake(-imgHeight-space/2.0, -imgWidth, 0, 0);
-            }
+            
+        case WXImagePlacementTrailing: {
+            //1.Title位置
+            CGRect titleRect = self.titleLabel.frame;
+            titleRect.origin.x = self.leftPadding;
+            titleRect.origin.y = self.topPadding;
+            
+            titleRect.size.width = maxWidth - (self.leftPadding + imageTitleSpace + imgWidth + self.rightPadding);
+            titleRect.size.height = maxHeight - (self.topPadding + self.bottomPadding);
+            self.titleLabel.frame = titleRect;
+
+            //2.Image位置
+            CGRect imageRect = self.imageView.frame;
+            imageRect.origin.x = CGRectGetMaxX(titleRect) + imageTitleSpace;
+            self.imageView.frame = imageRect;
+            
+            CGPoint point = self.imageView.center;
+            point.y = self.titleLabel.center.y;
+            self.imageView.center = point;
         }
             break;
         default:
             break;
     }
-    // 5. 赋值
-    self.titleEdgeInsets = labelEdge;
-    self.imageEdgeInsets = imageEdge;
+    //调试查看文本大小位置
+    //self.titleLabel.backgroundColor = [[UIColor systemPinkColor] colorWithAlphaComponent:0.5];
 }
 
 @end

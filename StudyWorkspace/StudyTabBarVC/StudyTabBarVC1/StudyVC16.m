@@ -26,36 +26,38 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self layoutSubview];
-//    [self refreshText];
+    [self refreshText];
 }
 
 - (void)refreshText {
-    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
+    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
     
-    self.blueBtn.title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案7";
-    self.blueBtn.numberOfLines = 0;
-    self.blueBtn.preferredMaxLayoutWidth = 80;
-    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
-    self.blueBtn.imageTitleSpace = 5;
-    self.blueBtn.imagePlacement = WXImagePlacementTop;
-    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
-    self.blueBtn.topPadding = 15;
-    self.blueBtn.rightPadding = 15;
-
-    //图片
-    self.imageView.image = [UIImage imageNamed:@"Sticker Pack"];
+    self.blueBtn.title = title;
     
-    NSLog(@"orangeLabel 111:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
-//    self.orangeLabel.text = nil;
-    NSLog(@"orangeLabel 222:%@", NSStringFromCGSize(self.orangeLabel.intrinsicContentSize));
-    
-//    self.orangeLabel.text = nil;
-//    self.orangeLabel.preferredMaxLayoutWidth = 150;
-//    self.orangeLabel.numberOfLines = 0;
+    self.orangeLabel.text = title;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self refreshText];
+    
+//    self.orangeLabel.text = @"一句长文案6";
+    self.orangeLabel.numberOfLines = 0;
+    self.orangeLabel.preferredMaxLayoutWidth = 180;
+    
+//    self.blueBtn.title = @"一句长文案6";
+    self.blueBtn.numberOfLines = 0;
+    self.blueBtn.preferredMaxLayoutWidth = 180;
+    
+    self.blueBtn.image = nil;//[UIImage imageNamed:@"tabbar_min_ser"];
+//    self.blueBtn.imageTitleSpace = 5;
+    self.blueBtn.imagePlacement = WXImagePlacementTrailing;
+    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
+    //图片
+    //self.imageView.image = [UIImage imageNamed:@"Sticker Pack"];
+    
+    self.blueBtn.leftPadding = 0;
+    self.blueBtn.topPadding = 0;
+    self.blueBtn.rightPadding = 0;
+    self.blueBtn.bottomPadding = 0;
 }
 
 #pragma mark -======== LayoutSubView ========
@@ -64,18 +66,20 @@
     [self.redBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.offset(100);
         make.centerX.offset(0);
-        make.width.mas_equalTo(100);
+        make.width.mas_equalTo(180);
     }];
     
     [self.blueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.redBtn.mas_bottom);
         make.centerX.offset(0);
-        make.size.mas_equalTo(CGSizeMake(100, 60));
+//        make.size.mas_equalTo(CGSizeMake(210, 100));
+        make.height.mas_equalTo(200);
     }];
     
     [self.orangeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.blueBtn.mas_bottom);
         make.centerX.offset(0);
+        make.height.mas_equalTo(200);
     }];
     
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -124,7 +128,7 @@
         _blueBtn.title = @"Blue Color WXButton";
         [self.view addSubview:_blueBtn];
         
-        [_blueBtn addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
+//        [_blueBtn addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _blueBtn;
 }
