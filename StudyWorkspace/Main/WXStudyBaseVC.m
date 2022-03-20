@@ -19,6 +19,14 @@
 
 @implementation WXStudyBaseVC
 
+// 安装: InjectionIII.app, 实现此方法进入实时调试模式(方法名: injected是固定的),此代码不会对线上有任何影响
+- (void)injected {
+#ifdef DEBUG
+    NSLog(@"I've been injected: %@", self);
+    [self viewDidLoad];
+#endif
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];

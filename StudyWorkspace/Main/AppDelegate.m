@@ -19,6 +19,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+#ifdef DEBUG
+    /// 安装: InjectionIII.app, 进入实时调试模式(路径是固定的),此代码不会对线上有任何影响
+    [[NSBundle bundleWithPath:@"/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle"] load];
+#endif
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //    [self.window insertSubview:self.plainTableView atIndex:0];
     self.window.backgroundColor = [UIColor whiteColor];

@@ -26,19 +26,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self layoutSubview];
+//    [self refreshText];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
+- (void)refreshText {
     NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
     
     self.blueBtn.title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案7";
-//    self.blueBtn.topPadding = 15;
-//    self.blueBtn.rightPadding = 15;
-//    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
-//    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
-    self.blueBtn.preferredMaxLayoutWidth = 150;
-//    self.blueBtn.numberOfLines = 0;
+    self.blueBtn.topPadding = 15;
+    self.blueBtn.rightPadding = 15;
+    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
+    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
+    self.blueBtn.preferredMaxLayoutWidth = 80;
+    self.blueBtn.numberOfLines = 0;
     self.blueBtn.imageTitleSpace = 5;
     self.blueBtn.imagePlacement = WXImagePlacementTop;
 
@@ -54,18 +54,23 @@
 //    self.orangeLabel.numberOfLines = 0;
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self refreshText];
+}
+
 #pragma mark -======== LayoutSubView ========
 
 - (void)layoutSubview {
     [self.redBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.offset(100);
         make.centerX.offset(0);
+        make.width.mas_equalTo(100);
     }];
     
     [self.blueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.redBtn.mas_bottom);
         make.centerX.offset(0);
-//        make.size.mas_equalTo(CGSizeMake(200, 60));
+//        make.size.mas_equalTo(CGSizeMake(100, 60));
     }];
     
     [self.orangeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -111,7 +116,7 @@
 
 - (WXButton *)blueBtn {
     if (!_blueBtn) {
-        _blueBtn = [WXButton buttonWithType:(UIButtonTypeCustom)];
+        _blueBtn = [[WXButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
         _blueBtn.backgroundColor = UIColor.blueColor;
         _blueBtn.titleFont = [UIFont systemFontOfSize:16.0];
         _blueBtn.titleColor = UIColor.whiteColor;
