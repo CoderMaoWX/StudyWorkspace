@@ -33,14 +33,14 @@
     NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
     
     self.blueBtn.title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案7";
-    self.blueBtn.topPadding = 15;
-    self.blueBtn.rightPadding = 15;
-    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
-    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
-    self.blueBtn.preferredMaxLayoutWidth = 80;
     self.blueBtn.numberOfLines = 0;
+    self.blueBtn.preferredMaxLayoutWidth = 80;
+    self.blueBtn.image = [UIImage imageNamed:@"tabbar_min_ser"];
     self.blueBtn.imageTitleSpace = 5;
     self.blueBtn.imagePlacement = WXImagePlacementTop;
+    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
+    self.blueBtn.topPadding = 15;
+    self.blueBtn.rightPadding = 15;
 
     //图片
     self.imageView.image = [UIImage imageNamed:@"Sticker Pack"];
@@ -70,7 +70,7 @@
     [self.blueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.redBtn.mas_bottom);
         make.centerX.offset(0);
-//        make.size.mas_equalTo(CGSizeMake(100, 60));
+        make.size.mas_equalTo(CGSizeMake(100, 60));
     }];
     
     [self.orangeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -116,7 +116,8 @@
 
 - (WXButton *)blueBtn {
     if (!_blueBtn) {
-        _blueBtn = [[WXButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+//        CGRect rect = CGRectMake(0, 0, 50, 50);
+        _blueBtn = [[WXButton alloc] initWithFrame:CGRectZero];
         _blueBtn.backgroundColor = UIColor.blueColor;
         _blueBtn.titleFont = [UIFont systemFontOfSize:16.0];
         _blueBtn.titleColor = UIColor.whiteColor;
