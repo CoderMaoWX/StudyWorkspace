@@ -26,31 +26,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self layoutSubview];
-    [self refreshText];
+//    [self refreshText];
 }
 
 - (void)refreshText {
     NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
     
     self.blueBtn.title = title;
-    
     self.orangeLabel.text = title;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-//    self.orangeLabel.text = @"一句长文案6";
-    self.orangeLabel.numberOfLines = 0;
-    self.orangeLabel.preferredMaxLayoutWidth = 180;
+//    self.orangeLabel.text = @"一句话";
+//    self.orangeLabel.numberOfLines = 0;
+//    self.orangeLabel.preferredMaxLayoutWidth = 180;
     
-//    self.blueBtn.title = @"一句长文案6";
+//    self.blueBtn.title = @"一句话很好";
+    self.blueBtn.title = @"好";
     self.blueBtn.numberOfLines = 0;
     self.blueBtn.preferredMaxLayoutWidth = 180;
     
     self.blueBtn.image = nil;//[UIImage imageNamed:@"tabbar_min_ser"];
+    self.blueBtn.image = [UIImage imageNamed:@"live_video_like"];
 //    self.blueBtn.imageTitleSpace = 5;
-    self.blueBtn.imagePlacement = WXImagePlacementTrailing;
-    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
+    self.blueBtn.imagePlacement = WXImagePlacementBottom;
+//    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
     //图片
     //self.imageView.image = [UIImage imageNamed:@"Sticker Pack"];
     
@@ -73,7 +74,7 @@
         make.top.mas_equalTo(self.redBtn.mas_bottom);
         make.centerX.offset(0);
 //        make.size.mas_equalTo(CGSizeMake(210, 100));
-        make.height.mas_equalTo(200);
+//        make.height.mas_equalTo(200);
     }];
     
     [self.orangeLabel mas_makeConstraints:^(MASConstraintMaker *make) {

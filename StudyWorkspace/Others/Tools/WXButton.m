@@ -263,9 +263,23 @@
             titleRect.size.height = maxHeight - titleRect.origin.y;
             self.titleLabel.frame = titleRect;
             
-            CGPoint point = self.imageView.center;
-            point.x = self.titleLabel.center.x;
-            self.imageView.center = point;
+            //Title 比 Image宽
+            if (titleSize.width > imgSize.width) {
+                CGPoint point = self.imageView.center;
+                point.x = self.titleLabel.center.x;
+                self.imageView.center = point;
+                
+            } else {//Image 比 Title宽
+                imageRect.origin.x = self.leftPadding;
+                self.imageView.frame = imageRect;
+                
+                titleRect.size.width = titleWidth;
+                self.titleLabel.frame = titleRect;
+                
+                CGPoint point = self.titleLabel.center;
+                point.x = self.imageView.center.x;
+                self.titleLabel.center = point;
+            }
         }
             break;
             
@@ -303,9 +317,23 @@
             imageRect.origin.y = imageTitleSpace + CGRectGetMaxY(titleRect);
             self.imageView.frame = imageRect;
             
-            CGPoint point = self.imageView.center;
-            point.x = self.titleLabel.center.x;
-            self.imageView.center = point;
+            //Title 比 Image宽
+            if (titleSize.width > imgSize.width) {
+                CGPoint point = self.imageView.center;
+                point.x = self.titleLabel.center.x;
+                self.imageView.center = point;
+                
+            } else {//Image 比 Title宽
+                imageRect.origin.x = self.leftPadding;
+                self.imageView.frame = imageRect;
+                
+                titleRect.size.width = titleWidth;
+                self.titleLabel.frame = titleRect;
+                
+                CGPoint point = self.titleLabel.center;
+                point.x = self.imageView.center.x;
+                self.titleLabel.center = point;
+            }
         }
             break;
             
@@ -333,7 +361,7 @@
             break;
     }
     //调试查看文本大小位置
-    //self.titleLabel.backgroundColor = [[UIColor systemPinkColor] colorWithAlphaComponent:0.5];
+    self.titleLabel.backgroundColor = [[UIColor systemPinkColor] colorWithAlphaComponent:0.5];
 }
 
 @end
