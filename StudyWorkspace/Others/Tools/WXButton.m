@@ -273,12 +273,10 @@
                 imageRect.origin.x = self.leftPadding;
                 self.imageView.frame = imageRect;
                 
-                titleRect.size.width = titleWidth;
+                titleRect.origin.x = 0;
+                titleRect.size.width = maxWidth;
                 self.titleLabel.frame = titleRect;
-                
-                CGPoint point = self.titleLabel.center;
-                point.x = self.imageView.center.x;
-                self.titleLabel.center = point;
+                self.titleLabel.textAlignment = NSTextAlignmentCenter;
             }
         }
             break;
@@ -327,12 +325,10 @@
                 imageRect.origin.x = self.leftPadding;
                 self.imageView.frame = imageRect;
                 
-                titleRect.size.width = titleWidth;
+                titleRect.origin.x = 0;
+                titleRect.size.width = maxWidth;
                 self.titleLabel.frame = titleRect;
-                
-                CGPoint point = self.titleLabel.center;
-                point.x = self.imageView.center.x;
-                self.titleLabel.center = point;
+                self.titleLabel.textAlignment = NSTextAlignmentCenter;
             }
         }
             break;
