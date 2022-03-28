@@ -134,7 +134,6 @@
             break;
     }
     self.contentEdgeInsets = insets;
-    //[self layoutIfNeeded];
 }
 
 - (CGSize)intrinsicContentSize {
@@ -217,6 +216,16 @@
 - (void)layoutImageTitleStyle {
     CGFloat maxWidth = self.frame.size.width;
     CGFloat maxHeight = self.frame.size.height;
+    
+    UIEdgeInsets contentEdge = self.contentEdgeInsets;
+    if (!UIEdgeInsetsEqualToEdgeInsets(contentEdge, UIEdgeInsetsZero)) {
+        self.contentEdgeInsets = UIEdgeInsetsZero;
+        _topPadding = contentEdge.top;
+        _leftPadding = contentEdge.left;
+        _bottomPadding = contentEdge.bottom;
+        _rightPadding = contentEdge.right;
+        return;
+    }
     
     // 1. 得到titleLabel的宽、高
     CGSize titleSize = self.titleLabel.intrinsicContentSize;
@@ -356,8 +365,10 @@
         default:
             break;
     }
-    //调试查看文本大小位置
-    self.titleLabel.backgroundColor = [[UIColor systemPinkColor] colorWithAlphaComponent:0.5];
+    //调试查看文本位置大小
+#ifdef DEBUG
+    //self.titleLabel.backgroundColor = [[UIColor systemPinkColor] colorWithAlphaComponent:0.5];
+#endif
 }
 
 @end
