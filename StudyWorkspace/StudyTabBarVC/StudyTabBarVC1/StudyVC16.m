@@ -14,10 +14,11 @@
 #import "WXButton.h"
 
 @interface StudyVC16 ()
-@property (nonatomic, strong) UIButton *redBtn;
+@property (nonatomic, strong) WXButton *redBtn;
 @property (nonatomic, strong) UILabel *orangeLabel;
 @property (nonatomic, strong) WXButton *blueBtn;
-@property (nonatomic, strong) UIButton *pinkBtn;
+@property (nonatomic, strong) WXButton *pinkBtn;
+@property (nonatomic, strong) WXButton *blackBtn;
 @property (nonatomic, strong) UIImageView *imageView;
 @end
 
@@ -33,7 +34,7 @@
     NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
     
     self.blueBtn.title = title;
-    self.orangeLabel.text = title;
+//    self.orangeLabel.text = title;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -43,22 +44,32 @@
 //    self.orangeLabel.preferredMaxLayoutWidth = 180;
     
 //    self.blueBtn.title = @"一句话很好";
-    self.blueBtn.title = @"好";
+    self.blueBtn.title = @"你好，李银河";
     self.blueBtn.numberOfLines = 0;
     self.blueBtn.preferredMaxLayoutWidth = 180;
-    
+//    [self refreshText];
     self.blueBtn.image = nil;//[UIImage imageNamed:@"tabbar_min_ser"];
-    self.blueBtn.image = [UIImage imageNamed:@"live_video_like"];
+    self.blueBtn.image = [UIImage imageNamed:@"live_video_like"]; //@"women"
 //    self.blueBtn.imageTitleSpace = 5;
-    self.blueBtn.imagePlacement = WXImagePlacementBottom;
-//    self.blueBtn.backgroundImage = [UIImage imageNamed:@"women"];
+    self.blueBtn.imagePlacement = WXImagePlacementLeading;
+    self.blueBtn.imageTitleSpace = 20;
     //图片
     //self.imageView.image = [UIImage imageNamed:@"Sticker Pack"];
-    
+
     self.blueBtn.leftPadding = 0;
     self.blueBtn.topPadding = 0;
     self.blueBtn.rightPadding = 0;
     self.blueBtn.bottomPadding = 0;
+    
+//    self.pinkBtn.topPadding = 20;
+//    self.pinkBtn.leftPadding = 0;
+//    self.pinkBtn.bottomPadding = 30;
+//    self.pinkBtn.rightPadding = 0;
+    
+//    self.pinkBtn.titleLabel.layer.masksToBounds = YES;
+//    self.pinkBtn.titleLabel.layer.cornerRadius = 10;
+    self.pinkBtn.title = nil;
+
 }
 
 #pragma mark -======== LayoutSubView ========
@@ -91,13 +102,18 @@
         make.top.mas_equalTo(self.orangeLabel.mas_bottom);
         make.centerX.offset(0);
     }];
+
+    [self.blackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.pinkBtn.mas_bottom);
+        make.centerX.offset(0);
+    }];
 }
 
 #pragma mark -======== setup UI ========
 
-- (UIButton *)redBtn{
+- (WXButton *)redBtn{
     if (!_redBtn) {
-        _redBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        _redBtn = [[WXButton alloc] initWithFrame:CGRectZero];
         _redBtn.backgroundColor = UIColor.redColor;
         _redBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
         [_redBtn setTitle:@"Red Color Button" forState:UIControlStateNormal];
@@ -128,22 +144,34 @@
         _blueBtn.titleColor = UIColor.whiteColor;
         _blueBtn.title = @"Blue Color WXButton";
         [self.view addSubview:_blueBtn];
-        
 //        [_blueBtn addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _blueBtn;
 }
 
-- (UIButton *)pinkBtn {
+- (WXButton *)pinkBtn {
     if (!_pinkBtn) {
-        _pinkBtn = [[UIButton alloc] initWithFrame:CGRectZero];
-        _pinkBtn.backgroundColor = UIColor.purpleColor;
+        _pinkBtn = [[WXButton alloc] initWithFrame:CGRectZero];
+        _pinkBtn.backgroundColor = UIColor.clearColor;
+        _pinkBtn.titleLabel.backgroundColor = UIColor.systemPinkColor;
         _pinkBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
         [_pinkBtn setTitle:@"Pink Color Button" forState:UIControlStateNormal];
         [_pinkBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
         [self.view addSubview:_pinkBtn];
     }
     return _pinkBtn;
+}
+
+- (WXButton *)blackBtn {
+    if (!_blackBtn) {
+        _blackBtn = [[WXButton alloc] initWithFrame:CGRectZero];
+        _blackBtn.backgroundColor = UIColor.blackColor;
+        _blackBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
+        [_blackBtn setTitle:@"Black Color Button" forState:UIControlStateNormal];
+        [_blackBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        [self.view addSubview:_blackBtn];
+    }
+    return _blackBtn;
 }
 
 - (UIImageView *)imageView {
@@ -156,6 +184,7 @@
     return _imageView;
 }
 
+///不导第三方库加载GIf图片
 - (void)setButtonGIFImage {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"checkout_arrow" ofType:@"gif"];
     NSData *gifData = [NSData dataWithContentsOfFile:path];

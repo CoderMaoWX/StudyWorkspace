@@ -8,6 +8,10 @@
 
 #import "WXButton.h"
 
+@interface WXButton ()
+@property (nonatomic, assign) BOOL hasLayoutCustomUI;
+@end
+
 @implementation WXButton
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -182,14 +186,14 @@
         CGFloat width = self.leftPadding + MAX(titleWidth, imgWidth) + self.rightPadding;
         CGFloat height = self.topPadding + titleHeight + imageTitleSpace + imgHeight + self.bottomPadding;
         
-        NSLog(@"固有大小 上下布局: %@", NSStringFromCGSize(CGSizeMake(width, height)));
+        //NSLog(@"固有大小 上下布局: %@", NSStringFromCGSize(CGSizeMake(width, height)));
         return CGSizeMake(width, height);
         
     } else {//左右布局
         CGFloat width = self.leftPadding + titleWidth + imageTitleSpace + imgWidth + self.rightPadding;
         CGFloat height = self.topPadding + MAX(titleHeight, imgHeight) + self.bottomPadding;
         
-        NSLog(@"固有大小 左右布局: %@", NSStringFromCGSize(CGSizeMake(width, height)));
+        //NSLog(@"固有大小 左右布局: %@", NSStringFromCGSize(CGSizeMake(width, height)));
         return CGSizeMake(width, height);
     }
 }
@@ -197,26 +201,34 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    //如果有背景图
-    if (self.currentBackgroundImage) {
-        for (UIImageView *subView in self.subviews) {
-            if ([subView isKindOfClass:[UIImageView class]] && CGSizeEqualToSize(subView.bounds.size, self.bounds.size)) {
-                subView.contentMode = UIViewContentModeScaleAspectFill;
+    //防止调用 layoutImageTitleStyle 方法后会死循环调用 layoutSubviews
+    if (!self.hasLayoutCustomUI) {
+        self.hasLayoutCustomUI = YES;
+        
+        //如果有背景图
+        if (self.currentBackgroundImage) {
+            for (UIImageView *subView in self.subviews) {
+                if ([subView isKindOfClass:[UIImageView class]] && CGSizeEqualToSize(subView.bounds.size, self.bounds.size)) {
+                    subView.contentMode = UIViewContentModeScaleAspectFill;
+                }
             }
         }
+        //布局Image和Title位置
+        [self layoutImageTitleStyle];
+        
+        self.hasLayoutCustomUI = NO;
+        //NSLog(@"布局大小: %@", self);
     }
-    //布局Image和Title位置
-    [self layoutImageTitleStyle];
-    NSLog(@"布局大小: %@", self);
+
 }
 
 /** 布局Image和Title位置
  *  设置button的titleLabel和imageView的布局样式，及间距
  */
 - (void)layoutImageTitleStyle {
-    CGFloat maxWidth = self.frame.size.width;
-    CGFloat maxHeight = self.frame.size.height;
-    
+    CGFloat maxWidth = self.frame.size.width; //[self intrinsicContentSize].width;
+    CGFloat maxHeight = self.frame.size.height; //[self intrinsicContentSize].height;
+
     UIEdgeInsets contentEdge = self.contentEdgeInsets;
     if (!UIEdgeInsetsEqualToEdgeInsets(contentEdge, UIEdgeInsetsZero)) {
         self.contentEdgeInsets = UIEdgeInsetsZero;
@@ -261,6 +273,7 @@
         case WXImagePlacementTop: {
             //1.Image位置
             CGRect imageRect = self.imageView.frame;
+            imageRect.size = self.imageView.image.size;
             imageRect.origin.y = self.topPadding;
             self.imageView.frame = imageRect;
 
@@ -268,8 +281,15 @@
             CGRect titleRect = self.titleLabel.frame;
             titleRect.origin.y = CGRectGetMaxY(imageRect) + imageTitleSpace;
             titleRect.origin.x = self.leftPadding;
-            titleRect.size.width = maxWidth - (self.leftPadding + self.rightPadding);
-            titleRect.size.height = maxHeight - titleRect.origin.y;
+            CGFloat tmpWidth = maxWidth - (self.leftPadding + self.rightPadding);
+            CGFloat tmpHeight = maxHeight - titleRect.origin.y;
+            if (tmpWidth > 0){
+                titleRect.size.width = tmpWidth;
+            }
+            if (tmpHeight > 0){
+                titleRect.size.height = tmpHeight;
+            }
+            
             self.titleLabel.frame = titleRect;
             
             //Title 比 Image宽
@@ -293,6 +313,7 @@
         case WXImagePlacementLeading: {
             //1.Image位置
             CGRect imageRect = self.imageView.frame;
+            imageRect.size = self.imageView.image.size;
             imageRect.origin.x = self.leftPadding;
             self.imageView.frame = imageRect;
 
@@ -300,8 +321,14 @@
             CGRect titleRect = self.titleLabel.frame;
             titleRect.origin.x = CGRectGetMaxX(imageRect) + imageTitleSpace;
             titleRect.origin.y = self.topPadding;
-            titleRect.size.width = maxWidth - (self.leftPadding + imageTitleSpace + imgWidth + self.rightPadding);
-            titleRect.size.height = maxHeight - (self.topPadding + self.bottomPadding);
+            CGFloat tmpWidth = maxWidth - (self.leftPadding + imageTitleSpace + imgWidth + self.rightPadding);
+            CGFloat tmpHeight = maxHeight - (self.topPadding + self.bottomPadding);
+            if (tmpWidth > 0){
+                titleRect.size.width = tmpWidth;
+            }
+            if (tmpHeight > 0){
+                titleRect.size.height = tmpHeight;
+            }
             self.titleLabel.frame = titleRect;
             
             CGPoint point = self.imageView.center;
@@ -315,12 +342,19 @@
             CGRect titleRect = self.titleLabel.frame;
             titleRect.origin.y = self.topPadding;
             titleRect.origin.x = self.leftPadding;
-            titleRect.size.width = maxWidth - (self.leftPadding + self.rightPadding);
-            titleRect.size.height = maxHeight - (self.topPadding + imgHeight + imageTitleSpace + self.bottomPadding);
+            CGFloat tmpWidth = maxWidth - (self.leftPadding + self.rightPadding);
+            CGFloat tmpHeight = maxHeight - (self.topPadding + imgHeight + imageTitleSpace + self.bottomPadding);
+            if (tmpWidth > 0){
+                titleRect.size.width = tmpWidth;
+            }
+            if (tmpHeight > 0){
+                titleRect.size.height = tmpHeight;
+            }
             self.titleLabel.frame = titleRect;
 
             //2.Image位置
             CGRect imageRect = self.imageView.frame;
+            imageRect.size = self.imageView.image.size;
             imageRect.origin.y = imageTitleSpace + CGRectGetMaxY(titleRect);
             self.imageView.frame = imageRect;
             
@@ -347,13 +381,19 @@
             CGRect titleRect = self.titleLabel.frame;
             titleRect.origin.x = self.leftPadding;
             titleRect.origin.y = self.topPadding;
-            
-            titleRect.size.width = maxWidth - (self.leftPadding + imageTitleSpace + imgWidth + self.rightPadding);
-            titleRect.size.height = maxHeight - (self.topPadding + self.bottomPadding);
+            CGFloat tmpWidth = maxWidth - (self.leftPadding + imageTitleSpace + imgWidth + self.rightPadding);
+            CGFloat tmpHeight = maxHeight - (self.topPadding + self.bottomPadding);
+            if (tmpWidth > 0){
+                titleRect.size.width = tmpWidth;
+            }
+            if (tmpHeight > 0){
+                titleRect.size.height = tmpHeight;
+            }
             self.titleLabel.frame = titleRect;
 
             //2.Image位置
             CGRect imageRect = self.imageView.frame;
+            imageRect.size = self.imageView.image.size;
             imageRect.origin.x = CGRectGetMaxX(titleRect) + imageTitleSpace;
             self.imageView.frame = imageRect;
             
