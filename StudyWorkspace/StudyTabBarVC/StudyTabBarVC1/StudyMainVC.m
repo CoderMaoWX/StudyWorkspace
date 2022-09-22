@@ -20,6 +20,7 @@
     
     // @{ 要测试的VC : 对应类的功能描述 }
     [self.listDataArray addObjectsFromArray:@[
+        @{@"StudyVC17.m"    :   @"JS与OC交互"},
         @{@"StudyVC16.m"    :   @"不导第三方库加载GIf图片"},
         @{@"StudyVC15.m"    :   @"URLComponents"},
         @{@"StudyVC14.m"    :   @"长按模糊图片显示清晰背景"},

@@ -66,6 +66,8 @@
 		5893D22624EA6BFE0005E1AF /* UITabBar+BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D22424EA6BFE0005E1AF /* UITabBar+BadgeView.m */; };
 		5893D22924EA6C360005E1AF /* WXFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D22824EA6C360005E1AF /* WXFileManager.m */; };
 		5893D22B24EA771C0005E1AF /* WXStudyTabBarVC2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D22A24EA771C0005E1AF /* WXStudyTabBarVC2.xib */; };
+		58AA70E428D08E4B0045304E /* js-interaction.html in Resources */ = {isa = PBXBuildFile; fileRef = 58AA70E328D08E4B0045304E /* js-interaction.html */; };
+		58AA70E728D08EB70045304E /* StudyVC17.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AA70E628D08EB70045304E /* StudyVC17.m */; };
 		58B5BD9E2639412F00865250 /* StudyVC15.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B5BD9D2639412F00865250 /* StudyVC15.m */; };
 		58C82D162628332700AC3EA0 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 58C82D152628332700AC3EA0 /* UIImage+Extension.m */; };
 		58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51E624E677C900F71C56 /* WXStudyCell.m */; };
@@ -201,6 +203,9 @@
 		5893D22724EA6C360005E1AF /* WXFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXFileManager.h; sourceTree = "<group>"; };
 		5893D22824EA6C360005E1AF /* WXFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXFileManager.m; sourceTree = "<group>"; };
 		5893D22A24EA771C0005E1AF /* WXStudyTabBarVC2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WXStudyTabBarVC2.xib; sourceTree = "<group>"; };
+		58AA70E328D08E4B0045304E /* js-interaction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "js-interaction.html"; sourceTree = "<group>"; };
+		58AA70E528D08EB70045304E /* StudyVC17.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC17.h; sourceTree = "<group>"; };
+		58AA70E628D08EB70045304E /* StudyVC17.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC17.m; sourceTree = "<group>"; };
 		58B5BD9C2639412F00865250 /* StudyVC15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC15.h; sourceTree = "<group>"; };
 		58B5BD9D2639412F00865250 /* StudyVC15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC15.m; sourceTree = "<group>"; };
 		58C82D142628332700AC3EA0 /* UIImage+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
@@ -437,6 +442,8 @@
 				58B5BD9D2639412F00865250 /* StudyVC15.m */,
 				583F2A1A273E1EDC00FCD925 /* StudyVC16.h */,
 				583F2A1B273E1EDC00FCD925 /* StudyVC16.m */,
+				58AA70E528D08EB70045304E /* StudyVC17.h */,
+				58AA70E628D08EB70045304E /* StudyVC17.m */,
 			);
 			path = StudyTabBarVC1;
 			sourceTree = "<group>";
@@ -537,6 +544,7 @@
 		58FBED5F24E68B99003F7FE6 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				58AA70E328D08E4B0045304E /* js-interaction.html */,
 				584FFB7A27B4D19500E151C1 /* loading.gif */,
 				583F2A1D273E1F5900FCD925 /* checkout_arrow.gif */,
 				58FBED5D24E68802003F7FE6 /* SkinZipURL.txt */,
@@ -642,6 +650,7 @@
 				5893D0D424EA55CF0005E1AF /* StudyVC9.xib in Resources */,
 				583F2A1E273E1F5900FCD925 /* checkout_arrow.gif in Resources */,
 				5893D0CE24EA55CF0005E1AF /* StudyVC11.xib in Resources */,
+				58AA70E428D08E4B0045304E /* js-interaction.html in Resources */,
 				5893D0F624EA65B60005E1AF /* StudyVC13.xib in Resources */,
 				584FFB7B27B4D19500E151C1 /* loading.gif in Resources */,
 				5893D0D224EA55CF0005E1AF /* StudyVC7.xib in Resources */,
@@ -757,6 +766,7 @@
 				5893D0E324EA55DA0005E1AF /* LukeLayer.m in Sources */,
 				5893D0B624EA52610005E1AF /* StudyVC5.m in Sources */,
 				58EB3A86261F0ABC00397F49 /* WXTableViewManager.m in Sources */,
+				58AA70E728D08EB70045304E /* StudyVC17.m in Sources */,
 				58F7B2F226A01DE60009FBB8 /* UIButton+WXExtension.m in Sources */,
 				5811051324EB6BAC006EB5FA /* UIButton+WXShortcut.m in Sources */,
 				58695C4524E6683100155B80 /* main.m in Sources */,

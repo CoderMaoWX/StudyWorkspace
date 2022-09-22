@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+
+<body style="background-color: white;">
+    <button id="btn2" type="button" onclick="btn2Click()" style="width:100%; height:30px;"/>调用OC代码2</button>
+    <script>
+        window.callback = function (res) {
+            alert(res);
+        };
+        window.btn2Click = function () {
+            window.webkit.messageHandlers.jsCallNative.postMessage({
+                aaa: 'ttt',
+                callback: 'callback',
+                // callback: window.callback
+            });
+        };
+    </script>
+</body>
+</html>
