@@ -21,7 +21,7 @@
 		5811051E24EB70C0006EB5FA /* UILabel+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5811051D24EB70C0006EB5FA /* UILabel+HTML.m */; };
 		5811052424EB71DD006EB5FA /* NSObjectSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 5811052224EB71DD006EB5FA /* NSObjectSafe.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5811052724EB725E006EB5FA /* NSDictionary+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 5811052524EB725E006EB5FA /* NSDictionary+SafeAccess.m */; };
-		583F2A19273E1E2300FCD925 /* UIImage+YYWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 583F2A17273E1E2300FCD925 /* UIImage+YYWebImage.m */; };
+		583F2A19273E1E2300FCD925 /* UIImage+YYWebImage_Copy.m in Sources */ = {isa = PBXBuildFile; fileRef = 583F2A17273E1E2300FCD925 /* UIImage+YYWebImage_Copy.m */; };
 		583F2A1C273E1EDC00FCD925 /* StudyVC16.m in Sources */ = {isa = PBXBuildFile; fileRef = 583F2A1B273E1EDC00FCD925 /* StudyVC16.m */; };
 		583F2A1E273E1F5900FCD925 /* arrow_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 583F2A1D273E1F5900FCD925 /* arrow_gif.gif */; };
 		584FFB7927B4CDEC00E151C1 /* WXLoadingHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584FFB7827B4CDEC00E151C1 /* WXLoadingHUD.swift */; };
@@ -123,8 +123,8 @@
 		5811052324EB71DD006EB5FA /* NSObjectSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectSafe.h; sourceTree = "<group>"; };
 		5811052524EB725E006EB5FA /* NSDictionary+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SafeAccess.m"; sourceTree = "<group>"; };
 		5811052624EB725E006EB5FA /* NSDictionary+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+SafeAccess.h"; sourceTree = "<group>"; };
-		583F2A17273E1E2300FCD925 /* UIImage+YYWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+YYWebImage.m"; sourceTree = "<group>"; };
-		583F2A18273E1E2300FCD925 /* UIImage+YYWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+YYWebImage.h"; sourceTree = "<group>"; };
+		583F2A17273E1E2300FCD925 /* UIImage+YYWebImage_Copy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+YYWebImage_Copy.m"; sourceTree = "<group>"; };
+		583F2A18273E1E2300FCD925 /* UIImage+YYWebImage_Copy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+YYWebImage_Copy.h"; sourceTree = "<group>"; };
 		583F2A1A273E1EDC00FCD925 /* StudyVC16.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC16.h; sourceTree = "<group>"; };
 		583F2A1B273E1EDC00FCD925 /* StudyVC16.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC16.m; sourceTree = "<group>"; };
 		583F2A1D273E1F5900FCD925 /* arrow_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = arrow_gif.gif; sourceTree = "<group>"; };
@@ -321,8 +321,8 @@
 				58EB3A88261F0C2200397F49 /* UIScrollView+WXBlankPageView.m */,
 				58C82D142628332700AC3EA0 /* UIImage+Extension.h */,
 				58C82D152628332700AC3EA0 /* UIImage+Extension.m */,
-				583F2A18273E1E2300FCD925 /* UIImage+YYWebImage.h */,
-				583F2A17273E1E2300FCD925 /* UIImage+YYWebImage.m */,
+				583F2A18273E1E2300FCD925 /* UIImage+YYWebImage_Copy.h */,
+				583F2A17273E1E2300FCD925 /* UIImage+YYWebImage_Copy.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -788,7 +788,7 @@
 				5893D22924EA6C360005E1AF /* WXFileManager.m in Sources */,
 				5811052424EB71DD006EB5FA /* NSObjectSafe.m in Sources */,
 				5893D0D324EA55CF0005E1AF /* StudyVC10.m in Sources */,
-				583F2A19273E1E2300FCD925 /* UIImage+YYWebImage.m in Sources */,
+				583F2A19273E1E2300FCD925 /* UIImage+YYWebImage_Copy.m in Sources */,
 				58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */,
 				5893D0E624EA59C40005E1AF /* UIView+WXExtension.m in Sources */,
 				58F7B2F826A0289E0009FBB8 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,

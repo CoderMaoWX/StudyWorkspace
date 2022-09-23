@@ -7,7 +7,8 @@
 //
 
 #import "StudyVC16.h"
-#import "UIImage+YYWebImage.h"
+#import "WXCFunctionTool.h"
+#import "UIImage+YYWebImage_Copy.h"
 #import "UIImage+GIF.h"
 #import "UIButton+WXExtension.h"
 #import "Masonry.h"
@@ -28,27 +29,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self layoutSubview];
-//    [self refreshText];
-}
-
-- (void)refreshText {
-    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
-    
-    self.blueBtn.title = title;
-//    self.orangeLabel.text = title;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
+    self.blueBtn.title = self.getLoogText;
     self.blueBtn.title = @"你好，李银河";
     self.blueBtn.numberOfLines = 0;
     self.blueBtn.preferredMaxLayoutWidth = 180;
-//    [self refreshText];
-    self.blueBtn.image = nil;//[UIImage imageNamed:@"tabbar_min_ser"];
-    self.blueBtn.image = [UIImage imageNamed:@"live_video_like"];
-//    self.blueBtn.imageTitleSpace = 5;
+    self.blueBtn.image = [UIImage imageNamed:@"like_icon"];
     self.blueBtn.imagePlacement = WXImagePlacementLeading;
-    self.blueBtn.imageTitleSpace = 20;
+    self.blueBtn.imageTitleSpace = 5;
 
     self.blueBtn.leftPadding = 0;
     self.blueBtn.topPadding = 0;
@@ -58,7 +49,8 @@
 //    self.orangeLabel.text = @"一句话";
 //    self.orangeLabel.numberOfLines = 0;
 //    self.orangeLabel.preferredMaxLayoutWidth = 180;
-        
+//    self.orangeLabel.text = self.getLoogText;
+    
 //    self.brownBtn.topPadding = 20;
 //    self.brownBtn.leftPadding = 0;
 //    self.brownBtn.bottomPadding = 30;
@@ -69,22 +61,27 @@
 //    self.brownBtn.titleEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     
     //设置图片
-    [self setButtonGIFImage];
-    self.imageView.image = [UIImage imageNamed:@"tab_call_nor"];
+    self.brownBtn.image = [self getGIFImage:@"cat_gif"];
+    self.imageView.image = [self getGIFImage:@"giftBox_gif"];
 }
 
 ///不导第三方库加载GIf图片
-- (void)setButtonGIFImage {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"cat_gif" ofType:@"gif"];
+- (UIImage *)getGIFImage:(NSString *)name {
+    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"gif"];
     NSData *gifData = [NSData dataWithContentsOfFile:path];
     UIImage *gifImage = [UIImage sd_imageWithGIFData:gifData];//SDWebImage方法不能设置大小
     gifImage = [UIImage yy_imageWithSmallGIFData:gifData scale:2]; //YYImage方法能设置大小
-    self.imageView.image = gifImage;
-    self.brownBtn.image = gifImage;
+    return gifImage;
 }
 
 - (void)btnAction:(UIButton *)button {
     NSLog(@"btnAction: %@", button);
+    WX_ShowToastWithText(self.view, button.description);
+}
+
+- (NSString *)getLoogText {
+    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
+    return title;
 }
 
 #pragma mark -======== LayoutSubView ========

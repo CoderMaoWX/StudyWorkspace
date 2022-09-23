@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  Provide some commen method for `UIImage`.
  Image process is based on CoreGraphic and vImage.
  */
-@interface UIImage (YYWebImage)
+@interface UIImage (YYWebImage_Copy)
 
 #pragma mark - Create image
 ///=============================================================================

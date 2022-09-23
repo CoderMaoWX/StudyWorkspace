@@ -9,7 +9,7 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import "UIImage+YYWebImage.h"
+#import "UIImage+YYWebImage_Copy.h"
 #import <ImageIO/ImageIO.h>
 #import <Accelerate/Accelerate.h>
 #import <objc/runtime.h>
@@ -140,7 +140,7 @@ static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef 
 
 
 
-@implementation UIImage (YYWebImage)
+@implementation UIImage (YYWebImage_Copy)
 
 + (UIImage *)yy_imageWithSmallGIFData:(NSData *)data scale:(CGFloat)scale {
     CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFTypeRef)(data), NULL);
