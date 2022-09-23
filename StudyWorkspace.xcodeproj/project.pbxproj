@@ -39,6 +39,7 @@
 		58695C6124E66E6600155B80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58695C4024E6683100155B80 /* LaunchScreen.storyboard */; };
 		588905B428DD4EB0001F5B50 /* cat_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 588905B328DD4EB0001F5B50 /* cat_gif.gif */; };
 		588905B628DD5DF9001F5B50 /* giftBox_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 588905B528DD5DF9001F5B50 /* giftBox_gif.gif */; };
+		588905B928DD8CA8001F5B50 /* WXLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 588905B828DD8CA8001F5B50 /* WXLayoutView.m */; };
 		5893D0B624EA52610005E1AF /* StudyVC5.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0B524EA52610005E1AF /* StudyVC5.m */; };
 		5893D0B924EA53870005E1AF /* StudyVC6.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0B824EA53860005E1AF /* StudyVC6.m */; };
 		5893D0CC24EA55CF0005E1AF /* StudyVC12.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D0BA24EA55CE0005E1AF /* StudyVC12.m */; };
@@ -154,6 +155,8 @@
 		58695C5C24E66CCB00155B80 /* StudyVC3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC3.m; sourceTree = "<group>"; };
 		588905B328DD4EB0001F5B50 /* cat_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = cat_gif.gif; sourceTree = "<group>"; };
 		588905B528DD5DF9001F5B50 /* giftBox_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = giftBox_gif.gif; sourceTree = "<group>"; };
+		588905B728DD8CA8001F5B50 /* WXLayoutView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXLayoutView.h; sourceTree = "<group>"; };
+		588905B828DD8CA8001F5B50 /* WXLayoutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXLayoutView.m; sourceTree = "<group>"; };
 		5893D0B424EA52610005E1AF /* StudyVC5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC5.h; sourceTree = "<group>"; };
 		5893D0B524EA52610005E1AF /* StudyVC5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC5.m; sourceTree = "<group>"; };
 		5893D0B724EA53860005E1AF /* StudyVC6.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC6.h; sourceTree = "<group>"; };
@@ -342,6 +345,8 @@
 				58EB3A6D261EE66100397F49 /* WXCFunctionTool.m */,
 				A356DCDF27DE41D8009EB901 /* WXButton.h */,
 				A356DCE027DE41D8009EB901 /* WXButton.m */,
+				588905B728DD8CA8001F5B50 /* WXLayoutView.h */,
+				588905B828DD8CA8001F5B50 /* WXLayoutView.m */,
 				5811052324EB71DD006EB5FA /* NSObjectSafe.h */,
 				5811052224EB71DD006EB5FA /* NSObjectSafe.m */,
 			);
@@ -768,6 +773,7 @@
 				5811051224EB6BAC006EB5FA /* UITextField+Extension.m in Sources */,
 				5893D21B24EA68AE0005E1AF /* WXTabBarInfoModel.m in Sources */,
 				58F7B2DC26A00E680009FBB8 /* WXNavigationVC.m in Sources */,
+				588905B928DD8CA8001F5B50 /* WXLayoutView.m in Sources */,
 				5811051A24EB6F6D006EB5FA /* CHTCollectionViewWaterfallLayout.m in Sources */,
 				58F7B2DF26A0137C0009FBB8 /* WXWebViewVC.m in Sources */,
 				58695C3424E6683000155B80 /* AppDelegate.m in Sources */,

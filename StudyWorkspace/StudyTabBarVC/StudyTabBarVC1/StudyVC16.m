@@ -14,10 +14,11 @@
 #import "Masonry.h"
 #import "UIButton+WXExtension.h"
 #import "WXButton.h"
+#import "YYText.h"
 
 @interface StudyVC16 ()
 @property (nonatomic, strong) WXButton *redBtn;
-@property (nonatomic, strong) UILabel *orangeLabel;
+@property (nonatomic, strong) YYLabel *orangeLabel;
 @property (nonatomic, strong) WXButton *blueBtn;
 @property (nonatomic, strong) WXButton *brownBtn;
 @property (nonatomic, strong) WXButton *blackBtn;
@@ -51,18 +52,28 @@
 //    self.orangeLabel.preferredMaxLayoutWidth = 180;
 //    self.orangeLabel.text = self.getLoogText;
     
+    if (self.orangeLabel.text.length == 0) {
+        self.orangeLabel.text = @"一句话";
+    } else {
+        self.orangeLabel.text = nil;
+    }
+
 //    self.brownBtn.topPadding = 20;
 //    self.brownBtn.leftPadding = 0;
 //    self.brownBtn.bottomPadding = 30;
 //    self.brownBtn.rightPadding = 0;
-//    self.brownBtn.titleLabel.layer.masksToBounds = YES;
-//    self.brownBtn.titleLabel.layer.cornerRadius = 10;
-//    self.brownBtn.title = nil;
+    self.brownBtn.backgroundColor = UIColor.clearColor;
+    self.brownBtn.titleLabel.backgroundColor = UIColor.systemPinkColor;
+    self.brownBtn.titleLabel.layer.masksToBounds = YES;
+    self.brownBtn.titleLabel.layer.cornerRadius = 10;
+//    self.brownBtn.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
 //    self.brownBtn.titleEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+//    self.brownBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+//    self.brownBtn.title = nil;
     
     //设置图片
-    self.brownBtn.image = [self getGIFImage:@"cat_gif"];
-    self.imageView.image = [self getGIFImage:@"giftBox_gif"];
+//    self.brownBtn.image = [self getGIFImage:@"cat_gif"];
+//    self.imageView.image = [self getGIFImage:@"giftBox_gif"];
 }
 
 ///不导第三方库加载GIf图片
@@ -149,13 +160,14 @@
     return _blueBtn;
 }
 
-- (UILabel *)orangeLabel {
+- (YYLabel *)orangeLabel {
     if (!_orangeLabel) {
-        _orangeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _orangeLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
         _orangeLabel.backgroundColor = UIColor.orangeColor;
         _orangeLabel.font = [UIFont systemFontOfSize:16.0];
         _orangeLabel.textColor = UIColor.whiteColor;
         _orangeLabel.text = @"Orange Lbael";
+        _orangeLabel.textContainerInset = UIEdgeInsetsMake(10, 10, 20, 10);
         [self.view addSubview:_orangeLabel];
     }
     return _orangeLabel;
