@@ -145,12 +145,17 @@ UIColor *WX_ColorLineColor(void) {
 
 /** 黑色字体颜色 */
 UIColor *WX_ColorBlackTextColor(void) {
-    return WX_ColorHex(0x4A4A4A);
+    return WX_ColorHex(0x333333);
 }
 
-/** App主色: 黄色 */
+/** App主色: 蓝色 */
 UIColor *WX_ColorMainColor(void) {
-    return WX_ColorHex(0xF29448);
+    return WX_ColorHex(0x2F7AFF);
+}
+
+/** App背景色: 灰色 */
+UIColor *WX_ColorBackgroundColor(void) {
+    return WX_ColorHex(0xF7F7F7);
 }
 
 /** 获取RGB颜色 */

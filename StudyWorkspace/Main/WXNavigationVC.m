@@ -20,13 +20,13 @@
 + (void)initialize {
     UINavigationBar *navBar = [UINavigationBar appearance];
     [navBar setBarTintColor:[UIColor whiteColor]];
-    [navBar setTintColor:WX_ColorRGB(0, 0, 0, 1.0)];
+    [navBar setTintColor:WX_ColorWhite()];
     [navBar setTitleTextAttributes:@{
         NSFontAttributeName: WX_FontBold(18),
-        NSForegroundColorAttributeName:WX_ColorRGB(51, 51, 51, 1.0)
+        NSForegroundColorAttributeName:WX_ColorBlackTextColor()
     }];
     
-    UIImage *backImage = [UIImage imageNamed:@"arrow_left"];
+    UIImage *backImage = [UIImage imageNamed:@"arrow_nav_left"];
     [navBar setBackIndicatorImage:backImage];
     [navBar setBackIndicatorTransitionMaskImage:backImage];
 
@@ -34,10 +34,19 @@
     [navBar setShadowImage:[UIImage new]];
     navBar.translucent = NO;
     
+    if (@available(iOS 13.0, *)) {
+        UINavigationBarAppearance *barApp = [UINavigationBarAppearance new];
+        barApp.backgroundColor = [UIColor whiteColor];
+        barApp.shadowColor = [UIColor whiteColor];
+        navBar.scrollEdgeAppearance = barApp;
+        navBar.standardAppearance = barApp;
+    }
+    
     [WXNavigationVC setupViewAppearance];
 }
 
 + (void)setupViewAppearance {
+    
     // 将返回按钮的文字position设置不在屏幕上显示
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(NSIntegerMin, NSIntegerMin)
                                                          forBarMetrics:UIBarMetricsDefault];
@@ -50,7 +59,7 @@
 
     UIView *bgView = [[UIView alloc] init];
     bgView.frame = CGRectMake(0, 0, kScreenWidth, kDefaultCellHeight);
-    bgView.backgroundColor = WX_ColorHex(0xF7F7F7);
+    bgView.backgroundColor = WX_ColorBackgroundColor();
     [UITableViewCell appearance].selectedBackgroundView = bgView;
     
     //ScrollView偏移量
@@ -100,7 +109,7 @@
         }else{
             target = self;
         }
-        UIImage *image = [[UIImage imageNamed:@"arrow_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *image = [[UIImage imageNamed:@"arrow_nav_left"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         UIBarButtonItem *leftBarItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:target action:@selector(goBackAction)];
         leftBarItem.imageInsets = UIEdgeInsetsMake(0, -8, 0, 0);
         viewController.navigationItem.leftBarButtonItem = leftBarItem;

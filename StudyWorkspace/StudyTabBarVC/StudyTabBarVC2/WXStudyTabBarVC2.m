@@ -12,6 +12,7 @@
 #import "SlideAppTabBarVC.h"
 #import "UITabBar+BadgeView.h"
 #import "WXFileManager.h"
+#import <StudyWorkspace-Swift.h>
 
 @interface WXStudyTabBarVC2 ()<UIGestureRecognizerDelegate>
 /** tabBar图标缓存 */
@@ -22,6 +23,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self showLoadingHUD];
+}
+
+- (void)showLoadingHUD {
+    WXLoadingHUD *hud = [[WXLoadingHUD alloc] initWithFrame:CGRectMake(130, 300, 100, 100 )];
+    [self.view addSubview:hud];
 }
 
 /**

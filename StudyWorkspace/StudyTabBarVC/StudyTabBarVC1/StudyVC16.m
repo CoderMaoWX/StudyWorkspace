@@ -59,9 +59,6 @@
 //    self.orangeLabel.numberOfLines = 0;
 //    self.orangeLabel.preferredMaxLayoutWidth = 180;
         
-    //图片
-    self.imageView.image = [UIImage imageNamed:@"cat_gif"];
-    
 //    self.brownBtn.topPadding = 20;
 //    self.brownBtn.leftPadding = 0;
 //    self.brownBtn.bottomPadding = 30;
@@ -69,10 +66,25 @@
 //    self.brownBtn.titleLabel.layer.masksToBounds = YES;
 //    self.brownBtn.titleLabel.layer.cornerRadius = 10;
 //    self.brownBtn.title = nil;
-    self.brownBtn.titleEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+//    self.brownBtn.titleEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     
+    //设置图片
     [self setButtonGIFImage];
+    self.imageView.image = [UIImage imageNamed:@"tab_call_nor"];
+}
 
+///不导第三方库加载GIf图片
+- (void)setButtonGIFImage {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"cat_gif" ofType:@"gif"];
+    NSData *gifData = [NSData dataWithContentsOfFile:path];
+    UIImage *gifImage = [UIImage sd_imageWithGIFData:gifData];//SDWebImage方法不能设置大小
+    gifImage = [UIImage yy_imageWithSmallGIFData:gifData scale:2]; //YYImage方法能设置大小
+    self.imageView.image = gifImage;
+    self.brownBtn.image = gifImage;
+}
+
+- (void)btnAction:(UIButton *)button {
+    NSLog(@"btnAction: %@", button);
 }
 
 #pragma mark -======== LayoutSubView ========
@@ -152,6 +164,15 @@
     return _orangeLabel;
 }
 
+- (UIImageView *)imageView {
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.view addSubview:_imageView];
+    }
+    return _imageView;
+}
+
 - (WXButton *)brownBtn {
     if (!_brownBtn) {
         _brownBtn = [[WXButton alloc] initWithFrame:CGRectZero];
@@ -174,30 +195,6 @@
         [self.view addSubview:_blackBtn];
     }
     return _blackBtn;
-}
-
-- (UIImageView *)imageView {
-    if (!_imageView) {
-        UIImage *image = [UIImage imageNamed:@"tab_call_nor"];
-        _imageView = [[UIImageView alloc] initWithImage:image];
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.view addSubview:_imageView];
-    }
-    return _imageView;
-}
-
-///不导第三方库加载GIf图片
-- (void)setButtonGIFImage {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"cat_gif" ofType:@"gif"];
-    NSData *gifData = [NSData dataWithContentsOfFile:path];
-    UIImage *gifImage = [UIImage sd_imageWithGIFData:gifData];//SDWebImage方法不能设置大小
-    gifImage = [UIImage yy_imageWithSmallGIFData:gifData scale:2]; //YYImage方法能设置大小
-    self.imageView.image = gifImage;
-    self.brownBtn.image = gifImage;
-}
-
-- (void)btnAction:(UIButton *)button {
-    NSLog(@"btnAction: %@", button);
 }
 
 @end

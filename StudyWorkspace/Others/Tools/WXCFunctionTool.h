@@ -51,8 +51,11 @@ UIColor *WX_ColorLineColor(void);
 /** 黑色字体颜色:4A4A4A */
 UIColor *WX_ColorBlackTextColor(void);
 
-/** App主黄色: F29448 */
+/** App主色: 蓝色 */
 UIColor *WX_ColorMainColor(void);
+
+/** App背景色: 灰色 */
+UIColor *WX_ColorBackgroundColor(void);
 
 /** 获取RGB颜色 */
 UIColor *WX_ColorRGB(NSInteger R, NSInteger G, NSInteger B, CGFloat a);

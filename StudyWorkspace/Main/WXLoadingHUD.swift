@@ -8,11 +8,14 @@
 
 import UIKit
 
-
 class WXLoadingHUD: UIView {
 
     override init(frame: CGRect) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+        var showFrame = frame
+        if frame.equalTo(.zero) {
+            showFrame = CGRect(x: 0, y: 0, width: 150, height: 150)
+        }
+        super.init(frame: showFrame)
         initSubView()
     }
     
@@ -27,12 +30,12 @@ class WXLoadingHUD: UIView {
     }
     
     lazy var imageView: UIImageView = {
-        var loadingImage = UIImage(named: "loading.gif")
-        let path = Bundle.main.path(forResource: "loading.gif", ofType: nil)
+        var loadingImage = UIImage(named: "loading_gif.gif")
+        let path = Bundle.main.path(forResource: "loading_gif.gif", ofType: nil)
         let gifData = NSData(contentsOfFile: path!)
-//        if let gifData = gifData {
-//            loadingImage = UIImage.yy_image(withSmallGIFData: gifData as Data, scale: 3)
-//        }
+        if let gifData = gifData {
+            loadingImage = UIImage.yy_image(withSmallGIFData: gifData as Data, scale: 3)
+        }
         let imageView = UIImageView(image: loadingImage)
         imageView.contentMode = .scaleAspectFit
         imageView.frame = CGRect(x: 0, y: 0, width: 150, height: 150)

@@ -218,7 +218,7 @@
         
         NSArray *textArr = @[WX_FormatString(@"%@\n", self.title), WX_ToString(self.subTitle)];
         NSArray *fontArr = @[WX_FontSystem(16), WX_FontSystem(13)];
-        NSArray *colorArr = @[WX_ColorBlackTextColor(), WX_ColorRGB(64,128,214, 1)];
+        NSArray *colorArr = @[WX_ColorBlackTextColor(), WX_ColorMainColor()];
         subTitleLabel.attributedText = [NSString getAttriStrByTextArray:textArr fontArr:fontArr colorArr:colorArr lineSpacing:2 alignment:1];
     }
     if (!WX_isEmptyString(self.tipText)) {
@@ -236,7 +236,7 @@
         _tipTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _tipTextLabel.preferredMaxLayoutWidth = self.view.bounds.size.width;
         _tipTextLabel.backgroundColor = [UIColor clearColor];
-        _tipTextLabel.textColor = WX_ColorHex(0xC0C0C0);
+        _tipTextLabel.textColor = WX_ColorMainColor();
         _tipTextLabel.font = WX_FontSystem(16);
         _tipTextLabel.numberOfLines = 0;
     }

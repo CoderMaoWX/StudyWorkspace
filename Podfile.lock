@@ -31,6 +31,9 @@ PODS:
     - Alamofire
     - KakaJSON
   - YYCache (1.0.4)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -41,6 +44,7 @@ DEPENDENCIES:
   - SSZipArchive
   - WXNetworking
   - WXNetworkingSwift
+  - YYKit
 
 SPEC REPOS:
   https://cdn.cocoapods.org/:
@@ -55,6 +59,7 @@ SPEC REPOS:
     - WXNetworking
     - WXNetworkingSwift
     - YYCache
+    - YYKit
     - YYModel
 
 SPEC CHECKSUMS:
@@ -69,8 +74,9 @@ SPEC CHECKSUMS:
   WXNetworking: ee0ff72862360174c5fcf018313974ced7503b77
   WXNetworkingSwift: 3212e8194d4be71943e1b56aac918a3c5d19c5d9
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 848d597f3ce9218aef39bcfe2bcde6d324494aea
+PODFILE CHECKSUM: e24fd3b85874cec10619bcdc735df237d3b919dd
 
 COCOAPODS: 1.11.2

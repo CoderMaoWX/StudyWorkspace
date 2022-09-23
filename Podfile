@@ -18,6 +18,8 @@ target 'StudyWorkspace' do
   
   pod 'MJRefresh'
   
+  pod 'YYKit'
+  
   pod 'LookinServer', :configurations => ['Debug']
 
 end

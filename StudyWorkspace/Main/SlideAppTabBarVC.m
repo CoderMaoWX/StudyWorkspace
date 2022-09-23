@@ -7,6 +7,7 @@
 //
 
 #import "SlideAppTabBarVC.h"
+#import "WXNavigationVC.h"
 #import "UIView+WXExtension.h"
 #import "StudyMainVC.h"
 #import "WXStudyBaseVC.h"
@@ -40,16 +41,32 @@
     
     //初始化tabBar控制器
     [self initTabBarVCS];
-    
+
     //添加边缘侧滑手势控制器
-//    [self addScreenPan];
+    [self addScreenPan];
+    [self setTabBarStyle];
+}
+
+- (void)setTabBarStyle {
+    [self.tabBar setShadowImage:[UIImage new]];
+    self.tabBar.translucent = NO;
+    
+    if (@available(iOS 13.0, *)) {
+        UITabBarAppearance *barApp = [UITabBarAppearance new];
+        barApp.backgroundColor = [UIColor whiteColor];
+        if (@available(iOS 15.0, *)) {
+            self.tabBar.scrollEdgeAppearance = barApp;//注意: iOS15的Api
+        }
+        self.tabBar.backgroundColor = [UIColor whiteColor];
+        self.tabBar.standardAppearance = barApp;
+    }
 }
 
 #pragma mark - 初始化AppTabBar
 
 - (void)initTabBarVCS {
     StudyMainVC *firstVC = [[StudyMainVC alloc] init];
-    UINavigationController *firstNav = [[UINavigationController alloc] initWithRootViewController:firstVC];
+    WXNavigationVC *firstNav = [[WXNavigationVC alloc] initWithRootViewController:firstVC];
     firstVC.tabBarItem = [self createTabBarItemWithTitle:@"Study1" imageName:@"icon_home1" selectedImage:@"icon_home2"];
     firstVC.title = @"Study1";
     firstVC.edgesForExtendedLayout = UIRectEdgeNone;
@@ -59,21 +76,21 @@
     
 
     WXStudyTabBarVC2 *secondVc = [[WXStudyTabBarVC2 alloc] initWithNibName:@"WXStudyTabBarVC2" bundle:nil];
-    UINavigationController *secondNav = [[UINavigationController alloc] initWithRootViewController:secondVc];
+    WXNavigationVC *secondNav = [[WXNavigationVC alloc] initWithRootViewController:secondVc];
     secondVc.tabBarItem = [self createTabBarItemWithTitle:@"Study2" imageName:@"tabbar_shop_nor" selectedImage:@"tabbar_shop_ser"];
     secondVc.title = @"Study2";
     secondVc.edgesForExtendedLayout = UIRectEdgeNone;
     
     
     WXStudyTabBarVC3 *mineVC = [[WXStudyTabBarVC3 alloc] init];
-    UINavigationController *mineNav = [[UINavigationController alloc] initWithRootViewController:mineVC];
+    WXNavigationVC *mineNav = [[WXNavigationVC alloc] initWithRootViewController:mineVC];
     mineVC.tabBarItem = [self createTabBarItemWithTitle:@"Study3" imageName:@"tabbar_cashier_nor" selectedImage:@"tabbar_cashier_ser"];
     mineVC.title = @"Study3";
     mineVC.edgesForExtendedLayout = UIRectEdgeNone;
     
     
     WXStudyBaseVC *tabBar3VC = [[WXStudyBaseVC alloc] init];
-    UINavigationController *tabBar3Nav = [[UINavigationController alloc] initWithRootViewController:tabBar3VC];
+    WXNavigationVC *tabBar3Nav = [[WXNavigationVC alloc] initWithRootViewController:tabBar3VC];
     tabBar3Nav.tabBarItem = [self createTabBarItemWithTitle:@"Study3" imageName:@"tabbar_cashier_nor" selectedImage:@"tabbar_cashier_ser"];
     tabBar3Nav.title = @"Study4";
     tabBar3Nav.edgesForExtendedLayout = UIRectEdgeNone;
