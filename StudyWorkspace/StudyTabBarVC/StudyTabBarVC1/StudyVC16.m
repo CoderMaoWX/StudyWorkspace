@@ -8,6 +8,7 @@
 
 #import "StudyVC16.h"
 #import "UIImage+YYWebImage.h"
+#import "UIImage+GIF.h"
 #import "UIButton+WXExtension.h"
 #import "Masonry.h"
 #import "UIButton+WXExtension.h"
@@ -17,7 +18,7 @@
 @property (nonatomic, strong) WXButton *redBtn;
 @property (nonatomic, strong) UILabel *orangeLabel;
 @property (nonatomic, strong) WXButton *blueBtn;
-@property (nonatomic, strong) WXButton *pinkBtn;
+@property (nonatomic, strong) WXButton *brownBtn;
 @property (nonatomic, strong) WXButton *blackBtn;
 @property (nonatomic, strong) UIImageView *imageView;
 @end
@@ -39,36 +40,38 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-//    self.orangeLabel.text = @"一句话";
-//    self.orangeLabel.numberOfLines = 0;
-//    self.orangeLabel.preferredMaxLayoutWidth = 180;
-    
-//    self.blueBtn.title = @"一句话很好";
     self.blueBtn.title = @"你好，李银河";
     self.blueBtn.numberOfLines = 0;
     self.blueBtn.preferredMaxLayoutWidth = 180;
 //    [self refreshText];
     self.blueBtn.image = nil;//[UIImage imageNamed:@"tabbar_min_ser"];
-    self.blueBtn.image = [UIImage imageNamed:@"live_video_like"]; //@"women"
+    self.blueBtn.image = [UIImage imageNamed:@"live_video_like"];
 //    self.blueBtn.imageTitleSpace = 5;
     self.blueBtn.imagePlacement = WXImagePlacementLeading;
     self.blueBtn.imageTitleSpace = 20;
-    //图片
-    //self.imageView.image = [UIImage imageNamed:@"Sticker Pack"];
 
     self.blueBtn.leftPadding = 0;
     self.blueBtn.topPadding = 0;
     self.blueBtn.rightPadding = 0;
     self.blueBtn.bottomPadding = 0;
     
-//    self.pinkBtn.topPadding = 20;
-//    self.pinkBtn.leftPadding = 0;
-//    self.pinkBtn.bottomPadding = 30;
-//    self.pinkBtn.rightPadding = 0;
+//    self.orangeLabel.text = @"一句话";
+//    self.orangeLabel.numberOfLines = 0;
+//    self.orangeLabel.preferredMaxLayoutWidth = 180;
+        
+    //图片
+    self.imageView.image = [UIImage imageNamed:@"cat_gif"];
     
-//    self.pinkBtn.titleLabel.layer.masksToBounds = YES;
-//    self.pinkBtn.titleLabel.layer.cornerRadius = 10;
-    self.pinkBtn.title = nil;
+//    self.brownBtn.topPadding = 20;
+//    self.brownBtn.leftPadding = 0;
+//    self.brownBtn.bottomPadding = 30;
+//    self.brownBtn.rightPadding = 0;
+//    self.brownBtn.titleLabel.layer.masksToBounds = YES;
+//    self.brownBtn.titleLabel.layer.cornerRadius = 10;
+//    self.brownBtn.title = nil;
+    self.brownBtn.titleEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    
+    [self setButtonGIFImage];
 
 }
 
@@ -78,7 +81,7 @@
     [self.redBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.offset(100);
         make.centerX.offset(0);
-        make.width.mas_equalTo(180);
+//        make.width.mas_equalTo(180);
     }];
     
     [self.blueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -91,20 +94,21 @@
     [self.orangeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.blueBtn.mas_bottom);
         make.centerX.offset(0);
-        make.height.mas_equalTo(200);
+//        make.height.mas_equalTo(200);
     }];
     
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.leading.mas_equalTo(self.orangeLabel);
-    }];
-
-    [self.pinkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orangeLabel.mas_bottom);
         make.centerX.offset(0);
     }];
 
+    [self.brownBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.imageView.mas_bottom);
+        make.centerX.offset(0);
+    }];
+
     [self.blackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.pinkBtn.mas_bottom);
+        make.top.mas_equalTo(self.brownBtn.mas_bottom);
         make.centerX.offset(0);
     }];
 }
@@ -115,12 +119,25 @@
     if (!_redBtn) {
         _redBtn = [[WXButton alloc] initWithFrame:CGRectZero];
         _redBtn.backgroundColor = UIColor.redColor;
-        _redBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
-        [_redBtn setTitle:@"Red Color Button" forState:UIControlStateNormal];
-        [_redBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        _redBtn.titleFont = [UIFont systemFontOfSize:16.0];
+        _redBtn.titleColor = UIColor.whiteColor;
+        _redBtn.title = @"Red Color Button";
         [self.view addSubview:_redBtn];
     }
     return _redBtn;
+}
+
+- (WXButton *)blueBtn {
+    if (!_blueBtn) {
+        _blueBtn = [[WXButton alloc] initWithFrame:CGRectZero];
+        _blueBtn.backgroundColor = UIColor.blueColor;
+        _blueBtn.titleFont = [UIFont systemFontOfSize:16.0];
+        _blueBtn.titleColor = UIColor.whiteColor;
+        _blueBtn.title = @"Blue Color WXButton";
+        [self.view addSubview:_blueBtn];
+//        [_blueBtn addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    }
+    return _blueBtn;
 }
 
 - (UILabel *)orangeLabel {
@@ -135,40 +152,25 @@
     return _orangeLabel;
 }
 
-- (WXButton *)blueBtn {
-    if (!_blueBtn) {
-//        CGRect rect = CGRectMake(0, 0, 50, 50);
-        _blueBtn = [[WXButton alloc] initWithFrame:CGRectZero];
-        _blueBtn.backgroundColor = UIColor.blueColor;
-        _blueBtn.titleFont = [UIFont systemFontOfSize:16.0];
-        _blueBtn.titleColor = UIColor.whiteColor;
-        _blueBtn.title = @"Blue Color WXButton";
-        [self.view addSubview:_blueBtn];
-//        [_blueBtn addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
+- (WXButton *)brownBtn {
+    if (!_brownBtn) {
+        _brownBtn = [[WXButton alloc] initWithFrame:CGRectZero];
+        _brownBtn.backgroundColor = UIColor.brownColor;
+        _brownBtn.titleFont = [UIFont systemFontOfSize:16.0];
+        _brownBtn.titleColor = UIColor.whiteColor;
+        _brownBtn.title = @"Brown Color WXButton";
+        [self.view addSubview:_brownBtn];
     }
-    return _blueBtn;
-}
-
-- (WXButton *)pinkBtn {
-    if (!_pinkBtn) {
-        _pinkBtn = [[WXButton alloc] initWithFrame:CGRectZero];
-        _pinkBtn.backgroundColor = UIColor.clearColor;
-        _pinkBtn.titleLabel.backgroundColor = UIColor.systemPinkColor;
-        _pinkBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
-        [_pinkBtn setTitle:@"Pink Color Button" forState:UIControlStateNormal];
-        [_pinkBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
-        [self.view addSubview:_pinkBtn];
-    }
-    return _pinkBtn;
+    return _brownBtn;
 }
 
 - (WXButton *)blackBtn {
     if (!_blackBtn) {
         _blackBtn = [[WXButton alloc] initWithFrame:CGRectZero];
         _blackBtn.backgroundColor = UIColor.blackColor;
-        _blackBtn.titleLabel.font = [UIFont systemFontOfSize:16.0];
-        [_blackBtn setTitle:@"Black Color Button" forState:UIControlStateNormal];
-        [_blackBtn setTitleColor:UIColor.whiteColor forState:UIControlStateNormal];
+        _blackBtn.titleFont = [UIFont systemFontOfSize:16.0];
+        _blackBtn.titleColor = UIColor.whiteColor;
+        _blackBtn.title = @"Black Color Button";
         [self.view addSubview:_blackBtn];
     }
     return _blackBtn;
@@ -176,7 +178,7 @@
 
 - (UIImageView *)imageView {
     if (!_imageView) {
-        UIImage *image = [UIImage imageNamed:@"Sticker Pack"];
+        UIImage *image = [UIImage imageNamed:@"tab_call_nor"];
         _imageView = [[UIImageView alloc] initWithImage:image];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.view addSubview:_imageView];
@@ -186,14 +188,12 @@
 
 ///不导第三方库加载GIf图片
 - (void)setButtonGIFImage {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"checkout_arrow" ofType:@"gif"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"cat_gif" ofType:@"gif"];
     NSData *gifData = [NSData dataWithContentsOfFile:path];
-    //UIImage *gifImage = [UIImage sd_imageWithGIFData:gifData];//SDWebImage方法不能设置大小
-    UIImage *gifImage = [UIImage yy_imageWithSmallGIFData:gifData scale:3];
-    [_redBtn setImage:gifImage forState:UIControlStateNormal];
-    [_redBtn layoutStyle:(WXButtonEdgeInsetsStyleRight) imageTitleSpace:5];
-    
-    [_redBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIImage *gifImage = [UIImage sd_imageWithGIFData:gifData];//SDWebImage方法不能设置大小
+    gifImage = [UIImage yy_imageWithSmallGIFData:gifData scale:2]; //YYImage方法能设置大小
+    self.imageView.image = gifImage;
+    self.brownBtn.image = gifImage;
 }
 
 - (void)btnAction:(UIButton *)button {
