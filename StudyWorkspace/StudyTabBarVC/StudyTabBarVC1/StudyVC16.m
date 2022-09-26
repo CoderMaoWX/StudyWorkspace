@@ -15,6 +15,7 @@
 #import "UIButton+WXExtension.h"
 #import "WXButton.h"
 #import "YYText.h"
+#import "WXLayoutView.h"
 
 @interface StudyVC16 ()
 @property (nonatomic, strong) WXButton *redBtn;
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) WXButton *blueBtn;
 @property (nonatomic, strong) WXButton *brownBtn;
 @property (nonatomic, strong) WXButton *blackBtn;
+@property (nonatomic, strong) WXLayoutView *layoutView;
 @property (nonatomic, strong) UIImageView *imageView;
 @end
 
@@ -74,6 +76,9 @@
     //设置图片
 //    self.brownBtn.image = [self getGIFImage:@"cat_gif"];
 //    self.imageView.image = [self getGIFImage:@"giftBox_gif"];
+    
+//    self.layoutView.text = @"WXLayoutView kit";
+    self.layoutView.text = nil;
 }
 
 ///不导第三方库加载GIf图片
@@ -126,9 +131,14 @@
         make.top.mas_equalTo(self.imageView.mas_bottom);
         make.centerX.offset(0);
     }];
-
-    [self.blackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [self.layoutView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.brownBtn.mas_bottom);
+        make.centerX.offset(0);
+    }];
+    
+    [self.blackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.layoutView.mas_bottom);
         make.centerX.offset(0);
     }];
 }
@@ -171,6 +181,18 @@
         [self.view addSubview:_orangeLabel];
     }
     return _orangeLabel;
+}
+
+- (WXLayoutView *)layoutView {
+    if (!_layoutView) {
+        _layoutView = [[WXLayoutView alloc] initWithFrame:CGRectZero];
+        _layoutView.backgroundColor = UIColor.lightGrayColor;
+        _layoutView.font = [UIFont systemFontOfSize:16.0];
+        _layoutView.textColor = UIColor.whiteColor;
+        _layoutView.text = @"WXLayoutView kit";
+        [self.view addSubview:_layoutView];
+    }
+    return _layoutView;
 }
 
 - (UIImageView *)imageView {
