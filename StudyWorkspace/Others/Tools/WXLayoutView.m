@@ -223,7 +223,6 @@
     if (self.preferredMaxLayoutWidth > 0) {
         fitsSize.width = self.preferredMaxLayoutWidth;
     }
-    
     //调整fitsSize的值, 这里的宽度调整为只要宽度小于等于0或者显示一行都不限制宽度，而高度则总是改为不限制高度。
     fitsSize.height = FLT_MAX;
     if (fitsSize.width <= 0 || numberOfLines == 1) {

@@ -77,8 +77,12 @@
 //    self.brownBtn.image = [self getGIFImage:@"cat_gif"];
 //    self.imageView.image = [self getGIFImage:@"giftBox_gif"];
     
-//    self.layoutView.text = @"WXLayoutView kit";
-    self.layoutView.text = nil;
+    
+    if (self.layoutView.text.length == 0) {
+        self.layoutView.text = @"WXLayoutView kit";
+    } else {
+        self.layoutView.text = nil;
+    }
 }
 
 ///不导第三方库加载GIf图片
@@ -187,8 +191,8 @@
     if (!_layoutView) {
         _layoutView = [[WXLayoutView alloc] initWithFrame:CGRectZero];
         _layoutView.backgroundColor = UIColor.lightGrayColor;
-        _layoutView.font = [UIFont systemFontOfSize:16.0];
-        _layoutView.textColor = UIColor.whiteColor;
+        _layoutView.font = [UIFont systemFontOfSize:26.0];
+        _layoutView.textColor = UIColor.redColor;
         _layoutView.text = @"WXLayoutView kit";
         [self.view addSubview:_layoutView];
     }
