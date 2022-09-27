@@ -24,11 +24,11 @@
 ///图片和文本布局位置
 @property (nonatomic, assign) WXImagePlacementStyle imagePlacement;
 ///图片和文本的间距
-@property (nonatomic, assign) CGFloat imageTitleSpace;
+@property (nonatomic, assign) CGFloat imageTextSpace;
 ///文本
 @property(nonatomic, copy) NSString *text;
 ///富文本
-@property(nonatomic, copy) NSAttributedString *attributedTitle;
+@property(nonatomic, copy) NSAttributedString *attributedText;
 ///文本字体
 @property(nonatomic, strong) UIFont *font;
 ///文本颜色
@@ -38,7 +38,7 @@
 ///最大换行宽度
 @property(nonatomic, assign) CGFloat preferredMaxLayoutWidth;
 ///文本换行连接模式
-@property(nonatomic, assign) NSLineBreakMode textLineBreakMode;
+@property(nonatomic, assign) NSLineBreakMode lineBreakMode;
 ///图片
 @property(nonatomic, strong) UIImage *image;
 ///背景图片
