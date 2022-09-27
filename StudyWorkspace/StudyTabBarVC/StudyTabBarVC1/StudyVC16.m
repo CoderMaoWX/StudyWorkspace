@@ -24,6 +24,8 @@
 @property (nonatomic, strong) WXButton *brownBtn;
 @property (nonatomic, strong) WXButton *blackBtn;
 @property (nonatomic, strong) WXLayoutView *layoutView;
+@property (nonatomic, strong) UIButton *systemButton;
+@property (nonatomic, strong) UILabel *systemLabel;
 @property (nonatomic, strong) UIImageView *imageView;
 @end
 
@@ -78,10 +80,32 @@
 //    self.imageView.image = [self getGIFImage:@"giftBox_gif"];
     
     
-    if (self.layoutView.text.length == 0) {
-        self.layoutView.text = @"WXLayoutView kit";
-    } else {
+    if (self.layoutView.text.length != 0) {
         self.layoutView.text = nil;
+//        self.layoutView.image = [UIImage imageNamed:@"like_icon"];
+        
+        self.blueBtn.title = nil;
+        self.blueBtn.image = [UIImage imageNamed:@"like_icon"];
+    } else {
+        self.layoutView.imageTextSpace = 0;
+        self.layoutView.imagePlacement = WXImagePlacementTrailing;
+//        self.layoutView.paddingInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        self.layoutView.text = @"WXLayoutView kit";
+//        self.layoutView.image = [UIImage imageNamed:@"like_icon"];
+        self.layoutView.backgroundImage = [UIImage imageNamed:@"icon_qq_zone"];
+        
+//        self.systemButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+//        [self.systemButton sizeToFit];
+
+        self.blueBtn.imageTitleSpace = 20;
+        self.blueBtn.imagePlacement = WXImagePlacementTrailing;
+        self.blueBtn.leftPadding = 10;
+        self.blueBtn.topPadding = 10;
+        self.blueBtn.rightPadding = 10;
+        self.blueBtn.bottomPadding = 10;
+        self.blueBtn.title = @"WXLayoutView kit";
+        self.blueBtn.image = [UIImage imageNamed:@"like_icon"];
+        [self.blueBtn setBackgroundImage:[UIImage imageNamed:@"icon_qq_zone"]];
     }
 }
 
@@ -141,8 +165,18 @@
         make.centerX.offset(0);
     }];
     
-    [self.blackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.systemButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.layoutView.mas_bottom);
+        make.centerX.offset(0);
+    }];
+    
+    [self.systemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.systemButton.mas_bottom);
+        make.centerX.offset(0);
+    }];
+    
+    [self.blackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.systemLabel.mas_bottom);
         make.centerX.offset(0);
     }];
 }
@@ -181,7 +215,7 @@
         _orangeLabel.font = [UIFont systemFontOfSize:16.0];
         _orangeLabel.textColor = UIColor.whiteColor;
         _orangeLabel.text = @"Orange Lbael";
-        _orangeLabel.textContainerInset = UIEdgeInsetsMake(10, 10, 20, 10);
+//        _orangeLabel.textContainerInset = UIEdgeInsetsMake(10, 10, 20, 10);
         [self.view addSubview:_orangeLabel];
     }
     return _orangeLabel;
@@ -191,12 +225,38 @@
     if (!_layoutView) {
         _layoutView = [[WXLayoutView alloc] initWithFrame:CGRectZero];
         _layoutView.backgroundColor = UIColor.lightGrayColor;
-        _layoutView.font = [UIFont systemFontOfSize:26.0];
+        _layoutView.font = [UIFont systemFontOfSize:16.0];
         _layoutView.textColor = UIColor.redColor;
-        _layoutView.text = @"WXLayoutView kit";
+//        _layoutView.text = @"WXLayoutView kit";
+//        _layoutView.text = @"Orange Lbael";
         [self.view addSubview:_layoutView];
     }
     return _layoutView;
+}
+
+- (UIButton *)systemButton {
+    if (!_systemButton) {
+        _systemButton = [[UIButton alloc] initWithFrame:CGRectZero];
+        _systemButton.backgroundColor = UIColor.greenColor;
+        _systemButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        [_systemButton setTitleColor:UIColor.redColor forState:(UIControlStateNormal)];
+        [_systemButton setTitle:@"WXLayoutView kit" forState:(UIControlStateNormal)];
+        [_systemButton setBackgroundImage:[UIImage imageNamed:@"icon_qq_zone"] forState:(UIControlStateNormal)];
+        [self.view addSubview:_systemButton];
+    }
+    return _systemButton;
+}
+
+- (UILabel *)systemLabel {
+    if (!_systemLabel) {
+        _systemLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _systemLabel.backgroundColor = UIColor.lightGrayColor;
+        _systemLabel.font = [UIFont systemFontOfSize:16];
+        _systemLabel.textColor = UIColor.redColor;
+        _systemLabel.text = @"WXLayoutView kit";
+        [self.view addSubview:_systemLabel];
+    }
+    return _systemLabel;
 }
 
 - (UIImageView *)imageView {

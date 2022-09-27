@@ -21,13 +21,13 @@
 ///文本
 - (void)setText:(NSString *)text {
     _text = text;
-    [self needsUpdateTitleContent];
+    [self updateContent];
 }
 
 ///富文本
 - (void)setAttributedText:(NSAttributedString *)attributedText {
     _attributedText = attributedText;
-    [self needsUpdateTitleContent];
+    [self updateContent];
 }
 
 ///文本字体
@@ -75,7 +75,7 @@
 ///图片
 - (void)setImage:(UIImage *)image {
     _image = image;
-    [self needsUpdateImageContent];
+    [self updateContent];
 }
 
 ///背景图片
@@ -110,20 +110,29 @@
             padding:(CGFloat)padding {
     UIEdgeInsets insets = self.paddingInset;
     switch (directional) {
-        case UIRectEdgeTop:
+    case UIRectEdgeTop: {
+            _topPadding = padding;
             insets.top = padding;
-            break;
-        case UIRectEdgeLeft:
+        }
+        break;
+    case UIRectEdgeLeft: {
+            _leftPadding = padding;
             insets.left = padding;
-            break;
-        case UIRectEdgeBottom:
+        }
+        break;
+    case UIRectEdgeBottom: {
+            _bottomPadding = padding;
             insets.bottom = padding;
-            break;
-        case UIRectEdgeRight:
+        }
+        break;
+    case UIRectEdgeRight: {
+            _rightPadding = padding;
             insets.right = padding;
-            break;
-        default:
-            break;
+        }
+        break;
+        
+    default:
+        break;
     }
     self.paddingInset = insets;
 }
@@ -131,6 +140,11 @@
 ///内边距: (上,左,下,右)
 - (void)setPaddingInset:(UIEdgeInsets)paddingInset {
     _paddingInset = paddingInset;
+    _topPadding = paddingInset.top;
+    _leftPadding = paddingInset.left;
+    _bottomPadding = paddingInset.bottom;
+    _rightPadding = paddingInset.right;
+    
     if (self.text || self.image){
         [self updateContent];
     }
@@ -160,7 +174,13 @@
 - (CGSize)configAttributedStringSize {
     
     NSString *text = self.text;
-    if (text == nil || [text length] <= 0) {
+    BOOL hasText = (self.text && self.text.length != 0);
+    BOOL hasAttribText = (self.attributedText && self.attributedText.string.length != 0);
+    
+    //空内容就返回: Zero
+    if (!hasText && !hasAttribText) {
+        self.drawRectAttributedString = nil;
+        self.drawTextSize = CGSizeZero;
         return CGSizeZero;
     }
     
@@ -188,7 +208,6 @@
     attributesDict[NSForegroundColorAttributeName] = self.textColor ?: UIColor.blackColor;
     
     NSAttributedString *calcAttributedString = self.attributedText;
-    
     if (!calcAttributedString) {
         
         if ([text isKindOfClass:NSString.class]) {
@@ -217,7 +236,7 @@
     NSInteger numberOfLines = self.numberOfLines;
     
     //fitsSize 指定限制的尺寸，参考UILabel中的sizeThatFits中的参数的意义。
-    CGSize fitsSize = self.bounds.size;
+    CGSize fitsSize = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
     
     //限制最大宽度
     if (self.preferredMaxLayoutWidth > 0) {
@@ -337,14 +356,14 @@
         CGFloat width = self.leftPadding + MAX(textWidth, imgWidth) + self.rightPadding;
         CGFloat height = self.topPadding + textHeight + imageTextSpace + imgHeight + self.bottomPadding;
         
-        //NSLog(@"固有大小 上下布局: 宽: %.2f, 高:%.2f", width, height);
+        NSLog(@"固有大小 上下布局: 宽: %.2f, 高:%.2f", width, height);
         return CGSizeMake(width, height);
         
     } else {//左右布局
         CGFloat width = self.leftPadding + textWidth + imageTextSpace + imgWidth + self.rightPadding;
         CGFloat height = self.topPadding + MAX(textHeight, imgHeight) + self.bottomPadding;
         
-        //NSLog(@"固有大小 左右布局: 宽: %.2f, 高:%.2f", width, height);
+        NSLog(@"固有大小 左右布局: 宽: %.2f, 高:%.2f", width, height);
         return CGSizeMake(width, height);
     }
 }
@@ -352,38 +371,141 @@
 //MARK: - 绘制控件内容
 
 - (void)drawRect:(CGRect)rect {
-    CGRect textRect = CGRectStandardize(rect);
-    textRect.size = self.drawTextSize;
-    textRect.origin.x = 10;
-    textRect.origin.y = 20;
+    BOOL hasText = (self.text && self.text.length != 0);
+    BOOL hasAttribText = (self.attributedText && self.attributedText.string.length != 0);
     
-    //绘制文案
-    [self.drawRectAttributedString drawInRect:textRect];
+    //空内容就返回: Zero
+    if (!hasText && !hasAttribText && !self.image) {
+        return;
+    }
+    
+    CGSize textSize = self.drawTextSize;
+    CGFloat textWidth = 0.0;
+    CGFloat textHeight = 0.0;
+    if (textSize.width > 0 && textSize.height > 0) {
+        textHeight = textSize.height;
+        textWidth = textSize.width;
+    }
+    
+    CGSize imgSize = self.image.size;
+    CGFloat imgWidth = 0.0;
+    CGFloat imgHeight = 0.0;
+    if (imgSize.width > 0 && imgSize.height > 0) {
+        imgWidth = imgSize.width;
+        imgHeight = imgSize.height;
+    }
+    
+    BOOL hasTextAndImage = ((hasText || hasAttribText) && self.image);
+    CGFloat imageTextSpace = hasTextAndImage ? self.imageTextSpace : 0;
+    if (textWidth == 0 || textHeight == 0 || imgWidth == 0 || imgHeight == 0) {
+        imageTextSpace = 0;
+    }
+    
+    CGFloat horizontalMargin = self.leftPadding + self.rightPadding;
+    CGFloat verticalMargin = self.topPadding + self.bottomPadding;
+
+    CGRect imageRect = CGRectZero;
+    imageRect.size = self.image.size;
+    
+    CGRect textRect = CGRectZero;
+    textRect.size = self.drawTextSize;
     
     switch (self.imagePlacement) {
     case WXImagePlacementTop: {
         
+        //1.Image位置: 在上
+        imageRect.origin.x = self.leftPadding;
+        imageRect.origin.y = self.topPadding;
+        
+        //2.Title位置: 在下
+        textRect.origin.x = self.leftPadding;
+        textRect.origin.y = CGRectGetMaxY(imageRect) + imageTextSpace;
+
+        //Image 比 Text宽
+        if (imageRect.size.width > textRect.size.width) {
+            textRect.origin.x = (imageRect.size.width + horizontalMargin - textRect.size.width) / 2;
+
+        } else {//Text 比 Image宽
+            imageRect.origin.x = (textRect.size.width + horizontalMargin - imageRect.size.width) / 2;
+        }
     }
         break;
         
     case WXImagePlacementLeading: {
         
+        //1.Image位置: 在左
+        imageRect.origin.x = self.leftPadding;
+        imageRect.origin.y = self.topPadding;
+        
+        //2.Text位置: 在右
+        textRect.origin.x = CGRectGetMaxX(imageRect) + imageTextSpace;
+        textRect.origin.y = self.topPadding;
+        
+        //Image 比 Text高
+        if (imageRect.size.height > textRect.size.height) {
+            textRect.origin.y = (imageRect.size.height + verticalMargin - textRect.size.height) / 2;
+
+        } else {//Text 比 Image高
+            imageRect.origin.y = (textRect.size.height + verticalMargin - imageRect.size.width) / 2;
+        }
     }
         break;
         
     case WXImagePlacementBottom: {
         
+        //1.Text位置: 在上
+        textRect.origin.x = self.leftPadding;
+        textRect.origin.y = self.topPadding;
+        
+        //2.Image位置: 在下
+        imageRect.origin.x = self.leftPadding;
+        imageRect.origin.y = CGRectGetMaxY(textRect) + imageTextSpace;;
+        
+        //Text 比 Image宽
+        if (textRect.size.width > imageRect.size.width) {
+            imageRect.origin.x = (textRect.size.width + horizontalMargin - imageRect.size.width) / 2;
+
+        } else {//Image 比 Text宽
+            textRect.origin.x = (imageRect.size.width + horizontalMargin - textRect.size.width) / 2;
+        }
     }
         break;
         
     case WXImagePlacementTrailing: {
         
+        //1.Text位置: 在左
+        textRect.origin.x = self.leftPadding;
+        textRect.origin.y = self.topPadding;
+        
+        //1.Image位置: 在右
+        imageRect.origin.x = CGRectGetMaxX(textRect) + imageTextSpace;
+        imageRect.origin.y = self.topPadding;
+        
+        //Text 比 Image高
+        if (textRect.size.height > imageRect.size.height) {
+            imageRect.origin.y = (textRect.size.height + verticalMargin - imageRect.size.height) / 2;
+
+        } else {//Image 比 Text高
+            textRect.origin.y = (imageRect.size.height + verticalMargin - textRect.size.height) / 2;
+        }
     }
         break;
     default:
         break;
     }
     
+    // 1.绘制背景图片
+    if(self.backgroundImage && !CGRectEqualToRect(rect, CGRectZero)) {
+        [self.backgroundImage drawInRect:rect];
+    }
+    // 2.绘制图片
+    if(self.image && !CGRectEqualToRect(imageRect, CGRectZero)) {
+        [self.image drawInRect:imageRect];
+    }
+    // 3.绘制文案
+    if(hasText && !CGRectEqualToRect(textRect, CGRectZero)) {
+        [self.drawRectAttributedString drawInRect:textRect];
+    }
 }
 
 
