@@ -87,25 +87,24 @@
         self.blueBtn.title = nil;
         self.blueBtn.image = [UIImage imageNamed:@"like_icon"];
     } else {
-        self.layoutView.imageTextSpace = 0;
-        self.layoutView.imagePlacement = WXImagePlacementTrailing;
-//        self.layoutView.paddingInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        self.layoutView.imageTextSpace = 20;
+        self.layoutView.imagePlacement = WXImagePlacementTop;
         self.layoutView.text = @"WXLayoutView kit";
-//        self.layoutView.image = [UIImage imageNamed:@"like_icon"];
-        self.layoutView.backgroundImage = [UIImage imageNamed:@"icon_qq_zone"];
+        self.layoutView.image = [UIImage imageNamed:@"like_icon"];
+//        self.layoutView.backgroundImage = [UIImage imageNamed:@"icon_qq_zone"];
         
+//        self.layoutView.paddingInset = UIEdgeInsetsMake(10, 10, 10, 10);
 //        self.systemButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-//        [self.systemButton sizeToFit];
 
         self.blueBtn.imageTitleSpace = 20;
-        self.blueBtn.imagePlacement = WXImagePlacementTrailing;
+        self.blueBtn.imagePlacement = WXImagePlacementTop;
         self.blueBtn.leftPadding = 10;
         self.blueBtn.topPadding = 10;
         self.blueBtn.rightPadding = 10;
         self.blueBtn.bottomPadding = 10;
         self.blueBtn.title = @"WXLayoutView kit";
         self.blueBtn.image = [UIImage imageNamed:@"like_icon"];
-        [self.blueBtn setBackgroundImage:[UIImage imageNamed:@"icon_qq_zone"]];
+//        self.blueBtn.backgroundImage = [UIImage imageNamed:@"icon_qq_zone"];
     }
 }
 
@@ -241,7 +240,7 @@
         _systemButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [_systemButton setTitleColor:UIColor.redColor forState:(UIControlStateNormal)];
         [_systemButton setTitle:@"WXLayoutView kit" forState:(UIControlStateNormal)];
-        [_systemButton setBackgroundImage:[UIImage imageNamed:@"icon_qq_zone"] forState:(UIControlStateNormal)];
+//        [_systemButton setBackgroundImage:[UIImage imageNamed:@"icon_qq_zone"] forState:(UIControlStateNormal)];
         [self.view addSubview:_systemButton];
     }
     return _systemButton;

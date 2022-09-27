@@ -8,13 +8,14 @@
 // 此按钮用于约束布局时: 如果有 文本/图片 内容时需要设置内间距, 在无内容时整个按钮的大小自动为0, 并且所有内间距自动被忽略, 使用时只需根据自身逻辑设置 文本/图片 即可, 无需频繁更新约束来控制间距问题
 
 #import <UIKit/UIKit.h>
+#import "WXLayoutView.h"
 
-typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
-    WXImagePlacementLeading = 0, // image在左，label在右
-    WXImagePlacementTrailing,    // image在右，label在左
-    WXImagePlacementTop,         // image在上，label在下
-    WXImagePlacementBottom,      // image在下，label在上
-};
+//typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
+//    WXImagePlacementLeading = 0, // image在左，label在右
+//    WXImagePlacementTrailing,    // image在右，label在左
+//    WXImagePlacementTop,         // image在上，label在下
+//    WXImagePlacementBottom,      // image在下，label在上
+//};
 
 @interface WXButton : UIButton
 

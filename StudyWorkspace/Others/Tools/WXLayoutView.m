@@ -184,14 +184,8 @@
         return CGSizeZero;
     }
     
-    //如果不指定字体则用默认的字体。
-    UIFont *textFont = self.font;
-    if (textFont == nil) {
-        textFont = [UIFont systemFontOfSize:17];
-    }
-    
     CGFloat systemVersion = [UIDevice currentDevice].systemVersion.floatValue;
-        
+    
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = NSTextAlignmentLeft;
     paragraphStyle.lineBreakMode = self.lineBreakMode;
@@ -201,14 +195,20 @@
             [paragraphStyle setValue:@(1) forKey:@"lineBreakStrategy"];
         } @catch (NSException *exception) {}
     }
-
-    NSMutableDictionary *attributesDict = [NSMutableDictionary dictionary];
-    attributesDict[NSFontAttributeName] = textFont;
-    attributesDict[NSParagraphStyleAttributeName] = paragraphStyle;
-    attributesDict[NSForegroundColorAttributeName] = self.textColor ?: UIColor.blackColor;
     
     NSAttributedString *calcAttributedString = self.attributedText;
     if (!calcAttributedString) {
+        
+        //如果不指定字体则用默认的字体。
+        UIFont *textFont = self.font;
+        if (textFont == nil) {
+            textFont = [UIFont systemFontOfSize:17];
+        }
+
+        NSMutableDictionary *attributesDict = [NSMutableDictionary dictionary];
+        attributesDict[NSFontAttributeName] = textFont;
+        attributesDict[NSParagraphStyleAttributeName] = paragraphStyle;
+        attributesDict[NSForegroundColorAttributeName] = self.textColor ?: UIColor.blackColor;
         
         if ([text isKindOfClass:NSString.class]) {
             calcAttributedString = [[NSAttributedString alloc] initWithString:(NSString *)text attributes:attributesDict];
@@ -261,7 +261,6 @@
         [context setValue:@(YES) forKey:@"wantsNumberOfLineFragments"];
     } @catch (NSException *exception) {}
        
-
     //计算属性字符串的bounds值。
     CGRect textRect = [calcAttributedString boundingRectWithSize:fitsSize options:NSStringDrawingUsesLineFragmentOrigin context:context];
     
@@ -316,8 +315,6 @@
 
 ///更新布局大小
 - (CGSize)intrinsicContentSize {
-//    // 强制更新布局，以获得最新的 imageView 和 titleLabel 的 frame
-//    [self layoutIfNeeded];
     
     BOOL hasText = (self.text && self.text.length != 0);
     BOOL hasAttribText = (self.attributedText && self.attributedText.string.length != 0);
@@ -371,6 +368,8 @@
 //MARK: - 绘制控件内容
 
 - (void)drawRect:(CGRect)rect {
+    NSLog(@"绘制控件内容: 宽: %.2f, 高:%.2f", rect.size.width, rect.size.height);
+    
     BOOL hasText = (self.text && self.text.length != 0);
     BOOL hasAttribText = (self.attributedText && self.attributedText.string.length != 0);
     
