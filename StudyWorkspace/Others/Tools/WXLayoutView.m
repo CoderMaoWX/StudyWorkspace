@@ -368,6 +368,7 @@
 //MARK: - 绘制控件内容
 
 - (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
     NSLog(@"绘制控件内容: 宽: %.2f, 高:%.2f", rect.size.width, rect.size.height);
     
     BOOL hasText = (self.text && self.text.length != 0);
@@ -501,11 +502,49 @@
     if(self.image && !CGRectEqualToRect(imageRect, CGRectZero)) {
         [self.image drawInRect:imageRect];
     }
+    
     // 3.绘制文案
     if(hasText && !CGRectEqualToRect(textRect, CGRectZero)) {
+        
+        CGRect textBgColorRect = CGRectStandardize(textRect);
+        textBgColorRect.origin.x -= 5;
+        textBgColorRect.origin.y -= 5;
+        textBgColorRect.size.width += 10;
+        textBgColorRect.size.height += 10;
+        //绘制背景色
+        [self drawRoundRect:textBgColorRect radius:5];
+        
+        //绘制文案
         [self.drawRectAttributedString drawInRect:textRect];
     }
 }
+
+- (void)drawRoundRect:(CGRect)rect radius:(CGFloat)radius {
+    float x1 = rect.origin.x;
+    float y1 = rect.origin.y;
+    float x2 = x1+rect.size.width;
+    float y2 = y1;
+    float x3 = x2;
+    float y3 = y1+rect.size.height;
+    float x4 = x1;
+    float y4 = y3;
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextMoveToPoint(context,   x1, y1 + radius);
+    CGContextAddArcToPoint(context, x1, y1, x1 + radius, y1, radius);
+    CGContextAddArcToPoint(context, x2, y2, x2, y2 + radius, radius);
+    CGContextAddArcToPoint(context, x3, y3, x3 - radius, y3, radius);
+    CGContextAddArcToPoint(context, x4, y4, x4, y4 - radius, radius);
+    
+//    [[UIColor blueColor] setStroke];
+//    CGContextStrokePath(context);
+    
+    //CGContextSetFillColorWithColor(context, UIColor.whiteColor.CGColor);
+    [[UIColor yellowColor] set];
+    CGContextFillPath(context);
+    
+}
+
 
 
 //MARK: - Getter Method

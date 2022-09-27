@@ -31,6 +31,11 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 @property(nonatomic, strong) UIFont *font;
 ///文本颜色
 @property(nonatomic, strong) UIColor *textColor;
+
+@property(nonatomic) UIEdgeInsets textInset;
+@property(nonatomic, strong) UIColor *textBackgroundColor;
+@property(nonatomic, assign) CGFloat textCornerRadius;
+
 ///换行显示行数
 @property(nonatomic, assign) NSInteger numberOfLines;
 ///最大换行宽度

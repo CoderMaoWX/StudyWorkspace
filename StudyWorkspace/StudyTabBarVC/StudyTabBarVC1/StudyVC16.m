@@ -87,13 +87,12 @@
         self.blueBtn.title = nil;
         self.blueBtn.image = [UIImage imageNamed:@"like_icon"];
     } else {
-        self.layoutView.imageTextSpace = 20;
+        self.layoutView.imageTextSpace = 3;
         self.layoutView.imagePlacement = WXImagePlacementTop;
         self.layoutView.text = @"WXLayoutView kit";
         self.layoutView.image = [UIImage imageNamed:@"like_icon"];
 //        self.layoutView.backgroundImage = [UIImage imageNamed:@"icon_qq_zone"];
-        
-//        self.layoutView.paddingInset = UIEdgeInsetsMake(10, 10, 10, 10);
+        self.layoutView.paddingInset = UIEdgeInsetsMake(20, 20, 20, 20);
 //        self.systemButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
 
         self.blueBtn.imageTitleSpace = 20;

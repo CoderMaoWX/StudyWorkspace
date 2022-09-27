@@ -12,7 +12,8 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    drawDemo(rect);
+//    drawDemo(rect);
+    drawCircle();
 }
 
 
