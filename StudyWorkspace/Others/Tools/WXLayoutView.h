@@ -58,6 +58,11 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 ///单独设置 右 边距: (注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见)
 @property (nonatomic, assign) CGFloat rightPadding;
 
+/**
+ * 注意下面 (文字背景色 与 文字边框) 两个方法都调用时,
+ * 内部偏移和圆角 优先生效的是textBackgroundColor方法设置的
+ */
+
 ///绘制文本背景色/圆角 (类似于: 给文本打标的UI)
 - (void)textBackgroundColor:(UIColor *)color
                  colorInset:(UIEdgeInsets)inset
