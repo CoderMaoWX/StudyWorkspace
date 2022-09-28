@@ -5,8 +5,8 @@
 //  Created by 610582 on 2022/9/23.
 //  Copyright © 2022 MaoWX. All rights reserved.
 //
-// 此按钮用于约束布局时: 如果有 文本/图片 内容时需要设置内间距, 在无内容时整个按钮的大小自动为0,
-// 并且所有内间距自动被忽略, 使用时只需根据自身逻辑设置 文本/图片 即可, 无需频繁更新约束来控制间距问题
+// 此按钮用于约束布局时: 如果有 文本/图片 内容时需要设置外间距, 在无内容时整个按钮的大小自动为0, 无需更新外部布局约束
+// 并且所有外间距自动被忽略, 使用时只需根据自身逻辑设置 文本/图片 即可, 无需频繁更新约束来控制间距问题
 
 #import <UIKit/UIKit.h>
 
@@ -44,23 +44,23 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 ///背景图片
 @property(nonatomic, strong) UIImage *backgroundImage;
 /**
- * 对控件设置内边距 (同时设置: 上/左/下/右)
- * 注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见
+ * 对控件设置外边距 (同时设置: 上/左/下/右)
+ * 注意: 如果控件内容为空时, 外边距自动被忽略, 控件宽高自动变为0, 控件不可见
  */
-@property (nonatomic) UIEdgeInsets paddingInset;
+@property (nonatomic) UIEdgeInsets marginInset;
 
-///单独设置 上 边距: (注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见)
-@property (nonatomic, assign) CGFloat topPadding;
-///单独设置 左 边距: (注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见)
-@property (nonatomic, assign) CGFloat leftPadding;
-///单独设置 下 边距: (注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见)
-@property (nonatomic, assign) CGFloat bottomPadding;
-///单独设置 右 边距: (注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见)
-@property (nonatomic, assign) CGFloat rightPadding;
+///单独设置 上 边距: (注意: 如果控件内容为空时, 外边距自动被忽略, 控件宽高自动变为0, 控件不可见)
+@property (nonatomic, assign) CGFloat topMargin;
+///单独设置 左 边距: (注意: 如果控件内容为空时, 外边距自动被忽略, 控件宽高自动变为0, 控件不可见)
+@property (nonatomic, assign) CGFloat leftMargin;
+///单独设置 下 边距: (注意: 如果控件内容为空时, 外边距自动被忽略, 控件宽高自动变为0, 控件不可见)
+@property (nonatomic, assign) CGFloat bottomMargin;
+///单独设置 右 边距: (注意: 如果控件内容为空时, 外边距自动被忽略, 控件宽高自动变为0, 控件不可见)
+@property (nonatomic, assign) CGFloat rightMargin;
 
 /**
  * 注意下面 (文字背景色 与 文字边框) 两个方法都调用时,
- * 内部偏移和圆角 优先生效的是textBackgroundColor方法设置的
+ * 内部偏移和圆角 优先生效的是 textBackgroundColor: 方法设置的
  */
 
 ///绘制文本背景色/圆角 (类似于: 给文本打标的UI)

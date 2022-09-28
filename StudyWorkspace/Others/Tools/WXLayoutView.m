@@ -115,64 +115,64 @@
 }
 
 ///上边距
-- (void)setTopPadding:(CGFloat)topPadding {
-    _topPadding = topPadding;
-    [self refreshEdge:UIRectEdgeTop padding:topPadding];
+- (void)setTopMargin:(CGFloat)topMargin {
+    _topMargin = topMargin;
+    [self refreshEdge:UIRectEdgeTop margin:topMargin];
 }
 ///左边距
-- (void)setLeftPadding:(CGFloat)leftPadding {
-    _leftPadding = leftPadding;
-    [self refreshEdge:UIRectEdgeLeft padding:leftPadding];
+- (void)setLeftMargin:(CGFloat)leftMargin {
+    _leftMargin = leftMargin;
+    [self refreshEdge:UIRectEdgeLeft margin:leftMargin];
 }
 ///下边距
-- (void)setBottomPadding:(CGFloat)bottomPadding {
-    _bottomPadding = bottomPadding;
-    [self refreshEdge:UIRectEdgeBottom padding:bottomPadding];
+- (void)setBottomMargin:(CGFloat)bottomMargin {
+    _bottomMargin = bottomMargin;
+    [self refreshEdge:UIRectEdgeBottom margin:bottomMargin];
 }
 ///右边距
-- (void)setRightPadding:(CGFloat)rightPadding {
-    _rightPadding = rightPadding;
-    [self refreshEdge:UIRectEdgeRight padding:rightPadding];
+- (void)setRightMargin:(CGFloat)rightMargin {
+    _rightMargin = rightMargin;
+    [self refreshEdge:UIRectEdgeRight margin:rightMargin];
 }
 
-/// 更新内边距: (top/left/bottom/right)
+/// 更新外边距: (top/left/bottom/right)
 - (void)refreshEdge:(UIRectEdge)directional
-            padding:(CGFloat)padding {
-    UIEdgeInsets insets = self.paddingInset;
+             margin:(CGFloat)margin {
+    UIEdgeInsets insets = self.marginInset;
     switch (directional) {
     case UIRectEdgeTop: {
-            _topPadding = padding;
-            insets.top = padding;
+            _topMargin = margin;
+            insets.top = margin;
         }
         break;
     case UIRectEdgeLeft: {
-            _leftPadding = padding;
-            insets.left = padding;
+            _leftMargin = margin;
+            insets.left = margin;
         }
         break;
     case UIRectEdgeBottom: {
-            _bottomPadding = padding;
-            insets.bottom = padding;
+            _bottomMargin = margin;
+            insets.bottom = margin;
         }
         break;
     case UIRectEdgeRight: {
-            _rightPadding = padding;
-            insets.right = padding;
+            _rightMargin = margin;
+            insets.right = margin;
         }
         break;
     default:
         break;
     }
-    self.paddingInset = insets;
+    self.marginInset = insets;
 }
 
-///内边距: (上,左,下,右)
-- (void)setPaddingInset:(UIEdgeInsets)paddingInset {
-    _paddingInset = paddingInset;
-    _topPadding = paddingInset.top;
-    _leftPadding = paddingInset.left;
-    _bottomPadding = paddingInset.bottom;
-    _rightPadding = paddingInset.right;
+///外边距: (上,左,下,右)
+- (void)setMarginInset:(UIEdgeInsets)marginInset {
+    _marginInset = marginInset;
+    _topMargin = marginInset.top;
+    _leftMargin = marginInset.left;
+    _bottomMargin = marginInset.bottom;
+    _rightMargin = marginInset.right;
     [self needsUpdateBackgroundImage];
 }
 
@@ -413,15 +413,15 @@
     if (hasTextAndImage &&
         (self.imagePlacement == WXImagePlacementTop || self.imagePlacement == WXImagePlacementBottom)) {
         
-        CGFloat width = self.leftPadding + MAX(textWidth, imgWidth) + self.rightPadding;
-        CGFloat height = self.topPadding + textHeight + imageTextSpace + imgHeight + self.bottomPadding;
+        CGFloat width = self.leftMargin + MAX(textWidth, imgWidth) + self.rightMargin;
+        CGFloat height = self.topMargin + textHeight + imageTextSpace + imgHeight + self.bottomMargin;
         
         NSLog(@"固有大小 上下布局: 宽: %.2f, 高:%.2f", width, height);
         return CGSizeMake(width, height);
         
     } else {//左右布局
-        CGFloat width = self.leftPadding + textWidth + imageTextSpace + imgWidth + self.rightPadding;
-        CGFloat height = self.topPadding + MAX(textHeight, imgHeight) + self.bottomPadding;
+        CGFloat width = self.leftMargin + textWidth + imageTextSpace + imgWidth + self.rightMargin;
+        CGFloat height = self.topMargin + MAX(textHeight, imgHeight) + self.bottomMargin;
         
         NSLog(@"固有大小 左右布局: 宽: %.2f, 高:%.2f", width, height);
         return CGSizeMake(width, height);
@@ -476,7 +476,7 @@
         
         //1.Image位置: 在上
         imageRect.origin.x = (rect.size.width - imageRect.size.width) / 2;
-        imageRect.origin.y = self.topPadding;
+        imageRect.origin.y = self.topMargin;
         
         //2.Title位置: 在下
         textRect.origin.x = (rect.size.width - textRect.size.width) / 2;
@@ -487,7 +487,7 @@
     case WXImagePlacementLeading: {
         
         //1.Image位置: 在左
-        imageRect.origin.x = self.leftPadding;
+        imageRect.origin.x = self.leftMargin;
         imageRect.origin.y = (rect.size.height - imageRect.size.height) / 2;
         
         //2.Text位置: 在右
@@ -500,7 +500,7 @@
         
         //1.Text位置: 在上
         textRect.origin.x = (rect.size.width - textRect.size.width) / 2;
-        textRect.origin.y = self.topPadding + textEdgeTop;
+        textRect.origin.y = self.topMargin + textEdgeTop;
         
         //2.Image位置: 在下
         imageRect.origin.x = (rect.size.width - imageRect.size.width) / 2;
@@ -511,7 +511,7 @@
     case WXImagePlacementTrailing: {
         
         //1.Text位置: 在左
-        textRect.origin.x = self.leftPadding + textEdgeLeft;
+        textRect.origin.x = self.leftMargin + textEdgeLeft;
         textRect.origin.y = (rect.size.height - textRect.size.height) / 2;
 
         //1.Image位置: 在右
