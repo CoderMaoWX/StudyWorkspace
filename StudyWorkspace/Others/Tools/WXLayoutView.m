@@ -15,6 +15,11 @@
 @property(nonatomic, strong) UIColor *textBackgroundColor;
 @property(nonatomic, assign) CGFloat textBgColorCornerRadius;
 @property(nonatomic) UIEdgeInsets textBgColorInset;
+//适合设置边框的场景属性
+@property(nonatomic, strong) UIColor *textBorderColor;
+@property(nonatomic, assign) CGFloat textBorderWidth;
+@property(nonatomic, assign) CGFloat textBorderCornerRadius;
+@property(nonatomic) UIEdgeInsets textBorderInset;
 @end
 
 @implementation WXLayoutView
@@ -178,6 +183,18 @@
     self.textBackgroundColor = color;
     self.textBgColorCornerRadius = radius;
     self.textBgColorInset = inset;
+    [self needsUpdateTitleContent];
+}
+
+///绘制文本背景边框色/圆角 (类似于: 给文本打标的UI)
+- (void)textBorderColor:(UIColor *)color
+            borderWidth:(CGFloat)width
+            borderInset:(UIEdgeInsets)inset
+           cornerRadius:(CGFloat)radius {
+    self.textBorderColor = color;
+    self.textBorderWidth = width;
+    self.textBorderCornerRadius = radius;
+    self.textBorderInset = inset;
     [self needsUpdateTitleContent];
 }
 
@@ -373,14 +390,22 @@
     
     BOOL hasTextAndImage = ((hasText || hasAttribText) && self.image);
     CGFloat imageTextSpace = hasTextAndImage ? self.imageTextSpace : 0;
-    BOOL singContent = NO;
+    BOOL singContent = NO; //是否为单一内容: 只有文本 或者 只有图片
     if (textWidth == 0 || textHeight == 0 || imgWidth == 0 || imgHeight == 0) {
         imageTextSpace = 0;
         singContent = YES;
     }
     
-    CGFloat textColorHMargin = singContent ? 0 : (self.textBgColorInset.left + self.textBgColorInset.right);
-    CGFloat textColorVMargin = singContent ? 0 : (self.textBgColorInset.top + self.textBgColorInset.bottom);
+    //绘制背景色位置
+    UIEdgeInsets textInset = UIEdgeInsetsZero;
+    if (self.textBorderColor) {
+        textInset = self.textBorderInset;
+    }
+    if (self.textBackgroundColor) {
+        textInset = self.textBgColorInset;
+    }
+    CGFloat textColorHMargin = singContent ? 0 : (textInset.left + textInset.right);
+    CGFloat textColorVMargin = singContent ? 0 : (textInset.top + textInset.bottom);
     
     textHeight += textColorVMargin;
     textWidth += textColorHMargin;
@@ -417,11 +442,10 @@
     if (!hasText && !hasAttribText && !self.image) {
         return;
     }
-    
     CGSize textSize = self.drawTextSize;
     CGSize imgSize = self.image.size;
     
-    BOOL singContent = NO;
+    BOOL singContent = NO; //是否为单一内容: 只有文本 或者 只有图片
     BOOL hasTextAndImage = ((hasText || hasAttribText) && self.image);
     CGFloat imageTextSpace = hasTextAndImage ? self.imageTextSpace : 0;
     if (textSize.width == 0 || textSize.height == 0 || imgSize.width == 0 || imgSize.height == 0) {
@@ -429,15 +453,18 @@
         singContent = YES;
     }
     
-    CGFloat textBgColorTop = singContent ? 0 : self.textBgColorInset.top;
-    CGFloat textBgColorLeft = singContent ? 0 : self.textBgColorInset.left;
-    CGFloat textBgColorBottom = singContent ? 0 : self.textBgColorInset.bottom;
-    CGFloat textBgColorRight = singContent ? 0 : self.textBgColorInset.right;
-    CGFloat textColorHMargin = textBgColorLeft + textBgColorRight;
-    CGFloat textColorVMargin = textBgColorTop + textBgColorBottom;
-    
-    CGFloat horizontalMargin = self.leftPadding + self.rightPadding + textColorHMargin;
-    CGFloat verticalMargin = self.topPadding + self.bottomPadding + textColorVMargin;
+    //绘制背景色位置
+    UIEdgeInsets textInset = UIEdgeInsetsZero;
+    if (self.textBorderColor) {
+        textInset = self.textBorderInset;
+    }
+    if (self.textBackgroundColor) {
+        textInset = self.textBgColorInset;
+    }
+    CGFloat textEdgeTop = singContent ? 0 : textInset.top;
+    CGFloat textEdgeLeft = singContent ? 0 : textInset.left;
+    CGFloat textEdgeBottom = singContent ? 0 : textInset.bottom;
+    CGFloat textEdgeRight = singContent ? 0 : textInset.right;
 
     CGRect imageRect = CGRectZero;
     imageRect.size = self.image.size;
@@ -445,87 +472,52 @@
     CGRect textRect = CGRectZero;
     textRect.size = self.drawTextSize;
     
-    CGFloat textContentW = textRect.size.width + textColorHMargin;
-    CGFloat textContentH = textRect.size.height + textColorVMargin;
-    
     switch (self.imagePlacement) {
     case WXImagePlacementTop: {
         
         //1.Image位置: 在上
-        imageRect.origin.x = self.leftPadding;
-        imageRect.origin.y = self.topPadding + textBgColorTop;
+        imageRect.origin.x = (rect.size.width - imageRect.size.width) / 2;
+        imageRect.origin.y = self.topPadding;
         
         //2.Title位置: 在下
-        textRect.origin.x = self.leftPadding;
-        textRect.origin.y = CGRectGetMaxY(imageRect) + textBgColorBottom + imageTextSpace;
-
-        //Image 比 Text宽
-        if (imageRect.size.width > textContentW) {
-            textRect.origin.x = (imageRect.size.width + horizontalMargin - textContentW) / 2;
-
-        } else {//Text 比 Image宽
-            imageRect.origin.x = (textContentW + horizontalMargin - imageRect.size.width) / 2;
-        }
+        textRect.origin.x = (rect.size.width - textRect.size.width) / 2;
+        textRect.origin.y = CGRectGetMaxY(imageRect) + imageTextSpace + textEdgeTop;
     }
         break;
         
     case WXImagePlacementLeading: {
         
         //1.Image位置: 在左
-        imageRect.origin.x = self.leftPadding + textBgColorLeft;
-        imageRect.origin.y = self.topPadding;
+        imageRect.origin.x = self.leftPadding;
+        imageRect.origin.y = (rect.size.height - imageRect.size.height) / 2;
         
         //2.Text位置: 在右
-        textRect.origin.x = CGRectGetMaxX(imageRect) + textBgColorRight + imageTextSpace;
-        textRect.origin.y = self.topPadding;
-        
-        //Image 比 Text高
-        if (imageRect.size.height > textContentH) {
-            textRect.origin.y = (imageRect.size.height + verticalMargin - textContentH) / 2;
-
-        } else {//Text 比 Image高
-            imageRect.origin.y = (textContentH + verticalMargin - imageRect.size.width) / 2;
-        }
+        textRect.origin.x = CGRectGetMaxX(imageRect) + imageTextSpace + textEdgeLeft;
+        textRect.origin.y = (rect.size.height - textRect.size.height) / 2;
     }
         break;
         
     case WXImagePlacementBottom: {
         
         //1.Text位置: 在上
-        textRect.origin.x = self.leftPadding;
-        textRect.origin.y = self.topPadding + textBgColorTop;
+        textRect.origin.x = (rect.size.width - textRect.size.width) / 2;
+        textRect.origin.y = self.topPadding + textEdgeTop;
         
         //2.Image位置: 在下
-        imageRect.origin.x = self.leftPadding;
-        imageRect.origin.y = CGRectGetMaxY(textRect) + textBgColorBottom + imageTextSpace;;
-        
-        //Text 比 Image宽
-        if (textContentW > imageRect.size.width) {
-            imageRect.origin.x = (textContentW + horizontalMargin - imageRect.size.width) / 2;
-
-        } else {//Image 比 Text宽
-            textRect.origin.x = (imageRect.size.width + horizontalMargin - textContentW) / 2;
-        }
+        imageRect.origin.x = (rect.size.width - imageRect.size.width) / 2;
+        imageRect.origin.y = CGRectGetMaxY(textRect) + imageTextSpace + textEdgeBottom;
     }
         break;
         
     case WXImagePlacementTrailing: {
         
         //1.Text位置: 在左
-        textRect.origin.x = self.leftPadding + textBgColorLeft;
-        textRect.origin.y = self.topPadding;
-        
-        //1.Image位置: 在右
-        imageRect.origin.x = CGRectGetMaxX(textRect) + textBgColorRight + imageTextSpace;
-        imageRect.origin.y = self.topPadding;
-        
-        //Text 比 Image高
-        if (textContentH > imageRect.size.height) {
-            imageRect.origin.y = (textContentH + verticalMargin - imageRect.size.height) / 2;
+        textRect.origin.x = self.leftPadding + textEdgeLeft;
+        textRect.origin.y = (rect.size.height - textRect.size.height) / 2;
 
-        } else {//Image 比 Text高
-            textRect.origin.y = (imageRect.size.height + verticalMargin - textContentH) / 2;
-        }
+        //1.Image位置: 在右
+        imageRect.origin.x = CGRectGetMaxX(textRect) + imageTextSpace + textEdgeRight;
+        imageRect.origin.y = (rect.size.height - imageRect.size.height) / 2;
     }
         break;
     default:
@@ -537,33 +529,42 @@
     if(self.backgroundImage && !CGRectEqualToRect(rect, CGRectZero)) {
         [self.backgroundImage drawInRect:rect];
     }
+    
     // 2.绘制图片
     if(self.image && !CGRectEqualToRect(imageRect, CGRectZero)) {
         [self.image drawInRect:imageRect];
     }
+    
     // 3.绘制文案
     if(hasText && !CGRectEqualToRect(textRect, CGRectZero)) {
-        //3.1绘制文本背景色/圆角
+        //3.1 绘制文本 背景/圆角/边框
         [self drawTextBackgroundStyle:textRect];
-        //3.2绘制文案
+        //3.2 绘制文案
         [self.drawRectAttributedString drawInRect:textRect];
     }
 }
 
-///绘制文本背景色/圆角 (类似于: 给文本打标的UI)
+///绘制文本 背景/圆角/边框 (类似于: 给文本打标的UI)
 - (void)drawTextBackgroundStyle:(CGRect)textRect {
+    UIColor *textBgColor = self.textBackgroundColor;
+    UIColor *textBorderColor = self.textBorderColor;
     
-    CGFloat radius = MAX(0, self.textBgColorCornerRadius);
-    UIColor *color = self.textBackgroundColor;
-    if (![color isKindOfClass:[UIColor class]]) return;
-    UIEdgeInsets inset = self.textBgColorInset;
-    
+    if (![textBgColor isKindOfClass:[UIColor class]] && ![textBorderColor isKindOfClass:[UIColor class]]) {
+        return;
+    }
     //绘制背景色位置
+    UIEdgeInsets textInset = UIEdgeInsetsZero;
+    if (self.textBorderColor) {
+        textInset = self.textBorderInset;
+    }
+    if (self.textBackgroundColor) {
+        textInset = self.textBgColorInset;
+    }
     CGRect colorRect = CGRectStandardize(textRect);
-    colorRect.origin.x = textRect.origin.x - inset.left;
-    colorRect.origin.y = textRect.origin.y - inset.top;
-    colorRect.size.width = inset.left + textRect.size.width + inset.right;
-    colorRect.size.height =  inset.top + textRect.size.height + inset.bottom;
+    colorRect.origin.x = textRect.origin.x - textInset.left;
+    colorRect.origin.y = textRect.origin.y - textInset.top;
+    colorRect.size.width = textInset.left + textRect.size.width + textInset.right;
+    colorRect.size.height = textInset.top + textRect.size.height + textInset.bottom;
     
     float x1 = colorRect.origin.x;
     float y1 = colorRect.origin.y;
@@ -575,23 +576,22 @@
     float y4 = y3;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextMoveToPoint(context,   x1, y1 + radius);
-    CGContextAddArcToPoint(context, x1, y1, x1 + radius, y1, radius);
-    CGContextAddArcToPoint(context, x2, y2, x2, y2 + radius, radius);
-    CGContextAddArcToPoint(context, x3, y3, x3 - radius, y3, radius);
-    CGContextAddArcToPoint(context, x4, y4, x4, y4 - radius, radius);
     
-//    [[UIColor blueColor] setStroke];
-//    CGContextStrokePath(context);
+    // 绘制边框线条
+    CGContextSetLineWidth(context, MAX(0, self.textBorderWidth));
+    CGContextSetStrokeColorWithColor(context, (textBorderColor ? : UIColor.clearColor).CGColor);
     
-    //CGContextSetFillColorWithColor(context, UIColor.whiteColor.CGColor);
-    [color set];
-    CGContextFillPath(context);
+    // 绘制背景/圆角
+    CGFloat textRadius = MAX(0, self.textBgColorCornerRadius);
+    CGContextMoveToPoint(context,   x1, y1 + textRadius);
+    CGContextAddArcToPoint(context, x1, y1, x1 + textRadius, y1, textRadius);
+    CGContextAddArcToPoint(context, x2, y2, x2, y2 + textRadius, textRadius);
+    CGContextAddArcToPoint(context, x3, y3, x3 - textRadius, y3, textRadius);
+    CGContextAddArcToPoint(context, x4, y4, x4, y4 - textRadius, textRadius);
+    CGContextAddLineToPoint(context, x1, y1 + textRadius);//关闭路径,回到原点
     
+    CGContextSetFillColorWithColor(context, (textBgColor ? : UIColor.clearColor).CGColor);
+    CGContextDrawPath(context, kCGPathFillStroke);
 }
-
-
-
-//MARK: - Getter Method
 
 @end

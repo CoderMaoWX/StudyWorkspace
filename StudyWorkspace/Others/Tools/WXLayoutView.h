@@ -63,5 +63,11 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
                  colorInset:(UIEdgeInsets)inset
                cornerRadius:(CGFloat)radius;
 
+///绘制文本背景边框色/圆角 (类似于: 给文本打标的UI)
+- (void)textBorderColor:(UIColor *)color
+            borderWidth:(CGFloat)width
+            borderInset:(UIEdgeInsets)inset
+           cornerRadius:(CGFloat)radius;
+
 @end
 
