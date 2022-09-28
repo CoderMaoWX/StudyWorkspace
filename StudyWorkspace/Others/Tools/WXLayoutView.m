@@ -465,9 +465,13 @@
 
     CGRect imageRect = CGRectZero;
     imageRect.size = self.image.size;
-    
+    imageRect.size.width = MIN(rect.size.width, imageRect.size.width);
+    imageRect.size.height = MIN(rect.size.height, imageRect.size.height);
+
     CGRect textRect = CGRectZero;
     textRect.size = self.drawTextSize;
+    textRect.size.width = MIN(rect.size.width, textRect.size.width);
+    textRect.size.height = MIN(rect.size.height, textRect.size.height);
     
     switch (self.imagePlacement) {
     case WXImagePlacementTop: {
@@ -528,12 +532,12 @@
     }
     
     // 2.绘制图片
-    if(self.image && !CGRectEqualToRect(imageRect, CGRectZero)) {
+    if(self.image && imageRect.size.width >0 && imageRect.size.height) {
         [self.image drawInRect:imageRect];
     }
     
     // 3.绘制文案
-    if(hasText && !CGRectEqualToRect(textRect, CGRectZero)) {
+    if(hasText && textRect.size.width >0 && textRect.size.height) {
         //3.1 绘制文本 背景/圆角/边框
         [self drawTextBackgroundStyle:textRect];
         //3.2 绘制文案

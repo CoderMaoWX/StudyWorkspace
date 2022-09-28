@@ -131,12 +131,13 @@
 - (void)btnAction:(UIButton *)button {
     NSLog(@"btnAction: %@", button);
 //    WX_ShowToastWithText(self.view, button.description);
-    self.layoutView.text = nil;
-    self.layoutView.imageURL = nil;
+    self.layoutView.text = self.getLoogText;
+    self.layoutView.preferredMaxLayoutWidth = 50;
+//    self.layoutView.imageURL = @"https://files.catbox.moe/3oemef.png";
 }
 
 - (NSString *)getLoogText {
-    NSString *title = @"我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
+    NSString *title = @"sdgrtuk7567vbbnqw43t我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
     return title;
 }
 
@@ -175,6 +176,8 @@
     [self.layoutView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.brownBtn.mas_bottom);
         make.centerX.offset(0);
+//        make.size.mas_equalTo(CGSizeMake(150, 200));
+        make.height.mas_equalTo(90);
     }];
     
     [self.systemButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -237,10 +240,12 @@
     if (!_layoutView) {
         _layoutView = [[WXLayoutView alloc] initWithFrame:CGRectZero];
         _layoutView.backgroundColor = UIColor.lightGrayColor;
-        _layoutView.font = [UIFont systemFontOfSize:30];
+        _layoutView.font = [UIFont systemFontOfSize:12];
         _layoutView.textColor = UIColor.redColor;
 //        _layoutView.text = @"WXLayoutView kit";
 //        _layoutView.text = @"Orange Lbael";
+        _layoutView.text = self.getLoogText;
+        _layoutView.preferredMaxLayoutWidth = 250;
         [self.view addSubview:_layoutView];
     }
     return _layoutView;
