@@ -177,7 +177,7 @@
         make.top.mas_equalTo(self.brownBtn.mas_bottom);
         make.centerX.offset(0);
 //        make.size.mas_equalTo(CGSizeMake(150, 200));
-        make.height.mas_equalTo(90);
+//        make.height.mas_equalTo(90);
     }];
     
     [self.systemButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -245,6 +245,7 @@
 //        _layoutView.text = @"WXLayoutView kit";
 //        _layoutView.text = @"Orange Lbael";
         _layoutView.text = self.getLoogText;
+        _layoutView.numberOfLines = 4;
         _layoutView.preferredMaxLayoutWidth = 250;
         [self.view addSubview:_layoutView];
     }
