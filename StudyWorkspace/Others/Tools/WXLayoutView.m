@@ -11,6 +11,10 @@
 @interface WXLayoutView ()
 @property (nonatomic, strong) NSAttributedString *drawRectAttributedString;
 @property (nonatomic) CGSize drawTextSize;
+//适合打标的场景属性
+@property(nonatomic, strong) UIColor *textBackgroundColor;
+@property(nonatomic, assign) CGFloat textBgColorCornerRadius;
+@property(nonatomic) UIEdgeInsets textBgColorInset;
 @end
 
 @implementation WXLayoutView
@@ -78,10 +82,31 @@
     [self updateContent];
 }
 
+///下载图片URL
+- (void)setImageURL:(NSString *)imageURL {
+    _imageURL = imageURL;
+    
+    NSURL *urlString = [NSURL URLWithString:imageURL];
+    if (urlString) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSData *imgData = [NSData dataWithContentsOfURL:urlString];
+            if (![imgData isKindOfClass:[NSData class]]) return;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIImage *image = [UIImage imageWithData:imgData];
+                if (![image isKindOfClass:[UIImage class]]) return;
+                self.image = image;
+            });
+        });
+    } else {
+        self.image = nil;
+    }
+}
+
 ///背景图片
 - (void)setBackgroundImage:(UIImage *)backgroundImage {
     _backgroundImage = backgroundImage;
-    [self needsUpdateAllContent];
+    [self needsUpdateBackgroundImage];
 }
 
 ///上边距
@@ -130,7 +155,6 @@
             insets.right = padding;
         }
         break;
-        
     default:
         break;
     }
@@ -144,10 +168,17 @@
     _leftPadding = paddingInset.left;
     _bottomPadding = paddingInset.bottom;
     _rightPadding = paddingInset.right;
-    
-    if (self.text || self.image){
-        [self updateContent];
-    }
+    [self needsUpdateBackgroundImage];
+}
+
+///绘制文本背景色/圆角 (类似于: 给文本打标的UI)
+- (void)textBackgroundColor:(UIColor *)color
+                 colorInset:(UIEdgeInsets)inset
+               cornerRadius:(CGFloat)radius {
+    self.textBackgroundColor = color;
+    self.textBgColorCornerRadius = radius;
+    self.textBgColorInset = inset;
+    [self needsUpdateTitleContent];
 }
 
 //MARK: - 私有方法
@@ -156,8 +187,8 @@
     self.text ? [self updateContent] : nil;
 }
 
-- (void)needsUpdateImageContent {
-    self.image ? [self updateContent] : nil;
+- (void)needsUpdateBackgroundImage {
+    (self.text || self.image) ? [self updateContent] : nil;
 }
 
 - (void)needsUpdateAllContent {
@@ -342,10 +373,18 @@
     
     BOOL hasTextAndImage = ((hasText || hasAttribText) && self.image);
     CGFloat imageTextSpace = hasTextAndImage ? self.imageTextSpace : 0;
+    BOOL singContent = NO;
     if (textWidth == 0 || textHeight == 0 || imgWidth == 0 || imgHeight == 0) {
         imageTextSpace = 0;
+        singContent = YES;
     }
     
+    CGFloat textColorHMargin = singContent ? 0 : (self.textBgColorInset.left + self.textBgColorInset.right);
+    CGFloat textColorVMargin = singContent ? 0 : (self.textBgColorInset.top + self.textBgColorInset.bottom);
+    
+    textHeight += textColorVMargin;
+    textWidth += textColorHMargin;
+
     //上下布局
     if (hasTextAndImage &&
         (self.imagePlacement == WXImagePlacementTop || self.imagePlacement == WXImagePlacementBottom)) {
@@ -380,29 +419,25 @@
     }
     
     CGSize textSize = self.drawTextSize;
-    CGFloat textWidth = 0.0;
-    CGFloat textHeight = 0.0;
-    if (textSize.width > 0 && textSize.height > 0) {
-        textHeight = textSize.height;
-        textWidth = textSize.width;
-    }
-    
     CGSize imgSize = self.image.size;
-    CGFloat imgWidth = 0.0;
-    CGFloat imgHeight = 0.0;
-    if (imgSize.width > 0 && imgSize.height > 0) {
-        imgWidth = imgSize.width;
-        imgHeight = imgSize.height;
-    }
     
+    BOOL singContent = NO;
     BOOL hasTextAndImage = ((hasText || hasAttribText) && self.image);
     CGFloat imageTextSpace = hasTextAndImage ? self.imageTextSpace : 0;
-    if (textWidth == 0 || textHeight == 0 || imgWidth == 0 || imgHeight == 0) {
+    if (textSize.width == 0 || textSize.height == 0 || imgSize.width == 0 || imgSize.height == 0) {
         imageTextSpace = 0;
+        singContent = YES;
     }
     
-    CGFloat horizontalMargin = self.leftPadding + self.rightPadding;
-    CGFloat verticalMargin = self.topPadding + self.bottomPadding;
+    CGFloat textBgColorTop = singContent ? 0 : self.textBgColorInset.top;
+    CGFloat textBgColorLeft = singContent ? 0 : self.textBgColorInset.left;
+    CGFloat textBgColorBottom = singContent ? 0 : self.textBgColorInset.bottom;
+    CGFloat textBgColorRight = singContent ? 0 : self.textBgColorInset.right;
+    CGFloat textColorHMargin = textBgColorLeft + textBgColorRight;
+    CGFloat textColorVMargin = textBgColorTop + textBgColorBottom;
+    
+    CGFloat horizontalMargin = self.leftPadding + self.rightPadding + textColorHMargin;
+    CGFloat verticalMargin = self.topPadding + self.bottomPadding + textColorVMargin;
 
     CGRect imageRect = CGRectZero;
     imageRect.size = self.image.size;
@@ -410,23 +445,26 @@
     CGRect textRect = CGRectZero;
     textRect.size = self.drawTextSize;
     
+    CGFloat textContentW = textRect.size.width + textColorHMargin;
+    CGFloat textContentH = textRect.size.height + textColorVMargin;
+    
     switch (self.imagePlacement) {
     case WXImagePlacementTop: {
         
         //1.Image位置: 在上
         imageRect.origin.x = self.leftPadding;
-        imageRect.origin.y = self.topPadding;
+        imageRect.origin.y = self.topPadding + textBgColorTop;
         
         //2.Title位置: 在下
         textRect.origin.x = self.leftPadding;
-        textRect.origin.y = CGRectGetMaxY(imageRect) + imageTextSpace;
+        textRect.origin.y = CGRectGetMaxY(imageRect) + textBgColorBottom + imageTextSpace;
 
         //Image 比 Text宽
-        if (imageRect.size.width > textRect.size.width) {
-            textRect.origin.x = (imageRect.size.width + horizontalMargin - textRect.size.width) / 2;
+        if (imageRect.size.width > textContentW) {
+            textRect.origin.x = (imageRect.size.width + horizontalMargin - textContentW) / 2;
 
         } else {//Text 比 Image宽
-            imageRect.origin.x = (textRect.size.width + horizontalMargin - imageRect.size.width) / 2;
+            imageRect.origin.x = (textContentW + horizontalMargin - imageRect.size.width) / 2;
         }
     }
         break;
@@ -434,19 +472,19 @@
     case WXImagePlacementLeading: {
         
         //1.Image位置: 在左
-        imageRect.origin.x = self.leftPadding;
+        imageRect.origin.x = self.leftPadding + textBgColorLeft;
         imageRect.origin.y = self.topPadding;
         
         //2.Text位置: 在右
-        textRect.origin.x = CGRectGetMaxX(imageRect) + imageTextSpace;
+        textRect.origin.x = CGRectGetMaxX(imageRect) + textBgColorRight + imageTextSpace;
         textRect.origin.y = self.topPadding;
         
         //Image 比 Text高
-        if (imageRect.size.height > textRect.size.height) {
-            textRect.origin.y = (imageRect.size.height + verticalMargin - textRect.size.height) / 2;
+        if (imageRect.size.height > textContentH) {
+            textRect.origin.y = (imageRect.size.height + verticalMargin - textContentH) / 2;
 
         } else {//Text 比 Image高
-            imageRect.origin.y = (textRect.size.height + verticalMargin - imageRect.size.width) / 2;
+            imageRect.origin.y = (textContentH + verticalMargin - imageRect.size.width) / 2;
         }
     }
         break;
@@ -455,18 +493,18 @@
         
         //1.Text位置: 在上
         textRect.origin.x = self.leftPadding;
-        textRect.origin.y = self.topPadding;
+        textRect.origin.y = self.topPadding + textBgColorTop;
         
         //2.Image位置: 在下
         imageRect.origin.x = self.leftPadding;
-        imageRect.origin.y = CGRectGetMaxY(textRect) + imageTextSpace;;
+        imageRect.origin.y = CGRectGetMaxY(textRect) + textBgColorBottom + imageTextSpace;;
         
         //Text 比 Image宽
-        if (textRect.size.width > imageRect.size.width) {
-            imageRect.origin.x = (textRect.size.width + horizontalMargin - imageRect.size.width) / 2;
+        if (textContentW > imageRect.size.width) {
+            imageRect.origin.x = (textContentW + horizontalMargin - imageRect.size.width) / 2;
 
         } else {//Image 比 Text宽
-            textRect.origin.x = (imageRect.size.width + horizontalMargin - textRect.size.width) / 2;
+            textRect.origin.x = (imageRect.size.width + horizontalMargin - textContentW) / 2;
         }
     }
         break;
@@ -474,25 +512,26 @@
     case WXImagePlacementTrailing: {
         
         //1.Text位置: 在左
-        textRect.origin.x = self.leftPadding;
+        textRect.origin.x = self.leftPadding + textBgColorLeft;
         textRect.origin.y = self.topPadding;
         
         //1.Image位置: 在右
-        imageRect.origin.x = CGRectGetMaxX(textRect) + imageTextSpace;
+        imageRect.origin.x = CGRectGetMaxX(textRect) + textBgColorRight + imageTextSpace;
         imageRect.origin.y = self.topPadding;
         
         //Text 比 Image高
-        if (textRect.size.height > imageRect.size.height) {
-            imageRect.origin.y = (textRect.size.height + verticalMargin - imageRect.size.height) / 2;
+        if (textContentH > imageRect.size.height) {
+            imageRect.origin.y = (textContentH + verticalMargin - imageRect.size.height) / 2;
 
         } else {//Image 比 Text高
-            textRect.origin.y = (imageRect.size.height + verticalMargin - textRect.size.height) / 2;
+            textRect.origin.y = (imageRect.size.height + verticalMargin - textContentH) / 2;
         }
     }
         break;
     default:
         break;
     }
+    /** 提示: 一定要顺序绘制 */
     
     // 1.绘制背景图片
     if(self.backgroundImage && !CGRectEqualToRect(rect, CGRectZero)) {
@@ -502,30 +541,36 @@
     if(self.image && !CGRectEqualToRect(imageRect, CGRectZero)) {
         [self.image drawInRect:imageRect];
     }
-    
     // 3.绘制文案
     if(hasText && !CGRectEqualToRect(textRect, CGRectZero)) {
-        
-        CGRect textBgColorRect = CGRectStandardize(textRect);
-        textBgColorRect.origin.x -= 5;
-        textBgColorRect.origin.y -= 5;
-        textBgColorRect.size.width += 10;
-        textBgColorRect.size.height += 10;
-        //绘制背景色
-        [self drawRoundRect:textBgColorRect radius:5];
-        
-        //绘制文案
+        //3.1绘制文本背景色/圆角
+        [self drawTextBackgroundStyle:textRect];
+        //3.2绘制文案
         [self.drawRectAttributedString drawInRect:textRect];
     }
 }
 
-- (void)drawRoundRect:(CGRect)rect radius:(CGFloat)radius {
-    float x1 = rect.origin.x;
-    float y1 = rect.origin.y;
-    float x2 = x1+rect.size.width;
+///绘制文本背景色/圆角 (类似于: 给文本打标的UI)
+- (void)drawTextBackgroundStyle:(CGRect)textRect {
+    
+    CGFloat radius = MAX(0, self.textBgColorCornerRadius);
+    UIColor *color = self.textBackgroundColor;
+    if (![color isKindOfClass:[UIColor class]]) return;
+    UIEdgeInsets inset = self.textBgColorInset;
+    
+    //绘制背景色位置
+    CGRect colorRect = CGRectStandardize(textRect);
+    colorRect.origin.x = textRect.origin.x - inset.left;
+    colorRect.origin.y = textRect.origin.y - inset.top;
+    colorRect.size.width = inset.left + textRect.size.width + inset.right;
+    colorRect.size.height =  inset.top + textRect.size.height + inset.bottom;
+    
+    float x1 = colorRect.origin.x;
+    float y1 = colorRect.origin.y;
+    float x2 = x1 + colorRect.size.width;
     float y2 = y1;
     float x3 = x2;
-    float y3 = y1+rect.size.height;
+    float y3 = y1 + colorRect.size.height;
     float x4 = x1;
     float y4 = y3;
     
@@ -540,7 +585,7 @@
 //    CGContextStrokePath(context);
     
     //CGContextSetFillColorWithColor(context, UIColor.whiteColor.CGColor);
-    [[UIColor yellowColor] set];
+    [color set];
     CGContextFillPath(context);
     
 }

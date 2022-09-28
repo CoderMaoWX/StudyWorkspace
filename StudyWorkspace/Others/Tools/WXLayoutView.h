@@ -31,11 +31,6 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 @property(nonatomic, strong) UIFont *font;
 ///文本颜色
 @property(nonatomic, strong) UIColor *textColor;
-
-@property(nonatomic) UIEdgeInsets textInset;
-@property(nonatomic, strong) UIColor *textBackgroundColor;
-@property(nonatomic, assign) CGFloat textCornerRadius;
-
 ///换行显示行数
 @property(nonatomic, assign) NSInteger numberOfLines;
 ///最大换行宽度
@@ -44,17 +39,29 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 @property(nonatomic, assign) NSLineBreakMode lineBreakMode;
 ///图片
 @property(nonatomic, strong) UIImage *image;
+///图片URL
+@property(nonatomic, strong) NSString *imageURL;
 ///背景图片
 @property(nonatomic, strong) UIImage *backgroundImage;
-
-///内边距: (上,左,下,右)
+/**
+ * 对控件设置内边距 (同时设置: 上/左/下/右)
+ * 注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见
+ */
 @property (nonatomic) UIEdgeInsets paddingInset;
-///内边距: (top/left/bottom/right)
+
+///单独设置 上 边距: (注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见)
 @property (nonatomic, assign) CGFloat topPadding;
+///单独设置 左 边距: (注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见)
 @property (nonatomic, assign) CGFloat leftPadding;
+///单独设置 下 边距: (注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见)
 @property (nonatomic, assign) CGFloat bottomPadding;
+///单独设置 右 边距: (注意: 如果控件内容为空时, 内边距自动被忽略, 控件宽高自动变为0, 控件不可见)
 @property (nonatomic, assign) CGFloat rightPadding;
 
+///绘制文本背景色/圆角 (类似于: 给文本打标的UI)
+- (void)textBackgroundColor:(UIColor *)color
+                 colorInset:(UIEdgeInsets)inset
+               cornerRadius:(CGFloat)radius;
 
 @end
 
