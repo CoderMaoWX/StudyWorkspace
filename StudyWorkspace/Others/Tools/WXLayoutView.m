@@ -193,8 +193,8 @@
            cornerRadius:(CGFloat)radius {
     self.textBorderColor = color;
     self.textBorderWidth = width;
-    self.textBorderCornerRadius = radius;
     self.textBorderInset = inset;
+    self.textBorderCornerRadius = radius;
     [self needsUpdateTitleContent];
 }
 
@@ -390,10 +390,8 @@
     
     BOOL hasTextAndImage = ((hasText || hasAttribText) && self.image);
     CGFloat imageTextSpace = hasTextAndImage ? self.imageTextSpace : 0;
-    BOOL singContent = NO; //是否为单一内容: 只有文本 或者 只有图片
     if (textWidth == 0 || textHeight == 0 || imgWidth == 0 || imgHeight == 0) {
         imageTextSpace = 0;
-        singContent = YES;
     }
     
     //绘制背景色位置
@@ -404,11 +402,12 @@
     if (self.textBackgroundColor) {
         textInset = self.textBgColorInset;
     }
-    CGFloat textColorHMargin = singContent ? 0 : (textInset.left + textInset.right);
-    CGFloat textColorVMargin = singContent ? 0 : (textInset.top + textInset.bottom);
+    BOOL hasTextOrAttr = (hasText || hasAttribText); //是否为单一内容: 只有图片的场景
+    CGFloat textHMargin = hasTextOrAttr ? (textInset.left + textInset.right) : 0;
+    CGFloat textVMargin = hasTextOrAttr ? (textInset.top + textInset.bottom) : 0;
     
-    textHeight += textColorVMargin;
-    textWidth += textColorHMargin;
+    textHeight += textVMargin;
+    textWidth += textHMargin;
 
     //上下布局
     if (hasTextAndImage &&
@@ -445,12 +444,10 @@
     CGSize textSize = self.drawTextSize;
     CGSize imgSize = self.image.size;
     
-    BOOL singContent = NO; //是否为单一内容: 只有文本 或者 只有图片
     BOOL hasTextAndImage = ((hasText || hasAttribText) && self.image);
     CGFloat imageTextSpace = hasTextAndImage ? self.imageTextSpace : 0;
     if (textSize.width == 0 || textSize.height == 0 || imgSize.width == 0 || imgSize.height == 0) {
         imageTextSpace = 0;
-        singContent = YES;
     }
     
     //绘制背景色位置
@@ -461,10 +458,12 @@
     if (self.textBackgroundColor) {
         textInset = self.textBgColorInset;
     }
-    CGFloat textEdgeTop = singContent ? 0 : textInset.top;
-    CGFloat textEdgeLeft = singContent ? 0 : textInset.left;
-    CGFloat textEdgeBottom = singContent ? 0 : textInset.bottom;
-    CGFloat textEdgeRight = singContent ? 0 : textInset.right;
+    
+    BOOL hasTextOrAttr = (hasText || hasAttribText); //是否为单一内容: 只有图片的场景
+    CGFloat textEdgeTop = hasTextOrAttr ? textInset.top : 0;
+    CGFloat textEdgeLeft = hasTextOrAttr ? textInset.left : 0;
+    CGFloat textEdgeBottom = hasTextOrAttr ? textInset.bottom : 0;
+    CGFloat textEdgeRight = hasTextOrAttr ? textInset.right : 0;
 
     CGRect imageRect = CGRectZero;
     imageRect.size = self.image.size;
@@ -552,14 +551,20 @@
     if (![textBgColor isKindOfClass:[UIColor class]] && ![textBorderColor isKindOfClass:[UIColor class]]) {
         return;
     }
+    // 绘制背景/圆角
+    CGFloat textRadius = 0;
     //绘制背景色位置
     UIEdgeInsets textInset = UIEdgeInsetsZero;
+    
     if (self.textBorderColor) {
         textInset = self.textBorderInset;
+        textRadius = MAX(0, self.textBorderCornerRadius);
     }
     if (self.textBackgroundColor) {
         textInset = self.textBgColorInset;
+        textRadius = MAX(0, self.textBgColorCornerRadius);
     }
+    
     CGRect colorRect = CGRectStandardize(textRect);
     colorRect.origin.x = textRect.origin.x - textInset.left;
     colorRect.origin.y = textRect.origin.y - textInset.top;
@@ -578,17 +583,16 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     // 绘制边框线条
-    CGContextSetLineWidth(context, MAX(0, self.textBorderWidth));
+    CGFloat lineSize = MAX(0, self.textBorderWidth);
+    CGContextSetLineWidth(context, lineSize);
     CGContextSetStrokeColorWithColor(context, (textBorderColor ? : UIColor.clearColor).CGColor);
     
-    // 绘制背景/圆角
-    CGFloat textRadius = MAX(0, self.textBgColorCornerRadius);
     CGContextMoveToPoint(context,   x1, y1 + textRadius);
     CGContextAddArcToPoint(context, x1, y1, x1 + textRadius, y1, textRadius);
     CGContextAddArcToPoint(context, x2, y2, x2, y2 + textRadius, textRadius);
     CGContextAddArcToPoint(context, x3, y3, x3 - textRadius, y3, textRadius);
     CGContextAddArcToPoint(context, x4, y4, x4, y4 - textRadius, textRadius);
-    CGContextAddLineToPoint(context, x1, y1 + textRadius);//关闭路径,回到原点
+    CGContextAddLineToPoint(context, x1, y1 + textRadius - lineSize/2);//关闭路径,回到原点
     
     CGContextSetFillColorWithColor(context, (textBgColor ? : UIColor.clearColor).CGColor);
     CGContextDrawPath(context, kCGPathFillStroke);
