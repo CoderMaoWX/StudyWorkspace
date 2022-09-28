@@ -82,27 +82,39 @@
     
     if (self.layoutView.text.length != 0) {
         self.layoutView.text = nil;
-//        self.layoutView.image = [UIImage imageNamed:@"like_icon"];
+//        self.layoutView.marginInset = UIEdgeInsetsZero;
+        self.layoutView.image = [UIImage imageNamed:@"like_icon"];
         
-        self.blueBtn.title = nil;
-        self.blueBtn.image = [UIImage imageNamed:@"like_icon"];
+//        self.blueBtn.title = nil;
+//        self.blueBtn.image = [UIImage imageNamed:@"like_icon"];
     } else {
-        self.layoutView.imageTextSpace = 3;
+        self.layoutView.imageTextSpace = 10;
         self.layoutView.imagePlacement = WXImagePlacementTop;
         self.layoutView.text = @"WXLayoutView kit";
-        self.layoutView.image = [UIImage imageNamed:@"like_icon"];
+        self.layoutView.image = nil;
+//        self.layoutView.image = [UIImage imageNamed:@"like_icon"];
 //        self.layoutView.backgroundImage = [UIImage imageNamed:@"icon_qq_zone"];
-        self.layoutView.paddingInset = UIEdgeInsetsMake(20, 20, 20, 20);
+        self.layoutView.marginInset = UIEdgeInsetsMake(20, 20, 20, 20);
+        
+        [self.layoutView textBackgroundColor:UIColor.clearColor
+                                  colorInset:UIEdgeInsetsMake(15, 15, 15, 15)
+                                cornerRadius:3];
+        
+        [self.layoutView textBorderColor:UIColor.orangeColor
+                             borderWidth:2
+                             borderInset:UIEdgeInsetsMake(15, 15, 15, 15)
+                            cornerRadius:3];
+
 //        self.systemButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
 
-        self.blueBtn.imageTitleSpace = 20;
-        self.blueBtn.imagePlacement = WXImagePlacementTop;
-        self.blueBtn.leftPadding = 10;
-        self.blueBtn.topPadding = 10;
-        self.blueBtn.rightPadding = 10;
-        self.blueBtn.bottomPadding = 10;
-        self.blueBtn.title = @"WXLayoutView kit";
-        self.blueBtn.image = [UIImage imageNamed:@"like_icon"];
+//        self.blueBtn.imageTitleSpace = 10;
+//        self.blueBtn.imagePlacement = WXImagePlacementBottom;
+//        self.blueBtn.leftPadding = 20;
+//        self.blueBtn.topPadding = 20;
+//        self.blueBtn.rightPadding = 20;
+//        self.blueBtn.bottomPadding = 20;
+//        self.blueBtn.title = @"Blue Color WXButton";
+//        self.blueBtn.image = [UIImage imageNamed:@"like_icon"];
 //        self.blueBtn.backgroundImage = [UIImage imageNamed:@"icon_qq_zone"];
     }
 }
@@ -118,7 +130,9 @@
 
 - (void)btnAction:(UIButton *)button {
     NSLog(@"btnAction: %@", button);
-    WX_ShowToastWithText(self.view, button.description);
+//    WX_ShowToastWithText(self.view, button.description);
+    self.layoutView.text = nil;
+    self.layoutView.imageURL = nil;
 }
 
 - (NSString *)getLoogText {
@@ -223,7 +237,7 @@
     if (!_layoutView) {
         _layoutView = [[WXLayoutView alloc] initWithFrame:CGRectZero];
         _layoutView.backgroundColor = UIColor.lightGrayColor;
-        _layoutView.font = [UIFont systemFontOfSize:16.0];
+        _layoutView.font = [UIFont systemFontOfSize:30];
         _layoutView.textColor = UIColor.redColor;
 //        _layoutView.text = @"WXLayoutView kit";
 //        _layoutView.text = @"Orange Lbael";
@@ -238,8 +252,9 @@
         _systemButton.backgroundColor = UIColor.greenColor;
         _systemButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [_systemButton setTitleColor:UIColor.redColor forState:(UIControlStateNormal)];
-        [_systemButton setTitle:@"WXLayoutView kit" forState:(UIControlStateNormal)];
+        [_systemButton setTitle:@"System Button" forState:(UIControlStateNormal)];
 //        [_systemButton setBackgroundImage:[UIImage imageNamed:@"icon_qq_zone"] forState:(UIControlStateNormal)];
+        [_systemButton addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [self.view addSubview:_systemButton];
     }
     return _systemButton;

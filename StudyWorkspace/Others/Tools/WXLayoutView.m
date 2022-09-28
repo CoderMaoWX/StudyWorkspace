@@ -103,8 +103,6 @@
                 self.image = image;
             });
         });
-    } else {
-        self.image = nil;
     }
 }
 
