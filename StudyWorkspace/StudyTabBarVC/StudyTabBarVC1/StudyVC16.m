@@ -39,6 +39,10 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
+        self.layoutView.text = nil;
+        self.layoutView.image = nil;
+    return;
+    
     self.blueBtn.title = self.getLoogText;
     self.blueBtn.title = @"你好，李银河";
     self.blueBtn.numberOfLines = 0;
@@ -257,7 +261,10 @@
 //        _layoutView.numberOfLines = 4;
         _layoutView.preferredMaxLayoutWidth = 250;
         _layoutView.imageTextSpace = 20;
-        _layoutView.bottomMargin = 20;
+//        _layoutView.bottomMargin = 20;
+//        _layoutView.topMargin = 20;
+//        _layoutView.leftMargin = 20;
+        _layoutView.marginInset = UIEdgeInsetsMake(10, 5, 3, 20);
         _layoutView.textAlignment = NSTextAlignmentCenter;
         _layoutView.imagePlacement = WXImagePlacementLeading;
         _layoutView.image = [UIImage imageNamed:@"like_icon"];

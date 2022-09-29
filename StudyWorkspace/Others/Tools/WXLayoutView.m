@@ -558,6 +558,11 @@
     textRect.size.width = MIN(rect.size.width, textRect.size.width);
     textRect.size.height = MIN(rect.size.height, textRect.size.height);
     
+    CGFloat textHMargin = hasTextOrAttr ? (textInset.left + textInset.right) : 0;
+    CGFloat textVMargin = hasTextOrAttr ? (textInset.top + textInset.bottom) : 0;
+    CGFloat textTotalHeight = textRect.size.height + textVMargin;
+    CGFloat textTotalWidth = textRect.size.width + textHMargin;
+    
     //是否居中模式显示
     BOOL shouldLayoutCenter = (self.textAlignment == NSTextAlignmentCenter || hasTextAndImage);
     
@@ -587,11 +592,21 @@
         } else {
             imageRect.origin.x = self.leftMargin;
         }
-        imageRect.origin.y = (rect.size.height - imageRect.size.height) / 2;
+//        imageRect.origin.y = (rect.size.height - imageRect.size.height) / 2;
         
         //2.Text位置: 在右
         textRect.origin.x = CGRectGetMaxX(imageRect) + imageTextSpace + textEdgeLeft;
-        textRect.origin.y = (rect.size.height - textRect.size.height) / 2;
+        
+            if (imageRect.size.height > textTotalHeight) {
+                imageRect.origin.y = self.topMargin;
+                CGFloat imgCenterY = (imageRect.size.height / 2 + imageRect.origin.y);
+                CGFloat textY = (rect.size.height - textRect.size.height) / 2;
+                textRect.origin.y = imageRect.origin.y + (imgCenterY - textY);
+            } else {
+                textRect.origin.y = (rect.size.height - textRect.size.height) / 2;
+                //代办: 计算文本比图片高
+            }
+        
     }
         break;
         
