@@ -23,6 +23,10 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 
 ///文本
 @property(nonatomic, copy) NSString *text;
+///文本对齐方式
+@property(nonatomic) NSTextAlignment textAlignment;
+///文本换行间距
+@property(nonatomic, assign) CGFloat lineSpacing;
 
 ///文本换行连接模式: (默认: NSLineBreakByTruncatingTail, 样式: "abcd...")
 @property(nonatomic, assign) NSLineBreakMode lineBreakMode;

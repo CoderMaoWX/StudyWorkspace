@@ -16,6 +16,7 @@
 #import "WXButton.h"
 #import "YYText.h"
 #import "WXLayoutView.h"
+#import "NSString+Extension.h"
 
 @interface StudyVC16 ()
 @property (nonatomic, strong) WXButton *redBtn;
@@ -79,7 +80,6 @@
 //    self.brownBtn.image = [self getGIFImage:@"cat_gif"];
 //    self.imageView.image = [self getGIFImage:@"giftBox_gif"];
     
-    
     if (self.layoutView.text.length != 0) {
         self.layoutView.text = nil;
 //        self.layoutView.marginInset = UIEdgeInsetsZero;
@@ -132,12 +132,13 @@
     NSLog(@"btnAction: %@", button);
 //    WX_ShowToastWithText(self.view, button.description);
     self.layoutView.text = self.getLoogText;
-    self.layoutView.preferredMaxLayoutWidth = 50;
+    self.layoutView.image = nil;
+    self.layoutView.preferredMaxLayoutWidth = 250;
 //    self.layoutView.imageURL = @"https://files.catbox.moe/3oemef.png";
 }
 
 - (NSString *)getLoogText {
-    NSString *title = @"sdgrtuk7567vbbnqw43t我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案9";
+    NSString *title = @"1234567890我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案987654321";
     return title;
 }
 
@@ -176,8 +177,9 @@
     [self.layoutView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.brownBtn.mas_bottom);
         make.centerX.offset(0);
-//        make.size.mas_equalTo(CGSizeMake(150, 200));
+//        make.size.mas_equalTo(CGSizeMake(200, 200));
 //        make.height.mas_equalTo(90);
+//        make.width.mas_equalTo(200);
     }];
     
     [self.systemButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -187,6 +189,7 @@
     
     [self.systemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.systemButton.mas_bottom);
+//        make.size.mas_equalTo(CGSizeMake(200, 200));
         make.centerX.offset(0);
     }];
     
@@ -236,17 +239,33 @@
     return _orangeLabel;
 }
 
+/// 主弹框标题
+- (NSAttributedString *)fetchAlertTitle {
+    return [NSString getAttriStrByTextArray:@[@"💐当前环境: ", @"线上环境"]
+                                    fontArr:@[[UIFont systemFontOfSize:26.0], [UIFont systemFontOfSize:16.0]]
+                                   colorArr:@[[UIColor blackColor], [UIColor redColor]]
+                                lineSpacing:0
+                                  alignment:0];
+}
+
 - (WXLayoutView *)layoutView {
     if (!_layoutView) {
         _layoutView = [[WXLayoutView alloc] initWithFrame:CGRectZero];
         _layoutView.backgroundColor = UIColor.lightGrayColor;
         _layoutView.font = [UIFont systemFontOfSize:12];
         _layoutView.textColor = UIColor.redColor;
-//        _layoutView.text = @"WXLayoutView kit";
-//        _layoutView.text = @"Orange Lbael";
-        _layoutView.text = self.getLoogText;
-        _layoutView.numberOfLines = 4;
+//        _layoutView.numberOfLines = 4;
         _layoutView.preferredMaxLayoutWidth = 250;
+        _layoutView.imageTextSpace = 20;
+        _layoutView.bottomMargin = 20;
+        _layoutView.textAlignment = NSTextAlignmentCenter;
+        _layoutView.imagePlacement = WXImagePlacementLeading;
+        _layoutView.image = [UIImage imageNamed:@"like_icon"];
+//        _layoutView.marginInset = UIEdgeInsetsMake(20, 5, 0, 30);
+        _layoutView.text = @"WXLayoutView kit";
+//        _layoutView.attributedText = [self fetchAlertTitle];
+//        _layoutView.text = @"WXLayoutView kit Objective-C拓展了C,自然很多用法是和C一致的。比如浮点数转化成整数，就有以下四种情况";
+//        _layoutView.text = self.getLoogText;
         [self.view addSubview:_layoutView];
     }
     return _layoutView;
@@ -270,9 +289,11 @@
     if (!_systemLabel) {
         _systemLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _systemLabel.backgroundColor = UIColor.lightGrayColor;
-        _systemLabel.font = [UIFont systemFontOfSize:16];
+        _systemLabel.font = [UIFont systemFontOfSize:12];
         _systemLabel.textColor = UIColor.redColor;
-        _systemLabel.text = @"WXLayoutView kit";
+        _systemLabel.textAlignment = NSTextAlignmentCenter;
+        _systemLabel.text = @"System Label kit";
+//        _systemLabel.text = self.getLoogText;
         [self.view addSubview:_systemLabel];
     }
     return _systemLabel;

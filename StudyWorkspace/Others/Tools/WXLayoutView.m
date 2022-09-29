@@ -12,6 +12,7 @@
 @property (nonatomic, strong) NSAttributedString *drawRectAttributedString;
 @property (nonatomic) CGSize drawTextSize;
 @property (nonatomic) CGSize intrinsicSize;
+@property(nonatomic, assign) BOOL hasSetLineSpacing;
 @property(nonatomic, assign) BOOL hasSetLineBreakMode;
 //适合打标的场景属性
 @property(nonatomic, strong) UIColor *textBackgroundColor;
@@ -33,6 +34,17 @@
 - (void)setText:(NSString *)text {
     _text = text;
     [self updateContent];
+}
+
+- (void)setTextAlignment:(NSTextAlignment)textAlignment {
+    _textAlignment = textAlignment;
+    [self needsUpdateTitleContent];
+}
+
+- (void)setLineSpacing:(CGFloat)lineSpacing {
+    _lineSpacing = lineSpacing;
+    self.hasSetLineSpacing = YES;
+    [self needsUpdateTitleContent];
 }
 
 ///文本换行连接模式
@@ -257,9 +269,11 @@
     CGFloat systemVersion = [UIDevice currentDevice].systemVersion.floatValue;
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.alignment = NSTextAlignmentLeft;
+    paragraphStyle.alignment = self.textAlignment;
     paragraphStyle.lineBreakMode = self.hasSetLineBreakMode ? self.lineBreakMode : NSLineBreakByTruncatingTail;
-//    paragraphStyle.lineSpacing = 20.0f;
+    if (self.hasSetLineSpacing){
+        paragraphStyle.lineSpacing = self.lineSpacing;
+    }
     //系统大于等于11才设置行断字策略。
     if (systemVersion >= 11.0) {
         @try {
@@ -268,6 +282,7 @@
     }
     
     NSAttributedString *calcAttributedString = self.attributedText;
+    
     if (!calcAttributedString) {
         
         //如果不指定字体则用默认的字体。
@@ -279,25 +294,25 @@
         
         if ([text isKindOfClass:NSString.class]) {
             calcAttributedString = [[NSAttributedString alloc] initWithString:(NSString *)text attributes:attributesDict];
-        } else {
-            NSAttributedString *originAttributedString = (NSAttributedString *)text;
-            //对于属性字符串总是加上默认的字体和段落信息。
-            NSMutableAttributedString *mutableCalcAttributedString = [[NSMutableAttributedString alloc] initWithString:originAttributedString.string attributes:attributesDict];
-            
-            //再附加上原来的属性。
-            [originAttributedString enumerateAttributesInRange:NSMakeRange(0, originAttributedString.string.length) options:0 usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
-                [mutableCalcAttributedString addAttributes:attrs range:range];
-            }];
-            
-            //这里再次取段落信息，因为有可能属性字符串中就已经包含了段落信息。
-            if (systemVersion >= 11.0) {
-                NSParagraphStyle *alternativeParagraphStyle = [mutableCalcAttributedString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL];
-                if (alternativeParagraphStyle != nil) {
-                    paragraphStyle = (NSMutableParagraphStyle*)alternativeParagraphStyle;
-                }
-            }
-            calcAttributedString = mutableCalcAttributedString;
         }
+    } else {
+//        NSAttributedString *originAttributedString = (NSAttributedString *)text;
+//        //对于属性字符串总是加上默认的字体和段落信息。
+//        NSMutableAttributedString *mutableCalcAttributedString = [[NSMutableAttributedString alloc] initWithString:originAttributedString.string attributes:attributesDict];
+//
+//        //再附加上原来的属性。
+//        [originAttributedString enumerateAttributesInRange:NSMakeRange(0, originAttributedString.string.length) options:0 usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+//            [mutableCalcAttributedString addAttributes:attrs range:range];
+//        }];
+        
+        //这里再次取段落信息，因为有可能属性字符串中就已经包含了段落信息。
+        if (systemVersion >= 11.0) {
+            NSParagraphStyle *alternativeParagraphStyle = [calcAttributedString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL];
+            if (alternativeParagraphStyle != nil) {
+                paragraphStyle = (NSMutableParagraphStyle*)alternativeParagraphStyle;
+            }
+        }
+//        calcAttributedString = mutableCalcAttributedString;
     }
     
     //绘制背景色位置
@@ -543,6 +558,9 @@
     textRect.size.width = MIN(rect.size.width, textRect.size.width);
     textRect.size.height = MIN(rect.size.height, textRect.size.height);
     
+    //是否居中模式显示
+    BOOL shouldLayoutCenter = (self.textAlignment == NSTextAlignmentCenter || hasTextAndImage);
+    
     switch (self.imagePlacement) {
     case WXImagePlacementTop: {
         
@@ -564,7 +582,7 @@
     case WXImagePlacementLeading: {
         
         //1.Image位置: 在左
-        if (rect.size.width > self.intrinsicSize.width) {
+        if (shouldLayoutCenter && (rect.size.width > self.intrinsicSize.width)) {
             imageRect.origin.x = (rect.size.width - self.intrinsicSize.width)/2;
         } else {
             imageRect.origin.x = self.leftMargin;
@@ -597,7 +615,7 @@
     case WXImagePlacementTrailing: {
         
         //1.Text位置: 在左
-        if (rect.size.width > self.intrinsicSize.width) {
+        if (shouldLayoutCenter && (rect.size.width > self.intrinsicSize.width)) {
             textRect.origin.x = (rect.size.width - self.intrinsicSize.width)/2;
         } else {
             textRect.origin.x = self.leftMargin + textEdgeLeft;
@@ -626,7 +644,7 @@
     }
     
     // 3.绘制文案
-    if(hasText && textRect.size.width >0 && textRect.size.height) {
+    if((hasText || hasAttribText) && textRect.size.width >0 && textRect.size.height) {
         //3.1 绘制文本 背景/圆角/边框
         [self drawTextBackgroundStyle:textRect];
         
