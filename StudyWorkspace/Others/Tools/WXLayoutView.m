@@ -267,7 +267,7 @@
     paragraphStyle.alignment = self.textAlignment;
     paragraphStyle.lineBreakMode = self.hasSetLineBreakMode ? self.lineBreakMode : NSLineBreakByTruncatingTail;
     if (self.hasSetLineSpacing){
-        paragraphStyle.lineSpacing = self.lineSpacing;
+        paragraphStyle.lineSpacing = MAX(self.lineSpacing, 0);
     }
     //系统大于等于11才设置行断字策略。
     if (systemVersion >= 11.0) {

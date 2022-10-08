@@ -265,7 +265,8 @@
         _layoutView.backgroundColor = UIColor.lightGrayColor;
         _layoutView.font = [UIFont systemFontOfSize:12];
         _layoutView.textColor = UIColor.whiteColor;
-//        _layoutView.numberOfLines = 4;
+        _layoutView.numberOfLines = 4;
+        _layoutView.lineSpacing = 10;
         _layoutView.preferredMaxLayoutWidth = 250;
         _layoutView.imageTextSpace = 10;
 //        _layoutView.bottomMargin = 20;
