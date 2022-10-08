@@ -335,11 +335,14 @@
     } else if (self.preferredMaxLayoutWidth > 0) {
         maxLayoutWidth = self.preferredMaxLayoutWidth;
     }
-    if (maxLayoutWidth > otherSpace) {
-        maxLayoutWidth -= otherSpace;
-        
-    } else { //此场景为: 图片超过self的宽度
-        maxLayoutWidth = CGFLOAT_MAX;
+    
+    if (self.imagePlacement == WXImagePlacementLeading || self.imagePlacement == WXImagePlacementTrailing) {
+        if (maxLayoutWidth > otherSpace) {
+            maxLayoutWidth -= otherSpace;
+            
+        } else { //此场景为: 图片超过self的宽度
+            maxLayoutWidth = CGFLOAT_MAX;
+        }
     }
     
     NSInteger numberOfLines = self.numberOfLines;

@@ -145,7 +145,7 @@
     self.layoutView.text = self.getLoogText;
     self.layoutView.image = nil;
     self.layoutView.preferredMaxLayoutWidth = 250;
-//    self.layoutView.imageURL = @"https://files.catbox.moe/3oemef.png";
+    self.layoutView.imageURL = @"https://files.catbox.moe/3oemef.png";
 }
 
 - (NSString *)getLoogText {
