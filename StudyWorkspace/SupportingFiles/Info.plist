@@ -42,5 +42,18 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>20191125</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>activety-logo</string>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>

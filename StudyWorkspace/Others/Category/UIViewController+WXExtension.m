@@ -730,14 +730,14 @@ static char *rightBarItemBlockKey = "rightBarItemBlockKey";
             alertController.actions.count == 1) {
             
             //此场景为切换系统桌面icon时, 需要隐藏弹框, 经过测试其他系统语言都是"OK"
-            UIAlertAction *alertAction = [alertController.actions firstObject];
-            if ([alertAction.title isEqualToString:@"OK"] ||
-                [alertAction.title isEqualToString:@"好"] ||
-                [alertAction.title isEqualToString:@"OKE"] ||
-                [alertAction.title isEqualToString:@"موافق"] ||
-                [alertAction.title isEqualToString:@"ОК"]) { //此ОК为俄语的,切勿删除
-                return;
-            }
+//            UIAlertAction *alertAction = [alertController.actions firstObject];
+//            if ([alertAction.title isEqualToString:@"OK"] ||
+//                [alertAction.title isEqualToString:@"好"] ||
+//                [alertAction.title isEqualToString:@"OKE"] ||
+//                [alertAction.title isEqualToString:@"موافق"] ||
+//                [alertAction.title isEqualToString:@"ОК"]) { //此ОК为俄语的,切勿删除
+//                return;
+//            }
         }
     }
     [self WX_presentViewController:viewControllerToPresent animated:flag completion:completion];

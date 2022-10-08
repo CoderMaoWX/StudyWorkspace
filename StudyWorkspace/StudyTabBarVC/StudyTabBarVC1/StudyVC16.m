@@ -35,12 +35,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self layoutSubview];
+
+    self.redBtn.backgroundColor = UIColor.clearColor;
+    self.blueBtn.backgroundColor = UIColor.clearColor;
+    self.orangeLabel.backgroundColor = UIColor.clearColor;
+    self.systemButton.backgroundColor = UIColor.clearColor;
+    self.systemLabel.backgroundColor = UIColor.clearColor;
+    self.brownBtn.backgroundColor = UIColor.clearColor;
+    self.blackBtn.backgroundColor = UIColor.clearColor;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
-        self.layoutView.text = nil;
-        self.layoutView.image = nil;
+    self.layoutView.text = nil;
+    self.layoutView.image = nil;
     return;
     
     self.blueBtn.title = self.getLoogText;
@@ -257,7 +264,7 @@
         _layoutView = [[WXLayoutView alloc] initWithFrame:CGRectZero];
         _layoutView.backgroundColor = UIColor.lightGrayColor;
         _layoutView.font = [UIFont systemFontOfSize:12];
-        _layoutView.textColor = UIColor.redColor;
+        _layoutView.textColor = UIColor.whiteColor;
 //        _layoutView.numberOfLines = 4;
         _layoutView.preferredMaxLayoutWidth = 250;
         _layoutView.imageTextSpace = 20;
@@ -265,11 +272,14 @@
 //        _layoutView.topMargin = 20;
 //        _layoutView.leftMargin = 20;
         _layoutView.marginInset = UIEdgeInsetsMake(10, 5, 3, 20);
-        _layoutView.textAlignment = NSTextAlignmentCenter;
-        _layoutView.imagePlacement = WXImagePlacementLeading;
+//        _layoutView.marginInset = UIEdgeInsetsZero;
+        _layoutView.textAlignment = NSTextAlignmentLeft;
+        _layoutView.imagePlacement = WXImagePlacementTop;
         _layoutView.image = [UIImage imageNamed:@"like_icon"];
 //        _layoutView.marginInset = UIEdgeInsetsMake(20, 5, 0, 30);
-        _layoutView.text = @"WXLayoutView kit";
+//        _layoutView.text = @"W X L a y o u t V i e w k i t";
+        _layoutView.text = @"out";
+//        _layoutView.text = @"W X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t";
 //        _layoutView.attributedText = [self fetchAlertTitle];
 //        _layoutView.text = @"WXLayoutView kit Objective-C拓展了C,自然很多用法是和C一致的。比如浮点数转化成整数，就有以下四种情况";
 //        _layoutView.text = self.getLoogText;
@@ -283,7 +293,7 @@
         _systemButton = [[UIButton alloc] initWithFrame:CGRectZero];
         _systemButton.backgroundColor = UIColor.greenColor;
         _systemButton.titleLabel.font = [UIFont systemFontOfSize:16];
-        [_systemButton setTitleColor:UIColor.redColor forState:(UIControlStateNormal)];
+        [_systemButton setTitleColor:UIColor.whiteColor forState:(UIControlStateNormal)];
         [_systemButton setTitle:@"System Button" forState:(UIControlStateNormal)];
 //        [_systemButton setBackgroundImage:[UIImage imageNamed:@"icon_qq_zone"] forState:(UIControlStateNormal)];
         [_systemButton addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -297,7 +307,7 @@
         _systemLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _systemLabel.backgroundColor = UIColor.lightGrayColor;
         _systemLabel.font = [UIFont systemFontOfSize:12];
-        _systemLabel.textColor = UIColor.redColor;
+        _systemLabel.textColor = UIColor.whiteColor;
         _systemLabel.textAlignment = NSTextAlignmentCenter;
         _systemLabel.text = @"System Label kit";
 //        _systemLabel.text = self.getLoogText;

@@ -34,6 +34,27 @@ static NSInteger const touchSize = 350;
     [self.textTimer fire];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self updateDeskTopLogo];
+}
+
+/// 切换桌面icon图标
+- (void)updateDeskTopLogo {
+    if (@available(iOS 10.3, *)) {
+        if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
+            NSLog(@"切换桌面icon图标");
+            
+            [[UIApplication sharedApplication] setAlternateIconName:@"20191125" completionHandler:^(NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"切换桌面icon图标失败=== %@", error.description);
+                }
+            }];
+        }
+    }
+    return;
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.textTimer invalidate];

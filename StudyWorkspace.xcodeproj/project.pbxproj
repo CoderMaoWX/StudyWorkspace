@@ -69,6 +69,7 @@
 		5893D22624EA6BFE0005E1AF /* UITabBar+BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D22424EA6BFE0005E1AF /* UITabBar+BadgeView.m */; };
 		5893D22924EA6C360005E1AF /* WXFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5893D22824EA6C360005E1AF /* WXFileManager.m */; };
 		5893D22B24EA771C0005E1AF /* WXStudyTabBarVC2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5893D22A24EA771C0005E1AF /* WXStudyTabBarVC2.xib */; };
+		58A92B2328F182EA00BDC0D1 /* activety-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A92B2228F182EA00BDC0D1 /* activety-logo.png */; };
 		58AA70E428D08E4B0045304E /* js-interaction.html in Resources */ = {isa = PBXBuildFile; fileRef = 58AA70E328D08E4B0045304E /* js-interaction.html */; };
 		58AA70E728D08EB70045304E /* StudyVC17.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AA70E628D08EB70045304E /* StudyVC17.m */; };
 		58B5BD9E2639412F00865250 /* StudyVC15.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B5BD9D2639412F00865250 /* StudyVC15.m */; };
@@ -210,6 +211,7 @@
 		5893D22724EA6C360005E1AF /* WXFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXFileManager.h; sourceTree = "<group>"; };
 		5893D22824EA6C360005E1AF /* WXFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXFileManager.m; sourceTree = "<group>"; };
 		5893D22A24EA771C0005E1AF /* WXStudyTabBarVC2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WXStudyTabBarVC2.xib; sourceTree = "<group>"; };
+		58A92B2228F182EA00BDC0D1 /* activety-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "activety-logo.png"; sourceTree = "<group>"; };
 		58AA70E328D08E4B0045304E /* js-interaction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "js-interaction.html"; sourceTree = "<group>"; };
 		58AA70E528D08EB70045304E /* StudyVC17.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC17.h; sourceTree = "<group>"; };
 		58AA70E628D08EB70045304E /* StudyVC17.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC17.m; sourceTree = "<group>"; };
@@ -555,6 +557,7 @@
 			children = (
 				58695C4024E6683100155B80 /* LaunchScreen.storyboard */,
 				58695C3E24E6683100155B80 /* Assets.xcassets */,
+				58A92B2228F182EA00BDC0D1 /* activety-logo.png */,
 				584FFB7A27B4D19500E151C1 /* loading_gif.gif */,
 				588905B528DD5DF9001F5B50 /* giftBox_gif.gif */,
 				583F2A1D273E1F5900FCD925 /* arrow_gif.gif */,
@@ -654,6 +657,7 @@
 				58DB51E924E677C900F71C56 /* WXStudyCell.xib in Resources */,
 				5893D22B24EA771C0005E1AF /* WXStudyTabBarVC2.xib in Resources */,
 				580E844B24F8D9CE003E6E0C /* WXCollectionViewCell.xib in Resources */,
+				58A92B2328F182EA00BDC0D1 /* activety-logo.png in Resources */,
 				58695C6124E66E6600155B80 /* LaunchScreen.storyboard in Resources */,
 				588905B428DD4EB0001F5B50 /* cat_gif.gif in Resources */,
 				58FBED6624E68C2B003F7FE6 /* StudyVC1.xib in Resources */,

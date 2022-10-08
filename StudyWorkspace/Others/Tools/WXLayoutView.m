@@ -549,14 +549,12 @@
     CGFloat textEdgeRight = hasTextOrAttr ? textInset.right : 0;
 
     CGRect imageRect = CGRectZero;
-    imageRect.size = self.image.size;
-    imageRect.size.width = MIN(rect.size.width, imageRect.size.width);
-    imageRect.size.height = MIN(rect.size.height, imageRect.size.height);
+    imageRect.size.width = MIN(rect.size.width, self.image.size.width);
+    imageRect.size.height = MIN(rect.size.height, self.image.size.height);
 
     CGRect textRect = CGRectZero;
-    textRect.size = self.drawTextSize;
-    textRect.size.width = MIN(rect.size.width, textRect.size.width);
-    textRect.size.height = MIN(rect.size.height, textRect.size.height);
+    textRect.size.width = MIN(rect.size.width, self.drawTextSize.width);
+    textRect.size.height = MIN(rect.size.height, self.drawTextSize.height);
     
     CGFloat textHMargin = hasTextOrAttr ? (textInset.left + textInset.right) : 0;
     CGFloat textVMargin = hasTextOrAttr ? (textInset.top + textInset.bottom) : 0;
@@ -570,8 +568,6 @@
     case WXImagePlacementTop: {
         
         //1.Image位置: 在上
-        imageRect.origin.x = (rect.size.width - imageRect.size.width) / 2;
-        
         if (rect.size.height > self.intrinsicSize.height) {
             imageRect.origin.y = (rect.size.height - self.intrinsicSize.height)/2;
         } else {
@@ -579,8 +575,16 @@
         }
         
         //2.Title位置: 在下
-        textRect.origin.x = (rect.size.width - textRect.size.width) / 2;
         textRect.origin.y = CGRectGetMaxY(imageRect) + imageTextSpace + textEdgeTop;
+        
+        //Image 比 Text 宽
+        if (imageRect.size.width > textTotalWidth) {
+            imageRect.origin.x = self.leftMargin;
+            textRect.origin.x = [self calculateCurrentX:textRect tmpRect:imageRect selfRect:rect];
+        } else {
+            textRect.origin.x = self.leftMargin;
+            imageRect.origin.x = [self calculateCurrentX:imageRect tmpRect:textRect selfRect:rect];
+        }
     }
         break;
         
@@ -592,21 +596,17 @@
         } else {
             imageRect.origin.x = self.leftMargin;
         }
-//        imageRect.origin.y = (rect.size.height - imageRect.size.height) / 2;
-        
         //2.Text位置: 在右
         textRect.origin.x = CGRectGetMaxX(imageRect) + imageTextSpace + textEdgeLeft;
         
-            if (imageRect.size.height > textTotalHeight) {
-                imageRect.origin.y = self.topMargin;
-                CGFloat imgCenterY = (imageRect.size.height / 2 + imageRect.origin.y);
-                CGFloat textY = (rect.size.height - textRect.size.height) / 2;
-                textRect.origin.y = imageRect.origin.y + (imgCenterY - textY);
-            } else {
-                textRect.origin.y = (rect.size.height - textRect.size.height) / 2;
-                //代办: 计算文本比图片高
-            }
-        
+        //Image 比 Text 高
+        if (imageRect.size.height > textTotalHeight) {
+            imageRect.origin.y = self.topMargin;
+            textRect.origin.y = [self calculateCurrentY:textRect tmpRect:imageRect selfRect:rect];
+        } else {
+            textRect.origin.y = self.topMargin;
+            imageRect.origin.y = [self calculateCurrentY:imageRect tmpRect:textRect selfRect:rect];
+        }
     }
         break;
         
@@ -635,11 +635,17 @@
         } else {
             textRect.origin.x = self.leftMargin + textEdgeLeft;
         }
-        textRect.origin.y = (rect.size.height - textRect.size.height) / 2;
-
         //1.Image位置: 在右
         imageRect.origin.x = CGRectGetMaxX(textRect) + imageTextSpace + textEdgeRight;
-        imageRect.origin.y = (rect.size.height - imageRect.size.height) / 2;
+        
+        //Image 比 Text 高
+        if (imageRect.size.height > textTotalHeight) {
+            imageRect.origin.y = self.topMargin;
+            textRect.origin.y = [self calculateCurrentY:textRect tmpRect:imageRect selfRect:rect];
+        } else {
+            textRect.origin.y = self.topMargin;
+            imageRect.origin.y = [self calculateCurrentY:imageRect tmpRect:textRect selfRect:rect];
+        }
     }
         break;
     default:
@@ -672,6 +678,20 @@
                                             options:options
                                             context:context];
     }
+}
+
+- (CGFloat)calculateCurrentY:(CGRect)currentRect tmpRect:(CGRect)tmpRect selfRect:(CGRect)rect {
+    CGFloat tmpCenterY = (tmpRect.origin.y + tmpRect.size.height / 2);
+    CGFloat currentY = (rect.size.height - currentRect.size.height) / 2;
+    CGFloat positionY = tmpRect.origin.y + (tmpCenterY - currentY);
+    return positionY;
+}
+
+- (CGFloat)calculateCurrentX:(CGRect)currentRect tmpRect:(CGRect)tmpRect selfRect:(CGRect)rect {
+    CGFloat tmpCenterX = (tmpRect.origin.x + tmpRect.size.width / 2);
+    CGFloat currentX = (currentRect.size.width) / 2;
+    CGFloat positionX = tmpRect.origin.x + (tmpCenterX - currentX);
+    return positionX;
 }
 
 ///绘制文本 背景/圆角/边框 (类似于: 给文本打标的UI)
