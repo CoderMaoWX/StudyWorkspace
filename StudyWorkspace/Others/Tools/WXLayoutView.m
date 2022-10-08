@@ -246,11 +246,6 @@
     }
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    NSLog(@"layoutSubviews: %@", NSStringFromCGRect(self.frame));
-}
-
 //MARK: - 配置自适应大小
 
 - (CGSize)configAttributedStringSize {
@@ -613,17 +608,24 @@
     case WXImagePlacementBottom: {
         
         //1.Text位置: 在上
-        textRect.origin.x = (rect.size.width - textRect.size.width) / 2;
-        
         if (rect.size.height > self.intrinsicSize.height) {
             textRect.origin.y = (rect.size.height - self.intrinsicSize.height)/2;
         } else {
             textRect.origin.y = self.topMargin + textEdgeTop;
         }
-        
+
         //2.Image位置: 在下
-        imageRect.origin.x = (rect.size.width - imageRect.size.width) / 2;
         imageRect.origin.y = CGRectGetMaxY(textRect) + imageTextSpace + textEdgeBottom;
+        
+        //Image 比 Text 宽
+        if (imageRect.size.width > textTotalWidth) {
+            imageRect.origin.x = self.leftMargin;
+            textRect.origin.x = [self calculateCurrentX:textRect tmpRect:imageRect selfRect:rect];
+        } else {
+            textRect.origin.x = self.leftMargin;
+            imageRect.origin.x = [self calculateCurrentX:imageRect tmpRect:textRect selfRect:rect];
+        }
+        
     }
         break;
         
@@ -681,16 +683,12 @@
 }
 
 - (CGFloat)calculateCurrentY:(CGRect)currentRect tmpRect:(CGRect)tmpRect selfRect:(CGRect)rect {
-    CGFloat tmpCenterY = (tmpRect.origin.y + tmpRect.size.height / 2);
-    CGFloat currentY = (rect.size.height - currentRect.size.height) / 2;
-    CGFloat positionY = tmpRect.origin.y + (tmpCenterY - currentY);
+    CGFloat positionY = tmpRect.origin.y + (tmpRect.size.height - currentRect.size.height) / 2;
     return positionY;
 }
 
 - (CGFloat)calculateCurrentX:(CGRect)currentRect tmpRect:(CGRect)tmpRect selfRect:(CGRect)rect {
-    CGFloat tmpCenterX = (tmpRect.origin.x + tmpRect.size.width / 2);
-    CGFloat currentX = (currentRect.size.width) / 2;
-    CGFloat positionX = tmpRect.origin.x + (tmpCenterX - currentX);
+    CGFloat positionX = tmpRect.origin.x + (tmpRect.size.width - currentRect.size.width) / 2;
     return positionX;
 }
 
