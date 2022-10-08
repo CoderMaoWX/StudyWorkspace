@@ -575,10 +575,11 @@
         //Image 比 Text 宽
         if (imageRect.size.width > textTotalWidth) {
             imageRect.origin.x = self.leftMargin;
-            textRect.origin.x = [self calculateCurrentX:textRect tmpRect:imageRect selfRect:rect];
+            textRect.origin.x = imageRect.origin.x + (imageRect.size.width - textRect.size.width) / 2;
+            
         } else {
             textRect.origin.x = self.leftMargin;
-            imageRect.origin.x = [self calculateCurrentX:imageRect tmpRect:textRect selfRect:rect];
+            imageRect.origin.x = textRect.origin.x + (textRect.size.width - imageRect.size.width) / 2;
         }
     }
         break;
@@ -597,10 +598,11 @@
         //Image 比 Text 高
         if (imageRect.size.height > textTotalHeight) {
             imageRect.origin.y = self.topMargin;
-            textRect.origin.y = [self calculateCurrentY:textRect tmpRect:imageRect selfRect:rect];
+            textRect.origin.y = imageRect.origin.y + (imageRect.size.height - textRect.size.height) / 2;
+            
         } else {
             textRect.origin.y = self.topMargin;
-            imageRect.origin.y = [self calculateCurrentY:imageRect tmpRect:textRect selfRect:rect];
+            imageRect.origin.y = textRect.origin.y + (textRect.size.height - imageRect.size.height) / 2;
         }
     }
         break;
@@ -620,12 +622,12 @@
         //Image 比 Text 宽
         if (imageRect.size.width > textTotalWidth) {
             imageRect.origin.x = self.leftMargin;
-            textRect.origin.x = [self calculateCurrentX:textRect tmpRect:imageRect selfRect:rect];
+            textRect.origin.x = imageRect.origin.x + (imageRect.size.width - textRect.size.width) / 2;
+            
         } else {
             textRect.origin.x = self.leftMargin;
-            imageRect.origin.x = [self calculateCurrentX:imageRect tmpRect:textRect selfRect:rect];
+            imageRect.origin.x = textRect.origin.x + (textRect.size.width - imageRect.size.width) / 2;
         }
-        
     }
         break;
         
@@ -643,10 +645,11 @@
         //Image 比 Text 高
         if (imageRect.size.height > textTotalHeight) {
             imageRect.origin.y = self.topMargin;
-            textRect.origin.y = [self calculateCurrentY:textRect tmpRect:imageRect selfRect:rect];
+            textRect.origin.y = imageRect.origin.y + (imageRect.size.height - textRect.size.height) / 2;
+            
         } else {
             textRect.origin.y = self.topMargin;
-            imageRect.origin.y = [self calculateCurrentY:imageRect tmpRect:textRect selfRect:rect];
+            imageRect.origin.y = textRect.origin.y + (textRect.size.height - imageRect.size.height) / 2;
         }
     }
         break;
@@ -680,16 +683,6 @@
                                             options:options
                                             context:context];
     }
-}
-
-- (CGFloat)calculateCurrentY:(CGRect)currentRect tmpRect:(CGRect)tmpRect selfRect:(CGRect)rect {
-    CGFloat positionY = tmpRect.origin.y + (tmpRect.size.height - currentRect.size.height) / 2;
-    return positionY;
-}
-
-- (CGFloat)calculateCurrentX:(CGRect)currentRect tmpRect:(CGRect)tmpRect selfRect:(CGRect)rect {
-    CGFloat positionX = tmpRect.origin.x + (tmpRect.size.width - currentRect.size.width) / 2;
-    return positionX;
 }
 
 ///绘制文本 背景/圆角/边框 (类似于: 给文本打标的UI)
