@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SlideAppTabBarVC.h"
 #import "WXPublicHeader.h"
+#import "StudyVC16.h"
 
 @interface AppDelegate ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *plainTableView;
@@ -27,7 +28,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window insertSubview:self.plainTableView atIndex:0];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [SlideAppTabBarVC new];
+//    self.window.rootViewController = [SlideAppTabBarVC new];
+    self.window.rootViewController = [StudyVC16 new];
     [self.window makeKeyAndVisible];
     
     //查看一键切换启动图效果

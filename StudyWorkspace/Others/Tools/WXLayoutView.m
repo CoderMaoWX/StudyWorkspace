@@ -544,21 +544,19 @@
     BOOL hasTextOrAttr = (hasText || hasAttribText); //是否为单一内容: 只有图片的场景
     CGFloat textEdgeTop = hasTextOrAttr ? textInset.top : 0;
     CGFloat textEdgeLeft = hasTextOrAttr ? textInset.left : 0;
-    CGFloat textEdgeBottom = hasTextOrAttr ? textInset.bottom : 0;
-    CGFloat textEdgeRight = hasTextOrAttr ? textInset.right : 0;
-
+//    CGFloat textEdgeBottom = hasTextOrAttr ? textInset.bottom : 0;
+//    CGFloat textEdgeRight = hasTextOrAttr ? textInset.right : 0;
+    
+    CGFloat textHMargin = hasTextOrAttr ? (textInset.left + textInset.right) : 0;
+    CGFloat textVMargin = hasTextOrAttr ? (textInset.top + textInset.bottom) : 0;
+    
     CGRect imageRect = CGRectZero;
     imageRect.size.width = MIN(rect.size.width, self.image.size.width);
     imageRect.size.height = MIN(rect.size.height, self.image.size.height);
 
-    CGRect textRect = CGRectZero;
-    textRect.size.width = MIN(rect.size.width, self.drawTextSize.width);
-    textRect.size.height = MIN(rect.size.height, self.drawTextSize.height);
-    
-    CGFloat textHMargin = hasTextOrAttr ? (textInset.left + textInset.right) : 0;
-    CGFloat textVMargin = hasTextOrAttr ? (textInset.top + textInset.bottom) : 0;
-    CGFloat textTotalHeight = textRect.size.height + textVMargin;
-    CGFloat textTotalWidth = textRect.size.width + textHMargin;
+    CGRect colorTextRect = CGRectZero;
+    colorTextRect.size.width = MIN(rect.size.width, self.drawTextSize.width + textHMargin);
+    colorTextRect.size.height = MIN(rect.size.height, self.drawTextSize.height + textVMargin);
     
     //是否居中模式显示
     BOOL shouldLayoutCenter = (self.textAlignment == NSTextAlignmentCenter || hasTextAndImage);
@@ -574,16 +572,16 @@
         }
         
         //2.Title位置: 在下
-        textRect.origin.y = CGRectGetMaxY(imageRect) + imageTextSpace + textEdgeTop;
+        colorTextRect.origin.y = CGRectGetMaxY(imageRect) + imageTextSpace;
         
         //Image 比 Text 宽
-        if (imageRect.size.width > textTotalWidth) {
+        if (imageRect.size.width > colorTextRect.size.width) {
             imageRect.origin.x = self.leftMargin;
-            textRect.origin.x = imageRect.origin.x + (imageRect.size.width - textRect.size.width) / 2;
+            colorTextRect.origin.x = imageRect.origin.x + (imageRect.size.width - colorTextRect.size.width) / 2;
             
         } else {
-            textRect.origin.x = self.leftMargin;
-            imageRect.origin.x = textRect.origin.x + (textRect.size.width - imageRect.size.width) / 2;
+            colorTextRect.origin.x = self.leftMargin;
+            imageRect.origin.x = colorTextRect.origin.x + (colorTextRect.size.width - imageRect.size.width) / 2;
         }
     }
         break;
@@ -597,16 +595,16 @@
             imageRect.origin.x = self.leftMargin;
         }
         //2.Text位置: 在右
-        textRect.origin.x = CGRectGetMaxX(imageRect) + imageTextSpace + textEdgeLeft;
+        colorTextRect.origin.x = CGRectGetMaxX(imageRect) + imageTextSpace;
         
         //Image 比 Text 高
-        if (imageRect.size.height > textTotalHeight) {
+        if (imageRect.size.height > colorTextRect.size.height) {
             imageRect.origin.y = self.topMargin;
-            textRect.origin.y = imageRect.origin.y + (imageRect.size.height - textRect.size.height) / 2;
+            colorTextRect.origin.y = imageRect.origin.y + (imageRect.size.height - colorTextRect.size.height) / 2;
             
         } else {
-            textRect.origin.y = self.topMargin;
-            imageRect.origin.y = textRect.origin.y + (textRect.size.height - imageRect.size.height) / 2;
+            colorTextRect.origin.y = self.topMargin;
+            imageRect.origin.y = colorTextRect.origin.y + (colorTextRect.size.height - imageRect.size.height) / 2;
         }
     }
         break;
@@ -615,22 +613,22 @@
         
         //1.Text位置: 在上
         if (rect.size.height > self.intrinsicSize.height) {
-            textRect.origin.y = (rect.size.height - self.intrinsicSize.height)/2;
+            colorTextRect.origin.y = (rect.size.height - self.intrinsicSize.height)/2;
         } else {
-            textRect.origin.y = self.topMargin + textEdgeTop;
+            colorTextRect.origin.y = self.topMargin + textEdgeTop;
         }
 
         //2.Image位置: 在下
-        imageRect.origin.y = CGRectGetMaxY(textRect) + imageTextSpace + textEdgeBottom;
+        imageRect.origin.y = CGRectGetMaxY(colorTextRect) + imageTextSpace;
         
         //Image 比 Text 宽
-        if (imageRect.size.width > textTotalWidth) {
+        if (imageRect.size.width > colorTextRect.size.width) {
             imageRect.origin.x = self.leftMargin;
-            textRect.origin.x = imageRect.origin.x + (imageRect.size.width - textRect.size.width) / 2;
+            colorTextRect.origin.x = imageRect.origin.x + (imageRect.size.width - colorTextRect.size.width) / 2;
             
         } else {
-            textRect.origin.x = self.leftMargin;
-            imageRect.origin.x = textRect.origin.x + (textRect.size.width - imageRect.size.width) / 2;
+            colorTextRect.origin.x = self.leftMargin;
+            imageRect.origin.x = colorTextRect.origin.x + (colorTextRect.size.width - imageRect.size.width) / 2;
         }
     }
         break;
@@ -639,21 +637,21 @@
         
         //1.Text位置: 在左
         if (shouldLayoutCenter && (rect.size.width > self.intrinsicSize.width)) {
-            textRect.origin.x = (rect.size.width - self.intrinsicSize.width)/2;
+            colorTextRect.origin.x = (rect.size.width - self.intrinsicSize.width)/2;
         } else {
-            textRect.origin.x = self.leftMargin + textEdgeLeft;
+            colorTextRect.origin.x = self.leftMargin + textEdgeLeft;
         }
         //1.Image位置: 在右
-        imageRect.origin.x = CGRectGetMaxX(textRect) + imageTextSpace + textEdgeRight;
+        imageRect.origin.x = CGRectGetMaxX(colorTextRect) + imageTextSpace;
         
         //Image 比 Text 高
-        if (imageRect.size.height > textTotalHeight) {
+        if (imageRect.size.height > colorTextRect.size.height) {
             imageRect.origin.y = self.topMargin;
-            textRect.origin.y = imageRect.origin.y + (imageRect.size.height - textRect.size.height) / 2;
+            colorTextRect.origin.y = imageRect.origin.y + (imageRect.size.height - colorTextRect.size.height) / 2;
             
         } else {
-            textRect.origin.y = self.topMargin;
-            imageRect.origin.y = textRect.origin.y + (textRect.size.height - imageRect.size.height) / 2;
+            colorTextRect.origin.y = self.topMargin;
+            imageRect.origin.y = colorTextRect.origin.y + (colorTextRect.size.height - imageRect.size.height) / 2;
         }
     }
         break;
@@ -674,19 +672,25 @@
     }
     
     // 3.绘制文案
-    if((hasText || hasAttribText) && textRect.size.width >0 && textRect.size.height) {
+    if((hasText || hasAttribText) && colorTextRect.size.width >0 && colorTextRect.size.height) {
         //3.1 绘制文本 背景/圆角/边框
-        [self drawTextBackgroundStyle:textRect];
+        [self drawTextBackgroundStyle:colorTextRect];
         
         //3.2 绘制文案
-        [self.drawRectAttributedString drawWithRect:textRect
+        CGRect drawTextRect = CGRectStandardize(colorTextRect);
+        drawTextRect.origin.x = colorTextRect.origin.x + textInset.left;
+        drawTextRect.origin.y = colorTextRect.origin.y + textInset.top;
+        drawTextRect.size.width = colorTextRect.size.width - textHMargin;
+        drawTextRect.size.height = colorTextRect.size.height - textVMargin;
+        
+        [self.drawRectAttributedString drawWithRect:drawTextRect
                                             options:NSStringDrawingUsesLineFragmentOrigin
                                             context:[self getDrawingContext]];
     }
 }
 
 ///绘制文本 背景/圆角/边框 (类似于: 给文本打标的UI)
-- (void)drawTextBackgroundStyle:(CGRect)textRect {
+- (void)drawTextBackgroundStyle:(CGRect)colorRect {
     UIColor *textBgColor = self.textBackgroundColor;
     UIColor *textBorderColor = self.textBorderColor;
     
@@ -706,12 +710,6 @@
         textInset = self.textBgColorInset;
         textRadius = MAX(0, self.textBgColorCornerRadius);
     }
-    
-    CGRect colorRect = CGRectStandardize(textRect);
-    colorRect.origin.x = textRect.origin.x - textInset.left;
-    colorRect.origin.y = textRect.origin.y - textInset.top;
-    colorRect.size.width = textInset.left + textRect.size.width + textInset.right;
-    colorRect.size.height = textInset.top + textRect.size.height + textInset.bottom;
     
     float x1 = colorRect.origin.x;
     float y1 = colorRect.origin.y;

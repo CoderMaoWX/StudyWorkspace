@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 @property(nonatomic, strong) UIColor *textColor;
 ///换行显示行数 (默认=0, 无限换行)
 @property(nonatomic, assign) NSInteger numberOfLines;
-///最大换行宽度
+///文本最大换行宽度
 @property(nonatomic, assign) CGFloat preferredMaxLayoutWidth;
 ///富文本
 @property(nonatomic, copy) NSAttributedString *attributedText;

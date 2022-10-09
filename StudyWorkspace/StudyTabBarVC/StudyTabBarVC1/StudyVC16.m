@@ -35,14 +35,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self layoutSubview];
+    
+    [self debugUI];
+}
 
-//    self.redBtn.backgroundColor = UIColor.clearColor;
-//    self.blueBtn.backgroundColor = UIColor.clearColor;
-//    self.orangeLabel.backgroundColor = UIColor.clearColor;
-//    self.systemButton.backgroundColor = UIColor.clearColor;
-//    self.systemLabel.backgroundColor = UIColor.clearColor;
-//    self.brownBtn.backgroundColor = UIColor.clearColor;
-//    self.blackBtn.backgroundColor = UIColor.clearColor;
+- (void)debugUI {
+    self.redBtn.backgroundColor = UIColor.clearColor;
+    self.blueBtn.backgroundColor = UIColor.clearColor;
+    self.orangeLabel.backgroundColor = UIColor.clearColor;
+    self.systemButton.backgroundColor = UIColor.clearColor;
+    self.systemLabel.backgroundColor = UIColor.clearColor;
+    self.brownBtn.backgroundColor = UIColor.clearColor;
+    self.blackBtn.backgroundColor = UIColor.clearColor;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -272,14 +276,19 @@
 //        _layoutView.bottomMargin = 20;
 //        _layoutView.topMargin = 20;
 //        _layoutView.leftMargin = 20;
-        _layoutView.marginInset = UIEdgeInsetsMake(10, 15, 0, 20);
+        _layoutView.marginInset = UIEdgeInsetsMake(10, 15, 5, 20);
+        [_layoutView textBackgroundColor:UIColor.blackColor colorInset:UIEdgeInsetsMake(10, 25, 5, 10) cornerRadius:3];
+//        [_layoutView textBackgroundColor:UIColor.redColor colorInset:UIEdgeInsetsZero cornerRadius:3];
+
 //        _layoutView.marginInset = UIEdgeInsetsZero;
         _layoutView.textAlignment = NSTextAlignmentLeft;
-        _layoutView.imagePlacement = WXImagePlacementTop;
+        _layoutView.imagePlacement = WXImagePlacementLeading;
+//        _layoutView.image = [UIImage imageNamed:@"logo-yomob"];
+        
         _layoutView.image = [UIImage imageNamed:@"like_icon"];
 //        _layoutView.marginInset = UIEdgeInsetsMake(20, 5, 0, 30);
 //        _layoutView.text = @"W X L a y o u t V i e w k i t";
-//        _layoutView.text = @"out";
+//        _layoutView.text = @"W";
         _layoutView.text = @"W X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t W X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t";
 //        _layoutView.attributedText = [self fetchAlertTitle];
 //        _layoutView.text = @"WXLayoutView kit Objective-C拓展了C,自然很多用法是和C一致的。比如浮点数转化成整数，就有以下四种情况";
