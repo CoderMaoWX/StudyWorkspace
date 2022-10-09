@@ -23,7 +23,6 @@
 @property(nonatomic, assign) CGFloat textBorderWidth;
 @property(nonatomic, assign) CGFloat textBorderCornerRadius;
 @property(nonatomic) UIEdgeInsets textBorderInset;
-
 @end
 
 @implementation WXLayoutView
@@ -32,6 +31,7 @@
 
 ///文本
 - (void)setText:(NSString *)text {
+    _attributedText = nil;
     _text = text;
     [self updateContent];
 }
@@ -80,6 +80,7 @@
 
 ///富文本
 - (void)setAttributedText:(NSAttributedString *)attributedText {
+    _text = nil;
     _attributedText = attributedText;
     [self updateContent];
 }
@@ -93,15 +94,15 @@
 ///下载图片URL
 - (void)setImageURL:(NSString *)imageURL {
     _imageURL = imageURL;
-    [self downloadImage:imageURL completionHandler:nil];
+    [self downloadImage:imageURL completion:nil];
 }
 
 ///简易版下载设置网络图片: 设置图片URL/placeholder/下载回调
 - (void)setImageURL:(NSString *)imageURL
-   placeholderImage:(UIImage *)placeholder
-  completionHandler:(UIImage *(^)(UIImage *))completionHandler {
+        placeholder:(UIImage *)placeholder
+         completion:(UIImage *(^)(UIImage *))completion {
     self.image = placeholder;
-    [self downloadImage:imageURL completionHandler:completionHandler];
+    [self downloadImage:imageURL completion:completion];
 }
 
 ///文本和图片布局位置
@@ -223,7 +224,7 @@
 
 ///简易版下载网络图片
 - (void)downloadImage:(NSString *)imageURL
-    completionHandler:(UIImage *(^)(UIImage *))completionHandler {
+           completion:(UIImage *(^)(UIImage *))completion {
     
     NSURL *urlString = [NSURL URLWithString:imageURL];
     if (urlString) {
@@ -233,8 +234,8 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIImage *image = [UIImage imageWithData:imgData];
-                if (completionHandler) {
-                    UIImage *clipImage = completionHandler(image);
+                if (completion) {
+                    UIImage *clipImage = completion(image);
                     if (![clipImage isKindOfClass:[UIImage class]]) return;
                     self.image = clipImage;
                 } else {
@@ -248,7 +249,7 @@
 
 //MARK: - 配置自适应大小
 
-- (CGSize)configAttributedStringSize {
+- (CGSize)calculateAttributedTextSize {
     
     NSString *text = self.text;
     BOOL hasText = (self.text && self.text.length != 0);
@@ -276,9 +277,9 @@
         } @catch (NSException *exception) {}
     }
     
-    NSAttributedString *calcAttributedString = self.attributedText;
+    NSAttributedString *attributedString = self.attributedText;
     
-    if (!calcAttributedString) {
+    if (!attributedString) {
         
         //如果不指定字体则用默认的字体。
         UIFont *textFont = self.font ? : [UIFont systemFontOfSize:17];
@@ -288,7 +289,7 @@
         attributesDict[NSForegroundColorAttributeName] = self.textColor ?: UIColor.blackColor;
         
         if ([text isKindOfClass:NSString.class]) {
-            calcAttributedString = [[NSAttributedString alloc] initWithString:(NSString *)text attributes:attributesDict];
+            attributedString = [[NSAttributedString alloc] initWithString:text attributes:attributesDict];
         }
     } else {
 //        NSAttributedString *originAttributedString = (NSAttributedString *)text;
@@ -302,12 +303,12 @@
         
         //这里再次取段落信息，因为有可能属性字符串中就已经包含了段落信息。
         if (systemVersion >= 11.0) {
-            NSParagraphStyle *alternativeParagraphStyle = [calcAttributedString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL];
+            NSParagraphStyle *alternativeParagraphStyle = [attributedString attribute:NSParagraphStyleAttributeName atIndex:0 effectiveRange:NULL];
             if (alternativeParagraphStyle != nil) {
-                paragraphStyle = (NSMutableParagraphStyle*)alternativeParagraphStyle;
+                paragraphStyle = (NSMutableParagraphStyle *)alternativeParagraphStyle;
             }
         }
-//        calcAttributedString = mutableCalcAttributedString;
+//        attributedString = mutableCalcAttributedString;
     }
     
     //绘制背景色位置
@@ -361,7 +362,7 @@
     NSStringDrawingContext *context = [self getDrawingContext];
        
     //计算属性字符串的bounds值。
-    CGRect textRect = [calcAttributedString boundingRectWithSize:fitsSize options:NSStringDrawingUsesLineFragmentOrigin context:context];
+    CGRect textRect = [attributedString boundingRectWithSize:fitsSize options:NSStringDrawingUsesLineFragmentOrigin context:context];
     
     //需要对段落的首行缩进进行特殊处理！
     //如果只有一行则直接添加首行缩进的值，否则进行特殊处理。。
@@ -373,7 +374,7 @@
             textRect.size.width += firstLineHeadIndent;
         } else {
             //取内容的行数。
-            NSString *string = calcAttributedString.string;
+            NSString *string = attributedString.string;
             NSCharacterSet *charset = [NSCharacterSet newlineCharacterSet];
             NSArray *lines = [string componentsSeparatedByCharactersInSet:charset]; //得到文本内容的行数
             NSString *lastLine = lines.lastObject;
@@ -408,7 +409,7 @@
     textRect.size.width = ceil(textRect.size.width * scale) / scale;
     textRect.size.height = ceil(textRect.size.height *scale) / scale;
     
-    self.drawRectAttributedString = calcAttributedString;
+    self.drawRectAttributedString = attributedString;
     self.drawTextSize = textRect.size;
     return textRect.size;
 }
@@ -442,7 +443,7 @@
         return CGSizeZero;
     }
     
-    CGSize textSize = [self configAttributedStringSize];
+    CGSize textSize = [self calculateAttributedTextSize];
     CGFloat textWidth = 0.0;
     CGFloat textHeight = 0.0;
     if (textSize.width > 0 && textSize.height > 0) {
@@ -487,14 +488,14 @@
         CGFloat height = self.topMargin + textHeight + imageTextSpace + imgHeight + self.bottomMargin;
         self.intrinsicSize = CGSizeMake(ceilf(width), ceilf(height));
         
-        NSLog(@"固有大小 上下布局: {宽,高}=%@", NSStringFromCGSize(self.intrinsicSize));
+        NSLog(@"固有大小,上下布局: {宽, 高}=%@", NSStringFromCGSize(self.intrinsicSize));
         
     } else {//左右布局
         CGFloat width = self.leftMargin + textWidth + imageTextSpace + imgWidth + self.rightMargin;
         CGFloat height = self.topMargin + MAX(textHeight, imgHeight) + self.bottomMargin;
         self.intrinsicSize = CGSizeMake(ceilf(width), ceilf(height));
         
-        NSLog(@"固有大小 左右布局: {宽,高}==%@", NSStringFromCGSize(self.intrinsicSize));
+        NSLog(@"固有大小,左右布局: {宽, 高}==%@", NSStringFromCGSize(self.intrinsicSize));
     }
     return self.intrinsicSize;
 }
@@ -503,7 +504,7 @@
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    NSLog(@"绘制控件内容: {宽,高}==%@", NSStringFromCGSize(rect.size));
+    NSLog(@"绘制控件内容: {宽, 高}==%@", NSStringFromCGSize(rect.size));
     
     BOOL hasText = (self.text && self.text.length != 0);
     BOOL hasAttribText = (self.attributedText && self.attributedText.string.length != 0);
@@ -517,9 +518,9 @@
         NSLog(@"外部有约束自身控件大小: %@", NSStringFromCGRect(self.frame));
         /**
          * 外部有约束/宽高度, 但是没有设置preferredMaxLayoutWidth时,
-         * 需要再调用self.configAttributedStringSize方法,获取一次文本布局限制最大宽度
+         * 需要重新调用self.calculateAttributedTextSize方法,再获取一次文本布局限制最大宽度
          */
-        [self configAttributedStringSize];
+        [self calculateAttributedTextSize];
     }
     
     CGSize textSize = self.drawTextSize;
@@ -677,14 +678,10 @@
         //3.1 绘制文本 背景/圆角/边框
         [self drawTextBackgroundStyle:textRect];
         
-        //构造出一个换行模式的: NSStringDrawContext
-        NSStringDrawingContext *context = [self getDrawingContext];
-        NSStringDrawingOptions options = NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin;
-        
         //3.2 绘制文案
         [self.drawRectAttributedString drawWithRect:textRect
-                                            options:options
-                                            context:context];
+                                            options:NSStringDrawingUsesLineFragmentOrigin
+                                            context:[self getDrawingContext]];
     }
 }
 

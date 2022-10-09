@@ -10,7 +10,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 ///同时设置文本和图标时，控制图标和文本的排布位置
 typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
     WXImagePlacementLeading = 0, // 图标：左，文案：右
@@ -67,8 +66,8 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 
 ///简易版下载设置网络图片: 设置图片URL/placeholder/下载回调
 - (void)setImageURL:(NSString *)imageURL
-   placeholderImage:(UIImage *)placeholder
-  completionHandler:(UIImage *(^)(UIImage *))completionHandler;
+        placeholder:(UIImage *)placeholder
+         completion:(UIImage *(^)(UIImage *))completion;
 
 /**
  * 注意下面两个方法 (文字背景色 与 文字边框) 同时都调用时,
