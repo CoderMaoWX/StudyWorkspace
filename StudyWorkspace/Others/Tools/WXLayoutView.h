@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
 @property(nonatomic, copy) NSAttributedString *attributedText;
 ///图片
 @property(nonatomic, strong) UIImage *image;
-///图片URL
+///图片URL (异步加载显示)
 @property(nonatomic, strong) NSString *imageURL;
 ///图片和文本布局位置
 @property (nonatomic, assign) WXImagePlacementStyle imagePlacement;
