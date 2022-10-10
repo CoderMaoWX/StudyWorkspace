@@ -54,7 +54,6 @@ typedef NS_ENUM(NSUInteger, WXImagePlacementStyle) {
  * 注意: 如果控件内容为空（文本和图标同时为空）时, 外边距自动被忽略, 控件宽高自动变为0, 控件不可见
  */
 @property (nonatomic) UIEdgeInsets marginInset;
-
 ///单独设置: 上 外边距
 @property (nonatomic, assign) CGFloat topMargin;
 ///单独设置: 左 外边距

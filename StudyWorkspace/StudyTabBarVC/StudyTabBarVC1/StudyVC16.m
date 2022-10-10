@@ -145,28 +145,31 @@
 
 - (void)btnAction:(UIButton *)button {
     NSLog(@"btnAction: %@", button);
-    self.layoutView.text = @"SALE";
-    self.layoutView.textColor = UIColor.redColor;
+    //    WX_ShowToastWithText(self.view, button.description);
+    button.selected = !button.selected;
     
-    [self.layoutView textBorderColor:UIColor.redColor
-                         borderWidth:1
-                         borderInset:UIEdgeInsetsMake(5, 5, 5, 5)
-                        cornerRadius:3];
-    
-    [self.layoutView textBackgroundColor:UIColor.clearColor
-                              colorInset:UIEdgeInsetsMake(15, 15, 15, 15)
+    if (button.selected) {
+        self.layoutView.text = @"SALE";
+        self.layoutView.textColor = UIColor.redColor;
+        
+        [self.layoutView textBorderColor:UIColor.redColor
+                             borderWidth:1
+                             borderInset:UIEdgeInsetsMake(5, 5, 5, 5)
                             cornerRadius:3];
-    return;
-    
-//    WX_ShowToastWithText(self.view, button.description);
-    self.layoutView.text = self.getLoogText;
-    self.layoutView.image = nil;
-    self.layoutView.preferredMaxLayoutWidth = 250;
-    self.layoutView.imageURL = @"https://files.catbox.moe/3oemef.png";
+        
+        [self.layoutView textBackgroundColor:UIColor.clearColor
+                                  colorInset:UIEdgeInsetsMake(15, 15, 15, 15)
+                                cornerRadius:3];
+    } else {
+        self.layoutView.text = self.getLoogText;
+        self.layoutView.image = nil;
+        self.layoutView.preferredMaxLayoutWidth = 250;
+        self.layoutView.imageURL = @"https://files.catbox.moe/3oemef.png";
+    }
 }
 
 - (NSString *)getLoogText {
-    NSString *title = @"1234567890我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案,我是一段很长的文案987654321";
+    NSString *title = @"此按钮用于约束布局时: 如果有 文本/图片 内容时需要设置外间距, 在无内容时整个按钮的大小自动为0, 并且所有外间距自动被忽略, 使用时只需根据自身逻辑设置 文本/图片 即可, 无需频繁更新约束来控制间距问题";
     return title;
 }
 
@@ -249,7 +252,6 @@
         _blueBtn.titleColor = UIColor.whiteColor;
         _blueBtn.title = @"Blue Color WXButton";
         [self.view addSubview:_blueBtn];
-//        [_blueBtn addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _blueBtn;
 }
@@ -269,7 +271,7 @@
 
 /// 主弹框标题
 - (NSAttributedString *)fetchAlertTitle {
-    return [NSString getAttriStrByTextArray:@[@"💐当前环境: ", @"线上环境"]
+    return [NSString getAttriStrByTextArray:@[@"💐 我是一段富文本:", @"测试自定义富文本显示效果"]
                                     fontArr:@[[UIFont systemFontOfSize:26.0], [UIFont systemFontOfSize:16.0]]
                                    colorArr:@[[UIColor blackColor], [UIColor redColor]]
                                 lineSpacing:0
@@ -279,32 +281,24 @@
 - (WXLayoutView *)layoutView {
     if (!_layoutView) {
         _layoutView = [[WXLayoutView alloc] initWithFrame:CGRectZero];
-        _layoutView.backgroundColor = UIColor.clearColor;
+        _layoutView.backgroundColor = UIColor.lightGrayColor;
         _layoutView.font = [UIFont systemFontOfSize:12];
-        _layoutView.textColor = UIColor.purpleColor;
+        _layoutView.textColor = UIColor.blackColor;
         _layoutView.numberOfLines = 4;
         _layoutView.lineSpacing = 10;
         _layoutView.preferredMaxLayoutWidth = 250;
         _layoutView.imageTextSpace = 10;
         _layoutView.imagePlacement = WXImagePlacementTop;
-        _layoutView.image = [UIImage imageNamed:@"mghome_manage"];//like_icon
-        _layoutView.backgroundImage = [UIImage imageNamed:@"mghome_official"];
-
+        _layoutView.image = [UIImage imageNamed:@"mghome_manage"];
+//        _layoutView.backgroundImage = [UIImage imageNamed:@"mghome_official"];
         _layoutView.marginInset = UIEdgeInsetsMake(10, 15, 5, 20);
 //        [_layoutView textBackgroundColor:UIColor.blackColor colorInset:UIEdgeInsetsMake(0, 0, 0, 0) cornerRadius:3];
 //        [_layoutView textBackgroundColor:UIColor.redColor colorInset:UIEdgeInsetsZero cornerRadius:3];
         _layoutView.textAlignment = NSTextAlignmentLeft;
-        _layoutView.text = @"W X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t W X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t";
-//        _layoutView.text = @"WXLayoutView kit Objective-C拓展了C,自然很多用法是和C一致的。比如浮点数转化成整数，就有以下四种情况";
-//        _layoutView.attributedText = [self fetchAlertTitle];
+        _layoutView.attributedText = [self fetchAlertTitle];
         [self.view addSubview:_layoutView];
     }
     return _layoutView;
-}
-
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
-    //在这里是可以做一些判定什么的，用来确定对应的操作。
-    return YES;
 }
 
 - (UIButton *)systemButton {
@@ -314,7 +308,7 @@
         _systemButton.titleLabel.font = [UIFont systemFontOfSize:16];
         [_systemButton setTitleColor:UIColor.whiteColor forState:(UIControlStateNormal)];
         [_systemButton setTitle:@"System Button" forState:(UIControlStateNormal)];
-//        [_systemButton setBackgroundImage:[UIImage imageNamed:@"icon_qq_zone"] forState:(UIControlStateNormal)];
+//        [_systemButton setBackgroundImage:[UIImage imageNamed:@"like_icon"] forState:(UIControlStateNormal)];
         [_systemButton addTarget:self action:@selector(btnAction:) forControlEvents:(UIControlEventTouchUpInside)];
         [self.view addSubview:_systemButton];
     }
