@@ -36,7 +36,7 @@
     [super viewDidLoad];
     [self layoutSubview];
     
-    [self debugUI];
+//    [self debugUI];
 }
 
 - (void)debugUI {
@@ -145,6 +145,19 @@
 
 - (void)btnAction:(UIButton *)button {
     NSLog(@"btnAction: %@", button);
+    self.layoutView.text = @"SALE";
+    self.layoutView.textColor = UIColor.redColor;
+    
+    [self.layoutView textBorderColor:UIColor.redColor
+                         borderWidth:1
+                         borderInset:UIEdgeInsetsMake(5, 5, 5, 5)
+                        cornerRadius:3];
+    
+    [self.layoutView textBackgroundColor:UIColor.clearColor
+                              colorInset:UIEdgeInsetsMake(15, 15, 15, 15)
+                            cornerRadius:3];
+    return;
+    
 //    WX_ShowToastWithText(self.view, button.description);
     self.layoutView.text = self.getLoogText;
     self.layoutView.image = nil;
@@ -266,36 +279,32 @@
 - (WXLayoutView *)layoutView {
     if (!_layoutView) {
         _layoutView = [[WXLayoutView alloc] initWithFrame:CGRectZero];
-        _layoutView.backgroundColor = UIColor.lightGrayColor;
+        _layoutView.backgroundColor = UIColor.clearColor;
         _layoutView.font = [UIFont systemFontOfSize:12];
-        _layoutView.textColor = UIColor.whiteColor;
+        _layoutView.textColor = UIColor.purpleColor;
         _layoutView.numberOfLines = 4;
         _layoutView.lineSpacing = 10;
         _layoutView.preferredMaxLayoutWidth = 250;
         _layoutView.imageTextSpace = 10;
-//        _layoutView.bottomMargin = 20;
-//        _layoutView.topMargin = 20;
-//        _layoutView.leftMargin = 20;
-        _layoutView.marginInset = UIEdgeInsetsMake(10, 15, 5, 20);
-        [_layoutView textBackgroundColor:UIColor.blackColor colorInset:UIEdgeInsetsMake(10, 25, 5, 10) cornerRadius:3];
-//        [_layoutView textBackgroundColor:UIColor.redColor colorInset:UIEdgeInsetsZero cornerRadius:3];
+        _layoutView.imagePlacement = WXImagePlacementTop;
+        _layoutView.image = [UIImage imageNamed:@"mghome_manage"];//like_icon
+        _layoutView.backgroundImage = [UIImage imageNamed:@"mghome_official"];
 
-//        _layoutView.marginInset = UIEdgeInsetsZero;
+        _layoutView.marginInset = UIEdgeInsetsMake(10, 15, 5, 20);
+//        [_layoutView textBackgroundColor:UIColor.blackColor colorInset:UIEdgeInsetsMake(0, 0, 0, 0) cornerRadius:3];
+//        [_layoutView textBackgroundColor:UIColor.redColor colorInset:UIEdgeInsetsZero cornerRadius:3];
         _layoutView.textAlignment = NSTextAlignmentLeft;
-        _layoutView.imagePlacement = WXImagePlacementLeading;
-//        _layoutView.image = [UIImage imageNamed:@"logo-yomob"];
-        
-        _layoutView.image = [UIImage imageNamed:@"like_icon"];
-//        _layoutView.marginInset = UIEdgeInsetsMake(20, 5, 0, 30);
-//        _layoutView.text = @"W X L a y o u t V i e w k i t";
-//        _layoutView.text = @"W";
         _layoutView.text = @"W X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t W X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t W  X L a y o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t o u t V i e w k i t";
-//        _layoutView.attributedText = [self fetchAlertTitle];
 //        _layoutView.text = @"WXLayoutView kit Objective-C拓展了C,自然很多用法是和C一致的。比如浮点数转化成整数，就有以下四种情况";
-//        _layoutView.text = self.getLoogText;
+//        _layoutView.attributedText = [self fetchAlertTitle];
         [self.view addSubview:_layoutView];
     }
     return _layoutView;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+    //在这里是可以做一些判定什么的，用来确定对应的操作。
+    return YES;
 }
 
 - (UIButton *)systemButton {

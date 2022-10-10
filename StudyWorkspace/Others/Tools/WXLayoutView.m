@@ -731,7 +731,7 @@
     CGContextSetLineWidth(context, lineSize);
     CGContextSetStrokeColorWithColor(context, (textBorderColor ? : UIColor.clearColor).CGColor);
     
-    // 绘制路径圆弧
+    // 绘制路径圆弧 (参考: https://juejin.cn/post/6844903940694212622)
     CGContextMoveToPoint(context,   x1, y1 + textRadius);
     CGContextAddArcToPoint(context, x1, y1, x1 + textRadius, y1, textRadius);
     CGContextAddArcToPoint(context, x2, y2, x2, y2 + textRadius, textRadius);
