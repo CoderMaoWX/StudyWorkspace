@@ -33,6 +33,25 @@
  */
 + (BOOL)WX_hasVarName:(NSString *)name;
 
+/**
+ * 根据成员变量的实例对象获取在类中对应的变量名
+ *
+ * @param target 类自身的实例对象id
+ * @param instance 类中变量的实例对象id
+ *
+ * @return 实例对象的变量名
+ */
+NSString *getNameWithInstance(id target, id instance);
+
+/**`
+ * 根据成员变量在类中对应的变量名获取实例对象
+ *
+ * @param target 类自身的实例对象id
+ * @param name 成员变量在类中对应的变量名
+ *
+ * @return 变量名对应的实例对象
+ */
+id getInstanceWithName(id target, NSString* name);
 
 /**
  *  交换两个实例方法的实现

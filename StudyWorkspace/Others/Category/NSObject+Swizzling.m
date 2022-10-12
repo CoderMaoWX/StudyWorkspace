@@ -75,7 +75,6 @@
     return [NSArray arrayWithArray:tempResultArr];
 }
 
-
 /**
  *  校验一个类是否有该属性
  */
@@ -100,6 +99,65 @@
     //释放
     free(ivars);
     return hasProperty;
+}
+
+/**
+ * 根据成员变量的实例对象获取在类中对应的变量名
+ *
+ * @param target 类自身的实例对象id
+ * @param instance 类中变量的实例对象id
+ *
+ * @return 实例对象的变量名
+ */
+NSString *getNameWithInstance(id target, id instance) {
+    unsigned int numIvars = 0;
+    NSString *key=nil;
+    Ivar * ivars = class_copyIvarList([target class], &numIvars);
+    for(int i = 0; i < numIvars; i++) {
+        Ivar thisIvar = ivars[i];
+        const char *type = ivar_getTypeEncoding(thisIvar);
+        NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
+        if (![stringType hasPrefix:@"@"]) {
+            continue;
+        }
+        if ((object_getIvar(target, thisIvar) == instance)) {
+            key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+            break;
+        }
+    }
+    free(ivars);
+    return key;
+}
+
+/**
+ * 根据成员变量在类中对应的变量名获取实例对象
+ *
+ * @param target 类自身的实例对象id
+ * @param name 成员变量在类中对应的变量名
+ *
+ * @return 变量名对应的实例对象
+ */
+id getInstanceWithName(id target, NSString* name) {
+    unsigned int numIvars = 0;
+    NSString *key=nil;
+    id ret;
+    Ivar * ivars = class_copyIvarList([target class], &numIvars);
+    for(int i = 0; i < numIvars; i++) {
+        Ivar thisIvar = ivars[i];
+        const char *type = ivar_getTypeEncoding(thisIvar);
+        NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
+        if (![stringType hasPrefix:@"@"]) {
+            continue;
+        }
+        key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+        if([key isEqualToString:name])
+        {
+            ret = (object_getIvar(target, thisIvar));
+            break;
+        }
+    }
+    free(ivars);
+    return ret;
 }
 
 /**

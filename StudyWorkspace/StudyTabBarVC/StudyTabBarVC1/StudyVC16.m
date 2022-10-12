@@ -20,7 +20,7 @@
 
 @interface StudyVC16 ()
 @property (nonatomic, strong) WXButton *redBtn;
-@property (nonatomic, strong) YYLabel *orangeLabel;
+@property (nonatomic, strong) YYLabel *yyLabel;
 @property (nonatomic, strong) WXButton *blueBtn;
 @property (nonatomic, strong) WXButton *brownBtn;
 @property (nonatomic, strong) WXButton *blackBtn;
@@ -42,7 +42,7 @@
 - (void)debugUI {
     self.redBtn.backgroundColor = UIColor.clearColor;
     self.blueBtn.backgroundColor = UIColor.clearColor;
-    self.orangeLabel.backgroundColor = UIColor.clearColor;
+    self.yyLabel.backgroundColor = UIColor.clearColor;
     self.systemButton.backgroundColor = UIColor.clearColor;
     self.systemLabel.backgroundColor = UIColor.clearColor;
     self.brownBtn.backgroundColor = UIColor.clearColor;
@@ -50,6 +50,13 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if (self.yyLabel.text.length == 0) {
+        self.yyLabel.text = @"一句话";
+    } else {
+        self.yyLabel.text = nil;
+    }
+    return;
+    
     self.layoutView.text = nil;
     self.layoutView.image = nil;
     return;
@@ -71,12 +78,6 @@
 //    self.orangeLabel.numberOfLines = 0;
 //    self.orangeLabel.preferredMaxLayoutWidth = 180;
 //    self.orangeLabel.text = self.getLoogText;
-    
-    if (self.orangeLabel.text.length == 0) {
-        self.orangeLabel.text = @"一句话";
-    } else {
-        self.orangeLabel.text = nil;
-    }
 
 //    self.brownBtn.topPadding = 20;
 //    self.brownBtn.leftPadding = 0;
@@ -189,14 +190,14 @@
 //        make.height.mas_equalTo(200);
     }];
     
-    [self.orangeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.yyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.blueBtn.mas_bottom);
         make.centerX.offset(0);
 //        make.height.mas_equalTo(200);
     }];
     
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.orangeLabel.mas_bottom);
+        make.top.mas_equalTo(self.yyLabel.mas_bottom);
         make.centerX.offset(0);
     }];
 
@@ -256,17 +257,18 @@
     return _blueBtn;
 }
 
-- (YYLabel *)orangeLabel {
-    if (!_orangeLabel) {
-        _orangeLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
-        _orangeLabel.backgroundColor = UIColor.orangeColor;
-        _orangeLabel.font = [UIFont systemFontOfSize:16.0];
-        _orangeLabel.textColor = UIColor.whiteColor;
-        _orangeLabel.text = @"Orange Lbael";
-//        _orangeLabel.textContainerInset = UIEdgeInsetsMake(10, 10, 20, 10);
-        [self.view addSubview:_orangeLabel];
+- (YYLabel *)yyLabel {
+    if (!_yyLabel) {
+        _yyLabel = [[YYLabel alloc] initWithFrame:CGRectZero];
+        _yyLabel.backgroundColor = UIColor.orangeColor;
+        _yyLabel.font = [UIFont systemFontOfSize:16.0];
+        _yyLabel.textColor = UIColor.whiteColor;
+        _yyLabel.text = @"Test YY Label";
+        _yyLabel.textContainerInset = UIEdgeInsetsMake(10, 10, 20, 10);
+//        _yyLabel.attributedText = self.fetchAlertTitle;
+        [self.view addSubview:_yyLabel];
     }
-    return _orangeLabel;
+    return _yyLabel;
 }
 
 /// 主弹框标题

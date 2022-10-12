@@ -25,4 +25,14 @@
 @property (nonatomic, assign) CGFloat centerX;
 @property (nonatomic, assign) CGFloat centerY;
 
+//获取导航控制器
+- (UINavigationController * )navigationController;
+//获取标签控制器
+- (UITabBarController * )tabBarController;
+//获取控制器
+- (UIViewController * )viewController;
+//获取主窗口
+- (UIWindow * )rootWindow;
+
 @end
+
