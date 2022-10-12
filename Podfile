@@ -21,6 +21,7 @@ target 'StudyWorkspace' do
 #  pod 'YYKit'
   pod 'YYImage'
   pod 'YYText'
+  pod 'YYCategories'
 
   pod 'LookinServer', :configurations => ['Debug']
 
