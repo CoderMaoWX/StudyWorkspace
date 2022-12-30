@@ -17,6 +17,7 @@
     
     // @{ 要测试的VC : 对应类的功能描述 }
     [self.listDataArray addObjectsFromArray:@[
+        @{@"StudyVC18.m"    :   @"文字叠底效果"},
         @{@"StudyVC17.m"    :   @"JS与OC交互"},
         @{@"StudyVC16.m"    :   @"自定义布局按钮"},
         @{@"StudyVC15.m"    :   @"URLComponents"},

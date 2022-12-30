@@ -73,6 +73,8 @@
 		58AA70E428D08E4B0045304E /* js-interaction.html in Resources */ = {isa = PBXBuildFile; fileRef = 58AA70E328D08E4B0045304E /* js-interaction.html */; };
 		58AA70E728D08EB70045304E /* StudyVC17.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AA70E628D08EB70045304E /* StudyVC17.m */; };
 		58B5BD9E2639412F00865250 /* StudyVC15.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B5BD9D2639412F00865250 /* StudyVC15.m */; };
+		58BCEF2C295EC66F000AC3A6 /* StudyVC18.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BCEF2A295EC66F000AC3A6 /* StudyVC18.m */; };
+		58BCEF2D295EC66F000AC3A6 /* StudyVC18.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58BCEF2B295EC66F000AC3A6 /* StudyVC18.xib */; };
 		58C82D162628332700AC3EA0 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 58C82D152628332700AC3EA0 /* UIImage+Extension.m */; };
 		58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51E624E677C900F71C56 /* WXStudyCell.m */; };
 		58DB51E924E677C900F71C56 /* WXStudyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58DB51E724E677C900F71C56 /* WXStudyCell.xib */; };
@@ -217,6 +219,9 @@
 		58AA70E628D08EB70045304E /* StudyVC17.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC17.m; sourceTree = "<group>"; };
 		58B5BD9C2639412F00865250 /* StudyVC15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC15.h; sourceTree = "<group>"; };
 		58B5BD9D2639412F00865250 /* StudyVC15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC15.m; sourceTree = "<group>"; };
+		58BCEF29295EC66F000AC3A6 /* StudyVC18.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC18.h; sourceTree = "<group>"; };
+		58BCEF2A295EC66F000AC3A6 /* StudyVC18.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC18.m; sourceTree = "<group>"; };
+		58BCEF2B295EC66F000AC3A6 /* StudyVC18.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudyVC18.xib; sourceTree = "<group>"; };
 		58C82D142628332700AC3EA0 /* UIImage+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		58C82D152628332700AC3EA0 /* UIImage+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		58DB51E524E677C900F71C56 /* WXStudyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXStudyCell.h; sourceTree = "<group>"; };
@@ -455,6 +460,9 @@
 				583F2A1B273E1EDC00FCD925 /* StudyVC16.m */,
 				58AA70E528D08EB70045304E /* StudyVC17.h */,
 				58AA70E628D08EB70045304E /* StudyVC17.m */,
+				58BCEF29295EC66F000AC3A6 /* StudyVC18.h */,
+				58BCEF2A295EC66F000AC3A6 /* StudyVC18.m */,
+				58BCEF2B295EC66F000AC3A6 /* StudyVC18.xib */,
 			);
 			path = StudyTabBarVC1;
 			sourceTree = "<group>";
@@ -653,6 +661,7 @@
 				5893D0D624EA55CF0005E1AF /* StudyVC8.xib in Resources */,
 				58FBED5E24E68802003F7FE6 /* SkinZipURL.txt in Resources */,
 				5893D0CD24EA55CF0005E1AF /* StudyVC10.xib in Resources */,
+				58BCEF2D295EC66F000AC3A6 /* StudyVC18.xib in Resources */,
 				A33E5A7B261F53C8004E3A46 /* TestFile.txt in Resources */,
 				58DB51E924E677C900F71C56 /* WXStudyCell.xib in Resources */,
 				5893D22B24EA771C0005E1AF /* WXStudyTabBarVC2.xib in Resources */,
@@ -750,6 +759,7 @@
 				583F2A1C273E1EDC00FCD925 /* StudyVC16.m in Sources */,
 				5893D0E024EA55DA0005E1AF /* ChartLineInfoView.m in Sources */,
 				5811051424EB6BAC006EB5FA /* UILabel+WXShortcut.m in Sources */,
+				58BCEF2C295EC66F000AC3A6 /* StudyVC18.m in Sources */,
 				580E844A24F8D9CE003E6E0C /* WXCollectionViewCell.m in Sources */,
 				5811051E24EB70C0006EB5FA /* UILabel+HTML.m in Sources */,
 				584FFB7927B4CDEC00E151C1 /* WXLoadingHUD.swift in Sources */,

@@ -63,7 +63,7 @@ static NSInteger const touchSize = 350;
 - (void)wx_InitView {
     [self.view addSubview:self.bgImgView];
     [self.view addSubview:self.maskImgView];
-    [self.view addSubview:self.backgroundTextLabel];
+//    [self.view addSubview:self.backgroundTextLabel];
     [self.view addSubview:self.foregroundTextLabel];
 }
 
@@ -76,14 +76,17 @@ static NSInteger const touchSize = 350;
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
     
-    [self.backgroundTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//    [self.backgroundTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.offset(12);
+//        make.trailing.offset(-12);
+//        make.top.offset(40);
+//    }];
+    
+    [self.foregroundTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.trailing.top.mas_equalTo(self.backgroundTextLabel);
         make.leading.offset(12);
         make.trailing.offset(-12);
         make.top.offset(40);
-    }];
-    
-    [self.foregroundTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.top.mas_equalTo(self.backgroundTextLabel);
     }];
 }
 
@@ -148,7 +151,7 @@ static NSInteger const touchSize = 350;
     if (!_foregroundTextLabel) {
         _foregroundTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _foregroundTextLabel.backgroundColor = [UIColor whiteColor];
-        _foregroundTextLabel.text = self.backgroundTextLabel.text;
+        _foregroundTextLabel.text = @"我是一句很长很长很长很长很长很长很长的歌词";//self.backgroundTextLabel.text;
         _foregroundTextLabel.textColor = [UIColor redColor];
         _foregroundTextLabel.userInteractionEnabled = YES;
         
