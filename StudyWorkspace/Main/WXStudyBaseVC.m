@@ -288,11 +288,15 @@
     [self.requestTaskArr removeAllObjects];
 }
 
+/** 父类释放时清楚必要的数据 */
+- (void)clearBaseVCData {
+    [self cancelRequestSessionTask]; //取消子类所有请求操作
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)dealloc {
     NSLog(@"%s",__func__);
-    //取消子类所有请求操作
-    [self cancelRequestSessionTask];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self clearBaseVCData];
 }
 
 @end

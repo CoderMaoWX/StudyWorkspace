@@ -135,6 +135,11 @@
             self.prohibitPop = NO;
         });
     }
+
+    //父类从导航堆栈弹出时清楚必要的数据
+    if ([vc isKindOfClass:[WXStudyBaseVC class]]) {
+        [(WXStudyBaseVC *)vc clearBaseVCData];
+    }
     return vc;
 }
 

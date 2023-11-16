@@ -21,6 +21,7 @@
 		5811051E24EB70C0006EB5FA /* UILabel+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5811051D24EB70C0006EB5FA /* UILabel+HTML.m */; };
 		5811052424EB71DD006EB5FA /* NSObjectSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 5811052224EB71DD006EB5FA /* NSObjectSafe.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5811052724EB725E006EB5FA /* NSDictionary+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 5811052524EB725E006EB5FA /* NSDictionary+SafeAccess.m */; };
+		5826B0B82A124D0F00743F53 /* WXTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5826B0B72A124D0F00743F53 /* WXTestView.m */; };
 		583F2A19273E1E2300FCD925 /* UIImage+YYWebImage_Copy.m in Sources */ = {isa = PBXBuildFile; fileRef = 583F2A17273E1E2300FCD925 /* UIImage+YYWebImage_Copy.m */; };
 		583F2A1C273E1EDC00FCD925 /* StudyVC16.m in Sources */ = {isa = PBXBuildFile; fileRef = 583F2A1B273E1EDC00FCD925 /* StudyVC16.m */; };
 		583F2A1E273E1F5900FCD925 /* arrow_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 583F2A1D273E1F5900FCD925 /* arrow_gif.gif */; };
@@ -72,10 +73,12 @@
 		58A92B2328F182EA00BDC0D1 /* activety-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A92B2228F182EA00BDC0D1 /* activety-logo.png */; };
 		58AA70E428D08E4B0045304E /* js-interaction.html in Resources */ = {isa = PBXBuildFile; fileRef = 58AA70E328D08E4B0045304E /* js-interaction.html */; };
 		58AA70E728D08EB70045304E /* StudyVC17.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AA70E628D08EB70045304E /* StudyVC17.m */; };
+		58B28D4E2B061AD200AB631D /* CollectionViewDataSourceAspect.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B28D4D2B061AD200AB631D /* CollectionViewDataSourceAspect.m */; };
 		58B5BD9E2639412F00865250 /* StudyVC15.m in Sources */ = {isa = PBXBuildFile; fileRef = 58B5BD9D2639412F00865250 /* StudyVC15.m */; };
 		58BCEF2C295EC66F000AC3A6 /* StudyVC18.m in Sources */ = {isa = PBXBuildFile; fileRef = 58BCEF2A295EC66F000AC3A6 /* StudyVC18.m */; };
 		58BCEF2D295EC66F000AC3A6 /* StudyVC18.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58BCEF2B295EC66F000AC3A6 /* StudyVC18.xib */; };
 		58C82D162628332700AC3EA0 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 58C82D152628332700AC3EA0 /* UIImage+Extension.m */; };
+		58D967EE2B06197E00AED1FF /* SGSAopUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D967ED2B06197E00AED1FF /* SGSAopUtil.m */; };
 		58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51E624E677C900F71C56 /* WXStudyCell.m */; };
 		58DB51E924E677C900F71C56 /* WXStudyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58DB51E724E677C900F71C56 /* WXStudyCell.xib */; };
 		58DB51EC24E6791A00F71C56 /* WXDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DB51EB24E6791A00F71C56 /* WXDataModel.m */; };
@@ -127,6 +130,8 @@
 		5811052324EB71DD006EB5FA /* NSObjectSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectSafe.h; sourceTree = "<group>"; };
 		5811052524EB725E006EB5FA /* NSDictionary+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SafeAccess.m"; sourceTree = "<group>"; };
 		5811052624EB725E006EB5FA /* NSDictionary+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+SafeAccess.h"; sourceTree = "<group>"; };
+		5826B0B62A124D0F00743F53 /* WXTestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXTestView.h; sourceTree = "<group>"; };
+		5826B0B72A124D0F00743F53 /* WXTestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXTestView.m; sourceTree = "<group>"; };
 		583F2A17273E1E2300FCD925 /* UIImage+YYWebImage_Copy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+YYWebImage_Copy.m"; sourceTree = "<group>"; };
 		583F2A18273E1E2300FCD925 /* UIImage+YYWebImage_Copy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+YYWebImage_Copy.h"; sourceTree = "<group>"; };
 		583F2A1A273E1EDC00FCD925 /* StudyVC16.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC16.h; sourceTree = "<group>"; };
@@ -217,6 +222,8 @@
 		58AA70E328D08E4B0045304E /* js-interaction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "js-interaction.html"; sourceTree = "<group>"; };
 		58AA70E528D08EB70045304E /* StudyVC17.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC17.h; sourceTree = "<group>"; };
 		58AA70E628D08EB70045304E /* StudyVC17.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC17.m; sourceTree = "<group>"; };
+		58B28D4C2B061AD200AB631D /* CollectionViewDataSourceAspect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewDataSourceAspect.h; sourceTree = "<group>"; };
+		58B28D4D2B061AD200AB631D /* CollectionViewDataSourceAspect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewDataSourceAspect.m; sourceTree = "<group>"; };
 		58B5BD9C2639412F00865250 /* StudyVC15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC15.h; sourceTree = "<group>"; };
 		58B5BD9D2639412F00865250 /* StudyVC15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StudyVC15.m; sourceTree = "<group>"; };
 		58BCEF29295EC66F000AC3A6 /* StudyVC18.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StudyVC18.h; sourceTree = "<group>"; };
@@ -224,6 +231,8 @@
 		58BCEF2B295EC66F000AC3A6 /* StudyVC18.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudyVC18.xib; sourceTree = "<group>"; };
 		58C82D142628332700AC3EA0 /* UIImage+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		58C82D152628332700AC3EA0 /* UIImage+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
+		58D967EC2B06197E00AED1FF /* SGSAopUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGSAopUtil.h; sourceTree = "<group>"; };
+		58D967ED2B06197E00AED1FF /* SGSAopUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGSAopUtil.m; sourceTree = "<group>"; };
 		58DB51E524E677C900F71C56 /* WXStudyCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXStudyCell.h; sourceTree = "<group>"; };
 		58DB51E624E677C900F71C56 /* WXStudyCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WXStudyCell.m; sourceTree = "<group>"; };
 		58DB51E724E677C900F71C56 /* WXStudyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WXStudyCell.xib; sourceTree = "<group>"; };
@@ -400,6 +409,8 @@
 				584FFB7827B4CDEC00E151C1 /* WXLoadingHUD.swift */,
 				5893D0EF24EA62610005E1AF /* SlideAppTabBarVC.h */,
 				5893D0F024EA62610005E1AF /* SlideAppTabBarVC.m */,
+				5826B0B62A124D0F00743F53 /* WXTestView.h */,
+				5826B0B72A124D0F00743F53 /* WXTestView.m */,
 				58695C5224E66C3E00155B80 /* WXStudyBaseVC.h */,
 				58695C5324E66C3E00155B80 /* WXStudyBaseVC.m */,
 				58F7B2DA26A00E680009FBB8 /* WXNavigationVC.h */,
@@ -538,9 +549,21 @@
 			path = StudyTabBarVC;
 			sourceTree = "<group>";
 		};
+		58D967EB2B06197E00AED1FF /* SGSAopUtil */ = {
+			isa = PBXGroup;
+			children = (
+				58D967EC2B06197E00AED1FF /* SGSAopUtil.h */,
+				58D967ED2B06197E00AED1FF /* SGSAopUtil.m */,
+				58B28D4C2B061AD200AB631D /* CollectionViewDataSourceAspect.h */,
+				58B28D4D2B061AD200AB631D /* CollectionViewDataSourceAspect.m */,
+			);
+			path = SGSAopUtil;
+			sourceTree = "<group>";
+		};
 		58DB51E124E674A900F71C56 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				58D967EB2B06197E00AED1FF /* SGSAopUtil */,
 				58F7B2E026A014670009FBB8 /* Network */,
 				5811050B24EB6B6E006EB5FA /* Category */,
 				5811051B24EB6F83006EB5FA /* Tools */,
@@ -758,7 +781,9 @@
 				5893D0F524EA65B60005E1AF /* StudyVC13.m in Sources */,
 				583F2A1C273E1EDC00FCD925 /* StudyVC16.m in Sources */,
 				5893D0E024EA55DA0005E1AF /* ChartLineInfoView.m in Sources */,
+				5826B0B82A124D0F00743F53 /* WXTestView.m in Sources */,
 				5811051424EB6BAC006EB5FA /* UILabel+WXShortcut.m in Sources */,
+				58B28D4E2B061AD200AB631D /* CollectionViewDataSourceAspect.m in Sources */,
 				58BCEF2C295EC66F000AC3A6 /* StudyVC18.m in Sources */,
 				580E844A24F8D9CE003E6E0C /* WXCollectionViewCell.m in Sources */,
 				5811051E24EB70C0006EB5FA /* UILabel+HTML.m in Sources */,
@@ -809,6 +834,7 @@
 				5811052424EB71DD006EB5FA /* NSObjectSafe.m in Sources */,
 				5893D0D324EA55CF0005E1AF /* StudyVC10.m in Sources */,
 				583F2A19273E1E2300FCD925 /* UIImage+YYWebImage_Copy.m in Sources */,
+				58D967EE2B06197E00AED1FF /* SGSAopUtil.m in Sources */,
 				58DB51E824E677C900F71C56 /* WXStudyCell.m in Sources */,
 				5893D0E624EA59C40005E1AF /* UIView+WXExtension.m in Sources */,
 				58F7B2F826A0289E0009FBB8 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,

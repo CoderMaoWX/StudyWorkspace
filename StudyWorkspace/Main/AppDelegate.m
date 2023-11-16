@@ -9,6 +9,11 @@
 #import "AppDelegate.h"
 #import "SlideAppTabBarVC.h"
 #import "WXPublicHeader.h"
+/**
+ * 京东-平台业务中心开源的iOS平台轻量级面向切面编程工具
+ * https://gitee.com/jd-platform-opensource/sgsaoputil
+ */
+#import "SGSAopUtil.h"
 
 @interface AppDelegate ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *plainTableView;
@@ -23,6 +28,15 @@
     /// 安装: InjectionIII.app, 进入实时调试模式(路径是固定的),此代码不会对线上有任何影响
     [[NSBundle bundleWithPath:@"/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle"] load];
 #endif
+
+    // ··· 面向切面编程工具
+        Class target = NSClassFromString(@"UICollectionView");
+        Class aspect = NSClassFromString(@"CollectionViewDataSourceAspect");
+
+//    Class target = NSClassFromString(@"UITableView");
+//    Class aspect = NSClassFromString(@"CollectionViewDataSourceAspect");
+        [SGSAopUtil hookWithTargetContainerObject:target withNewProcessClass:aspect];
+    // ···
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window insertSubview:self.plainTableView atIndex:0];

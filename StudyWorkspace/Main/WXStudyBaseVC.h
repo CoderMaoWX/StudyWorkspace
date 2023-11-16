@@ -194,7 +194,10 @@ typedef void (^ConfigCellBlock)(UITableViewCell * cell, id rowData, NSIndexPath 
 - (void)goBackAction;
 
 
-/** 父类释放时取消子类所有请求操作 */
+/** 取消子类所有请求操作 */
 - (void)cancelRequestSessionTask;
+
+/** 父类释放时清楚必要的数据 */
+- (void)clearBaseVCData;
 
 @end
